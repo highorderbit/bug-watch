@@ -4,7 +4,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface bug_watchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
+@interface BugWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
 }

@@ -2,10 +2,10 @@
 //  Copyright High Order Bit, Inc. 2009. All rights reserved.
 //
 
-#import "bug_watchAppDelegate.h"
+#import "BugWatchAppDelegate.h"
 
 
-@implementation bug_watchAppDelegate
+@implementation BugWatchAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;
