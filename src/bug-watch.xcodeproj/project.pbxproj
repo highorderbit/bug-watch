@@ -170,21 +170,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1D6058940D05DD3E006BFB54 /* Debug */ = {
+		055005160F96C04D0046C10B /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = bug_watch_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				PRODUCT_NAME = "Bug Watch";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos2.2.1;
 			};
-			name = Debug;
+			name = Distribution;
 		};
-		1D6058950D05DD3E006BFB54 /* Release */ = {
+		055005170F96C04D0046C10B /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -194,9 +193,34 @@
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = "Bug Watch";
 			};
-			name = Release;
+			name = Distribution;
 		};
-		C01FCF4F08A954540054247B /* Debug */ = {
+		055005180F96C0510046C10B /* Release - Doug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos2.2.1;
+			};
+			name = "Release - Doug";
+		};
+		055005190F96C0510046C10B /* Release - Doug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = bug_watch_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = "Bug Watch";
+			};
+			name = "Release - Doug";
+		};
+		0550051A0F96C0580046C10B /* Debug - Doug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -208,9 +232,63 @@
 				PREBINDING = NO;
 				SDKROOT = iphoneos2.2.1;
 			};
-			name = Debug;
+			name = "Debug - Doug";
 		};
-		C01FCF5008A954540054247B /* Release */ = {
+		0550051B0F96C0580046C10B /* Debug - Doug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = bug_watch_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = "Bug Watch";
+			};
+			name = "Debug - Doug";
+		};
+		1D6058940D05DD3E006BFB54 /* Debug - John */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = bug_watch_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = "Bug Watch";
+			};
+			name = "Debug - John";
+		};
+		1D6058950D05DD3E006BFB54 /* Release - John */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = bug_watch_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = "Bug Watch";
+			};
+			name = "Release - John";
+		};
+		C01FCF4F08A954540054247B /* Debug - John */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos2.2.1;
+			};
+			name = "Debug - John";
+		};
+		C01FCF5008A954540054247B /* Release - John */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -221,7 +299,7 @@
 				PREBINDING = NO;
 				SDKROOT = iphoneos2.2.1;
 			};
-			name = Release;
+			name = "Release - John";
 		};
 /* End XCBuildConfiguration section */
 
@@ -229,20 +307,26 @@
 		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Bug Watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1D6058940D05DD3E006BFB54 /* Debug */,
-				1D6058950D05DD3E006BFB54 /* Release */,
+				1D6058940D05DD3E006BFB54 /* Debug - John */,
+				0550051B0F96C0580046C10B /* Debug - Doug */,
+				1D6058950D05DD3E006BFB54 /* Release - John */,
+				055005190F96C0510046C10B /* Release - Doug */,
+				055005170F96C04D0046C10B /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release - John";
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "bug-watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C01FCF4F08A954540054247B /* Debug */,
-				C01FCF5008A954540054247B /* Release */,
+				C01FCF4F08A954540054247B /* Debug - John */,
+				0550051A0F96C0580046C10B /* Debug - Doug */,
+				C01FCF5008A954540054247B /* Release - John */,
+				055005180F96C0510046C10B /* Release - Doug */,
+				055005160F96C04D0046C10B /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release - John";
 		};
 /* End XCConfigurationList section */
 	};
