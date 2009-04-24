@@ -114,6 +114,10 @@
 					<object class="IBUINavigationController" id="205855552">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="168123443">
 							<string key="IBUITitle">Projects</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">Projects.png</string>
+							</object>
 							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="1034742383"/>
@@ -168,6 +172,10 @@
 					<object class="IBUINavigationController" id="149450542">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="974583727">
 							<string key="IBUITitle">Messages</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">Thumbtack.png</string>
+							</object>
 							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="1034742383"/>
@@ -193,6 +201,10 @@
 					<object class="IBUINavigationController" id="535207759">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="857935159">
 							<string key="IBUITitle">Pages</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">Pages.png</string>
+							</object>
 							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="1034742383"/>
@@ -569,7 +581,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIApplication</string>
 					<string>UIResponder</string>
-					<string>{{378, 323}, {320, 480}}</string>
+					<string>{{254, 261}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{0, 365}, {320, 480}}</string>
