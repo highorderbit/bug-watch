@@ -58,9 +58,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05C870670FA77EDC0069BC72 /* app-controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "app-controller";
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				05C870670FA77EDC0069BC72 /* app-controller */,
 				1D3623240D0F684500981E51 /* BugWatchAppDelegate.h */,
 				1D3623250D0F684500981E51 /* BugWatchAppDelegate.m */,
 			);
