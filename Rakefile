@@ -42,6 +42,7 @@ desc 'Pull latest from Git'
 task :pull do |t|
   branch = ENV.include?('branch') ? ENV['branch'] : 'master'
   puts %x{ git pull origin #{branch} }
+  Rake::Task['build_tags'].invoke
 end
 
 desc 'Push latest to Git'
@@ -52,5 +53,4 @@ end
 
 task :build_tags do |t|
   puts %x{ ctags --language-force=objc --objc-kinds=+PiIMCZ -f src/Classes/tags src/Classes/** }
-  puts "done"
 end
