@@ -30,6 +30,8 @@
     CGRect frame = searchTextField.frame;
     frame.size.height = 29;
     searchTextField.frame = frame;
+    
+    searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -48,21 +50,23 @@
 - (NSInteger)tableView:(UITableView *)aTableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"TicketTableViewCell";
     
     UITableViewCell * cell =
         [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell =
-            [[[UITableViewCell alloc] initWithFrame:CGRectZero
-            reuseIdentifier:CellIdentifier] autorelease];
+        NSArray * nib =
+            [[NSBundle mainBundle] loadNibNamed:@"TicketTableViewCell"
+                owner:self options:nil];
+
+        cell = [nib objectAtIndex:0];
     }
     
     // Set up the cell...
@@ -73,6 +77,14 @@
 - (void)tableView:(UITableView *)aTableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+#pragma mark UITableViewDelegate implementation
+
+- (CGFloat)tableView:(UITableView *)tableView
+    heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 108;
 }
 
 #pragma mark UITextFieldDelegate implementation

@@ -24,6 +24,7 @@
 		9100C0650FA8BF5B003C2ECF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9100C0630FA8BF5B003C2ECF /* MainWindow.xib */; };
 		9100C0840FA8C08F003C2ECF /* TicketsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9100C0820FA8C08F003C2ECF /* TicketsView.xib */; };
 		9100C09D0FA8C876003C2ECF /* TicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C09C0FA8C876003C2ECF /* TicketsViewController.m */; };
+		9100C1CA0FA90D8C003C2ECF /* TicketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9100C1C80FA90D8C003C2ECF /* TicketTableViewCell.xib */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
@@ -65,6 +66,7 @@
 		9100C0830FA8C08F003C2ECF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TicketsView.xib; sourceTree = "<group>"; };
 		9100C09B0FA8C876003C2ECF /* TicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketsViewController.h; path = tickets/TicketsViewController.h; sourceTree = "<group>"; };
 		9100C09C0FA8C876003C2ECF /* TicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketsViewController.m; path = tickets/TicketsViewController.m; sourceTree = "<group>"; };
+		9100C1C90FA90D8C003C2ECF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TicketTableViewCell.xib; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */,
 				05E637270FA8C8EB00F736A5 /* NewsFeedTableViewCell.xib */,
 				9100C0820FA8C08F003C2ECF /* TicketsView.xib */,
+				9100C1C80FA90D8C003C2ECF /* TicketTableViewCell.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				05E636BE0FA8C11C00F736A5 /* NewsFeedView.xib in Resources */,
 				9100C0840FA8C08F003C2ECF /* TicketsView.xib in Resources */,
 				05E637290FA8C8EB00F736A5 /* NewsFeedTableViewCell.xib in Resources */,
+				9100C1CA0FA90D8C003C2ECF /* TicketTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +351,14 @@
 				9100C0830FA8C08F003C2ECF /* en */,
 			);
 			name = TicketsView.xib;
+			sourceTree = "<group>";
+		};
+		9100C1C80FA90D8C003C2ECF /* TicketTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9100C1C90FA90D8C003C2ECF /* en */,
+			);
+			name = TicketTableViewCell.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
