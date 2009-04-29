@@ -74,7 +74,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
 }
 
 - (void)setAttributes:(NSDictionary *)attrs
@@ -88,14 +87,14 @@
 {
     NSString * body = [attrs objectForKey:@"body"];
 
-    CGSize maxSize = CGSizeMake(217.0, 999999.0);
+    CGSize maxSize = CGSizeMake(211.0, 999999.0);
     UIFont * font = [UIFont systemFontOfSize:14.0];
     UILineBreakMode mode = UILineBreakModeWordWrap;
 
     CGSize size =
         [body sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode];
 
-    return 52.0 + size.height - 18.0;
+    return 34.0 + size.height;
 }
 
 + (UIColor *)ticketEntityColor
