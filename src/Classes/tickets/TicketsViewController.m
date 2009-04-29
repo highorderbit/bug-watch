@@ -4,11 +4,19 @@
 
 #import "TicketsViewController.h"
 
+@interface TicketsViewController (Private)
+
+- (void)updateNavigationBarForNotSearching:(BOOL)animated;
+
+@end
+
 @implementation TicketsViewController
 
 - (void)dealloc
 {
     [searchTextField release];
+    [cancelButton release];
+    [addButton release];
     [super dealloc];
 }
 
@@ -27,6 +35,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self updateNavigationBarForNotSearching:animated];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -64,6 +73,52 @@
 - (void)tableView:(UITableView *)aTableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+#pragma mark UITextFieldDelegate implementation
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone
+        forView:searchTextField cache:YES];
+
+    CGRect frame = searchTextField.frame;
+    frame.size.width = 245;
+    searchTextField.frame = frame;
+
+    [UIView commitAnimations];
+
+    [self.navigationItem setRightBarButtonItem:cancelButton animated:YES];
+}
+
+#pragma mark TicketsViewController implementation
+
+- (IBAction)cancelSelected:(id)sender
+{
+    [searchTextField resignFirstResponder];
+    [self updateNavigationBarForNotSearching:YES];
+}
+
+- (IBAction)addSelected:(id)sender
+{}
+
+- (void)updateNavigationBarForNotSearching:(BOOL)animated
+{
+    if (animated) {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationTransition:UIViewAnimationTransitionNone
+            forView:searchTextField cache:YES];
+    }
+
+    CGRect frame = searchTextField.frame;
+    frame.size.width = 270;
+    searchTextField.frame = frame;
+    
+    if (animated)
+        [UIView commitAnimations];
+    
+    [self.navigationItem setRightBarButtonItem:addButton animated:animated];
 }
 
 @end
