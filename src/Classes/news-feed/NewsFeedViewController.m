@@ -220,8 +220,8 @@
         @"Code Watch: Add following to user info view [#232]",
         @"Code Watch: App Store Description was posted",
         @"Code Watch: Set background color for modal views [#233]",
-        @"Code Watch: Set background color for modal views [#233]",
         @"[Milestone] Code Watch: 1.1.1",
+        @"Code Watch: Set background color for modal views [#233]",
         @"Code Watch: Make location cell clicks in user info view open maps "
          "[#229]",
         @"Code Watch: Better distinguish private and public repo icons [#235]",
