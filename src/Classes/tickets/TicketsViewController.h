@@ -6,6 +6,7 @@
 
 @interface TicketsViewController : UITableViewController
 {
+    IBOutlet UITextField * searchTextField;
 }
 
 @end
