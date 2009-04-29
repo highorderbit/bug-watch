@@ -28,11 +28,11 @@
 /* Begin PBXFileReference section */
 		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugWatchAppDelegate.h; sourceTree = "<group>"; };
 		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugWatchAppDelegate.m; sourceTree = "<group>"; };
-		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
-		05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+WebServiceApiAdditions.m"; sourceTree = "<group>"; };
-		05C870760FA77FD80069BC72 /* WebServiceApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServiceApi.h; sourceTree = "<group>"; };
-		05C870770FA77FD80069BC72 /* WebServiceApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServiceApi.m; sourceTree = "<group>"; };
-		05C870780FA77FD80069BC72 /* WebServiceApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServiceApiDelegate.h; sourceTree = "<group>"; };
+		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+WebServiceApiAdditions.h"; path = "web-service/NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
+		05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+WebServiceApiAdditions.m"; path = "web-service/NSURLRequest+WebServiceApiAdditions.m"; sourceTree = "<group>"; };
+		05C870760FA77FD80069BC72 /* WebServiceApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApi.h; path = "web-service/WebServiceApi.h"; sourceTree = "<group>"; };
+		05C870770FA77FD80069BC72 /* WebServiceApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebServiceApi.m; path = "web-service/WebServiceApi.m"; sourceTree = "<group>"; };
+		05C870780FA77FD80069BC72 /* WebServiceApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApiDelegate.h; path = "web-service/WebServiceApiDelegate.h"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -85,21 +85,13 @@
 		05C870720FA77FCC0069BC72 /* web-service */ = {
 			isa = PBXGroup;
 			children = (
-				05C870730FA77FD80069BC72 /* web-service */,
-			);
-			name = "web-service";
-			sourceTree = "<group>";
-		};
-		05C870730FA77FD80069BC72 /* web-service */ = {
-			isa = PBXGroup;
-			children = (
 				05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */,
 				05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */,
 				05C870760FA77FD80069BC72 /* WebServiceApi.h */,
 				05C870770FA77FD80069BC72 /* WebServiceApi.m */,
 				05C870780FA77FD80069BC72 /* WebServiceApiDelegate.h */,
 			);
-			path = "web-service";
+			name = "web-service";
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
