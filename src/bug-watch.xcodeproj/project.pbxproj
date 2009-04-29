@@ -15,6 +15,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		9100C0650FA8BF5B003C2ECF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9100C0630FA8BF5B003C2ECF /* MainWindow.xib */; };
+		9100C0840FA8C08F003C2ECF /* TicketsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9100C0820FA8C08F003C2ECF /* TicketsView.xib */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
@@ -41,6 +42,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9100C0640FA8BF5B003C2ECF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		9100C0830FA8C08F003C2ECF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TicketsView.xib; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				9100C0630FA8BF5B003C2ECF /* MainWindow.xib */,
+				9100C0820FA8C08F003C2ECF /* TicketsView.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */,
 				919C99720FA2655F002CF095 /* Pages.png in Resources */,
 				9100C0650FA8BF5B003C2ECF /* MainWindow.xib in Resources */,
+				9100C0840FA8C08F003C2ECF /* TicketsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +263,14 @@
 				9100C0640FA8BF5B003C2ECF /* en */,
 			);
 			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		9100C0820FA8C08F003C2ECF /* TicketsView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9100C0830FA8C08F003C2ECF /* en */,
+			);
+			name = TicketsView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
