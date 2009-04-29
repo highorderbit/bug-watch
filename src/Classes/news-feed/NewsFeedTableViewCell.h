@@ -10,8 +10,12 @@
     IBOutlet UILabel * pubDateLabel;
     IBOutlet UILabel * bodyLabel;
     IBOutlet UILabel * entityTypeLabel;
+
+    NSDictionary * attributes;
 }
 
-- (void)updateView:(NSDictionary *)attrs;
+@property (nonatomic, copy) NSDictionary * attributes;
+
++ (CGFloat)heightForContent:(NSDictionary *)attrs;
 
 @end

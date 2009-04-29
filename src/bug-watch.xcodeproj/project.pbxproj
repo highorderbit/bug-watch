@@ -17,6 +17,7 @@
 		05E6377D0FA8D36500F736A5 /* NSDate+LighthouseStringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E637780FA8D36500F736A5 /* NSDate+LighthouseStringHelpers.m */; };
 		05E6377E0FA8D36500F736A5 /* NSDate+IsToday.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E6377A0FA8D36500F736A5 /* NSDate+IsToday.m */; };
 		05E6377F0FA8D36500F736A5 /* NSDate+StringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */; };
+		05E637F50FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -55,6 +56,8 @@
 		05E6377A0FA8D36500F736A5 /* NSDate+IsToday.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+IsToday.m"; path = "shared/NSDate+IsToday.m"; sourceTree = "<group>"; };
 		05E6377B0FA8D36500F736A5 /* NSDate+StringHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+StringHelpers.h"; path = "shared/NSDate+StringHelpers.h"; sourceTree = "<group>"; };
 		05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+StringHelpers.m"; path = "shared/NSDate+StringHelpers.m"; sourceTree = "<group>"; };
+		05E637F30FA8DC4A00F736A5 /* UILabel+DrawingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+DrawingAdditions.h"; path = "shared/UILabel+DrawingAdditions.h"; sourceTree = "<group>"; };
+		05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+DrawingAdditions.m"; path = "shared/UILabel+DrawingAdditions.m"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -126,6 +129,8 @@
 		05E637760FA8D35100F736A5 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				05E637F30FA8DC4A00F736A5 /* UILabel+DrawingAdditions.h */,
+				05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */,
 				05E637770FA8D36500F736A5 /* NSDate+LighthouseStringHelpers.h */,
 				05E637780FA8D36500F736A5 /* NSDate+LighthouseStringHelpers.m */,
 				05E637790FA8D36500F736A5 /* NSDate+IsToday.h */,
@@ -315,6 +320,7 @@
 				05E6377E0FA8D36500F736A5 /* NSDate+IsToday.m in Sources */,
 				05E6377F0FA8D36500F736A5 /* NSDate+StringHelpers.m in Sources */,
 				9100C09D0FA8C876003C2ECF /* TicketsViewController.m in Sources */,
+				05E637F50FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
