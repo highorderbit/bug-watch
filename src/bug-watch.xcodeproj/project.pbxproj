@@ -10,6 +10,8 @@
 		05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */; };
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
+		05E636BE0FA8C11C00F736A5 /* NewsFeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */; };
+		05E636CA0FA8C1B900F736A5 /* NewsFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E636C90FA8C1B900F736A5 /* NewsFeedViewController.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -26,13 +28,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugWatchAppDelegate.h; sourceTree = "<group>"; };
-		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugWatchAppDelegate.m; sourceTree = "<group>"; };
+		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppDelegate.h; path = "app-controller/BugWatchAppDelegate.h"; sourceTree = "<group>"; };
+		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppDelegate.m; path = "app-controller/BugWatchAppDelegate.m"; sourceTree = "<group>"; };
 		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+WebServiceApiAdditions.h"; path = "web-service/NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
 		05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+WebServiceApiAdditions.m"; path = "web-service/NSURLRequest+WebServiceApiAdditions.m"; sourceTree = "<group>"; };
 		05C870760FA77FD80069BC72 /* WebServiceApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApi.h; path = "web-service/WebServiceApi.h"; sourceTree = "<group>"; };
 		05C870770FA77FD80069BC72 /* WebServiceApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebServiceApi.m; path = "web-service/WebServiceApi.m"; sourceTree = "<group>"; };
 		05C870780FA77FD80069BC72 /* WebServiceApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApiDelegate.h; path = "web-service/WebServiceApiDelegate.h"; sourceTree = "<group>"; };
+		05E636BD0FA8C11C00F736A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewsFeedView.xib; sourceTree = "<group>"; };
+		05E636C80FA8C1B900F736A5 /* NewsFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewController.h; path = "news-feed/NewsFeedViewController.h"; sourceTree = "<group>"; };
+		05E636C90FA8C1B900F736A5 /* NewsFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedViewController.m; path = "news-feed/NewsFeedViewController.m"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -68,18 +73,10 @@
 		05C870670FA77EDC0069BC72 /* app-controller */ = {
 			isa = PBXGroup;
 			children = (
-				05C8706B0FA77F4C0069BC72 /* app-controller */,
-			);
-			name = "app-controller";
-			sourceTree = "<group>";
-		};
-		05C8706B0FA77F4C0069BC72 /* app-controller */ = {
-			isa = PBXGroup;
-			children = (
 				05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */,
 				05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */,
 			);
-			path = "app-controller";
+			name = "app-controller";
 			sourceTree = "<group>";
 		};
 		05C870720FA77FCC0069BC72 /* web-service */ = {
@@ -94,10 +91,20 @@
 			name = "web-service";
 			sourceTree = "<group>";
 		};
+		05E636C00FA8C17D00F736A5 /* news-feed */ = {
+			isa = PBXGroup;
+			children = (
+				05E636C80FA8C1B900F736A5 /* NewsFeedViewController.h */,
+				05E636C90FA8C1B900F736A5 /* NewsFeedViewController.m */,
+			);
+			name = "news-feed";
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				05C870670FA77EDC0069BC72 /* app-controller */,
+				05E636C00FA8C17D00F736A5 /* news-feed */,
 				05C870720FA77FCC0069BC72 /* web-service */,
 			);
 			path = Classes;
@@ -156,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				9100C0630FA8BF5B003C2ECF /* MainWindow.xib */,
+				05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -233,6 +241,7 @@
 				919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */,
 				919C99720FA2655F002CF095 /* Pages.png in Resources */,
 				9100C0650FA8BF5B003C2ECF /* MainWindow.xib in Resources */,
+				05E636BE0FA8C11C00F736A5 /* NewsFeedView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,12 +256,21 @@
 				05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */,
 				05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */,
 				05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */,
+				05E636CA0FA8C1B900F736A5 /* NewsFeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05E636BD0FA8C11C00F736A5 /* en */,
+			);
+			name = NewsFeedView.xib;
+			sourceTree = "<group>";
+		};
 		9100C0630FA8BF5B003C2ECF /* MainWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
