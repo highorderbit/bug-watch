@@ -4,9 +4,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TicketsViewController : UITableViewController
+@interface TicketsViewController : UITableViewController <UITextFieldDelegate>
 {
     IBOutlet UITextField * searchTextField;
+    IBOutlet UIBarButtonItem * cancelButton;
+    IBOutlet UIBarButtonItem * addButton;
 }
+
+- (IBAction)cancelSelected:(id)sender;
+- (IBAction)addSelected:(id)sender;
 
 @end
