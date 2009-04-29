@@ -81,6 +81,13 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tv
+    heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary * attrs = [newsItems objectAtIndex:indexPath.row];
+    return [NewsFeedTableViewCell heightForContent:attrs];
+}
+
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tv
  numberOfRowsInSection:(NSInteger)section
@@ -107,7 +114,7 @@
         cell = [nib objectAtIndex:0];
     }
 
-    [cell updateView:[newsItems objectAtIndex:indexPath.row]];
+    cell.attributes = [newsItems objectAtIndex:indexPath.row];
 
     return cell;
 }
@@ -208,8 +215,10 @@
     NSArray * bodies =
         [NSArray arrayWithObjects:
         @"Code Watch: Add followed users to user info view [#231]",
+        @"Changeset [33b9d1aafd6c05920cec8a7bf386a5ec7a56c435] by "
+         "John A. Debay",
         @"Code Watch: Add following to user info view [#232]",
-        @"Code Watch: Opening user location in maps doesn't work [#234]",
+        @"Code Watch: App Store Description was posted",
         @"Code Watch: Set background color for modal views [#233]",
         @"Code Watch: Set background color for modal views [#233]",
         @"[Milestone] Code Watch: 1.1.1",
@@ -227,9 +236,9 @@
     NSArray * entityTypes =
         [NSArray arrayWithObjects:
         @"ticket",
+        @"changeset",
         @"ticket",
-        @"ticket",
-        @"ticket",
+        @"message",
         @"ticket",
         @"milestone",
         @"ticket",
