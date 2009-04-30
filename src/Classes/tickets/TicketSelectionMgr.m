@@ -6,9 +6,33 @@
 
 @implementation TicketSelectionMgr
 
+- (void)dealloc
+{
+    [ticketCache release];
+    [navController release];
+    [detailsViewController release];
+    [super dealloc];
+}
+
+- (id)initWithTicketCache:
+    (TicketCache *)aTicketCache
+    navigationController:
+    (UINavigationController *)aNavController
+    ticketDetailsViewController:
+    (TicketDetailsViewController *)aDetailsViewController
+{
+    if (self = [super init]) {
+        ticketCache = [aTicketCache retain];
+        navController = [aNavController retain];
+        detailsViewController = [aDetailsViewController retain];
+    }
+
+    return self;
+}
+
 - (void)selectedTicketNumber:(NSUInteger)number
 {
-    
+    NSLog(@"Ticket %d selected", number);
 }
 
 @end

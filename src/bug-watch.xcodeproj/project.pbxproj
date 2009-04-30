@@ -38,6 +38,7 @@
 		913E44A60FAA0F27000EB184 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44A50FAA0F27000EB184 /* BugWatchAppController.m */; };
 		913E44CC0FAA189F000EB184 /* TicketSelectionMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */; };
 		913E44CF0FAA1CF7000EB184 /* TicketCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44CE0FAA1CF7000EB184 /* TicketCache.m */; };
+		913E44F60FAA2858000EB184 /* TicketDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44F50FAA2858000EB184 /* TicketDetailsViewController.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
@@ -107,6 +108,8 @@
 		913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSelectionMgr.m; path = tickets/TicketSelectionMgr.m; sourceTree = "<group>"; };
 		913E44CD0FAA1CF7000EB184 /* TicketCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketCache.h; path = tickets/TicketCache.h; sourceTree = "<group>"; };
 		913E44CE0FAA1CF7000EB184 /* TicketCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketCache.m; path = tickets/TicketCache.m; sourceTree = "<group>"; };
+		913E44F40FAA2858000EB184 /* TicketDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDetailsViewController.h; path = tickets/TicketDetailsViewController.h; sourceTree = "<group>"; };
+		913E44F50FAA2858000EB184 /* TicketDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDetailsViewController.m; path = tickets/TicketDetailsViewController.m; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
@@ -288,6 +291,8 @@
 				913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */,
 				913E44CD0FAA1CF7000EB184 /* TicketCache.h */,
 				913E44CE0FAA1CF7000EB184 /* TicketCache.m */,
+				913E44F40FAA2858000EB184 /* TicketDetailsViewController.h */,
+				913E44F50FAA2858000EB184 /* TicketDetailsViewController.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -403,6 +408,7 @@
 				05EFD88D0FA9405C001DFCFB /* NewsFeedItem.m in Sources */,
 				913E44CC0FAA189F000EB184 /* TicketSelectionMgr.m in Sources */,
 				913E44CF0FAA1CF7000EB184 /* TicketCache.m in Sources */,
+				913E44F60FAA2858000EB184 /* TicketDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

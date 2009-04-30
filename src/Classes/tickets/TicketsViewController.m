@@ -122,6 +122,9 @@
 - (void)tableView:(UITableView *)aTableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUInteger number =
+        [[[tickets allKeys] objectAtIndex:indexPath.row] intValue];
+    [delegate selectedTicketNumber:number];
 }
 
 #pragma mark UITableViewDelegate implementation
