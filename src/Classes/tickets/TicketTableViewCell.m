@@ -8,6 +8,12 @@
 #import "UIColor+BugWatchColors.h"
 #import "UILabel+DrawingAdditions.h"
 
+@interface TicketTableViewCell (Private)
+
+- (void)setNonSelectedTextColors;
+
+@end
+
 @implementation TicketTableViewCell
 
 - (void)dealloc
@@ -34,7 +40,14 @@
 {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+    if (selected) {
+        numberLabel.textColor = [UIColor whiteColor];
+        stateLabel.textColor = [UIColor whiteColor];
+        lastUpdatedLabel.textColor = [UIColor whiteColor];
+        descriptionLabel.textColor = [UIColor whiteColor];
+        assignedToLabel.textColor = [UIColor whiteColor];
+    } else
+        [self setNonSelectedTextColors];
 }
 
 - (void)layoutSubviews
@@ -62,7 +75,8 @@
 - (void)setState:(NSUInteger)state
 {
     stateLabel.text = [Ticket descriptionForState:state];
-    stateLabelColor = [UIColor bugWatchColorForState:state];
+    [stateLabelColor release];
+    stateLabelColor = [[UIColor bugWatchColorForState:state] retain];
     stateLabel.textColor = stateLabelColor;
 }
 
@@ -92,11 +106,20 @@
         [description sizeWithFont:font constrainedToSize:maxSize
         lineBreakMode:mode];
 
-    static const NSUInteger MIN_HEIGHT = 78;
+    static const NSUInteger MIN_HEIGHT = 74;
     NSUInteger height = 32.0 + size.height;
     height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
 
     return height;
+}
+
+- (void)setNonSelectedTextColors
+{
+    numberLabel.textColor = [UIColor bugWatchGrayColor];
+    stateLabel.textColor = stateLabelColor;
+    lastUpdatedLabel.textColor = [UIColor bugWatchBlueColor];
+    descriptionLabel.textColor = [UIColor blackColor];
+    assignedToLabel.textColor = [UIColor bugWatchGrayColor];
 }
 
 @end

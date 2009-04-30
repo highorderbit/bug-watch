@@ -14,8 +14,11 @@
 
 @implementation TicketsViewController
 
+@synthesize delegate;
+
 - (void)dealloc
 {
+    [delegate release];
     [searchTextField release];
     [cancelButton release];
     [addButton release];
@@ -30,42 +33,42 @@
     
     // Can't be set in IB, so setting it here
     CGRect frame = searchTextField.frame;
-    frame.size.height = 29;
+    frame.size.height = 28;
     searchTextField.frame = frame;
     
     searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     // TEMPORARY
-    NSMutableArray * tempTickets = [NSMutableArray array];
+    NSMutableDictionary * tempTickets = [NSMutableDictionary dictionary];
     
     NSString * description1 = @"If timing is just right, updating view can be added to wrong view controller when backing out of drill-down";
     Ticket * ticket1 =
-        [[Ticket alloc] initWithNumber:213 description:description1
+        [[Ticket alloc] initWithDescription:description1
         state:(NSUInteger)kNew creationDate:[NSDate date]
         lastModifiedDate:[NSDate date] comments:nil];
 
     NSString * description2 = @"Add disclosure indicators to news feed";
     Ticket * ticket2 =
-        [[Ticket alloc] initWithNumber:217 description:description2
+        [[Ticket alloc] initWithDescription:description2
         state:(NSUInteger)kResolved creationDate:[NSDate date]
         lastModifiedDate:[NSDate date] comments:nil];
 
     NSString * description3 = @"Support followed users in GitHub service";
     Ticket * ticket3 =
-        [[Ticket alloc] initWithNumber:56 description:description3
+        [[Ticket alloc] initWithDescription:description3
         state:(NSUInteger)kHold creationDate:[NSDate date]
         lastModifiedDate:[NSDate date] comments:nil];
 
     NSString * description4 = @"Keypad 'done' button incorrectly enabled on log in and favorites";
     Ticket * ticket4 =
-        [[Ticket alloc] initWithNumber:3 description:description4
+        [[Ticket alloc] initWithDescription:description4
         state:(NSUInteger)kResolved creationDate:[NSDate date]
         lastModifiedDate:[NSDate date] comments:nil];
 
-    [tempTickets addObject:ticket1];
-    [tempTickets addObject:ticket2];
-    [tempTickets addObject:ticket3];
-    [tempTickets addObject:ticket4];
+    [tempTickets setObject:ticket1 forKey:[NSNumber numberWithInt:213]];
+    [tempTickets setObject:ticket2 forKey:[NSNumber numberWithInt:56]];
+    [tempTickets setObject:ticket3 forKey:[NSNumber numberWithInt:217]];
+    [tempTickets setObject:ticket4 forKey:[NSNumber numberWithInt:4]];
     
     self.tickets = tempTickets;
     // TEMPORARY
@@ -107,8 +110,9 @@
         cell = [nib objectAtIndex:0];
     }
     
-    Ticket * ticket = [tickets objectAtIndex:indexPath.row];
-    [cell setNumber:ticket.number];
+    NSNumber * ticketNumber = [[tickets allKeys] objectAtIndex:indexPath.row];
+    Ticket * ticket = [tickets objectForKey:ticketNumber];
+    [cell setNumber:[ticketNumber intValue]];
     [cell setState:ticket.state];
     [cell setDescription:ticket.description];
     
@@ -125,7 +129,8 @@
 - (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ticket * ticket = [tickets objectAtIndex:indexPath.row];
+    NSNumber * ticketNumber = [[tickets allKeys] objectAtIndex:indexPath.row];
+    Ticket * ticket = [tickets objectForKey:ticketNumber];
     
     return [TicketTableViewCell heightForContent:ticket.description];
 }
@@ -149,16 +154,16 @@
 
 #pragma mark TicketsViewController implementation
 
-- (void)setTickets:(NSArray *)someTickets
+- (void)setTickets:(NSDictionary *)someTickets
 {
-    NSArray * tempTickets = [someTickets copy];
+    NSDictionary * tempTickets = [someTickets copy];
     [tickets release];
     tickets = tempTickets;
     
     [self.tableView reloadData];
 }
 
-- (NSArray *)tickets
+- (NSDictionary *)tickets
 {
     return [tickets copy];
 }

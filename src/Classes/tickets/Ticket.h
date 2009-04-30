@@ -14,7 +14,6 @@ enum TicketState {
 
 @interface Ticket : NSObject
 {
-    NSUInteger number;
     NSString * description;
     NSUInteger state;
     NSDate * creationDate;
@@ -22,15 +21,14 @@ enum TicketState {
     NSArray * comments;
 }
 
-@property (nonatomic, readonly) NSUInteger number;
 @property (nonatomic, copy, readonly) NSString * description;
 @property (nonatomic, readonly) NSUInteger state;
 @property (nonatomic, copy, readonly) NSDate * creationDate;
 @property (nonatomic, copy, readonly) NSDate * lastModifiedDate;
 @property (nonatomic, copy, readonly) NSArray * comments;
 
-- (id)initWithNumber:(NSUInteger)aNumber description:(NSString *)aDescription
-    state:(NSUInteger)aState creationDate:(NSDate *)aCreationDate
+- (id)initWithDescription:(NSString *)aDescription state:(NSUInteger)aState
+    creationDate:(NSDate *)aCreationDate
     lastModifiedDate:(NSDate *)aLastModifiedDate
     comments:(NSArray *)someComments;
 

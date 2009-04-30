@@ -6,7 +6,6 @@
 
 @implementation Ticket
 
-@synthesize number;
 @synthesize description;
 @synthesize state;
 @synthesize creationDate;
@@ -23,13 +22,12 @@
     [super dealloc];
 }
 
-- (id)initWithNumber:(NSUInteger)aNumber description:(NSString *)aDescription
-    state:(NSUInteger)aState creationDate:(NSDate *)aCreationDate
+- (id)initWithDescription:(NSString *)aDescription state:(NSUInteger)aState
+    creationDate:(NSDate *)aCreationDate
     lastModifiedDate:(NSDate *)aLastModifiedDate
     comments:(NSArray *)someComments
 {
     if (self = [super init]) {
-        number = aNumber;
         description = [aDescription retain];
         state = aState;
         creationDate = [aCreationDate retain];

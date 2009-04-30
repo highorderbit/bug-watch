@@ -33,6 +33,7 @@
 		9100C1EB0FA918C0003C2ECF /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C1EA0FA918C0003C2ECF /* Ticket.m */; };
 		9100C2000FA91FDA003C2ECF /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */; };
 		9100C23F0FA928BD003C2ECF /* UIColor+BugWatchColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */; };
+		913E44A60FAA0F27000EB184 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44A50FAA0F27000EB184 /* BugWatchAppController.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
@@ -90,6 +91,9 @@
 		9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketTableViewCell.m; path = tickets/TicketTableViewCell.m; sourceTree = "<group>"; };
 		9100C23D0FA928BD003C2ECF /* UIColor+BugWatchColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+BugWatchColors.h"; path = "shared/UIColor+BugWatchColors.h"; sourceTree = "<group>"; };
 		9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+BugWatchColors.m"; path = "shared/UIColor+BugWatchColors.m"; sourceTree = "<group>"; };
+		913E448D0FAA0876000EB184 /* TicketsViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketsViewControllerDelegate.h; path = tickets/TicketsViewControllerDelegate.h; sourceTree = "<group>"; };
+		913E44A40FAA0F27000EB184 /* BugWatchAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugWatchAppController.h; sourceTree = "<group>"; };
+		913E44A50FAA0F27000EB184 /* BugWatchAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugWatchAppController.m; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			children = (
 				05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */,
 				05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */,
+				913E44A40FAA0F27000EB184 /* BugWatchAppController.h */,
+				913E44A50FAA0F27000EB184 /* BugWatchAppController.m */,
 			);
 			name = "app-controller";
 			sourceTree = "<group>";
@@ -259,6 +265,7 @@
 				9100C1EA0FA918C0003C2ECF /* Ticket.m */,
 				9100C1FE0FA91FDA003C2ECF /* TicketTableViewCell.h */,
 				9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */,
+				913E448D0FAA0876000EB184 /* TicketsViewControllerDelegate.h */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -369,6 +376,7 @@
 				05EFD7C40FA924F6001DFCFB /* WebServiceResponseDispatcher.m in Sources */,
 				05EFD7E30FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m in Sources */,
 				05EFD7F80FA92B4D001DFCFB /* LighthouseNewsFeed.m in Sources */,
+				913E44A60FAA0F27000EB184 /* BugWatchAppController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
