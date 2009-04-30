@@ -11,7 +11,7 @@
     CGRect frame = self.frame;
 
     CGSize maxSize = CGSizeMake(frame.size.width, 99999.0);
-    UILineBreakMode lbMode = UILineBreakModeWordWrap;
+    UILineBreakMode lbMode = self.lineBreakMode;
 
     UIFont * font = self.font;
 
