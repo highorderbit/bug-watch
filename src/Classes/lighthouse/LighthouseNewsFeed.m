@@ -8,6 +8,8 @@
 
 @implementation LighthouseNewsFeed
 
+@synthesize delegate;
+
 - (void)dealloc
 {
     [baseUrlString release];
@@ -51,6 +53,12 @@
 {
     NSLog(@"Have response: '%@' to request: '%@' args: '%@'.", response,
         request, object);
+
+    NSString * token = [object objectForKey:@"token"];
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToFetchNewsFeedForToken:token error:response];
+    else
+        [delegate newsFeed:response fetchedForToken:token];
 }
 
 #pragma mark WebSericeApiDelegate implementation

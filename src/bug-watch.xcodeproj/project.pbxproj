@@ -22,6 +22,8 @@
 		05EFD7C40FA924F6001DFCFB /* WebServiceResponseDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7C30FA924F6001DFCFB /* WebServiceResponseDispatcher.m */; };
 		05EFD7E30FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */; };
 		05EFD7F80FA92B4D001DFCFB /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7F70FA92B4D001DFCFB /* LighthouseNewsFeed.m */; };
+		05EFD8360FA93404001DFCFB /* LighthouseNewsFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD8350FA93404001DFCFB /* LighthouseNewsFeedParser.m */; };
+		05EFD88D0FA9405C001DFCFB /* NewsFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD88C0FA9405C001DFCFB /* NewsFeedItem.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -68,6 +70,11 @@
 		05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+NonRetainedKeyAdditions.m"; path = "web-service/NSDictionary+NonRetainedKeyAdditions.m"; sourceTree = "<group>"; };
 		05EFD7F60FA92B4D001DFCFB /* LighthouseNewsFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeed.h; path = lighthouse/LighthouseNewsFeed.h; sourceTree = "<group>"; };
 		05EFD7F70FA92B4D001DFCFB /* LighthouseNewsFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseNewsFeed.m; path = lighthouse/LighthouseNewsFeed.m; sourceTree = "<group>"; };
+		05EFD8340FA93404001DFCFB /* LighthouseNewsFeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeedParser.h; path = lighthouse/LighthouseNewsFeedParser.h; sourceTree = "<group>"; };
+		05EFD8350FA93404001DFCFB /* LighthouseNewsFeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseNewsFeedParser.m; path = lighthouse/LighthouseNewsFeedParser.m; sourceTree = "<group>"; };
+		05EFD8400FA937BD001DFCFB /* LighthouseNewsFeedDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeedDelegate.h; path = lighthouse/LighthouseNewsFeedDelegate.h; sourceTree = "<group>"; };
+		05EFD88B0FA9405C001DFCFB /* NewsFeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedItem.h; path = "news-feed/NewsFeedItem.h"; sourceTree = "<group>"; };
+		05EFD88C0FA9405C001DFCFB /* NewsFeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedItem.m; path = "news-feed/NewsFeedItem.m"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -135,6 +142,8 @@
 				05E636C90FA8C1B900F736A5 /* NewsFeedViewController.m */,
 				05E6372E0FA8CD2C00F736A5 /* NewsFeedTableViewCell.h */,
 				05E6372F0FA8CD2C00F736A5 /* NewsFeedTableViewCell.m */,
+				05EFD88B0FA9405C001DFCFB /* NewsFeedItem.h */,
+				05EFD88C0FA9405C001DFCFB /* NewsFeedItem.m */,
 			);
 			name = "news-feed";
 			sourceTree = "<group>";
@@ -159,6 +168,9 @@
 			children = (
 				05EFD7F60FA92B4D001DFCFB /* LighthouseNewsFeed.h */,
 				05EFD7F70FA92B4D001DFCFB /* LighthouseNewsFeed.m */,
+				05EFD8340FA93404001DFCFB /* LighthouseNewsFeedParser.h */,
+				05EFD8350FA93404001DFCFB /* LighthouseNewsFeedParser.m */,
+				05EFD8400FA937BD001DFCFB /* LighthouseNewsFeedDelegate.h */,
 			);
 			name = lighthouse;
 			sourceTree = "<group>";
@@ -347,6 +359,8 @@
 				05EFD7C40FA924F6001DFCFB /* WebServiceResponseDispatcher.m in Sources */,
 				05EFD7E30FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m in Sources */,
 				05EFD7F80FA92B4D001DFCFB /* LighthouseNewsFeed.m in Sources */,
+				05EFD8360FA93404001DFCFB /* LighthouseNewsFeedParser.m in Sources */,
+				05EFD88D0FA9405C001DFCFB /* NewsFeedItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

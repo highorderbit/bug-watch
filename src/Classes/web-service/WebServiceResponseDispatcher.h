@@ -12,7 +12,7 @@
 - (id)init;
 
 - (void)request:(NSURLRequest *)request isHandledBySelector:(SEL)selector
-     target:(id)target object:(id)object;
+     target:(id)target object:(id<NSObject>)object;
 
 - (void)dispatchResponse:(id)response toRequest:(NSURLRequest *)request;
 

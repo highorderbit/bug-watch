@@ -4,16 +4,21 @@
 
 #import <Foundation/Foundation.h>
 #import "WebServiceApiDelegate.h"
+#import "LighthouseNewsFeedDelegate.h"
 
 @class WebServiceApi, WebServiceResponseDispatcher;
 
 @interface LighthouseNewsFeed : NSObject <WebServiceApiDelegate>
 {
+    id<LighthouseNewsFeedDelegate> delegate;
+
     NSString * baseUrlString;
 
     WebServiceApi * api;
     WebServiceResponseDispatcher * dispatcher;
 }
+
+@property (nonatomic, assign) id<LighthouseNewsFeedDelegate> delegate;
 
 #pragma mark Initialization
 
