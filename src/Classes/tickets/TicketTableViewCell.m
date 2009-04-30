@@ -92,7 +92,11 @@
         [description sizeWithFont:font constrainedToSize:maxSize
         lineBreakMode:mode];
 
-    return 34.0 + size.height;
+    static const NSUInteger MIN_HEIGHT = 78;
+    NSUInteger height = 32.0 + size.height;
+    height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
+
+    return height;
 }
 
 @end

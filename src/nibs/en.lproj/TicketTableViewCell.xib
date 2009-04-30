@@ -38,7 +38,7 @@
 							<object class="IBUILabel" id="453215089">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 25}, {83, 21}}</string>
+								<string key="NSFrame">{{11, 28}, {70, 21}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -60,7 +60,7 @@
 							<object class="IBUILabel" id="301851860">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 7}, {43, 21}}</string>
+								<string key="NSFrame">{{11, 7}, {67, 21}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -78,7 +78,7 @@
 							<object class="IBUILabel" id="217099946">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{90, 7}, {207, 76}}</string>
+								<string key="NSFrame">{{86, 7}, {211, 76}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -101,7 +101,7 @@
 							<object class="IBUILabel" id="1037791963">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{90, 80}, {207, 21}}</string>
+								<string key="NSFrame">{{86, 80}, {211, 21}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -123,7 +123,7 @@
 							<object class="IBUILabel" id="499017651">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 45}, {70, 21}}</string>
+								<string key="NSFrame">{{11, 49}, {67, 21}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -294,7 +294,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
 					<string>TicketTableViewCell</string>
-					<string>{{851, 589}, {320, 108}}</string>
+					<string>{{442, 526}, {320, 108}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
