@@ -3,9 +3,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Ticket.h"
 
 @interface TicketDetailsViewController : UITableViewController
 {
 }
+
+- (void)setTicketNumber:(NSUInteger)aNumber ticket:(Ticket *)aTicket;
 
 @end

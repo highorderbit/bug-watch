@@ -30,4 +30,9 @@
     return [[tickets objectForKey:[NSNumber numberWithInt:number]] copy];
 }
 
+- (NSDictionary *)allTickets
+{
+    return [tickets copy];
+}
+
 @end

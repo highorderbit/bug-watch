@@ -12,5 +12,6 @@
 
 - (void)setTicket:(Ticket *)ticket forNumber:(NSUInteger)number;
 - (Ticket *)ticketForNumber:(NSUInteger)number;
+- (NSDictionary *)allTickets;
 
 @end

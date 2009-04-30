@@ -18,9 +18,10 @@
 
 @property (nonatomic, retain)
     NSObject<TicketsViewControllerDelegate> * delegate;
-@property (nonatomic, copy) NSDictionary * tickets;
 
 - (IBAction)cancelSelected:(id)sender;
 - (IBAction)addSelected:(id)sender;
+
+- (void)setTickets:(NSDictionary *)someTickets;
 
 @end

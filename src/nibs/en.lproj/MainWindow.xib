@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="175"/>
+			<integer value="129"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -32,7 +32,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUICustomObject" id="664661524"/>
-			<object class="IBUICustomObject" id="163431940"/>
+			<object class="IBUICustomObject" id="127522796"/>
 			<object class="IBUIWindow" id="380026005">
 				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">1316</int>
@@ -74,6 +74,7 @@
 						<object class="IBUIViewController" id="360103391">
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="45198810">
 								<reference key="IBUINavigationBar"/>
+								<string key="IBUITitle">Tickets</string>
 								<object class="IBUITextField" key="IBUITitleView" id="788708081">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">292</int>
@@ -321,7 +322,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">ticketsViewController</string>
-						<reference key="source" ref="163431940"/>
+						<reference key="source" ref="127522796"/>
 						<reference key="destination" ref="360103391"/>
 					</object>
 					<int key="connectionID">184</int>
@@ -330,17 +331,97 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">appController</string>
 						<reference key="source" ref="664661524"/>
-						<reference key="destination" ref="163431940"/>
+						<reference key="destination" ref="127522796"/>
 					</object>
 					<int key="connectionID">185</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">ticketsNavController</string>
-						<reference key="source" ref="163431940"/>
+						<reference key="source" ref="127522796"/>
 						<reference key="destination" ref="129528834"/>
 					</object>
 					<int key="connectionID">186</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">newsFeedNavController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="872020987"/>
+					</object>
+					<int key="connectionID">187</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">newsFeedViewController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="78905859"/>
+					</object>
+					<int key="connectionID">188</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">projectsNavController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="205855552"/>
+					</object>
+					<int key="connectionID">189</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">projectsViewController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="416417005"/>
+					</object>
+					<int key="connectionID">190</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">milestonesNavController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="882697621"/>
+					</object>
+					<int key="connectionID">191</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">milestonesViewController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="619685863"/>
+					</object>
+					<int key="connectionID">192</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">messagesNavController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="149450542"/>
+					</object>
+					<int key="connectionID">193</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">messagesViewController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="984730409"/>
+					</object>
+					<int key="connectionID">194</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">pagesNavController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="535207759"/>
+					</object>
+					<int key="connectionID">195</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">pagesViewController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="53924193"/>
+					</object>
+					<int key="connectionID">196</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -628,7 +709,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">183</int>
-						<reference key="object" ref="163431940"/>
+						<reference key="object" ref="127522796"/>
 						<reference key="parent" ref="957960031"/>
 					</object>
 				</object>
@@ -685,7 +766,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIApplication</string>
 					<string>UIResponder</string>
-					<string>{{412, 337}, {320, 480}}</string>
+					<string>{{768, 361}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{0, 365}, {320, 480}}</string>
@@ -756,7 +837,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">186</int>
+			<int key="maxID">196</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -768,13 +849,31 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>ticketDetailsViewController</string>
+							<string>messagesNavController</string>
+							<string>messagesViewController</string>
+							<string>milestonesNavController</string>
+							<string>milestonesViewController</string>
+							<string>newsFeedNavController</string>
+							<string>newsFeedViewController</string>
+							<string>pagesNavController</string>
+							<string>pagesViewController</string>
+							<string>projectsNavController</string>
+							<string>projectsViewController</string>
 							<string>ticketsNavController</string>
 							<string>ticketsViewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>TicketDetailsViewController</string>
+							<string>UINavigationController</string>
+							<string>UIViewController</string>
+							<string>UINavigationController</string>
+							<string>UIViewController</string>
+							<string>UINavigationController</string>
+							<string>UIViewController</string>
+							<string>UINavigationController</string>
+							<string>UIViewController</string>
+							<string>UINavigationController</string>
+							<string>UIViewController</string>
 							<string>UINavigationController</string>
 							<string>TicketsViewController</string>
 						</object>
@@ -821,14 +920,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/news-feed/NewsFeedViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TicketDetailsViewController</string>
-					<string key="superclassName">UITableViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/tickets/TicketDetailsViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

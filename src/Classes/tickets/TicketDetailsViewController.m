@@ -13,14 +13,12 @@
     return 1;
 }
 
-
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
     return 0;
 }
-
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -41,7 +39,6 @@
     return cell;
 }
 
-
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -51,5 +48,10 @@
     [super dealloc];
 }
 
-@end
+- (void)setTicketNumber:(NSUInteger)aNumber ticket:(Ticket *)aTicket
+{
+    self.navigationItem.title =
+        [NSString stringWithFormat:@"Ticket %d", aNumber];
+}
 
+@end

@@ -10,30 +10,55 @@
 {
     [ticketCache release];
     [navController release];
+    [ticketsViewController release];
     [detailsViewController release];
     [super dealloc];
 }
 
-- (id)initWithTicketCache:
-    (TicketCache *)aTicketCache
-    navigationController:
-    (UINavigationController *)aNavController
-    ticketDetailsViewController:
-    (TicketDetailsViewController *)aDetailsViewController
+- (id)initWithTicketCache:(TicketCache *)aTicketCache
+    navigationController:(UINavigationController *)aNavController
+    ticketsViewController:(TicketsViewController *)aTicketsViewController;
 {
     if (self = [super init]) {
         ticketCache = [aTicketCache retain];
         navController = [aNavController retain];
-        detailsViewController = [aDetailsViewController retain];
+        ticketsViewController = [aTicketsViewController retain];
     }
 
     return self;
 }
 
+
+#pragma mark TicketsViewControllerDelegate implementation
+
 - (void)selectedTicketNumber:(NSUInteger)number
 {
     NSLog(@"Ticket %d selected", number);
-    [navController pushViewController:detailsViewController animated:YES];
+    
+    Ticket * ticket = [ticketCache ticketForNumber:number];
+    [self.detailsViewController setTicketNumber:number ticket:ticket];
+
+    [navController pushViewController:self.detailsViewController animated:YES];
+}
+
+- (void)ticketsFilteredByFilterKey:(NSString *)filterKey
+{
+    [ticketsViewController setTickets:[ticketCache allTickets]];
+}
+
+#pragma mark Accessors
+
+- (TicketDetailsViewController *)detailsViewController
+{
+    if (!detailsViewController) {
+        TicketDetailsViewController * ticketDetailsViewController =
+            [[TicketDetailsViewController alloc]
+            initWithNibName:@"TicketDetailsView" bundle:nil];
+            
+        detailsViewController = ticketDetailsViewController;
+    }
+        
+    return detailsViewController;
 }
 
 @end
