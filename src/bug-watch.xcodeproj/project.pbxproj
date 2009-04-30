@@ -26,6 +26,9 @@
 		9100C0840FA8C08F003C2ECF /* TicketsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9100C0820FA8C08F003C2ECF /* TicketsView.xib */; };
 		9100C09D0FA8C876003C2ECF /* TicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C09C0FA8C876003C2ECF /* TicketsViewController.m */; };
 		9100C1CA0FA90D8C003C2ECF /* TicketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9100C1C80FA90D8C003C2ECF /* TicketTableViewCell.xib */; };
+		9100C1EB0FA918C0003C2ECF /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C1EA0FA918C0003C2ECF /* Ticket.m */; };
+		9100C2000FA91FDA003C2ECF /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */; };
+		9100C23F0FA928BD003C2ECF /* UIColor+BugWatchColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
@@ -70,6 +73,12 @@
 		9100C09B0FA8C876003C2ECF /* TicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketsViewController.h; path = tickets/TicketsViewController.h; sourceTree = "<group>"; };
 		9100C09C0FA8C876003C2ECF /* TicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketsViewController.m; path = tickets/TicketsViewController.m; sourceTree = "<group>"; };
 		9100C1C90FA90D8C003C2ECF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TicketTableViewCell.xib; sourceTree = "<group>"; };
+		9100C1E90FA918C0003C2ECF /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ticket.h; path = tickets/Ticket.h; sourceTree = "<group>"; };
+		9100C1EA0FA918C0003C2ECF /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Ticket.m; path = tickets/Ticket.m; sourceTree = "<group>"; };
+		9100C1FE0FA91FDA003C2ECF /* TicketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketTableViewCell.h; path = tickets/TicketTableViewCell.h; sourceTree = "<group>"; };
+		9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketTableViewCell.m; path = tickets/TicketTableViewCell.m; sourceTree = "<group>"; };
+		9100C23D0FA928BD003C2ECF /* UIColor+BugWatchColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+BugWatchColors.h"; path = "shared/UIColor+BugWatchColors.h"; sourceTree = "<group>"; };
+		9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+BugWatchColors.m"; path = "shared/UIColor+BugWatchColors.m"; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
@@ -137,6 +146,8 @@
 				05E6377A0FA8D36500F736A5 /* NSDate+IsToday.m */,
 				05E6377B0FA8D36500F736A5 /* NSDate+StringHelpers.h */,
 				05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */,
+				9100C23D0FA928BD003C2ECF /* UIColor+BugWatchColors.h */,
+				9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -219,6 +230,10 @@
 			children = (
 				9100C09B0FA8C876003C2ECF /* TicketsViewController.h */,
 				9100C09C0FA8C876003C2ECF /* TicketsViewController.m */,
+				9100C1E90FA918C0003C2ECF /* Ticket.h */,
+				9100C1EA0FA918C0003C2ECF /* Ticket.m */,
+				9100C1FE0FA91FDA003C2ECF /* TicketTableViewCell.h */,
+				9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -321,6 +336,9 @@
 				05E6377F0FA8D36500F736A5 /* NSDate+StringHelpers.m in Sources */,
 				9100C09D0FA8C876003C2ECF /* TicketsViewController.m in Sources */,
 				05E637F50FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m in Sources */,
+				9100C1EB0FA918C0003C2ECF /* Ticket.m in Sources */,
+				9100C2000FA91FDA003C2ECF /* TicketTableViewCell.m in Sources */,
+				9100C23F0FA928BD003C2ECF /* UIColor+BugWatchColors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
