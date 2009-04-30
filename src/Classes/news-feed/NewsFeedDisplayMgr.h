@@ -9,8 +9,6 @@
 
 @interface NewsFeedDisplayMgr : NSObject <NewsFeedViewControllerDelegate>
 {
-    UINavigationController * navigationController;
-
     NewsFeedViewController * newsFeedViewController;
     NewsFeedItemViewController * newsFeedItemViewController;
 }
