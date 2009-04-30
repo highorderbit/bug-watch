@@ -33,6 +33,7 @@
 - (void)selectedTicketNumber:(NSUInteger)number
 {
     NSLog(@"Ticket %d selected", number);
+    [navController pushViewController:detailsViewController animated:YES];
 }
 
 @end

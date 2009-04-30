@@ -3,6 +3,7 @@
 //
 
 #import "BugWatchAppController.h"
+#import "TicketDetailsViewController.h"
 
 @implementation BugWatchAppController
 
@@ -10,7 +11,6 @@
 {
     [ticketsViewController release];
     [ticketsNavController release];
-    [ticketDetailsViewController release];
 
     [ticketCache release];
 
@@ -20,6 +20,10 @@
 - (void)start
 {
     ticketCache = [[TicketCache alloc] init];
+    
+    TicketDetailsViewController * ticketDetailsViewController =
+        [[TicketDetailsViewController alloc]
+        initWithNibName:@"TicketDetailsView" bundle:nil];
     TicketSelectionMgr * ticketSelectionMgr =
         [[TicketSelectionMgr alloc] initWithTicketCache:ticketCache
         navigationController:ticketsNavController

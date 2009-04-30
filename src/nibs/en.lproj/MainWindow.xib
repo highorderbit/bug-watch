@@ -32,7 +32,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUICustomObject" id="664661524"/>
-			<object class="IBUICustomObject" id="751810965"/>
+			<object class="IBUICustomObject" id="163431940"/>
 			<object class="IBUIWindow" id="380026005">
 				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">1316</int>
@@ -321,7 +321,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">ticketsViewController</string>
-						<reference key="source" ref="751810965"/>
+						<reference key="source" ref="163431940"/>
 						<reference key="destination" ref="360103391"/>
 					</object>
 					<int key="connectionID">184</int>
@@ -330,9 +330,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">appController</string>
 						<reference key="source" ref="664661524"/>
-						<reference key="destination" ref="751810965"/>
+						<reference key="destination" ref="163431940"/>
 					</object>
 					<int key="connectionID">185</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">ticketsNavController</string>
+						<reference key="source" ref="163431940"/>
+						<reference key="destination" ref="129528834"/>
+					</object>
+					<int key="connectionID">186</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -620,7 +628,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">183</int>
-						<reference key="object" ref="751810965"/>
+						<reference key="object" ref="163431940"/>
 						<reference key="parent" ref="957960031"/>
 					</object>
 				</object>
@@ -677,7 +685,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIApplication</string>
 					<string>UIResponder</string>
-					<string>{{467, 302}, {320, 480}}</string>
+					<string>{{412, 337}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{0, 365}, {320, 480}}</string>
@@ -748,7 +756,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">185</int>
+			<int key="maxID">186</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -757,8 +765,19 @@
 					<string key="className">BugWatchAppController</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">ticketsViewController</string>
-						<string key="NS.object.0">TicketsViewController</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>ticketDetailsViewController</string>
+							<string>ticketsNavController</string>
+							<string>ticketsViewController</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>TicketDetailsViewController</string>
+							<string>UINavigationController</string>
+							<string>TicketsViewController</string>
+						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -802,6 +821,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/news-feed/NewsFeedViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TicketDetailsViewController</string>
+					<string key="superclassName">UITableViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/tickets/TicketDetailsViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
