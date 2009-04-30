@@ -18,6 +18,7 @@
 		05E6377E0FA8D36500F736A5 /* NSDate+IsToday.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E6377A0FA8D36500F736A5 /* NSDate+IsToday.m */; };
 		05E6377F0FA8D36500F736A5 /* NSDate+StringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */; };
 		05E637F50FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */; };
+		05EFD7540FA91F07001DFCFB /* TableViewCellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -57,6 +58,7 @@
 		05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+StringHelpers.m"; path = "shared/NSDate+StringHelpers.m"; sourceTree = "<group>"; };
 		05E637F30FA8DC4A00F736A5 /* UILabel+DrawingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+DrawingAdditions.h"; path = "shared/UILabel+DrawingAdditions.h"; sourceTree = "<group>"; };
 		05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+DrawingAdditions.m"; path = "shared/UILabel+DrawingAdditions.m"; sourceTree = "<group>"; };
+		05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableViewCellGradient.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -223,6 +225,7 @@
 		91806D8A0F97E72900F08005 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */,
 				919C99710FA2655F002CF095 /* Pages.png */,
 				919C996B0FA25E55002CF095 /* Thumbtack.png */,
 				919C995E0FA25965002CF095 /* Projects.png */,
@@ -296,6 +299,7 @@
 				05E636BE0FA8C11C00F736A5 /* NewsFeedView.xib in Resources */,
 				9100C0840FA8C08F003C2ECF /* TicketsView.xib in Resources */,
 				05E637290FA8C8EB00F736A5 /* NewsFeedTableViewCell.xib in Resources */,
+				05EFD7540FA91F07001DFCFB /* TableViewCellGradient.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

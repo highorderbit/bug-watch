@@ -187,7 +187,7 @@
         @"John A. Debay",
         @"John A. Debay",
         @"Doug Kurth",
-        @"Doug Kurth",
+        @"John A. Debay",
         @"Doug Kurth",
         @"Doug Kurth",
         @"John A. Debay",

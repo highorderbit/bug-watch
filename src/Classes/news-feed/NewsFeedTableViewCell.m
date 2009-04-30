@@ -10,6 +10,7 @@
 
 - (void)setAttributes:(NSDictionary *)attrs;
 
++ (UIColor *)dateLabelColor;
 + (UIColor *)ticketEntityColor;
 + (UIColor *)milestoneEntityColor;
 + (UIColor *)changesetEntityColor;
@@ -40,10 +41,17 @@
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-        // Initialization code
     }
 
     return self;
+}
+
+- (void)awakeFromNib
+{
+    UIImage * backgroundImage =
+        [UIImage imageNamed:@"TableViewCellGradient.png"];
+    self.backgroundView =
+        [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
 }
 
 - (void)layoutSubviews
@@ -74,6 +82,16 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
+
+    if (selected) {
+        authorLabel.textColor = [UIColor whiteColor];
+        pubDateLabel.textColor = [UIColor whiteColor];
+        bodyLabel.textColor = [UIColor whiteColor];
+    } else {
+        authorLabel.textColor = [UIColor blackColor];
+        pubDateLabel.textColor = [[self class] dateLabelColor];
+        bodyLabel.textColor = [UIColor blackColor];
+    }
 }
 
 - (void)setAttributes:(NSDictionary *)attrs
@@ -97,20 +115,19 @@
     return 34.0 + size.height;
 }
 
++ (UIColor *)dateLabelColor
+{
+    return [UIColor colorWithRed:0 green:0.3 blue:0.7 alpha:1.0];
+}
+
 + (UIColor *)ticketEntityColor
 {
-    return [UIColor colorWithRed:0.667
-                           green:0.667
-                            blue:0.667
-                           alpha:1.0];
+    return [UIColor colorWithRed:0.667 green:0.667 blue:0.667 alpha:1.0];
 }
 
 + (UIColor *)milestoneEntityColor
 {
-    return [UIColor colorWithRed:0.533
-                           green:0.067
-                            blue:0.800
-                           alpha:1.0];
+    return [UIColor colorWithRed:0.533 green:0.067 blue:0.8 alpha:1.0];
 }
 
 + (UIColor *)changesetEntityColor
@@ -120,10 +137,7 @@
 
 + (UIColor *)messageEntityColor
 {
-    return [UIColor colorWithRed:1.000
-                           green:0.600
-                            blue:0.133
-                           alpha:1.0];
+    return [UIColor colorWithRed:1.0 green:0.6 blue:0.133 alpha:1.0];
 }
 
 + (UIColor *)colorForEntity:(NSString *)entity
