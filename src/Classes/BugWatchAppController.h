@@ -7,9 +7,11 @@
 #import "TicketCache.h"
 #import "TicketSelectionMgr.h"
 
+@class NewsFeedDisplayMgr, NewsFeedViewController;
+
 @interface BugWatchAppController : NSObject
 {
-    IBOutlet UIViewController * newsFeedViewController;
+    IBOutlet NewsFeedViewController * newsFeedViewController;
     IBOutlet UINavigationController * newsFeedNavController;
 
     IBOutlet TicketsViewController * ticketsViewController;
@@ -28,6 +30,8 @@
     IBOutlet UINavigationController * pagesNavController;
 
     TicketCache * ticketCache;
+
+    NewsFeedDisplayMgr * newsFeedDisplayMgr;
 }
 
 - (void)start;

@@ -3,6 +3,7 @@
 //
 
 #import "NewsFeedTableViewCell.h"
+#import "NewsFeedItem.h"
 #import "NSDate+StringHelpers.h"
 #import "UILabel+DrawingAdditions.h"
 
@@ -24,7 +25,7 @@
 
 @implementation NewsFeedTableViewCell
 
-@synthesize attributes;
+@synthesize newsFeedItem;
 
 - (void)dealloc
 {
@@ -33,7 +34,7 @@
     [bodyLabel release];
     [entityTypeLabel release];
 
-    [attributes release];
+    [newsFeedItem release];
 
     [super dealloc];
 }
@@ -58,14 +59,14 @@
 {
     [super layoutSubviews];
 
-    pubDateLabel.text = [[attributes objectForKey:@"pubDate"] shortDescription];
+    pubDateLabel.text = [newsFeedItem.published shortDescription];
     [pubDateLabel sizeToFit:UILabelSizeToFitAlignmentRight];
 
-    authorLabel.text = [attributes objectForKey:@"author"];
+    authorLabel.text = newsFeedItem.author;
     [authorLabel
         sizeToFitWithinWidth:220.0 - pubDateLabel.frame.size.width - 5.0];
 
-    NSString * body = [attributes objectForKey:@"body"];
+    NSString * body = newsFeedItem.title;
 
     CGFloat bodyHeight = [bodyLabel heightForString:body];
     CGRect bodyLabelFrame = bodyLabel.frame;
@@ -74,7 +75,7 @@
 
     bodyLabel.text = body;
 
-    NSString * type = [attributes objectForKey:@"entityType"];
+    NSString * type = newsFeedItem.type;
     entityTypeLabel.text = type;
     entityTypeLabel.backgroundColor = [[self class] colorForEntity:type];
 }
@@ -94,16 +95,9 @@
     }
 }
 
-- (void)setAttributes:(NSDictionary *)attrs
++ (CGFloat)heightForContent:(NewsFeedItem *)item
 {
-    NSDictionary * tmp = [attrs copy];
-    [attributes release];
-    attributes = tmp;
-}
-
-+ (CGFloat)heightForContent:(NSDictionary *)attrs
-{
-    NSString * body = [attrs objectForKey:@"body"];
+    NSString * body = item.title;
 
     CGSize maxSize = CGSizeMake(211.0, 999999.0);
     UIFont * font = [UIFont systemFontOfSize:14.0];
@@ -142,7 +136,8 @@
 
 + (UIColor *)colorForEntity:(NSString *)entity
 {
-    return [[[self class] entityColorMappings] objectForKey:entity];
+    UIColor * color = [[[self class] entityColorMappings] objectForKey:entity];
+    return color ? color : [[self class] ticketEntityColor];
 }
 
 + (NSDictionary *)entityColorMappings

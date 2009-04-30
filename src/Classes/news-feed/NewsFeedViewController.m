@@ -3,6 +3,7 @@
 //
 
 #import "NewsFeedViewController.h"
+#import "NewsFeedItem.h"
 #import "NewsFeedTableViewCell.h"
 #import "NSDate+LighthouseStringHelpers.h"
 
@@ -13,6 +14,8 @@
 @end
 
 @implementation NewsFeedViewController
+
+@synthesize delegate;
 
 - (void)dealloc
 {
@@ -56,24 +59,6 @@
 }
 */
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:
-    (UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];  // Releases the view if it doesn't have a
-                                      // superview
-
-    // Release anything that's not essential, such as cached data
-}
-
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tv
@@ -84,8 +69,8 @@
 - (CGFloat)tableView:(UITableView *)tv
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary * attrs = [newsItems objectAtIndex:indexPath.row];
-    return [NewsFeedTableViewCell heightForContent:attrs];
+    NewsFeedItem * item = [newsItems objectAtIndex:indexPath.row];
+    return [NewsFeedTableViewCell heightForContent:item];
 }
 
 // Customize the number of rows in the table view.
@@ -114,69 +99,16 @@
         cell = [nib objectAtIndex:0];
     }
 
-    cell.attributes = [newsItems objectAtIndex:indexPath.row];
+    cell.newsFeedItem = [newsItems objectAtIndex:indexPath.row];
 
     return cell;
 }
 
-- (void)          tableView:(UITableView *)tv
+- (void)tableView:(UITableView *)tv
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    // AnotherViewController *anotherViewController =
-    //     [[AnotherViewController alloc]
-    //      initWithNibName:@"AnotherView" bundle:nil];
-    // [self.navigationController pushViewController:anotherViewController];
-    // [anotherViewController release];
+    [delegate userDidSelectNewsItem:[newsItems objectAtIndex:indexPath.row]];
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)        tableView:(UITableView *)tv
-    canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)     tableView:(UITableView *)tv
-    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-     forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView
-         deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-               withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the
-        // array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)     tableView:(UITableView *)tv
-    moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
-           toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)        tableView:(UITableView *)tv
-    canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark Dummy data
 
@@ -212,7 +144,7 @@
         nil
         ];
 
-    NSArray * bodies =
+    NSArray * titles =
         [NSArray arrayWithObjects:
         @"Code Watch: Add followed users to user info view [#231]",
         @"Changeset [33b9d1aafd6c05920cec8a7bf386a5ec7a56c435] by "
@@ -248,18 +180,19 @@
         nil
         ];
 
+
     NSMutableArray * items = [NSMutableArray array];
     for (int i = 0; i < authors.count; ++i) {
-        NSMutableDictionary * attrs = [[NSMutableDictionary alloc] init];
+        NewsFeedItem * item = [[NewsFeedItem alloc] init];
 
-        [attrs setObject:[authors objectAtIndex:i] forKey:@"author"];
-        [attrs setObject:[pubDates objectAtIndex:i] forKey:@"pubDate"];
-        [attrs setObject:[bodies objectAtIndex:i] forKey:@"body"];
-        [attrs setObject:[entityTypes objectAtIndex:i] forKey:@"entityType"];
+        [item setValue:[authors objectAtIndex:i] forKey:@"author"];
+        [item setValue:[pubDates objectAtIndex:i] forKey:@"published"];
+        [item setValue:[titles objectAtIndex:i] forKey:@"title"];
+        [item setValue:[entityTypes objectAtIndex:i] forKey:@"type"];
 
-        [items addObject:attrs];
+        [items addObject:item];
 
-        [attrs release];
+        [item release];
     }
 
     return items;

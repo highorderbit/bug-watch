@@ -4,6 +4,7 @@
 
 #import "BugWatchAppController.h"
 #import "TicketDetailsViewController.h"
+#import "NewsFeedDisplayMgr.h"
 
 @implementation BugWatchAppController
 
@@ -28,6 +29,8 @@
     [pagesNavController release];
 
     [ticketCache release];
+
+    [newsFeedDisplayMgr release];
 
     [super dealloc];
 }
@@ -72,6 +75,10 @@
         navigationController:ticketsNavController
         ticketsViewController:ticketsViewController];
     ticketsViewController.delegate = ticketSelectionMgr;
+
+    newsFeedDisplayMgr =
+        [[NewsFeedDisplayMgr alloc]
+        initWithNewsFeedViewController:newsFeedViewController];
 }
 
 @end

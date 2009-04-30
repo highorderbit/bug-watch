@@ -7,6 +7,7 @@
 @interface NewsFeedItem : NSObject
 {
     NSString * identifier;
+    NSString * type;
     NSString * link;
     NSDate * published;
     NSDate * updated;
@@ -16,6 +17,7 @@
 }
 
 @property (nonatomic, copy, readonly) NSString * identifier;
+@property (nonatomic, copy, readonly) NSString * type;
 @property (nonatomic, copy, readonly) NSString * link;
 @property (nonatomic, copy, readonly) NSDate * published;
 @property (nonatomic, copy, readonly) NSDate * updated;
@@ -23,14 +25,14 @@
 @property (nonatomic, copy, readonly) NSString * title;
 @property (nonatomic, copy, readonly) NSString * content;
 
-+ (id)newsItemWithId:(NSString *)anId link:(NSString *)aLink
-    published:(NSDate *)aPubDate updated:(NSDate *)anUpdatedDate
-    author:(NSString *)anAuthor title:(NSString *)aTitle
-    content:(NSString *)aContent;
++ (id)newsItemWithId:(NSString *)anId type:(NSString *)aType
+    link:(NSString *)aLink published:(NSDate *)aPubDate
+    updated:(NSDate *)anUpdatedDate author:(NSString *)anAuthor
+    title:(NSString *)aTitle content:(NSString *)aContent;
 
-- (id)initWithId:(NSString *)anId link:(NSString *)aLink
-    published:(NSDate *)aPubDate updated:(NSDate *)anUpdatedDate
-    author:(NSString *)anAuthor title:(NSString *)aTitle
-    content:(NSString *)aContent;
+- (id)initWithId:(NSString *)anId type:(NSString *)aType
+    link:(NSString *)aLink published:(NSDate *)aPubDate
+    updated:(NSDate *)anUpdatedDate author:(NSString *)anAuthor
+    title:(NSString *)aTitle content:(NSString *)aContent;
 
 @end
