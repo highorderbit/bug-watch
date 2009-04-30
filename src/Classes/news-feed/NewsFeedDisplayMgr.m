@@ -18,8 +18,6 @@
 
 - (void)dealloc
 {
-    [navigationController release];
-
     [newsFeedViewController release];
     [newsFeedItemViewController release];
 

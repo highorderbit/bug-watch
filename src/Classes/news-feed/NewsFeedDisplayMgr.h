@@ -11,7 +11,6 @@
 {
     UINavigationController * navigationController;
 
-    NewsFeedViewController * newsFeedViewController;
     NewsFeedItemViewController * newsFeedItemViewController;
 }
 
