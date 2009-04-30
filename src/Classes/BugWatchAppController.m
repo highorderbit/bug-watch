@@ -67,11 +67,11 @@
     [ticketCache setTicket:ticket4 forNumber:4];
     // TEMPORARY
 
-    TicketSelectionMgr * ticketSelectionMgr =
-        [[TicketSelectionMgr alloc] initWithTicketCache:ticketCache
+    TicketDisplayMgr * ticketDisplayMgr =
+        [[TicketDisplayMgr alloc] initWithTicketCache:ticketCache
         navigationController:ticketsNavController
         ticketsViewController:ticketsViewController];
-    ticketsViewController.delegate = ticketSelectionMgr;
+    ticketsViewController.delegate = ticketDisplayMgr;
 }
 
 @end

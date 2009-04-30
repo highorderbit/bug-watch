@@ -8,7 +8,7 @@
 #import "TicketsViewController.h"
 #import "TicketDetailsViewController.h"
 
-@interface TicketSelectionMgr : NSObject <TicketsViewControllerDelegate>
+@interface TicketDisplayMgr : NSObject <TicketsViewControllerDelegate>
 {
     TicketCache * ticketCache;
     UINavigationController * navController;

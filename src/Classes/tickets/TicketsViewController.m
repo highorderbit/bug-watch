@@ -43,6 +43,7 @@
 {
     [super viewWillAppear:animated];
     [self updateNavigationBarForNotSearching:animated];
+    [delegate ticketsFilteredByFilterKey:nil];
 }
 
 #pragma mark UITableViewDataSource implementation

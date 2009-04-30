@@ -36,7 +36,7 @@
 		9100C2000FA91FDA003C2ECF /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */; };
 		9100C23F0FA928BD003C2ECF /* UIColor+BugWatchColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */; };
 		913E44A60FAA0F27000EB184 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44A50FAA0F27000EB184 /* BugWatchAppController.m */; };
-		913E44CC0FAA189F000EB184 /* TicketSelectionMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */; };
+		913E44CC0FAA189F000EB184 /* TicketDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44CB0FAA189F000EB184 /* TicketDisplayMgr.m */; };
 		913E44CF0FAA1CF7000EB184 /* TicketCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44CE0FAA1CF7000EB184 /* TicketCache.m */; };
 		913E44F60FAA2858000EB184 /* TicketDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44F50FAA2858000EB184 /* TicketDetailsViewController.m */; };
 		913E45060FAA2C85000EB184 /* TicketDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45040FAA2C85000EB184 /* TicketDetailsView.xib */; };
@@ -105,8 +105,8 @@
 		913E448D0FAA0876000EB184 /* TicketsViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketsViewControllerDelegate.h; path = tickets/TicketsViewControllerDelegate.h; sourceTree = "<group>"; };
 		913E44A40FAA0F27000EB184 /* BugWatchAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugWatchAppController.h; sourceTree = "<group>"; };
 		913E44A50FAA0F27000EB184 /* BugWatchAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugWatchAppController.m; sourceTree = "<group>"; };
-		913E44CA0FAA189F000EB184 /* TicketSelectionMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSelectionMgr.h; path = tickets/TicketSelectionMgr.h; sourceTree = "<group>"; };
-		913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSelectionMgr.m; path = tickets/TicketSelectionMgr.m; sourceTree = "<group>"; };
+		913E44CA0FAA189F000EB184 /* TicketDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDisplayMgr.h; path = tickets/TicketDisplayMgr.h; sourceTree = "<group>"; };
+		913E44CB0FAA189F000EB184 /* TicketDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDisplayMgr.m; path = tickets/TicketDisplayMgr.m; sourceTree = "<group>"; };
 		913E44CD0FAA1CF7000EB184 /* TicketCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketCache.h; path = tickets/TicketCache.h; sourceTree = "<group>"; };
 		913E44CE0FAA1CF7000EB184 /* TicketCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketCache.m; path = tickets/TicketCache.m; sourceTree = "<group>"; };
 		913E44F40FAA2858000EB184 /* TicketDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDetailsViewController.h; path = tickets/TicketDetailsViewController.h; sourceTree = "<group>"; };
@@ -290,8 +290,8 @@
 				9100C1FE0FA91FDA003C2ECF /* TicketTableViewCell.h */,
 				9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */,
 				913E448D0FAA0876000EB184 /* TicketsViewControllerDelegate.h */,
-				913E44CA0FAA189F000EB184 /* TicketSelectionMgr.h */,
-				913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */,
+				913E44CA0FAA189F000EB184 /* TicketDisplayMgr.h */,
+				913E44CB0FAA189F000EB184 /* TicketDisplayMgr.m */,
 				913E44CD0FAA1CF7000EB184 /* TicketCache.h */,
 				913E44CE0FAA1CF7000EB184 /* TicketCache.m */,
 				913E44F40FAA2858000EB184 /* TicketDetailsViewController.h */,
@@ -410,7 +410,7 @@
 				913E44A60FAA0F27000EB184 /* BugWatchAppController.m in Sources */,
 				05EFD8360FA93404001DFCFB /* LighthouseNewsFeedParser.m in Sources */,
 				05EFD88D0FA9405C001DFCFB /* NewsFeedItem.m in Sources */,
-				913E44CC0FAA189F000EB184 /* TicketSelectionMgr.m in Sources */,
+				913E44CC0FAA189F000EB184 /* TicketDisplayMgr.m in Sources */,
 				913E44CF0FAA1CF7000EB184 /* TicketCache.m in Sources */,
 				913E44F60FAA2858000EB184 /* TicketDetailsViewController.m in Sources */,
 			);

@@ -5,7 +5,7 @@
 #import <Foundation/Foundation.h>
 #import "TicketsViewController.h"
 #import "TicketCache.h"
-#import "TicketSelectionMgr.h"
+#import "TicketDisplayMgr.h"
 
 @interface BugWatchAppController : NSObject
 {
