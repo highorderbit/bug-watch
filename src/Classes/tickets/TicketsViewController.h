@@ -9,7 +9,11 @@
     IBOutlet UITextField * searchTextField;
     IBOutlet UIBarButtonItem * cancelButton;
     IBOutlet UIBarButtonItem * addButton;
+    
+    NSArray * tickets;
 }
+
+@property (nonatomic, copy) NSArray * tickets;
 
 - (IBAction)cancelSelected:(id)sender;
 - (IBAction)addSelected:(id)sender;
