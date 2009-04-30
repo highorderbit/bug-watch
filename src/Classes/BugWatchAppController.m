@@ -12,4 +12,8 @@
     [super dealloc];
 }
 
+- (void)start
+{
+}
+
 @end

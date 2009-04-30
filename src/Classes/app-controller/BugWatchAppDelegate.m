@@ -4,17 +4,16 @@
 
 #import "BugWatchAppDelegate.h"
 
-
 @implementation BugWatchAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;
 
-
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
-    
+- (void)applicationDidFinishLaunching:(UIApplication *)application
+{
     // Add the tab bar controller's current view as a subview of the window
     [window addSubview:tabBarController.view];
+    [appController start];
 }
 
 
@@ -30,12 +29,14 @@
 }
 */
 
-
-- (void)dealloc {
+- (void)dealloc
+{
     [tabBarController release];
     [window release];
+    
+    [appController release];
+    
     [super dealloc];
 }
 
 @end
-

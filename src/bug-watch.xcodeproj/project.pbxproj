@@ -36,6 +36,8 @@
 		9100C2000FA91FDA003C2ECF /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */; };
 		9100C23F0FA928BD003C2ECF /* UIColor+BugWatchColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */; };
 		913E44A60FAA0F27000EB184 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44A50FAA0F27000EB184 /* BugWatchAppController.m */; };
+		913E44CC0FAA189F000EB184 /* TicketSelectionMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */; };
+		913E44CF0FAA1CF7000EB184 /* TicketCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44CE0FAA1CF7000EB184 /* TicketCache.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
@@ -101,6 +103,10 @@
 		913E448D0FAA0876000EB184 /* TicketsViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketsViewControllerDelegate.h; path = tickets/TicketsViewControllerDelegate.h; sourceTree = "<group>"; };
 		913E44A40FAA0F27000EB184 /* BugWatchAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugWatchAppController.h; sourceTree = "<group>"; };
 		913E44A50FAA0F27000EB184 /* BugWatchAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugWatchAppController.m; sourceTree = "<group>"; };
+		913E44CA0FAA189F000EB184 /* TicketSelectionMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSelectionMgr.h; path = tickets/TicketSelectionMgr.h; sourceTree = "<group>"; };
+		913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSelectionMgr.m; path = tickets/TicketSelectionMgr.m; sourceTree = "<group>"; };
+		913E44CD0FAA1CF7000EB184 /* TicketCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketCache.h; path = tickets/TicketCache.h; sourceTree = "<group>"; };
+		913E44CE0FAA1CF7000EB184 /* TicketCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketCache.m; path = tickets/TicketCache.m; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
@@ -278,6 +284,10 @@
 				9100C1FE0FA91FDA003C2ECF /* TicketTableViewCell.h */,
 				9100C1FF0FA91FDA003C2ECF /* TicketTableViewCell.m */,
 				913E448D0FAA0876000EB184 /* TicketsViewControllerDelegate.h */,
+				913E44CA0FAA189F000EB184 /* TicketSelectionMgr.h */,
+				913E44CB0FAA189F000EB184 /* TicketSelectionMgr.m */,
+				913E44CD0FAA1CF7000EB184 /* TicketCache.h */,
+				913E44CE0FAA1CF7000EB184 /* TicketCache.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -391,6 +401,8 @@
 				913E44A60FAA0F27000EB184 /* BugWatchAppController.m in Sources */,
 				05EFD8360FA93404001DFCFB /* LighthouseNewsFeedParser.m in Sources */,
 				05EFD88D0FA9405C001DFCFB /* NewsFeedItem.m in Sources */,
+				913E44CC0FAA189F000EB184 /* TicketSelectionMgr.m in Sources */,
+				913E44CF0FAA1CF7000EB184 /* TicketCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

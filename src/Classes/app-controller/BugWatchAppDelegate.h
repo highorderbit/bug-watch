@@ -3,13 +3,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BugWatchAppController.h"
 
-@interface BugWatchAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
-    UIWindow *window;
-    UITabBarController *tabBarController;
+@interface BugWatchAppDelegate :
+    NSObject <UIApplicationDelegate, UITabBarControllerDelegate>
+{
+    UIWindow * window;
+    UITabBarController * tabBarController;
+
+    IBOutlet BugWatchAppController * appController;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) IBOutlet UIWindow * window;
+@property (nonatomic, retain) IBOutlet UITabBarController * tabBarController;
 
 @end

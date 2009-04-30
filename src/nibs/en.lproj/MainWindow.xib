@@ -32,6 +32,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUICustomObject" id="664661524"/>
+			<object class="IBUICustomObject" id="751810965"/>
 			<object class="IBUIWindow" id="380026005">
 				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">1316</int>
@@ -273,7 +274,6 @@
 					<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				</object>
 			</object>
-			<object class="IBUICustomObject" id="536168049"/>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -321,10 +321,18 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">ticketsViewController</string>
-						<reference key="source" ref="536168049"/>
+						<reference key="source" ref="751810965"/>
 						<reference key="destination" ref="360103391"/>
 					</object>
 					<int key="connectionID">184</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">appController</string>
+						<reference key="source" ref="664661524"/>
+						<reference key="destination" ref="751810965"/>
+					</object>
+					<int key="connectionID">185</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -612,7 +620,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">183</int>
-						<reference key="object" ref="536168049"/>
+						<reference key="object" ref="751810965"/>
 						<reference key="parent" ref="957960031"/>
 					</object>
 				</object>
@@ -740,7 +748,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">184</int>
+			<int key="maxID">185</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -764,11 +772,13 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>appController</string>
 							<string>tabBarController</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>BugWatchAppController</string>
 							<string>UITabBarController</string>
 							<string>UIWindow</string>
 						</object>

@@ -10,4 +10,6 @@
     IBOutlet TicketsViewController * ticketsViewController;
 }
 
+- (void)start;
+
 @end
