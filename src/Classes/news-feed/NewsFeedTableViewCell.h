@@ -4,6 +4,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class NewsFeedItem;
+
 @interface NewsFeedTableViewCell : UITableViewCell
 {
     IBOutlet UILabel * authorLabel;
@@ -11,11 +13,11 @@
     IBOutlet UILabel * bodyLabel;
     IBOutlet UILabel * entityTypeLabel;
 
-    NSDictionary * attributes;
+    NewsFeedItem * newsFeedItem;
 }
 
-@property (nonatomic, copy) NSDictionary * attributes;
+@property (nonatomic, copy) NewsFeedItem * newsFeedItem;
 
-+ (CGFloat)heightForContent:(NSDictionary *)attrs;
++ (CGFloat)heightForContent:(NewsFeedItem *)item;
 
 @end

@@ -3,10 +3,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewsFeedViewControllerDelegate.h"
 
 @interface NewsFeedViewController : UITableViewController
 {
+    id<NewsFeedViewControllerDelegate> delegate;
+
     NSMutableArray * newsItems;
 }
+
+@property (nonatomic, assign) id<NewsFeedViewControllerDelegate> delegate;
 
 @end

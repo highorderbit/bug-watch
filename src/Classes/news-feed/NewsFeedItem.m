@@ -6,11 +6,12 @@
 
 @implementation NewsFeedItem
 
-@synthesize identifier, link, published, updated, author, title, content;
+@synthesize identifier, type, link, published, updated, author, title, content;
 
 - (void)dealloc
 {
     [identifier release];
+    [type release];
     [link release];
     [published release];
     [updated release];
@@ -21,23 +22,24 @@
     [super dealloc];
 }
 
-+ (id)newsItemWithId:(NSString *)anId link:(NSString *)aLink
-    published:(NSDate *)aPubDate updated:(NSDate *)anUpdatedDate
-    author:(NSString *)anAuthor title:(NSString *)aTitle
-    content:(NSString *)someContent
++ (id)newsItemWithId:(NSString *)anId type:(NSString *)aType
+    link:(NSString *)aLink published:(NSDate *)aPubDate
+    updated:(NSDate *)anUpdatedDate author:(NSString *)anAuthor
+    title:(NSString *)aTitle content:(NSString *)someContent
 {
-    return [[[[self class] alloc] initWithId:anId link:aLink published:aPubDate
-        updated:anUpdatedDate author:anAuthor title:aTitle content:someContent]
-        autorelease];
+    return [[[[self class] alloc] initWithId:anId type:aType link:aLink
+        published:aPubDate updated:anUpdatedDate author:anAuthor title:aTitle
+        content:someContent] autorelease];
 }
 
-- (id)initWithId:(NSString *)anId link:(NSString *)aLink
+- (id)initWithId:(NSString *)anId type:(NSString *)aType link:(NSString *)aLink
     published:(NSDate *)aPubDate updated:(NSDate *)anUpdatedDate
     author:(NSString *)anAuthor title:(NSString *)aTitle
     content:(NSString *)someContent
 {
     if (self = [super init]) {
         identifier = [anId copy];
+        type = [aType copy];
         link = [aLink copy];
         published = [aPubDate copy];
         updated = [anUpdatedDate copy];
@@ -56,7 +58,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"'%@': '%@'", author, title];
+    return [NSString stringWithFormat:@"'%@': '%@': '%@'", type, author, title];
 }
 
 @end
