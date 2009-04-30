@@ -20,5 +20,6 @@
 - (void)setLastUpdatedDate:(NSDate *)lastUpdatedDate;
 - (void)setDescription:(NSString *)description;
 - (void)setAssignedToName:(NSString *)assignedToName;
++ (CGFloat)heightForContent:(NSString *)description;
 
 @end

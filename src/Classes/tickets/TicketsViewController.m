@@ -122,10 +122,12 @@
 
 #pragma mark UITableViewDelegate implementation
 
-- (CGFloat)tableView:(UITableView *)tableView
+- (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 108;
+    Ticket * ticket = [tickets objectAtIndex:indexPath.row];
+    
+    return [TicketTableViewCell heightForContent:ticket.description];
 }
 
 #pragma mark UITextFieldDelegate implementation

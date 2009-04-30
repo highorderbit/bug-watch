@@ -6,6 +6,7 @@
 #import "Ticket.h"
 #import "NSDate+StringHelpers.h"
 #import "UIColor+BugWatchColors.h"
+#import "UILabel+DrawingAdditions.h"
 
 @implementation TicketTableViewCell
 
@@ -21,13 +22,12 @@
     [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
+- (void)awakeFromNib
 {
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-        // Initialization code
-    }
-
-    return self;
+    UIImage * backgroundImage =
+        [UIImage imageNamed:@"TableViewCellGradient.png"];
+    self.backgroundView =
+        [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -35,6 +35,21 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    CGFloat descriptionHeight =
+        [descriptionLabel heightForString:descriptionLabel.text];
+    CGRect descriptionLabelFrame = descriptionLabel.frame;
+    descriptionLabelFrame.size.height = descriptionHeight;
+    descriptionLabel.frame = descriptionLabelFrame;
+    
+    CGRect assignedToLabelFrame = assignedToLabel.frame;
+    assignedToLabelFrame.origin.y = descriptionHeight + 6;
+    assignedToLabel.frame = assignedToLabelFrame;
 }
 
 #pragma mark TicketTableViewCell implementation
@@ -65,6 +80,19 @@
 {
     assignedToLabel.text =
         [NSString stringWithFormat:@"Assigned to: %@", assignedToName];
+}
+
++ (CGFloat)heightForContent:(NSString *)description
+{
+    CGSize maxSize = CGSizeMake(207, 999999.0);
+    UIFont * font = [UIFont systemFontOfSize:14.0];
+    UILineBreakMode mode = UILineBreakModeWordWrap;
+
+    CGSize size =
+        [description sizeWithFont:font constrainedToSize:maxSize
+        lineBreakMode:mode];
+
+    return 34.0 + size.height;
 }
 
 @end
