@@ -19,6 +19,9 @@
 		05E6377F0FA8D36500F736A5 /* NSDate+StringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */; };
 		05E637F50FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */; };
 		05EFD7540FA91F07001DFCFB /* TableViewCellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */; };
+		05EFD7C40FA924F6001DFCFB /* WebServiceResponseDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7C30FA924F6001DFCFB /* WebServiceResponseDispatcher.m */; };
+		05EFD7E30FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */; };
+		05EFD7F80FA92B4D001DFCFB /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7F70FA92B4D001DFCFB /* LighthouseNewsFeed.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -59,6 +62,12 @@
 		05E637F30FA8DC4A00F736A5 /* UILabel+DrawingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+DrawingAdditions.h"; path = "shared/UILabel+DrawingAdditions.h"; sourceTree = "<group>"; };
 		05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+DrawingAdditions.m"; path = "shared/UILabel+DrawingAdditions.m"; sourceTree = "<group>"; };
 		05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableViewCellGradient.png; sourceTree = "<group>"; };
+		05EFD7C20FA924F6001DFCFB /* WebServiceResponseDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceResponseDispatcher.h; path = "web-service/WebServiceResponseDispatcher.h"; sourceTree = "<group>"; };
+		05EFD7C30FA924F6001DFCFB /* WebServiceResponseDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebServiceResponseDispatcher.m; path = "web-service/WebServiceResponseDispatcher.m"; sourceTree = "<group>"; };
+		05EFD7E10FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+NonRetainedKeyAdditions.h"; path = "web-service/NSDictionary+NonRetainedKeyAdditions.h"; sourceTree = "<group>"; };
+		05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+NonRetainedKeyAdditions.m"; path = "web-service/NSDictionary+NonRetainedKeyAdditions.m"; sourceTree = "<group>"; };
+		05EFD7F60FA92B4D001DFCFB /* LighthouseNewsFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeed.h; path = lighthouse/LighthouseNewsFeed.h; sourceTree = "<group>"; };
+		05EFD7F70FA92B4D001DFCFB /* LighthouseNewsFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseNewsFeed.m; path = lighthouse/LighthouseNewsFeed.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -106,11 +115,15 @@
 		05C870720FA77FCC0069BC72 /* web-service */ = {
 			isa = PBXGroup;
 			children = (
-				05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */,
-				05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */,
 				05C870760FA77FD80069BC72 /* WebServiceApi.h */,
 				05C870770FA77FD80069BC72 /* WebServiceApi.m */,
 				05C870780FA77FD80069BC72 /* WebServiceApiDelegate.h */,
+				05EFD7C20FA924F6001DFCFB /* WebServiceResponseDispatcher.h */,
+				05EFD7C30FA924F6001DFCFB /* WebServiceResponseDispatcher.m */,
+				05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */,
+				05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */,
+				05EFD7E10FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.h */,
+				05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */,
 			);
 			name = "web-service";
 			sourceTree = "<group>";
@@ -141,14 +154,24 @@
 			name = shared;
 			sourceTree = "<group>";
 		};
+		05EFD7C10FA924D8001DFCFB /* lighthouse */ = {
+			isa = PBXGroup;
+			children = (
+				05EFD7F60FA92B4D001DFCFB /* LighthouseNewsFeed.h */,
+				05EFD7F70FA92B4D001DFCFB /* LighthouseNewsFeed.m */,
+			);
+			name = lighthouse;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				05C870670FA77EDC0069BC72 /* app-controller */,
 				05E636C00FA8C17D00F736A5 /* news-feed */,
+				9100C09E0FA8C87D003C2ECF /* tickets */,
+				05EFD7C10FA924D8001DFCFB /* lighthouse */,
 				05C870720FA77FCC0069BC72 /* web-service */,
 				05E637760FA8D35100F736A5 /* shared */,
-				9100C09E0FA8C87D003C2ECF /* tickets */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -321,6 +344,9 @@
 				05E6377F0FA8D36500F736A5 /* NSDate+StringHelpers.m in Sources */,
 				9100C09D0FA8C876003C2ECF /* TicketsViewController.m in Sources */,
 				05E637F50FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m in Sources */,
+				05EFD7C40FA924F6001DFCFB /* WebServiceResponseDispatcher.m in Sources */,
+				05EFD7E30FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m in Sources */,
+				05EFD7F80FA92B4D001DFCFB /* LighthouseNewsFeed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
