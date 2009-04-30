@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>tag:highorderbit.lighthouseapp.com,2009-03-10:/events</id>
+  <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com"/>
+  <link type="application/atom+xml" rel="self" href="http://highorderbit.lighthouseapp.com/events.atom"/>
+  <title>highorderbit Events</title>
+  <updated>2009-04-27T18:37:32Z</updated>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3214403</id>
+    <published>2009-04-28T10:22:06-06:00</published>
+    <updated>2009-04-28T10:22:06-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/231"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Add followed users to user info view [#231]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;open&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3214398</id>
+    <published>2009-04-28T10:21:54-06:00</published>
+    <updated>2009-04-28T10:21:54-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/232"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Add following to user info view [#232]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3214343</id>
+    <published>2009-04-28T10:16:53-06:00</published>
+    <updated>2009-04-28T10:16:53-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/234"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Opening user location in maps doesn't work [#234]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; Assigned user changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;Doug Kurth&amp;#148;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3214338</id>
+    <published>2009-04-28T10:16:32-06:00</published>
+    <updated>2009-04-28T10:16:32-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/233"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Set background color for modal views [#233]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3213758</id>
+    <published>2009-04-28T09:38:58-06:00</published>
+    <updated>2009-04-28T09:38:58-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/233"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Set background color for modal views [#233]</title>
+    <content type="html">&lt;div&gt;&lt;p&gt;Check views without data, too.&lt;/p&gt;&lt;/div&gt;</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3208577</id>
+    <published>2009-04-27T23:24:43-06:00</published>
+    <updated>2009-04-27T23:24:43-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/235"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Better distinguish private and public repo icons [#235]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3208341</id>
+    <published>2009-04-27T22:30:53-06:00</published>
+    <updated>2009-04-27T22:30:53-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/235"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Better distinguish private and public repo icons [#235]</title>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3208338</id>
+    <published>2009-04-27T22:29:56-06:00</published>
+    <updated>2009-04-27T22:29:56-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/234"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Opening user location in maps doesn't work [#234]</title>
+    <content type="html">&lt;div&gt;&lt;p&gt;Turns out this isn't actually working... Maps opens, but the
+query isn't set.&lt;/p&gt;&lt;/div&gt;</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3208332</id>
+    <published>2009-04-27T22:28:42-06:00</published>
+    <updated>2009-04-27T22:28:43-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/228"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Add privacy icon to repo name cells [#228]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3208027</id>
+    <published>2009-04-27T20:59:40-06:00</published>
+    <updated>2009-04-27T20:59:40-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/233"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Set background color for modal views [#233]</title>
+    <content type="html">&lt;div&gt;&lt;ul&gt;
+&lt;li&gt;Adding a favorite&lt;/li&gt;
+&lt;li&gt;Logging in&lt;/li&gt;
+&lt;li&gt;Adding a contact?&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3207507</id>
+    <published>2009-04-27T19:39:20-06:00</published>
+    <updated>2009-04-27T19:39:20-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/225"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Add disclosure indicators to news feed [#225]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; Milestone changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;1.2.0&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;1.1.1&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3206076</id>
+    <published>2009-04-27T16:53:49-06:00</published>
+    <updated>2009-04-27T16:53:49-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/229"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Make location cell clicks in user info view open maps [#229]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3205582</id>
+    <published>2009-04-27T16:14:38-06:00</published>
+    <updated>2009-04-27T16:14:38-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/227"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Make email address in info view a link [#227]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3205556</id>
+    <published>2009-04-27T16:13:07-06:00</published>
+    <updated>2009-04-27T16:13:07-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/232"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Add following to user info view [#232]</title>
+    <content type="html">&lt;div&gt;&lt;p&gt;For consistency.&lt;/p&gt;&lt;/div&gt;</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3205543</id>
+    <published>2009-04-27T16:12:27-06:00</published>
+    <updated>2009-04-27T16:12:28-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/231"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Add followed users to user info view [#231]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; Assigned user changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;John A. Debay&amp;#148;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&amp;#x2192; Tag changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;userview&amp;#148;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;open&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3205360</id>
+    <published>2009-04-27T15:57:17-06:00</published>
+    <updated>2009-04-27T15:57:18-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/230"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Support followed users in GitHub service [#230]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3204974</id>
+    <published>2009-04-27T15:29:33-06:00</published>
+    <updated>2009-04-27T15:29:33-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/231"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Add followed users to user info view [#231]</title>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3204965</id>
+    <published>2009-04-27T15:28:59-06:00</published>
+    <updated>2009-04-27T15:28:59-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/230"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Support followed users in GitHub service [#230]</title>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3204915</id>
+    <published>2009-04-27T15:26:49-06:00</published>
+    <updated>2009-04-27T15:26:50-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/224"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Implement user search in front-end [#224]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; Assigned user changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;Doug Kurth&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;John A. Debay&amp;#148;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&amp;#x2192; Tag changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;searchview&amp;#148;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3204907</id>
+    <published>2009-04-27T15:26:08-06:00</published>
+    <updated>2009-04-27T15:26:08-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/223"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Implement user search in GitHub Service [#223]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; Tag changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;github search&amp;#148;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3204833</id>
+    <published>2009-04-27T15:23:01-06:00</published>
+    <updated>2009-04-27T15:23:01-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/229"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Make location cell clicks in user info view open maps [#229]</title>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3204499</id>
+    <published>2009-04-27T14:59:27-06:00</published>
+    <updated>2009-04-27T14:59:27-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/226"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Change striped backgrounds to blue color used in repo info header [#226]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3203013</id>
+    <published>2009-04-27T13:14:25-06:00</published>
+    <updated>2009-04-27T13:14:25-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/225"/>
+    <author>
+      <name>John A. Debay</name>
+    </author>
+    <title type="html">Code Watch: Add disclosure indicators to news feed [#225]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; Tag changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;bug newsfeed&amp;#148;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&amp;#x2192; State changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;new&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;resolved&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3202921</id>
+    <published>2009-04-27T13:09:02-06:00</published>
+    <updated>2009-04-27T13:09:02-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/225"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Add disclosure indicators to news feed [#225]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; Milestone changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;1.1.1&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;1.2.0&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3202372</id>
+    <published>2009-04-27T12:45:57-06:00</published>
+    <updated>2009-04-27T12:45:57-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/228"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Add privacy icon to repo name cells [#228]</title>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3202326</id>
+    <published>2009-04-27T12:43:19-06:00</published>
+    <updated>2009-04-27T12:43:19-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/227"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Make email address in info view a link [#227]</title>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3202296</id>
+    <published>2009-04-27T12:41:24-06:00</published>
+    <updated>2009-04-27T12:41:24-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/226"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Change striped backgrounds to blue color used in repo info header [#226]</title>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3202281</id>
+    <published>2009-04-27T12:40:20-06:00</published>
+    <updated>2009-04-27T12:40:20-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/225"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Add disclosure indicators to news feed [#225]</title>
+    <content type="html">&lt;li&gt;&amp;#x2192; Milestone changed from &lt;em class=&quot;change&quot;&gt;&amp;#147;1.2.0&amp;#148;&lt;/em&gt; to &lt;em class=&quot;change&quot;&gt;&amp;#147;1.1.1&amp;#148;&lt;/em&gt;&lt;/li&gt;
+</content>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3202274</id>
+    <published>2009-04-27T12:39:58-06:00</published>
+    <updated>2009-04-27T19:39:19-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/milestones/38302-111"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">[Milestone] Code Watch: 1.1.1</title>
+  </entry>
+  <entry>
+    <id>tag:highorderbit.lighthouseapp.com,2009-03-10:Event/3202239</id>
+    <published>2009-04-27T12:37:32-06:00</published>
+    <updated>2009-04-27T12:37:32-06:00</updated>
+    <link type="text/html" rel="alternate" href="http://highorderbit.lighthouseapp.com/projects/27400/tickets/225"/>
+    <author>
+      <name>Doug Kurth</name>
+    </author>
+    <title type="html">Code Watch: Add disclosure indicators to news feed [#225]</title>
+  </entry>
+</feed>

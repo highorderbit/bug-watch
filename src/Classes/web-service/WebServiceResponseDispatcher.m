@@ -23,7 +23,7 @@
 }
 
 - (void)request:(NSURLRequest *)request isHandledBySelector:(SEL)selector
-     target:(id)target object:(id)object
+     target:(id)target object:(id<NSObject>)object
 {
     NSMethodSignature * sig = [target methodSignatureForSelector:selector];
     NSInvocation * inv = [NSInvocation invocationWithMethodSignature:sig];
@@ -31,7 +31,7 @@
     [inv setTarget:target];
     [inv setSelector:selector];
     if (object)
-        [inv setArgument:object atIndex:4];
+        [inv setArgument:&object atIndex:4];
     [inv retainArguments];
 
     [invocations setObject:inv forNonRetainedKey:request];
