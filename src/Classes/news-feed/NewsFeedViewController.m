@@ -6,10 +6,6 @@
 #import "NewsFeedItem.h"
 #import "NewsFeedTableViewCell.h"
 
-@interface NewsFeedViewController (Private)
-
-@end
-
 @implementation NewsFeedViewController
 
 @synthesize delegate, newsItems;
@@ -35,27 +31,6 @@
 
     [delegate viewWillAppear];
 }
-
-/*
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-*/
-
-/*
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-*/
-
-/*
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
-*/
 
 #pragma mark Table view methods
 
