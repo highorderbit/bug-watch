@@ -15,6 +15,8 @@
 + (UIColor *)bugWatchOpenColor;
 + (UIColor *)bugWatchHoldColor;
 + (UIColor *)bugWatchInvalidColor;
++ (UIColor *)bugWatchRoundedRectBackgroundColor;
++ (UIColor *)bugWatchSelectedCellColor;
 
 + (UIColor *)bugWatchColorForState:(NSUInteger)state;
 
