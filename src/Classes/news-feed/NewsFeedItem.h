@@ -35,4 +35,8 @@
     updated:(NSDate *)anUpdatedDate author:(NSString *)anAuthor
     title:(NSString *)aTitle content:(NSString *)aContent;
 
+#pragma mark Dummy data
+
++ (NSArray *)dummyData;
+
 @end
