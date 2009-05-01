@@ -5,6 +5,8 @@
 #import "BugWatchAppController.h"
 #import "TicketDetailsViewController.h"
 #import "NewsFeedDisplayMgr.h"
+#import "NewsFeedDataSource.h"
+#import "LighthouseNewsFeedService.h"
 
 @implementation BugWatchAppController
 
@@ -76,9 +78,18 @@
         ticketsViewController:ticketsViewController];
     ticketsViewController.delegate = ticketSelectionMgr;
 
+    // Note: this instantiation/initialization is temporary
+    LighthouseNewsFeedService * newsFeedService =
+        [[[LighthouseNewsFeedService alloc] initWithBaseUrlString:
+        @"http://highorderbit.lighthouseapp.com/events.atom"] autorelease];
+    NewsFeedDataSource * newsFeedDataSource =
+        [[[NewsFeedDataSource alloc]
+        initWithNewsFeedService:newsFeedService] autorelease];
+
     newsFeedDisplayMgr =
         [[NewsFeedDisplayMgr alloc]
-        initWithNewsFeedViewController:newsFeedViewController];
+        initWithNewsFeedViewController:newsFeedViewController
+                    newsFeedDataSource:newsFeedDataSource];
 }
 
 @end

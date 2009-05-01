@@ -8,13 +8,11 @@
 
 @interface NewsFeedViewController (Private)
 
-+ (NSArray *)dummyData;
-
 @end
 
 @implementation NewsFeedViewController
 
-@synthesize delegate;
+@synthesize delegate, newsItems;
 
 - (void)dealloc
 {
@@ -27,15 +25,16 @@
 {
     [super viewDidLoad];
 
-    newsItems = [[NewsFeedItem dummyData] retain];
+    newsItems = nil;
+    [delegate viewDidLoad];
 }
 
-/*
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    [delegate viewWillAppear];
 }
-*/
 
 /*
 - (void)viewDidAppear:(BOOL)animated
@@ -107,6 +106,17 @@
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [delegate userDidSelectNewsItem:[newsItems objectAtIndex:indexPath.row]];
+}
+
+#pragma mark Accessors
+
+- (void)setNewsItems:(NSArray *)items
+{
+    NSArray * tmp = [items copy];
+    [newsItems release];
+    newsItems = tmp;
+
+    [self.tableView reloadData];
 }
 
 @end

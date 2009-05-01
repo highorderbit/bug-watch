@@ -10,6 +10,8 @@
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
 		055212970FAA59B800626049 /* NewsFeedItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055212950FAA59B800626049 /* NewsFeedItemView.xib */; };
+		0552130D0FAA757300626049 /* NewsFeedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552130C0FAA757300626049 /* NewsFeedDataSource.m */; };
+		055213100FAA766500626049 /* LighthouseNewsFeedService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552130F0FAA766500626049 /* LighthouseNewsFeedService.m */; };
 		05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */; };
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
@@ -60,6 +62,12 @@
 		055212920FAA599600626049 /* NewsFeedItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedItemViewController.h; path = "news-feed/NewsFeedItemViewController.h"; sourceTree = "<group>"; };
 		055212930FAA599600626049 /* NewsFeedItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedItemViewController.m; path = "news-feed/NewsFeedItemViewController.m"; sourceTree = "<group>"; };
 		055212960FAA59B800626049 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewsFeedItemView.xib; sourceTree = "<group>"; };
+		0552130B0FAA757300626049 /* NewsFeedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDataSource.h; path = "news-feed/NewsFeedDataSource.h"; sourceTree = "<group>"; };
+		0552130C0FAA757300626049 /* NewsFeedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDataSource.m; path = "news-feed/NewsFeedDataSource.m"; sourceTree = "<group>"; };
+		0552130E0FAA766500626049 /* LighthouseNewsFeedService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeedService.h; path = lighthouse/LighthouseNewsFeedService.h; sourceTree = "<group>"; };
+		0552130F0FAA766500626049 /* LighthouseNewsFeedService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseNewsFeedService.m; path = lighthouse/LighthouseNewsFeedService.m; sourceTree = "<group>"; };
+		055213110FAA7BC800626049 /* LighthouseNewsFeedServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeedServiceDelegate.h; path = lighthouse/LighthouseNewsFeedServiceDelegate.h; sourceTree = "<group>"; };
+		055213120FAA7CED00626049 /* NewsFeedDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDataSourceDelegate.h; path = "news-feed/NewsFeedDataSourceDelegate.h"; sourceTree = "<group>"; };
 		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppDelegate.h; path = "app-controller/BugWatchAppDelegate.h"; sourceTree = "<group>"; };
 		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppDelegate.m; path = "app-controller/BugWatchAppDelegate.m"; sourceTree = "<group>"; };
 		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+WebServiceApiAdditions.h"; path = "web-service/NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
@@ -186,6 +194,9 @@
 				05E6372F0FA8CD2C00F736A5 /* NewsFeedTableViewCell.m */,
 				055212920FAA599600626049 /* NewsFeedItemViewController.h */,
 				055212930FAA599600626049 /* NewsFeedItemViewController.m */,
+				0552130B0FAA757300626049 /* NewsFeedDataSource.h */,
+				0552130C0FAA757300626049 /* NewsFeedDataSource.m */,
+				055213120FAA7CED00626049 /* NewsFeedDataSourceDelegate.h */,
 			);
 			name = "news-feed";
 			sourceTree = "<group>";
@@ -215,6 +226,9 @@
 				05EFD8340FA93404001DFCFB /* LighthouseNewsFeedParser.h */,
 				05EFD8350FA93404001DFCFB /* LighthouseNewsFeedParser.m */,
 				05EFD8400FA937BD001DFCFB /* LighthouseNewsFeedDelegate.h */,
+				0552130E0FAA766500626049 /* LighthouseNewsFeedService.h */,
+				0552130F0FAA766500626049 /* LighthouseNewsFeedService.m */,
+				055213110FAA7BC800626049 /* LighthouseNewsFeedServiceDelegate.h */,
 			);
 			name = lighthouse;
 			sourceTree = "<group>";
@@ -431,6 +445,8 @@
 				913E44F60FAA2858000EB184 /* TicketDetailsViewController.m in Sources */,
 				0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */,
 				055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */,
+				0552130D0FAA757300626049 /* NewsFeedDataSource.m in Sources */,
+				055213100FAA766500626049 /* LighthouseNewsFeedService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

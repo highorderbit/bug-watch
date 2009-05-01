@@ -13,5 +13,6 @@
 }
 
 @property (nonatomic, assign) id<NewsFeedViewControllerDelegate> delegate;
+@property (nonatomic, copy) NSArray * newsItems;
 
 @end
