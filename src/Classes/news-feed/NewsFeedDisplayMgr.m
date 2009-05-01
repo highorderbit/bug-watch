@@ -48,11 +48,17 @@
         networkAwareViewController.targetViewController =
             newsFeedViewController;
 
-        //newsFeedViewController = [navc.targetViewController retain];
-        //newsFeedViewController.delegate = self;
-
         newsFeedDataSource = [dataSource retain];
         newsFeedDataSource.delegate = self;
+
+        UIBarButtonItem * refreshButton =
+            [[UIBarButtonItem alloc]
+            initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+            target:self
+            action:@selector(userDidRequestRefresh)];
+        networkAwareViewController.navigationItem.rightBarButtonItem =
+            refreshButton;
+        [refreshButton release];
     }
 
     return self;
@@ -73,30 +79,23 @@
         [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
     else
         [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
-
-    //[networkAwareViewController updateView];
 }
 
 #pragma mark NewsFeedViewControllerDelegate implementation
 
-- (void)viewDidLoad
-{
-}
-
-- (void)viewWillAppear
-{
-}
-
 - (void)userDidSelectNewsItem:(NewsFeedItem *)item
 {
     NSLog(@"The user has selected an item: '%@'.", item);
-    [newsFeedViewController.navigationController
+    [networkAwareViewController.navigationController
         pushViewController:self.newsFeedItemViewController animated:YES];
 }
+
+#pragma mark Handling a refresh
 
 - (void)userDidRequestRefresh
 {
     [newsFeedDataSource refreshNewsFeed];
+    [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
 }
 
 #pragma mark NewsFeedDataSourceDelegate implementation
@@ -108,7 +107,6 @@
 
     [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
     [networkAwareViewController setCachedDataAvailable:YES];
-    //[networkAwareViewController updateView];
 }
 
 #pragma mark Accessors

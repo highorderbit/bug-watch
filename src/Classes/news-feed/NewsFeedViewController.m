@@ -22,16 +22,11 @@
     [super viewDidLoad];
 
     newsItems = nil;
-    [delegate viewDidLoad];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    NSLog(@"News feed view controller will appear.");
-
-    [delegate viewWillAppear];
 }
 
 #pragma mark Table view methods
