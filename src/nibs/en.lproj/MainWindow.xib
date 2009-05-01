@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="129"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -57,7 +56,6 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Bug.png</string>
 						</object>
-						<reference key="IBUITabBar"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="1034742383"/>
 					<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -73,13 +71,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="IBUIViewController" id="360103391">
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="45198810">
-								<reference key="IBUINavigationBar"/>
 								<string key="IBUITitle">Tickets</string>
 								<object class="IBUITextField" key="IBUITitleView" id="788708081">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">292</int>
 									<string key="NSFrame">{{5, 7}, {310, 31}}</string>
-									<reference key="NSSuperview"/>
 									<bool key="IBUIOpaque">NO</bool>
 									<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 									<int key="IBUIContentVerticalAlignment">0</int>
@@ -119,7 +115,6 @@
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">HomeIcon.png</string>
 							</object>
-							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="1034742383"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -154,7 +149,6 @@
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">Projects.png</string>
 							</object>
-							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="1034742383"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -183,7 +177,6 @@
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">Calendar.png</string>
 							</object>
-							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="1034742383"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -212,7 +205,6 @@
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">Thumbtack.png</string>
 							</object>
-							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="1034742383"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -241,7 +233,6 @@
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">Pages.png</string>
 							</object>
-							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="1034742383"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -353,14 +344,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">newsFeedViewController</string>
-						<reference key="source" ref="127522796"/>
-						<reference key="destination" ref="78905859"/>
-					</object>
-					<int key="connectionID">188</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">projectsNavController</string>
 						<reference key="source" ref="127522796"/>
 						<reference key="destination" ref="205855552"/>
@@ -422,6 +405,14 @@
 						<reference key="destination" ref="53924193"/>
 					</object>
 					<int key="connectionID">196</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">newsFeedNetworkAwareViewController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="78905859"/>
+					</object>
+					<int key="connectionID">197</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -771,7 +762,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{0, 365}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>NewsFeedViewController</string>
+					<string>NetworkAwareViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -837,7 +828,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">196</int>
+			<int key="maxID">197</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -854,7 +845,7 @@
 							<string>milestonesNavController</string>
 							<string>milestonesViewController</string>
 							<string>newsFeedNavController</string>
-							<string>newsFeedViewController</string>
+							<string>newsFeedNetworkAwareViewController</string>
 							<string>pagesNavController</string>
 							<string>pagesViewController</string>
 							<string>projectsNavController</string>
@@ -869,7 +860,7 @@
 							<string>UINavigationController</string>
 							<string>UIViewController</string>
 							<string>UINavigationController</string>
-							<string>UIViewController</string>
+							<string>NetworkAwareViewController</string>
 							<string>UINavigationController</string>
 							<string>UIViewController</string>
 							<string>UINavigationController</string>
@@ -915,11 +906,24 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">NewsFeedViewController</string>
-					<string key="superclassName">UITableViewController</string>
+					<string key="className">NetworkAwareViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>delegate</string>
+							<string>targetViewController</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSObject</string>
+							<string>UIViewController</string>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/news-feed/NewsFeedViewController.h</string>
+						<string key="minorKey">Classes/shared/NetworkAwareViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

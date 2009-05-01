@@ -4,6 +4,7 @@
 
 #import "NewsFeedDataSource.h"
 #import "LighthouseNewsFeedService.h"
+#import "NewsFeedItem.h"  // delete when not returning dummy data
 
 @interface NewsFeedDataSource (Private)
 
@@ -30,7 +31,7 @@
         service = [aService retain];
         service.delegate = self;
 
-        cache = nil;
+        cache = [[NewsFeedItem dummyData] retain];
         needsUpdating = YES;
     }
 

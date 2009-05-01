@@ -29,6 +29,8 @@
 {
     [super viewWillAppear:animated];
 
+    NSLog(@"News feed view controller will appear.");
+
     [delegate viewWillAppear];
 }
 

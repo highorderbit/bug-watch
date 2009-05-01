@@ -5,13 +5,18 @@
 #import <Foundation/Foundation.h>
 #import "NewsFeedDataSourceDelegate.h"
 #import "NewsFeedViewControllerDelegate.h"
+#import "NetworkAwareViewControllerDelegate.h"
 
 @class NewsFeedViewController, NewsFeedItemViewController;
 @class NewsFeedDataSource;
+@class NetworkAwareViewController;
 
 @interface NewsFeedDisplayMgr :
-    NSObject <NewsFeedViewControllerDelegate, NewsFeedDataSourceDelegate>
+    NSObject <NewsFeedViewControllerDelegate, NewsFeedDataSourceDelegate,
+    NetworkAwareViewControllerDelegate>
 {
+    NetworkAwareViewController * networkAwareViewController;
+
     NewsFeedViewController * newsFeedViewController;
     NewsFeedItemViewController * newsFeedItemViewController;
 
@@ -20,7 +25,7 @@
 
 #pragma mark Initialization
 
-- (id)initWithNewsFeedViewController:(NewsFeedViewController *)controller
+- (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
                   newsFeedDataSource:(NewsFeedDataSource *)dataSource;
 
 @end

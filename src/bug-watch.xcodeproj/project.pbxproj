@@ -14,6 +14,9 @@
 		055213100FAA766500626049 /* LighthouseNewsFeedService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552130F0FAA766500626049 /* LighthouseNewsFeedService.m */; };
 		055213760FAB55A900626049 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 055213750FAB55A900626049 /* RegexKitLite.m */; };
 		055213910FAB57CB00626049 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0552138F0FAB57CB00626049 /* Localizable.strings */; };
+		055214010FAB707D00626049 /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055213FF0FAB707D00626049 /* NoDataView.xib */; };
+		055214070FAB709600626049 /* NetworkAwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055214030FAB709600626049 /* NetworkAwareViewController.m */; };
+		055214080FAB709600626049 /* NoDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055214060FAB709600626049 /* NoDataViewController.m */; };
 		05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */; };
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
@@ -73,6 +76,12 @@
 		055213740FAB55A900626049 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		055213750FAB55A900626049 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		055213900FAB57CB00626049 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = strings/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		055214000FAB707D00626049 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NoDataView.xib; sourceTree = "<group>"; };
+		055214020FAB709600626049 /* NetworkAwareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkAwareViewController.h; path = shared/NetworkAwareViewController.h; sourceTree = "<group>"; };
+		055214030FAB709600626049 /* NetworkAwareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkAwareViewController.m; path = shared/NetworkAwareViewController.m; sourceTree = "<group>"; };
+		055214040FAB709600626049 /* NetworkAwareViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkAwareViewControllerDelegate.h; path = shared/NetworkAwareViewControllerDelegate.h; sourceTree = "<group>"; };
+		055214050FAB709600626049 /* NoDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoDataViewController.h; path = shared/NoDataViewController.h; sourceTree = "<group>"; };
+		055214060FAB709600626049 /* NoDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoDataViewController.m; path = shared/NoDataViewController.m; sourceTree = "<group>"; };
 		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppDelegate.h; path = "app-controller/BugWatchAppDelegate.h"; sourceTree = "<group>"; };
 		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppDelegate.m; path = "app-controller/BugWatchAppDelegate.m"; sourceTree = "<group>"; };
 		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+WebServiceApiAdditions.h"; path = "web-service/NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
@@ -235,6 +244,11 @@
 		05E637760FA8D35100F736A5 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				055214020FAB709600626049 /* NetworkAwareViewController.h */,
+				055214030FAB709600626049 /* NetworkAwareViewController.m */,
+				055214040FAB709600626049 /* NetworkAwareViewControllerDelegate.h */,
+				055214050FAB709600626049 /* NoDataViewController.h */,
+				055214060FAB709600626049 /* NoDataViewController.m */,
 				05E637F30FA8DC4A00F736A5 /* UILabel+DrawingAdditions.h */,
 				05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */,
 				05E637770FA8D36500F736A5 /* NSDate+LighthouseStringHelpers.h */,
@@ -338,6 +352,7 @@
 				9100C0820FA8C08F003C2ECF /* TicketsView.xib */,
 				9100C1C80FA90D8C003C2ECF /* TicketTableViewCell.xib */,
 				913E45040FAA2C85000EB184 /* TicketDetailsView.xib */,
+				055213FF0FAB707D00626049 /* NoDataView.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -444,6 +459,7 @@
 				913E45060FAA2C85000EB184 /* TicketDetailsView.xib in Resources */,
 				055212970FAA59B800626049 /* NewsFeedItemView.xib in Resources */,
 				055213910FAB57CB00626049 /* Localizable.strings in Resources */,
+				055214010FAB707D00626049 /* NoDataView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +498,8 @@
 				0552130D0FAA757300626049 /* NewsFeedDataSource.m in Sources */,
 				055213100FAA766500626049 /* LighthouseNewsFeedService.m in Sources */,
 				055213760FAB55A900626049 /* RegexKitLite.m in Sources */,
+				055214070FAB709600626049 /* NetworkAwareViewController.m in Sources */,
+				055214080FAB709600626049 /* NoDataViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +520,14 @@
 				055213900FAB57CB00626049 /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		055213FF0FAB707D00626049 /* NoDataView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				055214000FAB707D00626049 /* en */,
+			);
+			name = NoDataView.xib;
 			sourceTree = "<group>";
 		};
 		05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */ = {
