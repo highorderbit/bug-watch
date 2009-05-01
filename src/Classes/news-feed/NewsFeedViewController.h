@@ -9,9 +9,10 @@
 {
     id<NewsFeedViewControllerDelegate> delegate;
 
-    NSMutableArray * newsItems;
+    NSArray * newsItems;
 }
 
 @property (nonatomic, assign) id<NewsFeedViewControllerDelegate> delegate;
+@property (nonatomic, copy) NSArray * newsItems;
 
 @end

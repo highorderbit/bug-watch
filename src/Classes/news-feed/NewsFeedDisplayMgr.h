@@ -3,18 +3,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NewsFeedDataSourceDelegate.h"
 #import "NewsFeedViewControllerDelegate.h"
 
 @class NewsFeedViewController, NewsFeedItemViewController;
+@class NewsFeedDataSource;
 
-@interface NewsFeedDisplayMgr : NSObject <NewsFeedViewControllerDelegate>
+@interface NewsFeedDisplayMgr :
+    NSObject <NewsFeedViewControllerDelegate, NewsFeedDataSourceDelegate>
 {
     NewsFeedViewController * newsFeedViewController;
     NewsFeedItemViewController * newsFeedItemViewController;
+
+    NewsFeedDataSource * newsFeedDataSource;
 }
 
 #pragma mark Initialization
 
-- (id)initWithNewsFeedViewController:(NewsFeedViewController *)controller;
+- (id)initWithNewsFeedViewController:(NewsFeedViewController *)controller
+                  newsFeedDataSource:(NewsFeedDataSource *)dataSource;
 
 @end

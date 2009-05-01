@@ -8,6 +8,10 @@
 
 @protocol NewsFeedViewControllerDelegate
 
+- (void)viewDidLoad;
+- (void)viewWillAppear;
+
 - (void)userDidSelectNewsItem:(NewsFeedItem *)item;
+- (void)userDidRequestRefresh;
 
 @end

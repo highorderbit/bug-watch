@@ -5,6 +5,7 @@
 #import "LighthouseNewsFeedParser.h"
 #import "NewsFeedItem.h"
 #import "NSDate+StringHelpers.h"
+#import "RegexKitLite.h"
 
 @interface LighthouseNewsFeedParser (Private)
 
@@ -15,6 +16,7 @@
 - (void)setValue:(NSMutableString *)aValue;
 - (void)setFeed:(NSArray *)aFeed;
 
++ (NSString *)extractTypeFromTitle:(NSString *)title;
 + (NSDate *)dateFromString:(NSString *)s;
 
 @end
@@ -83,6 +85,8 @@
     namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if ([elementName isEqualToString:@"entry"]) {
+        NSString * type = [[self class] extractTypeFromTitle:currentItem.title];
+        [currentItem setValue:type forKey:@"type"];
         [feed addObject:currentItem];
         [self setCurrentItem:nil];
     } else if (currentItem && context && ![context isEqualToString:@"link"]) {
@@ -143,6 +147,20 @@
 {
     // Example string: 2009-03-13T11:40:32-07:00
     return [NSDate dateFromString:s format:@"yyyy-MM-dd'T'HH:mm:SSZZZ"];
+}
+
++ (NSString *)extractTypeFromTitle:(NSString *)title
+{
+    // is the type specified at the start?
+    NSString * type = [title stringByMatching:@"^\\[(.+)\\]" capture:1];
+    if (!type) {
+        // does it end in a ticket number?
+        type = [title stringByMatching:@"\\[#\\d+\\]"];
+        if (type)
+            type = NSLocalizedString(@"newsfeed.item.type.ticket", @"");
+    }
+
+    return [type lowercaseString];
 }
 
 @end
