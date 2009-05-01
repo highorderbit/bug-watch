@@ -6,6 +6,19 @@
 
 @implementation TicketDetailsViewController
 
+- (void)dealloc {
+    [headerView release];
+    [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+    [self.navigationItem setRightBarButtonItem:self.editButtonItem
+        animated:NO];
+
+    self.tableView.tableHeaderView = headerView;
+}
+
 #pragma mark UITableViewDataSource implementation
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -42,10 +55,6 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-}
-
-- (void)dealloc {
-    [super dealloc];
 }
 
 - (void)setTicketNumber:(NSUInteger)aNumber ticket:(Ticket *)aTicket

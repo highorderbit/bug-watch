@@ -7,6 +7,7 @@
 
 @interface TicketDetailsViewController : UITableViewController
 {
+    IBOutlet UIView * headerView;
 }
 
 - (void)setTicketNumber:(NSUInteger)aNumber ticket:(Ticket *)aTicket;

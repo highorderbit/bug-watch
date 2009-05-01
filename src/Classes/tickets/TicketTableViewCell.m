@@ -34,6 +34,7 @@
         [UIImage imageNamed:@"TableViewCellGradient.png"];
     self.backgroundView =
         [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
+    self.backgroundView.contentMode =  UIViewContentModeBottom;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
