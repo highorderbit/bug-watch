@@ -2,9 +2,9 @@
 //  Copyright 2009 High Order Bit, Inc. All rights reserved.
 //
 
-#import "TicketSelectionMgr.h"
+#import "TicketDisplayMgr.h"
 
-@implementation TicketSelectionMgr
+@implementation TicketDisplayMgr
 
 - (void)dealloc
 {
