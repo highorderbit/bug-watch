@@ -12,9 +12,6 @@
 - (void)setAttributes:(NSDictionary *)attrs;
 
 + (UIColor *)dateLabelColor;
-+ (UIColor *)ticketEntityColor;
-+ (UIColor *)milestoneEntityColor;
-+ (UIColor *)changesetEntityColor;
 
 + (UIColor *)colorForEntity:(NSString *)entity;
 + (UIColor *)messageEntityColor;
@@ -134,6 +131,11 @@
     return [UIColor colorWithRed:1.0 green:0.6 blue:0.133 alpha:1.0];
 }
 
++ (UIColor *)pageEntityColor
+{
+    return [UIColor colorWithRed:0 green:.667 blue:.133 alpha:1.0];
+}
+
 + (UIColor *)colorForEntity:(NSString *)entity
 {
     UIColor * color = [[[self class] entityColorMappings] objectForKey:entity];
@@ -150,6 +152,7 @@
             [[self class] milestoneEntityColor], @"milestone",
             [[self class] changesetEntityColor], @"changeset",
             [[self class] messageEntityColor], @"message",
+            [[self class] pageEntityColor], @"page",
             nil];
     }
 
