@@ -50,6 +50,11 @@
 		913E44CF0FAA1CF7000EB184 /* TicketCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44CE0FAA1CF7000EB184 /* TicketCache.m */; };
 		913E44F60FAA2858000EB184 /* TicketDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E44F50FAA2858000EB184 /* TicketDetailsViewController.m */; };
 		913E45060FAA2C85000EB184 /* TicketDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45040FAA2C85000EB184 /* TicketDetailsView.xib */; };
+		913E45A20FAA753C000EB184 /* ProjectsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45A00FAA753C000EB184 /* ProjectsView.xib */; };
+		913E45A50FAA7579000EB184 /* ProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45A40FAA7579000EB184 /* ProjectsViewController.m */; };
+		913E45A90FAA7779000EB184 /* ProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45A70FAA7779000EB184 /* ProjectTableViewCell.xib */; };
+		913E45AC0FAA7795000EB184 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */; };
+		913E45D60FAA8027000EB184 /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45D50FAA8027000EB184 /* RoundedRectLabel.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
@@ -143,6 +148,14 @@
 		913E44F40FAA2858000EB184 /* TicketDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDetailsViewController.h; path = tickets/TicketDetailsViewController.h; sourceTree = "<group>"; };
 		913E44F50FAA2858000EB184 /* TicketDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDetailsViewController.m; path = tickets/TicketDetailsViewController.m; sourceTree = "<group>"; };
 		913E45050FAA2C85000EB184 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TicketDetailsView.xib; sourceTree = "<group>"; };
+		913E45A10FAA753C000EB184 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectsView.xib; sourceTree = "<group>"; };
+		913E45A30FAA7579000EB184 /* ProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectsViewController.h; path = projects/ProjectsViewController.h; sourceTree = "<group>"; };
+		913E45A40FAA7579000EB184 /* ProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectsViewController.m; path = projects/ProjectsViewController.m; sourceTree = "<group>"; };
+		913E45A80FAA7779000EB184 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectTableViewCell.xib; sourceTree = "<group>"; };
+		913E45AA0FAA7795000EB184 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectTableViewCell.h; path = projects/ProjectTableViewCell.h; sourceTree = "<group>"; };
+		913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectTableViewCell.m; path = projects/ProjectTableViewCell.m; sourceTree = "<group>"; };
+		913E45D40FAA8027000EB184 /* RoundedRectLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedRectLabel.h; path = shared/RoundedRectLabel.h; sourceTree = "<group>"; };
+		913E45D50FAA8027000EB184 /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectLabel.m; path = shared/RoundedRectLabel.m; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
@@ -259,6 +272,8 @@
 				05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */,
 				9100C23D0FA928BD003C2ECF /* UIColor+BugWatchColors.h */,
 				9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */,
+				913E45D40FAA8027000EB184 /* RoundedRectLabel.h */,
+				913E45D50FAA8027000EB184 /* RoundedRectLabel.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -281,6 +296,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				913E45A60FAA7757000EB184 /* projects */,
 				05C870670FA77EDC0069BC72 /* app-controller */,
 				05E636C00FA8C17D00F736A5 /* news-feed */,
 				9100C09E0FA8C87D003C2ECF /* tickets */,
@@ -353,6 +369,8 @@
 				9100C1C80FA90D8C003C2ECF /* TicketTableViewCell.xib */,
 				913E45040FAA2C85000EB184 /* TicketDetailsView.xib */,
 				055213FF0FAB707D00626049 /* NoDataView.xib */,
+				913E45A00FAA753C000EB184 /* ProjectsView.xib */,
+				913E45A70FAA7779000EB184 /* ProjectTableViewCell.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -375,6 +393,17 @@
 				913E44F50FAA2858000EB184 /* TicketDetailsViewController.m */,
 			);
 			name = tickets;
+			sourceTree = "<group>";
+		};
+		913E45A60FAA7757000EB184 /* projects */ = {
+			isa = PBXGroup;
+			children = (
+				913E45A30FAA7579000EB184 /* ProjectsViewController.h */,
+				913E45A40FAA7579000EB184 /* ProjectsViewController.m */,
+				913E45AA0FAA7795000EB184 /* ProjectTableViewCell.h */,
+				913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */,
+			);
+			name = projects;
 			sourceTree = "<group>";
 		};
 		91806D8A0F97E72900F08005 /* images */ = {
@@ -458,6 +487,8 @@
 				05EFD7540FA91F07001DFCFB /* TableViewCellGradient.png in Resources */,
 				913E45060FAA2C85000EB184 /* TicketDetailsView.xib in Resources */,
 				055212970FAA59B800626049 /* NewsFeedItemView.xib in Resources */,
+				913E45A20FAA753C000EB184 /* ProjectsView.xib in Resources */,
+				913E45A90FAA7779000EB184 /* ProjectTableViewCell.xib in Resources */,
 				055213910FAB57CB00626049 /* Localizable.strings in Resources */,
 				055214010FAB707D00626049 /* NoDataView.xib in Resources */,
 			);
@@ -495,6 +526,9 @@
 				913E44F60FAA2858000EB184 /* TicketDetailsViewController.m in Sources */,
 				0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */,
 				055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */,
+				913E45A50FAA7579000EB184 /* ProjectsViewController.m in Sources */,
+				913E45AC0FAA7795000EB184 /* ProjectTableViewCell.m in Sources */,
+				913E45D60FAA8027000EB184 /* RoundedRectLabel.m in Sources */,
 				0552130D0FAA757300626049 /* NewsFeedDataSource.m in Sources */,
 				055213100FAA766500626049 /* LighthouseNewsFeedService.m in Sources */,
 				055213760FAB55A900626049 /* RegexKitLite.m in Sources */,
@@ -576,6 +610,22 @@
 				913E45050FAA2C85000EB184 /* en */,
 			);
 			name = TicketDetailsView.xib;
+			sourceTree = "<group>";
+		};
+		913E45A00FAA753C000EB184 /* ProjectsView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				913E45A10FAA753C000EB184 /* en */,
+			);
+			name = ProjectsView.xib;
+			sourceTree = "<group>";
+		};
+		913E45A70FAA7779000EB184 /* ProjectTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				913E45A80FAA7779000EB184 /* en */,
+			);
+			name = ProjectTableViewCell.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -52,6 +52,16 @@
     return [UIColor colorWithRed:.667 green:.2 blue:0 alpha:1];
 }
 
++ (UIColor *)bugWatchRoundedRectBackgroundColor
+{
+    return [UIColor colorWithRed:.549 green:.6 blue:.706 alpha:1];
+}
+
++ (UIColor *)bugWatchSelectedCellColor
+{
+    return [UIColor colorWithRed:0.008 green:0.427 blue:0.925 alpha:1.0];
+}
+        
 + (UIColor *)bugWatchColorForState:(NSUInteger)state
 {
     UIColor * color;
