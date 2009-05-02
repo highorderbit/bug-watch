@@ -4,6 +4,7 @@
 
 #import "NewsFeedItemViewController.h"
 #import "NewsFeedItem.h"
+#import "RoundedRectLabel.h"
 #import "NSDate+StringHelpers.h"
 #import "UIWebView+FileLoadingAdditions.h"
 #import "UIColor+BugWatchColors.h"
@@ -24,6 +25,9 @@
 - (void)resizeHeaderView;
 - (void)resizeBodyView;
 
++ (void)setBackgroundColor:(UIColor *)color
+        ofRoundedRectLabel:(RoundedRectLabel *)label;
+
 @property (nonatomic, copy) NewsFeedItem * newsFeedItem;
 
 @end
@@ -42,6 +46,7 @@
     [titleLabel release];
     [entityTypeLabel release];
     [timestampLabel release];
+    [headerGradientView release];
 
     [newsFeedItem release];
 
@@ -52,6 +57,9 @@
 {
     [super viewDidLoad];
 
+    entityTypeLabel.font = [UIFont systemFontOfSize:12.0];
+    entityTypeLabel.roundedCornerWidth = 5.0;
+    entityTypeLabel.roundedCornerHeight = 5.0;
     bodyView.backgroundColor = [UIColor whiteColor];
 
     self.navigationItem.title =
@@ -82,15 +90,15 @@
     titleLabel.text = newsFeedItem.title;
     timestampLabel.text = [newsFeedItem.published shortDateAndTimeDescription];
     entityTypeLabel.text = newsFeedItem.type;
-    entityTypeLabel.backgroundColor =
-        [UIColor colorForEntity:newsFeedItem.type];
+    [[self class] setBackgroundColor:[UIColor colorForEntity:newsFeedItem.type]
+                  ofRoundedRectLabel:entityTypeLabel];
 
     [bodyView
         loadHtmlRelativeToMainBundle:
         [[self class] htmlForContent:newsFeedItem.content]];
 
     //
-    // resize UI elements
+    // resize UI elements to fit content
     //
 
     [self resizeTitle];
@@ -196,6 +204,35 @@
         bodyView.frame.size.height +
         (oldBodyFrame.origin.y - bodyView.frame.origin.y);
     bodyView.frame = newBodyFrame;
+}
+
+- (void)setViewBackgroundColor:(RoundedRectLabel *)label
+                 forEntityType:(NSString *)type
+{
+    UIColor * color = [UIColor colorForEntity:type];
+
+    const CGFloat * colorComps = CGColorGetComponents(color.CGColor);
+
+    NSLog(@"Setting color to: (%f, %f, %f).", colorComps[0], colorComps[1],
+        colorComps[2]);
+
+    label.roundedRectRed = colorComps[0];
+    label.roundedRectGreen = colorComps[1];
+    label.roundedRectBlue = colorComps[2];
+
+    [label setNeedsDisplay];
+}
+
++ (void)setBackgroundColor:(UIColor *)color
+        ofRoundedRectLabel:(RoundedRectLabel *)label
+{
+    const CGFloat * colorComps = CGColorGetComponents(color.CGColor);
+
+    label.roundedRectRed = colorComps[0];
+    label.roundedRectGreen = colorComps[1];
+    label.roundedRectBlue = colorComps[2];
+
+    [label setNeedsDisplay];
 }
 
 @end

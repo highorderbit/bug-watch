@@ -5,13 +5,14 @@
 #import <UIKit/UIKit.h>
 
 @class NewsFeedItem;
+@class RoundedRectLabel;
 
 @interface NewsFeedTableViewCell : UITableViewCell
 {
     IBOutlet UILabel * authorLabel;
     IBOutlet UILabel * pubDateLabel;
     IBOutlet UILabel * bodyLabel;
-    IBOutlet UILabel * entityTypeLabel;
+    IBOutlet RoundedRectLabel * entityTypeLabel;
 
     NewsFeedItem * newsFeedItem;
 }

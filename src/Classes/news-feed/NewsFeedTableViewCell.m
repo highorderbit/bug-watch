@@ -4,6 +4,7 @@
 
 #import "NewsFeedTableViewCell.h"
 #import "NewsFeedItem.h"
+#import "RoundedRectLabel.h"
 #import "NSDate+StringHelpers.h"
 #import "UILabel+DrawingAdditions.h"
 #import "UIColor+BugWatchColors.h"
@@ -18,6 +19,9 @@
 + (UIColor *)messageEntityColor;
 
 + (NSDictionary *)entityColorMappings;
+
++ (void)setBackgroundColor:(UIColor *)color
+        ofRoundedRectLabel:(RoundedRectLabel *)label;
 
 @end
 
@@ -52,6 +56,7 @@
     self.backgroundView =
         [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
     self.backgroundView.contentMode =  UIViewContentModeBottom;
+    entityTypeLabel.roundedCornerHeight = 5.0;
 }
 
 - (void)layoutSubviews
@@ -76,7 +81,13 @@
 
     NSString * type = newsFeedItem.type;
     entityTypeLabel.text = type;
-    entityTypeLabel.backgroundColor = [[self class] colorForEntity:type];
+    [[self class] setBackgroundColor:[[self class] colorForEntity:type]
+                  ofRoundedRectLabel:entityTypeLabel];
+
+    // FIXME: this has to be set here -- setting in awakeFromNib has no effect
+    entityTypeLabel.font = [UIFont systemFontOfSize:12.0];
+    entityTypeLabel.roundedCornerWidth = 5.0;
+    entityTypeLabel.roundedCornerHeight = 5.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -116,6 +127,18 @@
 + (UIColor *)colorForEntity:(NSString *)entity
 {
     return [UIColor colorForEntity:entity];
+}
+
++ (void)setBackgroundColor:(UIColor *)color
+        ofRoundedRectLabel:(RoundedRectLabel *)label
+{
+    const CGFloat * colorComps = CGColorGetComponents(color.CGColor);
+
+    label.roundedRectRed = colorComps[0];
+    label.roundedRectGreen = colorComps[1];
+    label.roundedRectBlue = colorComps[2];
+
+    [label setNeedsDisplay];
 }
 
 @end

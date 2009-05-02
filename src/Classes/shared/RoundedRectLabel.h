@@ -26,5 +26,6 @@
 @property (nonatomic, assign) CGFloat roundedCornerHeight;
 
 @property (nonatomic, copy) NSString * text;
+@property (nonatomic, retain) UIFont * font;
 
 @end

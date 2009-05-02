@@ -12,6 +12,7 @@
 @synthesize roundedRectAlpha;
 @synthesize roundedCornerWidth;
 @synthesize roundedCornerHeight;
+@synthesize font;
 
 - (void)dealloc
 {
@@ -65,6 +66,7 @@
     [super drawRect:rect];
 
     CGContextRef context = UIGraphicsGetCurrentContext();
+
     CGContextClearRect(context, rect);
     CGContextSetRGBFillColor(context, roundedRectRed, roundedRectGreen,
         roundedRectBlue, roundedRectAlpha);
@@ -106,6 +108,16 @@
 - (NSString *)text
 {
     return label.text;
+}
+
+- (void)setFont:(UIFont *)font
+{
+    label.font = font;
+}
+
+- (UIFont *)font
+{
+    return label.font;
 }
 
 @end

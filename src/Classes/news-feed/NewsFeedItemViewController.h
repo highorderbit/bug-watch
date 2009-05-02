@@ -5,6 +5,7 @@
 #import <UIKit/UIKit.h>
 
 @class NewsFeedItem;
+@class RoundedRectLabel;
 
 @interface NewsFeedItemViewController : UIViewController
 {
@@ -14,7 +15,7 @@
 
     IBOutlet UILabel * authorLabel;
     IBOutlet UILabel * titleLabel;
-    IBOutlet UILabel * entityTypeLabel;
+    IBOutlet RoundedRectLabel * entityTypeLabel;
     IBOutlet UILabel * timestampLabel;
     IBOutlet UIImageView  * headerGradientView;
 
