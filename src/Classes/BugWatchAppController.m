@@ -6,14 +6,16 @@
 #import "TicketDetailsViewController.h"
 #import "NewsFeedDisplayMgr.h"
 #import "NewsFeedDataSource.h"
+#import "NewsFeedViewController.h"
 #import "LighthouseNewsFeedService.h"
+#import "NetworkAwareViewController.h"
 
 @implementation BugWatchAppController
 
 - (void)dealloc
 {
-    [newsFeedViewController release];
-    [newsFeedNavController release];
+    [newsFeedNetworkAwareViewController release];
+    [newsFeedNetworkAwareViewController release];
 
     [ticketsViewController release];
     [ticketsNavController release];
@@ -88,8 +90,8 @@
 
     newsFeedDisplayMgr =
         [[NewsFeedDisplayMgr alloc]
-        initWithNewsFeedViewController:newsFeedViewController
-                    newsFeedDataSource:newsFeedDataSource];
+        initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
+                        newsFeedDataSource:newsFeedDataSource];
 }
 
 @end

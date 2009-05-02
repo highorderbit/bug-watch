@@ -7,11 +7,12 @@
 #import "TicketCache.h"
 #import "TicketDisplayMgr.h"
 
-@class NewsFeedDisplayMgr, NewsFeedViewController;
+@class NetworkAwareViewController;
+@class NewsFeedDisplayMgr;
 
 @interface BugWatchAppController : NSObject
 {
-    IBOutlet NewsFeedViewController * newsFeedViewController;
+    IBOutlet NetworkAwareViewController * newsFeedNetworkAwareViewController;
     IBOutlet UINavigationController * newsFeedNavController;
 
     IBOutlet TicketsViewController * ticketsViewController;

@@ -22,14 +22,11 @@
     [super viewDidLoad];
 
     newsItems = nil;
-    [delegate viewDidLoad];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    [delegate viewWillAppear];
 }
 
 #pragma mark Table view methods

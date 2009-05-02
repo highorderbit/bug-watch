@@ -7,70 +7,106 @@
 #import "NewsFeedViewController.h"
 #import "NewsFeedItemViewController.h"
 #import "NewsFeedDataSource.h"
+#import "NetworkAwareViewController.h"
 
-@interface NewsFeedDisplayMgr (Private)
+@interface NewsFeedDisplayMgr ()
 
-@property (nonatomic, retain, readonly) NewsFeedItemViewController *
+@property (nonatomic, retain) NewsFeedItemViewController *
     newsFeedItemViewController;
 
 @end
 
 @implementation NewsFeedDisplayMgr
 
+@synthesize newsFeedItemViewController;
+
 - (void)dealloc
 {
-    [newsFeedViewController release];
+    [newsFeedDataSource release];
+
     [newsFeedItemViewController release];
+    [newsFeedViewController release];
+
+    [networkAwareViewController release];
 
     [super dealloc];
 }
 
 #pragma mark Initialization
 
-- (id)initWithNewsFeedViewController:(NewsFeedViewController *)controller
+- (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
                   newsFeedDataSource:(NewsFeedDataSource *)dataSource
 {
     if (self = [super init]) {
-        newsFeedViewController = [controller retain];
+        networkAwareViewController = [navc retain];
+        networkAwareViewController.delegate = self;
+
+        newsFeedViewController =
+            [[NewsFeedViewController alloc]
+            initWithNibName:@"NewsFeedView" bundle:nil];
         newsFeedViewController.delegate = self;
+        networkAwareViewController.targetViewController =
+            newsFeedViewController;
 
         newsFeedDataSource = [dataSource retain];
         newsFeedDataSource.delegate = self;
+
+        UIBarButtonItem * refreshButton =
+            [[UIBarButtonItem alloc]
+            initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+            target:self
+            action:@selector(userDidRequestRefresh)];
+        networkAwareViewController.navigationItem.rightBarButtonItem =
+            refreshButton;
+        [refreshButton release];
     }
 
     return self;
 }
 
-#pragma mark NewsFeedViewControllerDelegate implementation
+#pragma mark NetworkAwareViewControllerDelegate implementation
 
-- (void)viewDidLoad
+- (void)networkAwareViewWillAppear
 {
+    NSLog(@"Network aware view will appear called.");
+
     NSArray * items = [newsFeedDataSource currentNewsFeed];
     newsFeedViewController.newsItems = items;
+    [networkAwareViewController setCachedDataAvailable:!!items];
+
+    BOOL updating = [newsFeedDataSource fetchNewsFeedIfNecessary];
+    if (updating)
+        [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
+    else
+        [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
 }
 
-- (void)viewWillAppear
-{
-    [newsFeedDataSource fetchNewsFeedIfNecessary];
-}
+#pragma mark NewsFeedViewControllerDelegate implementation
 
 - (void)userDidSelectNewsItem:(NewsFeedItem *)item
 {
     NSLog(@"The user has selected an item: '%@'.", item);
-    [newsFeedViewController.navigationController
-        pushViewController:[self newsFeedItemViewController] animated:YES];
+    [networkAwareViewController.navigationController
+        pushViewController:self.newsFeedItemViewController animated:YES];
 }
+
+#pragma mark Handling a refresh
 
 - (void)userDidRequestRefresh
 {
     [newsFeedDataSource refreshNewsFeed];
+    [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
 }
 
 #pragma mark NewsFeedDataSourceDelegate implementation
 
 - (void)newsFeedUpdated:(NSArray *)newsFeed
 {
+    NSLog(@"Received news feed: %@.", newsFeed);
     newsFeedViewController.newsItems = newsFeed;
+
+    [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
+    [networkAwareViewController setCachedDataAvailable:YES];
 }
 
 #pragma mark Accessors
@@ -80,9 +116,9 @@
     if (!newsFeedItemViewController) {
         newsFeedItemViewController =
         [[NewsFeedItemViewController alloc]
-         initWithNibName:@"NewsFeedItemView" bundle:nil];
+        initWithNibName:@"NewsFeedItemView" bundle:nil];
     }
-    
+
     return newsFeedItemViewController;
 }
 
