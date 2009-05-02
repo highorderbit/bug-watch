@@ -20,4 +20,13 @@
 
 + (UIColor *)bugWatchColorForState:(NSUInteger)state;
 
++ (UIColor *)ticketEntityColor;
++ (UIColor *)milestoneEntityColor;
++ (UIColor *)changesetEntityColor;
++ (UIColor *)messageEntityColor;
++ (UIColor *)pageEntityColor;
++ (UIColor *)unknownEntityColor;
+
++ (UIColor *)colorForEntity:(NSString *)entity;
+
 @end

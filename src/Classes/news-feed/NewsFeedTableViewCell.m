@@ -6,6 +6,7 @@
 #import "NewsFeedItem.h"
 #import "NSDate+StringHelpers.h"
 #import "UILabel+DrawingAdditions.h"
+#import "UIColor+BugWatchColors.h"
 
 @interface NewsFeedTableViewCell (Private)
 
@@ -109,55 +110,12 @@
 
 + (UIColor *)dateLabelColor
 {
-    return [UIColor colorWithRed:0 green:0.3 blue:0.7 alpha:1.0];
-}
-
-+ (UIColor *)ticketEntityColor
-{
-    return [UIColor colorWithRed:0.667 green:0.667 blue:0.667 alpha:1.0];
-}
-
-+ (UIColor *)milestoneEntityColor
-{
-    return [UIColor colorWithRed:0.533 green:0.067 blue:0.8 alpha:1.0];
-}
-
-+ (UIColor *)changesetEntityColor
-{
-    return [UIColor blackColor];
-}
-
-+ (UIColor *)messageEntityColor
-{
-    return [UIColor colorWithRed:1.0 green:0.6 blue:0.133 alpha:1.0];
-}
-
-+ (UIColor *)pageEntityColor
-{
-    return [UIColor colorWithRed:0 green:.667 blue:.133 alpha:1.0];
+    return [UIColor bugWatchBlueColor];
 }
 
 + (UIColor *)colorForEntity:(NSString *)entity
 {
-    UIColor * color = [[[self class] entityColorMappings] objectForKey:entity];
-    return color ? color : [[self class] ticketEntityColor];
-}
-
-+ (NSDictionary *)entityColorMappings
-{
-    static NSDictionary * entityColorMappings = nil;
-    if (entityColorMappings == nil) {
-        entityColorMappings =
-            [[NSDictionary alloc] initWithObjectsAndKeys:
-            [[self class] ticketEntityColor], @"ticket",
-            [[self class] milestoneEntityColor], @"milestone",
-            [[self class] changesetEntityColor], @"changeset",
-            [[self class] messageEntityColor], @"message",
-            [[self class] pageEntityColor], @"page",
-            nil];
-    }
-
-    return entityColorMappings;
+    return [UIColor colorForEntity:entity];
 }
 
 @end

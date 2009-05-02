@@ -6,12 +6,23 @@
 #import "NewsFeedItem.h"
 #import "NSDate+StringHelpers.h"
 #import "UIWebView+FileLoadingAdditions.h"
+#import "UIColor+BugWatchColors.h"
+#import "UILabel+DrawingAdditions.h"
 
 @interface NewsFeedItemViewController ()
 
 - (void)updateDisplay;
 
 + (NSString *)htmlForContent:(NSString *)content;
+
+- (void)positionView:(UIView *)bottomView verticallyBelowView:(UIView *)topView
+    padding:(CGFloat)padding;
+- (void)positionView:(UIView *)bottomView verticallyBelowView:(UIView *)topView;
+- (void)alignBaselineOfView:(UIView *)targetView withView:(UIView *)destView;
+
+- (void)resizeTitle;
+- (void)resizeHeaderView;
+- (void)resizeBodyView;
 
 @property (nonatomic, copy) NewsFeedItem * newsFeedItem;
 
@@ -63,14 +74,38 @@
 
 - (void)updateDisplay
 {
+    //
+    // load content
+    //
+
     authorLabel.text = newsFeedItem.author;
     titleLabel.text = newsFeedItem.title;
     timestampLabel.text = [newsFeedItem.published shortDateAndTimeDescription];
     entityTypeLabel.text = newsFeedItem.type;
+    entityTypeLabel.backgroundColor =
+        [UIColor colorForEntity:newsFeedItem.type];
 
     [bodyView
         loadHtmlRelativeToMainBundle:
         [[self class] htmlForContent:newsFeedItem.content]];
+
+    //
+    // resize UI elements
+    //
+
+    [self resizeTitle];
+
+    // move the other labels to the correct position relative to the title
+    [self positionView:authorLabel verticallyBelowView:titleLabel];
+    [self positionView:entityTypeLabel verticallyBelowView:authorLabel];
+    [self alignBaselineOfView:timestampLabel withView:entityTypeLabel];
+
+    [self resizeHeaderView];
+
+    [self alignBaselineOfView:headerGradientView withView:headerView];
+    [self positionView:dropShadowView verticallyBelowView:headerView padding:0];
+
+    [self resizeBodyView];
 }
 
 #pragma mark UIWebViewDelegate implementation
@@ -104,6 +139,63 @@
          "  </body>"
          "</html>",
         content];
+}
+
+- (void)positionView:(UIView *)bottomView verticallyBelowView:(UIView *)topView
+    padding:(CGFloat)padding
+{
+    CGRect frame = bottomView.frame;
+    frame.origin.y =
+        topView.frame.origin.y + topView.frame.size.height + padding;
+    bottomView.frame = frame;
+}
+
+- (void)positionView:(UIView *)bottomView verticallyBelowView:(UIView *)topView
+{
+    [self positionView:bottomView verticallyBelowView:topView padding:5.0];
+}
+
+- (void)alignBaselineOfView:(UIView *)targetView withView:(UIView *)destView
+{
+    CGFloat destBottom = destView.frame.origin.y + destView.frame.size.height;
+
+    CGRect frame = targetView.frame;
+    frame.origin.y = destBottom - frame.size.height;
+    targetView.frame = frame;
+}
+
+- (void)resizeTitle
+{
+    // grow the title label to the appropriate height
+    CGFloat titleHeight = [titleLabel heightForString:newsFeedItem.title];
+    CGRect titleLabelFrame = titleLabel.frame;
+    titleLabelFrame.size.height = titleHeight;
+    titleLabel.frame = titleLabelFrame;
+}
+
+- (void)resizeHeaderView
+{
+    CGFloat headerViewSize =
+        titleLabel.frame.size.height +
+        authorLabel.frame.size.height +
+        entityTypeLabel.frame.size.height +
+        headerGradientView.frame.size.height +
+        21.0;
+
+    CGRect frame = headerView.frame;
+    frame.size.height = headerViewSize;
+    headerView.frame = frame;
+}
+
+- (void)resizeBodyView
+{
+    CGRect oldBodyFrame = bodyView.frame;
+    [self positionView:bodyView verticallyBelowView:headerView padding:0];
+    CGRect newBodyFrame = bodyView.frame;
+    newBodyFrame.size.height =
+        bodyView.frame.size.height +
+        (oldBodyFrame.origin.y - bodyView.frame.origin.y);
+    bodyView.frame = newBodyFrame;
 }
 
 @end

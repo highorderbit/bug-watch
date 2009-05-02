@@ -16,6 +16,7 @@
     IBOutlet UILabel * titleLabel;
     IBOutlet UILabel * entityTypeLabel;
     IBOutlet UILabel * timestampLabel;
+    IBOutlet UIImageView  * headerGradientView;
 
     NewsFeedItem * newsFeedItem;
 }
