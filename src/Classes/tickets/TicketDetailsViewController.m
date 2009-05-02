@@ -30,21 +30,29 @@
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 5;
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+    titleForHeaderInSection:(NSInteger)section
+{
+    return @"Comments and changes";
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * CellIdentifier = @"Cell";
+    static NSString * CellIdentifier = @"CommentTableViewCell";
     
     UITableViewCell * cell =
         [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell =
-            [[[UITableViewCell alloc] initWithFrame:CGRectZero
-            reuseIdentifier:CellIdentifier] autorelease];
+        NSArray * nib =
+            [[NSBundle mainBundle] loadNibNamed:@"CommentTableViewCell"
+            owner:self options:nil];
+
+        cell = [nib objectAtIndex:0];
     }
     
     // Set up the cell...
@@ -55,6 +63,12 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+- (CGFloat)tableView:(UITableView *)aTableView
+    heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 136;
 }
 
 - (void)setTicketNumber:(NSUInteger)aNumber ticket:(Ticket *)aTicket
