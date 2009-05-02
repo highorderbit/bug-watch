@@ -70,6 +70,11 @@
 		91D680800F98DDC40040A310 /* HomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D6807F0F98DDC40040A310 /* HomeIcon.png */; };
 		91D680820F98DF880040A310 /* Bug.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D680810F98DF880040A310 /* Bug.png */; };
 		91D680890F98E4060040A310 /* Calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D680880F98E4060040A310 /* Calendar.png */; };
+		91E1FC800FACB6F100E86DDE /* EditTicketView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC7E0FACB6F100E86DDE /* EditTicketView.xib */; };
+		91E1FC830FACB70900E86DDE /* EditTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E1FC820FACB70900E86DDE /* EditTicketViewController.m */; };
+		91E1FC860FACBBBE00E86DDE /* TextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC850FACBBBE00E86DDE /* TextField.png */; };
+		91E1FC890FACC39300E86DDE /* EditTicketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC870FACC39300E86DDE /* EditTicketTableViewCell.xib */; };
+		91E1FCD20FACC42600E86DDE /* EditTicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E1FCD10FACC42600E86DDE /* EditTicketTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +185,13 @@
 		91D6807F0F98DDC40040A310 /* HomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeIcon.png; sourceTree = "<group>"; };
 		91D680810F98DF880040A310 /* Bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bug.png; sourceTree = "<group>"; };
 		91D680880F98E4060040A310 /* Calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Calendar.png; sourceTree = "<group>"; };
+		91E1FC7F0FACB6F100E86DDE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EditTicketView.xib; sourceTree = "<group>"; };
+		91E1FC810FACB70900E86DDE /* EditTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditTicketViewController.h; path = tickets/EditTicketViewController.h; sourceTree = "<group>"; };
+		91E1FC820FACB70900E86DDE /* EditTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditTicketViewController.m; path = tickets/EditTicketViewController.m; sourceTree = "<group>"; };
+		91E1FC850FACBBBE00E86DDE /* TextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextField.png; sourceTree = "<group>"; };
+		91E1FC880FACC39300E86DDE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EditTicketTableViewCell.xib; sourceTree = "<group>"; };
+		91E1FCD00FACC42600E86DDE /* EditTicketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditTicketTableViewCell.h; path = tickets/EditTicketTableViewCell.h; sourceTree = "<group>"; };
+		91E1FCD10FACC42600E86DDE /* EditTicketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditTicketTableViewCell.m; path = tickets/EditTicketTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +411,8 @@
 				913E45A00FAA753C000EB184 /* ProjectsView.xib */,
 				913E45A70FAA7779000EB184 /* ProjectTableViewCell.xib */,
 				919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */,
+				91E1FC7E0FACB6F100E86DDE /* EditTicketView.xib */,
+				91E1FC870FACC39300E86DDE /* EditTicketTableViewCell.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -421,6 +435,10 @@
 				913E44F50FAA2858000EB184 /* TicketDetailsViewController.m */,
 				919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */,
 				9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */,
+				91E1FC810FACB70900E86DDE /* EditTicketViewController.h */,
+				91E1FC820FACB70900E86DDE /* EditTicketViewController.m */,
+				91E1FCD00FACC42600E86DDE /* EditTicketTableViewCell.h */,
+				91E1FCD10FACC42600E86DDE /* EditTicketTableViewCell.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -439,6 +457,9 @@
 		91806D8A0F97E72900F08005 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				91E1FC850FACBBBE00E86DDE /* TextField.png */,
+				91CC24260FAC15F40023AB06 /* TicketDetailsGradient.png */,
+				05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */,
 				919C99710FA2655F002CF095 /* Pages.png */,
 				919C996B0FA25E55002CF095 /* Thumbtack.png */,
 				919C995E0FA25965002CF095 /* Projects.png */,
@@ -530,6 +551,9 @@
 				0552172E0FACB75800626049 /* DropShadow.png in Resources */,
 				91CC24270FAC15F40023AB06 /* TicketDetailsGradient.png in Resources */,
 				055217AF0FACCA2B00626049 /* NewsFeedItemHeaderGradient.png in Resources */,
+				91E1FC800FACB6F100E86DDE /* EditTicketView.xib in Resources */,
+				91E1FC860FACBBBE00E86DDE /* TextField.png in Resources */,
+				91E1FC890FACC39300E86DDE /* EditTicketTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +599,8 @@
 				055214070FAB709600626049 /* NetworkAwareViewController.m in Sources */,
 				055214080FAB709600626049 /* NoDataViewController.m in Sources */,
 				055215BA0FABB3F300626049 /* UIWebView+FileLoadingAdditions.m in Sources */,
+				91E1FC830FACB70900E86DDE /* EditTicketViewController.m in Sources */,
+				91E1FCD20FACC42600E86DDE /* EditTicketTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +701,22 @@
 				919677970FABC9A4004A5DE2 /* en */,
 			);
 			name = CommentTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		91E1FC7E0FACB6F100E86DDE /* EditTicketView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91E1FC7F0FACB6F100E86DDE /* en */,
+			);
+			name = EditTicketView.xib;
+			sourceTree = "<group>";
+		};
+		91E1FC870FACC39300E86DDE /* EditTicketTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91E1FC880FACC39300E86DDE /* en */,
+			);
+			name = EditTicketTableViewCell.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
