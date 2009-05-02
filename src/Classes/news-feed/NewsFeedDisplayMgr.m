@@ -86,6 +86,7 @@
 - (void)userDidSelectNewsItem:(NewsFeedItem *)item
 {
     NSLog(@"The user has selected an item: '%@'.", item);
+    [self.newsFeedItemViewController updateNewsItem:item];
     [networkAwareViewController.navigationController
         pushViewController:self.newsFeedItemViewController animated:YES];
 }

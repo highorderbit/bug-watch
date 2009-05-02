@@ -17,6 +17,9 @@
 		055214010FAB707D00626049 /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055213FF0FAB707D00626049 /* NoDataView.xib */; };
 		055214070FAB709600626049 /* NetworkAwareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055214030FAB709600626049 /* NetworkAwareViewController.m */; };
 		055214080FAB709600626049 /* NoDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055214060FAB709600626049 /* NoDataViewController.m */; };
+		055215BA0FABB3F300626049 /* UIWebView+FileLoadingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 055215B90FABB3F300626049 /* UIWebView+FileLoadingAdditions.m */; };
+		055215DF0FABB5C700626049 /* news-feed-item-style.css in Resources */ = {isa = PBXBuildFile; fileRef = 055215DE0FABB5C700626049 /* news-feed-item-style.css */; };
+		0552172E0FACB75800626049 /* DropShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0552172D0FACB75800626049 /* DropShadow.png */; };
 		05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */; };
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
@@ -87,6 +90,10 @@
 		055214040FAB709600626049 /* NetworkAwareViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkAwareViewControllerDelegate.h; path = shared/NetworkAwareViewControllerDelegate.h; sourceTree = "<group>"; };
 		055214050FAB709600626049 /* NoDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoDataViewController.h; path = shared/NoDataViewController.h; sourceTree = "<group>"; };
 		055214060FAB709600626049 /* NoDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoDataViewController.m; path = shared/NoDataViewController.m; sourceTree = "<group>"; };
+		055215B80FABB3F300626049 /* UIWebView+FileLoadingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+FileLoadingAdditions.h"; path = "shared/UIWebView+FileLoadingAdditions.h"; sourceTree = "<group>"; };
+		055215B90FABB3F300626049 /* UIWebView+FileLoadingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+FileLoadingAdditions.m"; path = "shared/UIWebView+FileLoadingAdditions.m"; sourceTree = "<group>"; };
+		055215DE0FABB5C700626049 /* news-feed-item-style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "news-feed-item-style.css"; path = "html/news-feed-item-style.css"; sourceTree = "<group>"; };
+		0552172D0FACB75800626049 /* DropShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropShadow.png; sourceTree = "<group>"; };
 		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppDelegate.h; path = "app-controller/BugWatchAppDelegate.h"; sourceTree = "<group>"; };
 		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppDelegate.m; path = "app-controller/BugWatchAppDelegate.m"; sourceTree = "<group>"; };
 		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+WebServiceApiAdditions.h"; path = "web-service/NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
@@ -206,6 +213,14 @@
 			name = strings;
 			sourceTree = "<group>";
 		};
+		055215CD0FABB51400626049 /* html */ = {
+			isa = PBXGroup;
+			children = (
+				055215DE0FABB5C700626049 /* news-feed-item-style.css */,
+			);
+			name = html;
+			sourceTree = "<group>";
+		};
 		05C870670FA77EDC0069BC72 /* app-controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +287,8 @@
 				05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */,
 				9100C23D0FA928BD003C2ECF /* UIColor+BugWatchColors.h */,
 				9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */,
+				055215B80FABB3F300626049 /* UIWebView+FileLoadingAdditions.h */,
+				055215B90FABB3F300626049 /* UIWebView+FileLoadingAdditions.m */,
 				913E45D40FAA8027000EB184 /* RoundedRectLabel.h */,
 				913E45D50FAA8027000EB184 /* RoundedRectLabel.m */,
 			);
@@ -343,6 +360,7 @@
 				9100C0620FA8BF5B003C2ECF /* nibs */,
 				91806D8A0F97E72900F08005 /* images */,
 				055213920FAB57CF00626049 /* strings */,
+				055215CD0FABB51400626049 /* html */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
 			name = Resources;
@@ -409,7 +427,6 @@
 		91806D8A0F97E72900F08005 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */,
 				919C99710FA2655F002CF095 /* Pages.png */,
 				919C996B0FA25E55002CF095 /* Thumbtack.png */,
 				919C995E0FA25965002CF095 /* Projects.png */,
@@ -418,6 +435,8 @@
 				91D6807F0F98DDC40040A310 /* HomeIcon.png */,
 				91D6805E0F98D9040040A310 /* Default.png */,
 				91806D8B0F97E72900F08005 /* Icon.png */,
+				05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */,
+				0552172D0FACB75800626049 /* DropShadow.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -491,6 +510,8 @@
 				913E45A90FAA7779000EB184 /* ProjectTableViewCell.xib in Resources */,
 				055213910FAB57CB00626049 /* Localizable.strings in Resources */,
 				055214010FAB707D00626049 /* NoDataView.xib in Resources */,
+				055215DF0FABB5C700626049 /* news-feed-item-style.css in Resources */,
+				0552172E0FACB75800626049 /* DropShadow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +555,7 @@
 				055213760FAB55A900626049 /* RegexKitLite.m in Sources */,
 				055214070FAB709600626049 /* NetworkAwareViewController.m in Sources */,
 				055214080FAB709600626049 /* NoDataViewController.m in Sources */,
+				055215BA0FABB3F300626049 /* UIWebView+FileLoadingAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

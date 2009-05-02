@@ -3,175 +3,105 @@
 //
 
 #import "NewsFeedItemViewController.h"
+#import "NewsFeedItem.h"
+#import "NSDate+StringHelpers.h"
+#import "UIWebView+FileLoadingAdditions.h"
+
+@interface NewsFeedItemViewController ()
+
+- (void)updateDisplay;
+
++ (NSString *)htmlForContent:(NSString *)content;
+
+@property (nonatomic, copy) NewsFeedItem * newsFeedItem;
+
+@end
 
 @implementation NewsFeedItemViewController
 
+@synthesize newsFeedItem;
+
 - (void)dealloc
 {
+    [headerView release];
+    [dropShadowView release];
+    [bodyView release];
+
+    [authorLabel release];
+    [titleLabel release];
+    [entityTypeLabel release];
+    [timestampLabel release];
+
+    [newsFeedItem release];
+
     [super dealloc];
 }
 
-/*
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    // Override initWithStyle: if you create the controller programmatically and
-    // want to perform customization that is not appropriate for viewDidLoad.
-    if (self = [super initWithStyle:style]) {
-    }
-
-    return self;
-}
-*/
-
-/*
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to display an Edit button in the navigation
-    // bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.title =
+        NSLocalizedString(@"newsfeeditem.view.title", @"");
 }
-*/
 
-/*
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-}
-*/
 
-/*
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-*/
-
-/*
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-*/
-
-/*
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
-*/
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:
-    (UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];  // Releases the view if it doesn't have a
-                                      // superview
-
-    // Release anything that's not essential, such as cached data
+    [self updateDisplay];
 }
 
-#pragma mark Table view methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tv
+- (void)updateNewsItem:(NewsFeedItem *)item
 {
-    return 1;
+    self.newsFeedItem = item;
+
+    [self updateDisplay];
 }
 
-// Customize the number of rows in the table view.
-- (NSInteger)tableView:(UITableView *)tv
- numberOfRowsInSection:(NSInteger)section
+- (void)updateDisplay
 {
-    return 0;
+    authorLabel.text = newsFeedItem.author;
+    titleLabel.text = newsFeedItem.title;
+    timestampLabel.text = [newsFeedItem.published shortDescription];
+    entityTypeLabel.text = newsFeedItem.type;
+
+    [bodyView
+        loadHtmlRelativeToMainBundle:
+        [[self class] htmlForContent:newsFeedItem.content]];
 }
 
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tv
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark UIWebViewDelegate implementation
+
+- (BOOL)webView:(UIWebView *)webView
+    shouldStartLoadWithRequest:(NSURLRequest *)request
+    navigationType:(UIWebViewNavigationType)navigationType
 {
-    static NSString * CellIdentifier = @"Cell";
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        NSURL * url = [request URL];
+        [[UIApplication sharedApplication] openURL:url];
 
-    UITableViewCell * cell =
-        [tv dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    if (cell == nil) {
-        cell =
-            [[[UITableViewCell alloc]
-              initWithFrame:CGRectZero reuseIdentifier:CellIdentifier]
-             autorelease];
+        return NO;
     }
 
-    // Set up the cell...
-
-    return cell;
-}
-
-- (void)          tableView:(UITableView *)tv
-    didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    // AnotherViewController *anotherViewController =
-    //     [[AnotherViewController alloc]
-    //      initWithNibName:@"AnotherView" bundle:nil];
-    // [self.navigationController pushViewController:anotherViewController];
-    // [anotherViewController release];
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)        tableView:(UITableView *)tv
-    canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)     tableView:(UITableView *)tv
-    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-     forRowAtIndexPath:(NSIndexPath *)indexPath
++ (NSString *)htmlForContent:(NSString *)content
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView
-         deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-               withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the
-        // array, and add a new row to the table view
-    }   
+    return
+        [NSString stringWithFormat:
+        @"<html>"
+         "  <head>"
+         "   <style media=\"screen\" type=\"text/css\" rel=\"stylesheet\">"
+         "     @import url(news-feed-item-style.css);"
+         "   </style>"
+         "  </head>"
+         "  <body>"
+         "    %@"
+         "  </body>"
+         "</html>",
+        content];
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)     tableView:(UITableView *)tv
-    moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
-           toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)        tableView:(UITableView *)tv
-    canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 @end
