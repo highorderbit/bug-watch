@@ -41,6 +41,8 @@
 {
     [super viewDidLoad];
 
+    bodyView.backgroundColor = [UIColor whiteColor];
+
     self.navigationItem.title =
         NSLocalizedString(@"newsfeeditem.view.title", @"");
 }
@@ -97,8 +99,7 @@
          "     @import url(news-feed-item-style.css);"
          "   </style>"
          "  </head>"
-            // margin-top is the height of the header view * 3
-         "  <body style=\"margin-top: 330px; margin-bottom: 475px;\">"
+         "  <body>"
          "    %@"
          "  </body>"
          "</html>",
