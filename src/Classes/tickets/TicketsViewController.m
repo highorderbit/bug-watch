@@ -42,8 +42,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self updateNavigationBarForNotSearching:animated];
     [delegate ticketsFilteredByFilterKey:nil];
+    [self updateNavigationBarForNotSearching:animated];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -150,12 +150,12 @@
     }
 
     CGRect frame = searchTextField.frame;
-    frame.size.width = 270;
+    frame.size.width = 300;
     searchTextField.frame = frame;
     
     if (animated)
         [UIView commitAnimations];
-    
+
     [self.navigationItem setRightBarButtonItem:addButton animated:animated];
 }
 

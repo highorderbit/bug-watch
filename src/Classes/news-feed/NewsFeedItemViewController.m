@@ -63,7 +63,7 @@
 {
     authorLabel.text = newsFeedItem.author;
     titleLabel.text = newsFeedItem.title;
-    timestampLabel.text = [newsFeedItem.published shortDescription];
+    timestampLabel.text = [newsFeedItem.published shortDateAndTimeDescription];
     entityTypeLabel.text = newsFeedItem.type;
 
     [bodyView
@@ -97,7 +97,8 @@
          "     @import url(news-feed-item-style.css);"
          "   </style>"
          "  </head>"
-         "  <body>"
+            // margin-top is the height of the header view * 3
+         "  <body style=\"margin-top: 330px; margin-bottom: 475px;\">"
          "    %@"
          "  </body>"
          "</html>",
