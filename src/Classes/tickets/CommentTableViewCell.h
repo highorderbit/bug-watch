@@ -6,6 +6,10 @@
 
 @interface CommentTableViewCell : UITableViewCell
 {
+    IBOutlet UILabel * authorLabel;
+    IBOutlet UILabel * dateLabel;
+    IBOutlet UILabel * stateChangeLabel;
+    IBOutlet UILabel * commentLabel;
 }
 
 @end
