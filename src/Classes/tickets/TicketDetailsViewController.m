@@ -8,6 +8,7 @@
 
 - (void)dealloc {
     [headerView release];
+    [editTicketViewController release];
     [super dealloc];
 }
 
@@ -17,6 +18,16 @@
         animated:NO];
 
     self.tableView.tableHeaderView = headerView;
+}
+
+#pragma mark UITableViewController implementation
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    // customized editing, don't call super
+
+    [self presentModalViewController:self.editTicketViewController
+        animated:animated];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -75,6 +86,18 @@
 {
     self.navigationItem.title =
         [NSString stringWithFormat:@"Ticket %d", aNumber];
+}
+
+#pragma mark TicketDetailsViewController implementation
+
+- (EditTicketViewController *)editTicketViewController
+{
+    if (!editTicketViewController)
+        editTicketViewController =
+            [[EditTicketViewController alloc]
+            initWithNibName:@"EditTicketView" bundle:nil];
+
+    return editTicketViewController;
 }
 
 @end
