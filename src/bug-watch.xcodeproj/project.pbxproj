@@ -65,6 +65,11 @@
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
 		919C99720FA2655F002CF095 /* Pages.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C99710FA2655F002CF095 /* Pages.png */; };
+		91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */; };
+		91A85B180FAF6F350084FBE1 /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */; };
+		91A85B950FAF77BD0084FBE1 /* ItemSelectionTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85B930FAF77BD0084FBE1 /* ItemSelectionTableView.xib */; };
+		91A85B990FAF77E20084FBE1 /* ItemSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A85B980FAF77E20084FBE1 /* ItemSelectionTableViewController.m */; };
+		91C5D8840FAFA49100943292 /* HOTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C5D8830FAFA49100943292 /* HOTableViewCell.m */; };
 		91CC24270FAC15F40023AB06 /* TicketDetailsGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 91CC24260FAC15F40023AB06 /* TicketDetailsGradient.png */; };
 		91D6805F0F98D9040040A310 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D6805E0F98D9040040A310 /* Default.png */; };
 		91D680800F98DDC40040A310 /* HomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D6807F0F98DDC40040A310 /* HomeIcon.png */; };
@@ -180,6 +185,14 @@
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
 		919C99710FA2655F002CF095 /* Pages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pages.png; sourceTree = "<group>"; };
+		91A85AB30FAF59A30084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AddCommentView.xib; sourceTree = "<group>"; };
+		91A85B160FAF6F350084FBE1 /* AddCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddCommentViewController.h; path = tickets/AddCommentViewController.h; sourceTree = "<group>"; };
+		91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddCommentViewController.m; path = tickets/AddCommentViewController.m; sourceTree = "<group>"; };
+		91A85B940FAF77BD0084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ItemSelectionTableView.xib; sourceTree = "<group>"; };
+		91A85B970FAF77E20084FBE1 /* ItemSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemSelectionTableViewController.h; path = tickets/ItemSelectionTableViewController.h; sourceTree = "<group>"; };
+		91A85B980FAF77E20084FBE1 /* ItemSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemSelectionTableViewController.m; path = tickets/ItemSelectionTableViewController.m; sourceTree = "<group>"; };
+		91C5D8820FAFA49100943292 /* HOTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HOTableViewCell.h; path = shared/HOTableViewCell.h; sourceTree = "<group>"; };
+		91C5D8830FAFA49100943292 /* HOTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HOTableViewCell.m; path = shared/HOTableViewCell.m; sourceTree = "<group>"; };
 		91CC24260FAC15F40023AB06 /* TicketDetailsGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketDetailsGradient.png; sourceTree = "<group>"; };
 		91D6805E0F98D9040040A310 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		91D6807F0F98DDC40040A310 /* HomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeIcon.png; sourceTree = "<group>"; };
@@ -293,6 +306,8 @@
 		05E637760FA8D35100F736A5 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				91C5D8820FAFA49100943292 /* HOTableViewCell.h */,
+				91C5D8830FAFA49100943292 /* HOTableViewCell.m */,
 				055214020FAB709600626049 /* NetworkAwareViewController.h */,
 				055214030FAB709600626049 /* NetworkAwareViewController.m */,
 				055214040FAB709600626049 /* NetworkAwareViewControllerDelegate.h */,
@@ -413,6 +428,8 @@
 				919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */,
 				91E1FC7E0FACB6F100E86DDE /* EditTicketView.xib */,
 				91E1FC870FACC39300E86DDE /* EditTicketTableViewCell.xib */,
+				91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */,
+				91A85B930FAF77BD0084FBE1 /* ItemSelectionTableView.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -439,6 +456,10 @@
 				91E1FC820FACB70900E86DDE /* EditTicketViewController.m */,
 				91E1FCD00FACC42600E86DDE /* EditTicketTableViewCell.h */,
 				91E1FCD10FACC42600E86DDE /* EditTicketTableViewCell.m */,
+				91A85B160FAF6F350084FBE1 /* AddCommentViewController.h */,
+				91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */,
+				91A85B970FAF77E20084FBE1 /* ItemSelectionTableViewController.h */,
+				91A85B980FAF77E20084FBE1 /* ItemSelectionTableViewController.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -554,6 +575,8 @@
 				91E1FC800FACB6F100E86DDE /* EditTicketView.xib in Resources */,
 				91E1FC860FACBBBE00E86DDE /* TextField.png in Resources */,
 				91E1FC890FACC39300E86DDE /* EditTicketTableViewCell.xib in Resources */,
+				91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */,
+				91A85B950FAF77BD0084FBE1 /* ItemSelectionTableView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +624,9 @@
 				055215BA0FABB3F300626049 /* UIWebView+FileLoadingAdditions.m in Sources */,
 				91E1FC830FACB70900E86DDE /* EditTicketViewController.m in Sources */,
 				91E1FCD20FACC42600E86DDE /* EditTicketTableViewCell.m in Sources */,
+				91A85B180FAF6F350084FBE1 /* AddCommentViewController.m in Sources */,
+				91A85B990FAF77E20084FBE1 /* ItemSelectionTableViewController.m in Sources */,
+				91C5D8840FAFA49100943292 /* HOTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +729,22 @@
 			name = CommentTableViewCell.xib;
 			sourceTree = "<group>";
 		};
+		91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91A85AB30FAF59A30084FBE1 /* en */,
+			);
+			name = AddCommentView.xib;
+			sourceTree = "<group>";
+		};
+		91A85B930FAF77BD0084FBE1 /* ItemSelectionTableView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91A85B940FAF77BD0084FBE1 /* en */,
+			);
+			name = ItemSelectionTableView.xib;
+			sourceTree = "<group>";
+		};
 		91E1FC7E0FACB6F100E86DDE /* EditTicketView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -779,13 +821,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Douglas Kurth";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = "Debug - Doug";

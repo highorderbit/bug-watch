@@ -61,6 +61,11 @@
 {
     return [UIColor colorWithRed:0.008 green:0.427 blue:0.925 alpha:1.0];
 }
+
++ (UIColor *)bugWatchCheckedColor
+{
+    return [UIColor colorWithRed:0.196 green:0.310 blue:0.522 alpha:1.0];
+}
         
 + (UIColor *)bugWatchColorForState:(NSUInteger)state
 {
