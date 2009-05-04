@@ -98,6 +98,7 @@
         authorLabel.textColor = [UIColor whiteColor];
         pubDateLabel.textColor = [UIColor whiteColor];
         bodyLabel.textColor = [UIColor whiteColor];
+        //entityTypeLabel
     } else {
         authorLabel.textColor = [UIColor blackColor];
         pubDateLabel.textColor = [[self class] dateLabelColor];
