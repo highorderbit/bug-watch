@@ -841,7 +841,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "27553EA5-4743-4E5C-90D9-054D013FAB22";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = "Debug - John";
@@ -856,7 +856,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "27553EA5-4743-4E5C-90D9-054D013FAB22";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = "Release - John";
