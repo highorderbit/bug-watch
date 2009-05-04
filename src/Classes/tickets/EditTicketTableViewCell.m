@@ -3,6 +3,13 @@
 //
 
 #import "EditTicketTableViewCell.h"
+#import "UIColor+BugWatchColors.h"
+
+@interface EditTicketTableViewCell (Private)
+
+- (void)setNonSelectedTextColors;
+
+@end
 
 @implementation EditTicketTableViewCell
 
@@ -13,18 +20,20 @@
     [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
+- (void)awakeFromNib
 {
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-        // Initialization code
-    }
-
-    return self;
+    [self setNonSelectedTextColors];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
+    
+    if (selected) {
+        keyLabel.textColor = [UIColor whiteColor];
+        valueLabel.textColor = [UIColor whiteColor];
+    } else
+        [self setNonSelectedTextColors];
 }
 
 - (void)setKeyText:(NSString *)text
@@ -35,6 +44,12 @@
 - (void)setValueText:(NSString *)text
 {
     valueLabel.text = text;
+}
+
+- (void)setNonSelectedTextColors
+{
+    keyLabel.textColor = [UIColor bugWatchLabelColor];
+    valueLabel.textColor = [UIColor blackColor];
 }
 
 @end
