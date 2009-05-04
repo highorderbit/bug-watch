@@ -25,9 +25,13 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     // customized editing, don't call super
+    
+    UINavigationController * navController =
+        [[[UINavigationController alloc]
+        initWithRootViewController:self.editTicketViewController]
+        autorelease];
 
-    [self presentModalViewController:self.editTicketViewController
-        animated:animated];
+    [self presentModalViewController:navController animated:animated];
 }
 
 #pragma mark UITableViewDataSource implementation

@@ -3,14 +3,28 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddCommentViewController.h"
+#import "ItemSelectionTableViewController.h"
 
-@interface EditTicketViewController : UIViewController
+@interface EditTicketViewController :
+    UITableViewController <UITextFieldDelegate>
 {
-    IBOutlet UITableView * tableView;
     IBOutlet UIView * headerView;
-    IBOutlet UIView * footerView;
+    IBOutlet UIBarButtonItem * cancelButton;
+    IBOutlet UIBarButtonItem * updateButton;
+    IBOutlet UITextField * descriptionTextField;
+    IBOutlet UITextField * tagsTextField;
+    
+    AddCommentViewController * addCommentViewController;
+    ItemSelectionTableViewController * itemSelectionTableViewController;
 }
 
+@property (nonatomic, readonly)
+    AddCommentViewController * addCommentViewController;
+@property (nonatomic, readonly)
+    ItemSelectionTableViewController * itemSelectionTableViewController;
+    
 - (IBAction)cancel:(id)sender;
+- (IBAction)update:(id)sender;
 
 @end
