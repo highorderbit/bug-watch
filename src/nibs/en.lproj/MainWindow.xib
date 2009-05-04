@@ -198,6 +198,7 @@
 									<string key="IBUITitle">Milestones</string>
 								</object>
 								<reference key="IBUIParentViewController" ref="882697621"/>
+								<string key="IBUINibName">MilestonesView</string>
 							</object>
 						</object>
 					</object>
@@ -740,6 +741,7 @@
 					<string>147.IBPluginDependency</string>
 					<string>149.IBEditorWindowLastContentRect</string>
 					<string>149.IBPluginDependency</string>
+					<string>150.CustomClassName</string>
 					<string>150.IBPluginDependency</string>
 					<string>151.IBPluginDependency</string>
 					<string>152.IBPluginDependency</string>
@@ -786,6 +788,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{42, 319}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>MilestonesViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -902,6 +905,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MilestonesViewController</string>
+					<string key="superclassName">UITableViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/milestones/MilestonesViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
