@@ -21,9 +21,19 @@
 		055215DF0FABB5C700626049 /* news-feed-item-style.css in Resources */ = {isa = PBXBuildFile; fileRef = 055215DE0FABB5C700626049 /* news-feed-item-style.css */; };
 		0552172E0FACB75800626049 /* DropShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0552172D0FACB75800626049 /* DropShadow.png */; };
 		055217AF0FACCA2B00626049 /* NewsFeedItemHeaderGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 055217AE0FACCA2B00626049 /* NewsFeedItemHeaderGradient.png */; };
+		0597365D0FAFB42200059D20 /* MilestonesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0597365B0FAFB42200059D20 /* MilestonesView.xib */; };
+		059736620FAFB47800059D20 /* MilestonesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736610FAFB47800059D20 /* MilestonesViewController.m */; };
+		059736730FAFB6F600059D20 /* MilestonesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 059736710FAFB6F600059D20 /* MilestonesTableViewCell.xib */; };
+		059736770FAFB75000059D20 /* MilestonesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736760FAFB75000059D20 /* MilestonesTableViewCell.m */; };
+		0597367A0FAFB97100059D20 /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
+		059736920FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736910FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.m */; };
+		059736950FAFC00D00059D20 /* NSObject+RuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */; };
+		059737240FAFD05200059D20 /* RoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059737230FAFD05200059D20 /* RoundedRectView.m */; };
+		0597386A0FB0C26A00059D20 /* MilestoneProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059738690FB0C26A00059D20 /* MilestoneProgressView.m */; };
 		05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */; };
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
+		05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */; };
 		05E636BE0FA8C11C00F736A5 /* NewsFeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */; };
 		05E636CA0FA8C1B900F736A5 /* NewsFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E636C90FA8C1B900F736A5 /* NewsFeedViewController.m */; };
 		05E637290FA8C8EB00F736A5 /* NewsFeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E637270FA8C8EB00F736A5 /* NewsFeedTableViewCell.xib */; };
@@ -111,6 +121,22 @@
 		055215DE0FABB5C700626049 /* news-feed-item-style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "news-feed-item-style.css"; path = "html/news-feed-item-style.css"; sourceTree = "<group>"; };
 		0552172D0FACB75800626049 /* DropShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropShadow.png; sourceTree = "<group>"; };
 		055217AE0FACCA2B00626049 /* NewsFeedItemHeaderGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewsFeedItemHeaderGradient.png; sourceTree = "<group>"; };
+		0597365C0FAFB42200059D20 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MilestonesView.xib; sourceTree = "<group>"; };
+		059736600FAFB47800059D20 /* MilestonesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewController.h; path = Classes/milestones/MilestonesViewController.h; sourceTree = "<group>"; };
+		059736610FAFB47800059D20 /* MilestonesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestonesViewController.m; path = Classes/milestones/MilestonesViewController.m; sourceTree = "<group>"; };
+		059736720FAFB6F600059D20 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MilestonesTableViewCell.xib; sourceTree = "<group>"; };
+		059736750FAFB75000059D20 /* MilestonesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesTableViewCell.h; path = Classes/milestones/MilestonesTableViewCell.h; sourceTree = "<group>"; };
+		059736760FAFB75000059D20 /* MilestonesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestonesTableViewCell.m; path = Classes/milestones/MilestonesTableViewCell.m; sourceTree = "<group>"; };
+		059736780FAFB97100059D20 /* Milestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Milestone.h; path = Classes/milestones/Milestone.h; sourceTree = "<group>"; };
+		059736790FAFB97100059D20 /* Milestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Milestone.m; path = Classes/milestones/Milestone.m; sourceTree = "<group>"; };
+		059736900FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableViewCell+InstantiationAdditions.h"; path = "shared/UITableViewCell+InstantiationAdditions.h"; sourceTree = "<group>"; };
+		059736910FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+InstantiationAdditions.m"; path = "shared/UITableViewCell+InstantiationAdditions.m"; sourceTree = "<group>"; };
+		059736930FAFC00D00059D20 /* NSObject+RuntimeAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+RuntimeAdditions.h"; path = "shared/NSObject+RuntimeAdditions.h"; sourceTree = "<group>"; };
+		059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+RuntimeAdditions.m"; path = "shared/NSObject+RuntimeAdditions.m"; sourceTree = "<group>"; };
+		059737220FAFD05200059D20 /* RoundedRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedRectView.h; path = shared/RoundedRectView.h; sourceTree = "<group>"; };
+		059737230FAFD05200059D20 /* RoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectView.m; path = shared/RoundedRectView.m; sourceTree = "<group>"; };
+		059738680FB0C26A00059D20 /* MilestoneProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneProgressView.h; path = shared/MilestoneProgressView.h; sourceTree = "<group>"; };
+		059738690FB0C26A00059D20 /* MilestoneProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneProgressView.m; path = shared/MilestoneProgressView.m; sourceTree = "<group>"; };
 		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppDelegate.h; path = "app-controller/BugWatchAppDelegate.h"; sourceTree = "<group>"; };
 		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppDelegate.m; path = "app-controller/BugWatchAppDelegate.m"; sourceTree = "<group>"; };
 		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+WebServiceApiAdditions.h"; path = "web-service/NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
@@ -118,6 +144,9 @@
 		05C870760FA77FD80069BC72 /* WebServiceApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApi.h; path = "web-service/WebServiceApi.h"; sourceTree = "<group>"; };
 		05C870770FA77FD80069BC72 /* WebServiceApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebServiceApi.m; path = "web-service/WebServiceApi.m"; sourceTree = "<group>"; };
 		05C870780FA77FD80069BC72 /* WebServiceApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApiDelegate.h; path = "web-service/WebServiceApiDelegate.h"; sourceTree = "<group>"; };
+		05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDisplayMgr.h; path = Classes/milestones/MilestoneDisplayMgr.h; sourceTree = "<group>"; };
+		05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDisplayMgr.m; path = Classes/milestones/MilestoneDisplayMgr.m; sourceTree = "<group>"; };
+		05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewControllerDelegate.h; path = Classes/milestones/MilestonesViewControllerDelegate.h; sourceTree = "<group>"; };
 		05E636BD0FA8C11C00F736A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewsFeedView.xib; sourceTree = "<group>"; };
 		05E636C80FA8C1B900F736A5 /* NewsFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewController.h; path = "news-feed/NewsFeedViewController.h"; sourceTree = "<group>"; };
 		05E636C90FA8C1B900F736A5 /* NewsFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedViewController.m; path = "news-feed/NewsFeedViewController.m"; sourceTree = "<group>"; };
@@ -262,6 +291,23 @@
 			name = html;
 			sourceTree = "<group>";
 		};
+		0597365F0FAFB44600059D20 /* milestones */ = {
+			isa = PBXGroup;
+			children = (
+				059736780FAFB97100059D20 /* Milestone.h */,
+				059736790FAFB97100059D20 /* Milestone.m */,
+				05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */,
+				05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */,
+				059736600FAFB47800059D20 /* MilestonesViewController.h */,
+				059736610FAFB47800059D20 /* MilestonesViewController.m */,
+				05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */,
+				059736750FAFB75000059D20 /* MilestonesTableViewCell.h */,
+				059736760FAFB75000059D20 /* MilestonesTableViewCell.m */,
+			);
+			name = milestones;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		05C870670FA77EDC0069BC72 /* app-controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +366,8 @@
 				055214040FAB709600626049 /* NetworkAwareViewControllerDelegate.h */,
 				055214050FAB709600626049 /* NoDataViewController.h */,
 				055214060FAB709600626049 /* NoDataViewController.m */,
+				059736930FAFC00D00059D20 /* NSObject+RuntimeAdditions.h */,
+				059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */,
 				05E637F30FA8DC4A00F736A5 /* UILabel+DrawingAdditions.h */,
 				05E637F40FA8DC4A00F736A5 /* UILabel+DrawingAdditions.m */,
 				05E637770FA8D36500F736A5 /* NSDate+LighthouseStringHelpers.h */,
@@ -332,8 +380,14 @@
 				9100C23E0FA928BD003C2ECF /* UIColor+BugWatchColors.m */,
 				055215B80FABB3F300626049 /* UIWebView+FileLoadingAdditions.h */,
 				055215B90FABB3F300626049 /* UIWebView+FileLoadingAdditions.m */,
+				059736900FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.h */,
+				059736910FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.m */,
 				913E45D40FAA8027000EB184 /* RoundedRectLabel.h */,
 				913E45D50FAA8027000EB184 /* RoundedRectLabel.m */,
+				059737220FAFD05200059D20 /* RoundedRectView.h */,
+				059737230FAFD05200059D20 /* RoundedRectView.m */,
+				059738680FB0C26A00059D20 /* MilestoneProgressView.h */,
+				059738690FB0C26A00059D20 /* MilestoneProgressView.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -356,10 +410,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				913E45A60FAA7757000EB184 /* projects */,
 				05C870670FA77EDC0069BC72 /* app-controller */,
 				05E636C00FA8C17D00F736A5 /* news-feed */,
 				9100C09E0FA8C87D003C2ECF /* tickets */,
+				913E45A60FAA7757000EB184 /* projects */,
+				0597365F0FAFB44600059D20 /* milestones */,
 				05EFD7C10FA924D8001DFCFB /* lighthouse */,
 				05C870720FA77FCC0069BC72 /* web-service */,
 				05E637760FA8D35100F736A5 /* shared */,
@@ -437,6 +492,8 @@
 				91E1FC870FACC39300E86DDE /* EditTicketTableViewCell.xib */,
 				91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */,
 				91A85B930FAF77BD0084FBE1 /* ItemSelectionTableView.xib */,
+				0597365B0FAFB42200059D20 /* MilestonesView.xib */,
+				059736710FAFB6F600059D20 /* MilestonesTableViewCell.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -589,6 +646,8 @@
 				91E1FC890FACC39300E86DDE /* EditTicketTableViewCell.xib in Resources */,
 				91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */,
 				91A85B950FAF77BD0084FBE1 /* ItemSelectionTableView.xib in Resources */,
+				0597365D0FAFB42200059D20 /* MilestonesView.xib in Resources */,
+				059736730FAFB6F600059D20 /* MilestonesTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +700,14 @@
 				91C5D8840FAFA49100943292 /* HOTableViewCell.m in Sources */,
 				91C5D9120FAFB88000943292 /* TicketComment.m in Sources */,
 				91C5D9830FAFF8A400943292 /* TicketMetaData.m in Sources */,
+				059736620FAFB47800059D20 /* MilestonesViewController.m in Sources */,
+				059736770FAFB75000059D20 /* MilestonesTableViewCell.m in Sources */,
+				0597367A0FAFB97100059D20 /* Milestone.m in Sources */,
+				059736920FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.m in Sources */,
+				059736950FAFC00D00059D20 /* NSObject+RuntimeAdditions.m in Sources */,
+				059737240FAFD05200059D20 /* RoundedRectView.m in Sources */,
+				0597386A0FB0C26A00059D20 /* MilestoneProgressView.m in Sources */,
+				05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +736,22 @@
 				055214000FAB707D00626049 /* en */,
 			);
 			name = NoDataView.xib;
+			sourceTree = "<group>";
+		};
+		0597365B0FAFB42200059D20 /* MilestonesView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0597365C0FAFB42200059D20 /* en */,
+			);
+			name = MilestonesView.xib;
+			sourceTree = "<group>";
+		};
+		059736710FAFB6F600059D20 /* MilestonesTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				059736720FAFB6F600059D20 /* en */,
+			);
+			name = MilestonesTableViewCell.xib;
 			sourceTree = "<group>";
 		};
 		05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */ = {
@@ -898,7 +981,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "27553EA5-4743-4E5C-90D9-054D013FAB22";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = "Debug - John";
@@ -913,7 +996,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "27553EA5-4743-4E5C-90D9-054D013FAB22";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = "Release - John";

@@ -94,7 +94,7 @@
                   ofRoundedRectLabel:entityTypeLabel];
 
     [bodyView
-        loadHtmlRelativeToMainBundle:
+        loadHTMLStringRelativeToMainBundle:
         [[self class] htmlForContent:newsFeedItem.content]];
 
     //
