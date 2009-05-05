@@ -3,8 +3,16 @@
 //
 
 #import "MilestonesTableViewCell.h"
+#import "RoundedRectView.h"
 #import "Milestone.h"
 #import "NSDate+StringHelpers.h"
+
+@interface MilestonesTableViewCell ()
+
+- (void)setSelectedColors;
+- (void)setNonSelectedColors;
+
+@end
 
 @implementation MilestonesTableViewCell
 
@@ -14,8 +22,12 @@
 {
     [nameLabel release];
     [dueDateLabel release];
+
+    [numOpenTicketsView release];
     [numOpenTicketsLabel release];
     [numOpenTicketsTitleLabel release];
+    [numOpenTicketsViewBackgroundColor release];
+
     [progressView release];
 
     [milestone release];
@@ -23,13 +35,11 @@
     [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
+- (void)awakeFromNib
 {
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-        // Initialization code
-    }
-
-    return self;
+    // cache the num tickets view's background color set in the nib
+    numOpenTicketsViewBackgroundColor =
+        [numOpenTicketsView.backgroundColor retain];
 }
 
 - (void)layoutSubviews
@@ -66,7 +76,32 @@
 {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+    if (selected)
+        [self setSelectedColors];
+    else
+        [self setNonSelectedColors];
+}
+
+#pragma mark Setting selection colors
+
+- (void)setSelectedColors
+{
+    nameLabel.textColor = [UIColor whiteColor];
+    dueDateLabel.textColor = [UIColor whiteColor];
+
+    numOpenTicketsView.fillColor = [UIColor whiteColor];
+    numOpenTicketsLabel.textColor = [UIColor blackColor];
+    numOpenTicketsTitleLabel.textColor = [UIColor blackColor];
+}
+
+- (void)setNonSelectedColors
+{
+    nameLabel.textColor = [UIColor blackColor];
+    dueDateLabel.textColor = [UIColor blackColor];
+
+    numOpenTicketsView.fillColor = numOpenTicketsViewBackgroundColor;
+    numOpenTicketsLabel.textColor = [UIColor whiteColor];
+    numOpenTicketsTitleLabel.textColor = [UIColor whiteColor];
 }
 
 @end
