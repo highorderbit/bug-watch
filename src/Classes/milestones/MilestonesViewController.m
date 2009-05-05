@@ -8,7 +8,7 @@
 
 @implementation MilestonesViewController
 
-@synthesize milestones;
+@synthesize delegate, milestones;
 
 - (void)dealloc
 {
@@ -54,15 +54,10 @@
     return cell;
 }
 
-- (void)          tableView:(UITableView *)tv
+- (void)tableView:(UITableView *)tv
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    // AnotherViewController *anotherViewController =
-    //     [[AnotherViewController alloc]
-    //      initWithNibName:@"AnotherView" bundle:nil];
-    // [self.navigationController pushViewController:anotherViewController];
-    // [anotherViewController release];
+    [delegate userDidSelectMilestone:[milestones objectAtIndex:indexPath.row]];
 }
 
 @end

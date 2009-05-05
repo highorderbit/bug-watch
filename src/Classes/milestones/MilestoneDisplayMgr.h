@@ -4,10 +4,13 @@
 
 #import <Foundation/Foundation.h>
 #import "NetworkAwareViewController.h"
+#import "MilestonesViewControllerDelegate.h"
 
 @class MilestonesViewController;
 
-@interface MilestoneDisplayMgr : NSObject <NetworkAwareViewControllerDelegate>
+@interface MilestoneDisplayMgr :
+    NSObject
+    <NetworkAwareViewControllerDelegate, MilestonesViewControllerDelegate>
 {
     NetworkAwareViewController * networkAwareViewController;
     MilestonesViewController * milestonesViewController;

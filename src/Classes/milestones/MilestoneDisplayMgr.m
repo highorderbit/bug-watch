@@ -23,6 +23,7 @@
         milestonesViewController =
             [[MilestonesViewController alloc]
             initWithNibName:@"MilestonesView" bundle:nil];
+        milestonesViewController.delegate = self;
         networkAwareViewController.targetViewController =
             milestonesViewController;
     }
@@ -36,6 +37,13 @@
 {
     [networkAwareViewController setCachedDataAvailable:YES];
     [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
+}
+
+#pragma mark MilestonesViewControllerDelegate implementation
+
+- (void)userDidSelectMilestone:(Milestone *)milestone
+{
+    NSLog(@"User selected milestone: '%@'.", milestone);
 }
 
 @end
