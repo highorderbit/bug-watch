@@ -3,18 +3,18 @@
 //
 
 #import "BugWatchAppController.h"
+#import "NetworkAwareViewController.h"
 #import "TicketDetailsViewController.h"
 #import "NewsFeedDisplayMgr.h"
 #import "NewsFeedDataSource.h"
 #import "NewsFeedViewController.h"
 #import "LighthouseNewsFeedService.h"
-#import "NetworkAwareViewController.h"
+#import "MilestoneDisplayMgr.h"
 
 @implementation BugWatchAppController
 
 - (void)dealloc
 {
-    [newsFeedNetworkAwareViewController release];
     [newsFeedNetworkAwareViewController release];
 
     [ticketsViewController release];
@@ -23,8 +23,7 @@
     [projectsViewController release];
     [projectsNavController release];
 
-    [milestonesViewController release];
-    [milestonesNavController release];
+    [milestonesNetworkAwareViewController release];
 
     [messagesViewController release];
     [messagesNavController release];
@@ -35,6 +34,7 @@
     [ticketCache release];
 
     [newsFeedDisplayMgr release];
+    [milestoneDisplayMgr release];
 
     [super dealloc];
 }
@@ -92,6 +92,11 @@
         [[NewsFeedDisplayMgr alloc]
         initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
                         newsFeedDataSource:newsFeedDataSource];
+
+    milestoneDisplayMgr =
+        [[MilestoneDisplayMgr alloc]
+        initWithNetworkAwareViewController:
+        milestonesNetworkAwareViewController];
 }
 
 @end

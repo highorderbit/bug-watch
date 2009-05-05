@@ -8,12 +8,11 @@
 #import "TicketDisplayMgr.h"
 
 @class NetworkAwareViewController;
-@class NewsFeedDisplayMgr;
+@class NewsFeedDisplayMgr, MilestoneDisplayMgr;
 
 @interface BugWatchAppController : NSObject
 {
     IBOutlet NetworkAwareViewController * newsFeedNetworkAwareViewController;
-    IBOutlet UINavigationController * newsFeedNavController;
 
     IBOutlet TicketsViewController * ticketsViewController;
     IBOutlet UINavigationController * ticketsNavController;
@@ -21,8 +20,7 @@
     IBOutlet UIViewController * projectsViewController;
     IBOutlet UINavigationController * projectsNavController;
 
-    IBOutlet UIViewController * milestonesViewController;
-    IBOutlet UINavigationController * milestonesNavController;
+    IBOutlet NetworkAwareViewController * milestonesNetworkAwareViewController;
 
     IBOutlet UIViewController * messagesViewController;
     IBOutlet UINavigationController * messagesNavController;
@@ -33,6 +31,7 @@
     TicketCache * ticketCache;
 
     NewsFeedDisplayMgr * newsFeedDisplayMgr;
+    MilestoneDisplayMgr * milestoneDisplayMgr;
 }
 
 - (void)start;
