@@ -7,6 +7,7 @@
 
 @class Milestone;
 @class RoundedRectView;
+@class MilestoneProgressView;
 
 @interface MilestonesTableViewCell : UITableViewCell
 {
@@ -18,7 +19,7 @@
     IBOutlet UILabel * numOpenTicketsTitleLabel;
     UIColor * numOpenTicketsViewBackgroundColor;
 
-    IBOutlet UIProgressView * progressView;
+    IBOutlet MilestoneProgressView * progressView;
 
     Milestone * milestone;
 }

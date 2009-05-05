@@ -65,13 +65,16 @@
 
 + (NSArray *)dummyData
 {
+    NSDate * lastWeek = [NSDate dateWithTimeIntervalSinceNow:-60 * 60 * 24 * 7];
     NSDate * nextWeek = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * 7];
     NSDate * nextMonth =
         [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * 30];
 
     return [NSArray arrayWithObjects:
+        [[self class] milestoneWithName:@"1.0 Beta" dueDate:lastWeek
+            numOpenTickets:1 numTickets:40],
         [[self class] milestoneWithName:@"The Big 1.0" dueDate:nextWeek
-            numOpenTickets:4 numTickets:40],
+            numOpenTickets:8 numTickets:40],
         [[self class] milestoneWithName:@"1.1.0" dueDate:nextMonth
             numOpenTickets:30 numTickets:40],
         [[self class] milestoneWithName:@"1.2.0" dueDate:nil

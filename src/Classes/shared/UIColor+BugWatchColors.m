@@ -139,4 +139,19 @@
     return color ? color : [[self class] unknownEntityColor];
 }
 
++ (UIColor *)milestoneProgressColor
+{
+    return [UIColor colorWithRed:0 green:.518 blue:.251 alpha:1.0];
+}
+
++ (UIColor *)lateMilestoneProgressColor
+{
+    return [UIColor colorWithRed:.557 green:0 blue:0 alpha:1.0];
+}
+
++ (UIColor *)selectedTableViewCellBackgroundColor
+{
+    return [UIColor colorWithRed:.4 green:.388 blue:.910 alpha:1.0];
+}
+
 @end

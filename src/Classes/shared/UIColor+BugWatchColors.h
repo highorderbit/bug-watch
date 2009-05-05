@@ -30,4 +30,9 @@
 
 + (UIColor *)colorForEntity:(NSString *)entity;
 
++ (UIColor *)milestoneProgressColor;
++ (UIColor *)lateMilestoneProgressColor;
+
++ (UIColor *)selectedTableViewCellBackgroundColor;
+
 @end

@@ -29,6 +29,7 @@
 		059736920FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736910FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.m */; };
 		059736950FAFC00D00059D20 /* NSObject+RuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */; };
 		059737240FAFD05200059D20 /* RoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059737230FAFD05200059D20 /* RoundedRectView.m */; };
+		0597386A0FB0C26A00059D20 /* MilestoneProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059738690FB0C26A00059D20 /* MilestoneProgressView.m */; };
 		05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */; };
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
@@ -131,6 +132,8 @@
 		059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+RuntimeAdditions.m"; path = "shared/NSObject+RuntimeAdditions.m"; sourceTree = "<group>"; };
 		059737220FAFD05200059D20 /* RoundedRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedRectView.h; path = shared/RoundedRectView.h; sourceTree = "<group>"; };
 		059737230FAFD05200059D20 /* RoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectView.m; path = shared/RoundedRectView.m; sourceTree = "<group>"; };
+		059738680FB0C26A00059D20 /* MilestoneProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneProgressView.h; path = shared/MilestoneProgressView.h; sourceTree = "<group>"; };
+		059738690FB0C26A00059D20 /* MilestoneProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneProgressView.m; path = shared/MilestoneProgressView.m; sourceTree = "<group>"; };
 		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppDelegate.h; path = "app-controller/BugWatchAppDelegate.h"; sourceTree = "<group>"; };
 		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppDelegate.m; path = "app-controller/BugWatchAppDelegate.m"; sourceTree = "<group>"; };
 		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+WebServiceApiAdditions.h"; path = "web-service/NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
@@ -369,6 +372,8 @@
 				913E45D50FAA8027000EB184 /* RoundedRectLabel.m */,
 				059737220FAFD05200059D20 /* RoundedRectView.h */,
 				059737230FAFD05200059D20 /* RoundedRectView.m */,
+				059738680FB0C26A00059D20 /* MilestoneProgressView.h */,
+				059738690FB0C26A00059D20 /* MilestoneProgressView.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -680,6 +685,7 @@
 				059736920FAFBF6D00059D20 /* UITableViewCell+InstantiationAdditions.m in Sources */,
 				059736950FAFC00D00059D20 /* NSObject+RuntimeAdditions.m in Sources */,
 				059737240FAFD05200059D20 /* RoundedRectView.m in Sources */,
+				0597386A0FB0C26A00059D20 /* MilestoneProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

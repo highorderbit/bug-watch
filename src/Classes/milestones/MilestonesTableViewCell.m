@@ -4,8 +4,10 @@
 
 #import "MilestonesTableViewCell.h"
 #import "RoundedRectView.h"
+#import "MilestoneProgressView.h"
 #import "Milestone.h"
 #import "NSDate+StringHelpers.h"
+#import "UIColor+BugWatchColors.h"
 
 @interface MilestonesTableViewCell ()
 
@@ -90,18 +92,26 @@
     dueDateLabel.textColor = [UIColor whiteColor];
 
     numOpenTicketsView.backgroundColor = [UIColor whiteColor];
-    numOpenTicketsLabel.textColor = [UIColor blackColor];
-    numOpenTicketsTitleLabel.textColor = [UIColor blackColor];
+    numOpenTicketsLabel.textColor =
+        [UIColor selectedTableViewCellBackgroundColor];
+    numOpenTicketsTitleLabel.textColor =
+        [UIColor selectedTableViewCellBackgroundColor];
+
+    progressView.outlineColor = [UIColor whiteColor];
+    progressView.progressColor = [UIColor selectedTableViewCellBackgroundColor];
 }
 
 - (void)setNonSelectedColors
 {
     nameLabel.textColor = [UIColor blackColor];
-    dueDateLabel.textColor = [UIColor blackColor];
+    dueDateLabel.textColor = [UIColor bugWatchBlueColor];
 
     numOpenTicketsView.backgroundColor = numOpenTicketsViewBackgroundColor;
     numOpenTicketsLabel.textColor = [UIColor whiteColor];
     numOpenTicketsTitleLabel.textColor = [UIColor whiteColor];
+
+    progressView.outlineColor = [UIColor blackColor];
+    progressView.progressColor = [UIColor milestoneProgressColor];
 }
 
 @end
