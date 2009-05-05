@@ -89,7 +89,7 @@
     nameLabel.textColor = [UIColor whiteColor];
     dueDateLabel.textColor = [UIColor whiteColor];
 
-    numOpenTicketsView.fillColor = [UIColor whiteColor];
+    numOpenTicketsView.backgroundColor = [UIColor whiteColor];
     numOpenTicketsLabel.textColor = [UIColor blackColor];
     numOpenTicketsTitleLabel.textColor = [UIColor blackColor];
 }
@@ -99,7 +99,7 @@
     nameLabel.textColor = [UIColor blackColor];
     dueDateLabel.textColor = [UIColor blackColor];
 
-    numOpenTicketsView.fillColor = numOpenTicketsViewBackgroundColor;
+    numOpenTicketsView.backgroundColor = numOpenTicketsViewBackgroundColor;
     numOpenTicketsLabel.textColor = [UIColor whiteColor];
     numOpenTicketsTitleLabel.textColor = [UIColor whiteColor];
 }

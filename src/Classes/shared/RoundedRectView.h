@@ -11,6 +11,5 @@
 }
 
 @property (nonatomic, assign) CGSize roundedCornerSize;
-@property (nonatomic, retain) UIColor * fillColor;
 
 @end

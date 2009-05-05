@@ -4,18 +4,9 @@
 
 #import "RoundedRectView.h"
 
-@interface RoundedRectView ()
-
-/*
-- (void)setBackgroundColor:(UIColor *)color;
-- (UIColor *)backgroundColor;
-*/
-
-@end
-
 @implementation RoundedRectView
 
-@synthesize roundedCornerSize, fillColor;
+@synthesize roundedCornerSize;
 
 - (void)dealloc
 {
@@ -23,29 +14,14 @@
     [super dealloc];
 }
 
-- (void)initialize
+- (void)awakeFromNib
 {
     // set a reasonable default
     roundedCornerSize = CGSizeMake(7.5, 7.5);
 
     // save current bg color set in the nib and use for our fill color
-    //[self setBackgroundColor:self.backgroundColor];
-    //super.backgroundColor = [UIColor clearColor];
-    self.fillColor = self.backgroundColor;
+    [self setBackgroundColor:self.backgroundColor];
     super.backgroundColor = [UIColor clearColor];
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    if (self = [super initWithFrame:frame])
-        [self initialize];
-
-    return self;
-}
-
-- (void)awakeFromNib
-{
-    [self initialize];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -57,7 +33,7 @@
 
     CGContextClearRect(context, rect);
 
-    CGContextSetFillColorWithColor(context, self.fillColor.CGColor);
+    CGContextSetFillColorWithColor(context, fillColor.CGColor);
 
     CGContextFillRect(context,
         CGRectMake(roundedCornerSize.width / 2,
@@ -108,13 +84,23 @@
 
 #pragma mark Accessors
 
-- (void)setFillColor:(UIColor *)color
+- (void)setBackgroundColor:(UIColor *)color
 {
+    // various built-in classes will set the background color; override
+    // them and use the color as our fill color and keep super's background
+    // color transparent.
+    super.backgroundColor = [UIColor clearColor];
+
     UIColor * tmp = [color retain];
     [fillColor release];
     fillColor = tmp;
 
     [self setNeedsDisplay];
+}
+
+- (UIColor *)backgroundColor
+{
+    return fillColor;
 }
 
 @end
