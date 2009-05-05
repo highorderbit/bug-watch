@@ -52,5 +52,12 @@ task :push do |t|
 end
 
 task :build_tags do |t|
-  puts %x{ ctags --language-force=objc --objc-kinds=+PiIMCZ -f src/Classes/tags src/Classes/** }
+  print "Rebuilding tags..."
+  output = %x{ ctags --language-force=objc --objc-kinds=+PiIMCZ -f src/Classes/tags src/Classes/** }
+  if (output.chomp.length > 0)
+    puts ""      # print a newline
+    puts output  # only produces output if there's an error
+  else
+    puts "done."
+  end
 end
