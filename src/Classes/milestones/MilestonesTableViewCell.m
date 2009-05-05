@@ -104,14 +104,23 @@
 - (void)setNonSelectedColors
 {
     nameLabel.textColor = [UIColor blackColor];
-    dueDateLabel.textColor = [UIColor bugWatchBlueColor];
 
     numOpenTicketsView.backgroundColor = numOpenTicketsViewBackgroundColor;
     numOpenTicketsLabel.textColor = [UIColor whiteColor];
     numOpenTicketsTitleLabel.textColor = [UIColor whiteColor];
 
     progressView.outlineColor = [UIColor blackColor];
-    progressView.progressColor = [UIColor milestoneProgressColor];
+
+    BOOL late =
+        milestone.dueDate &&
+        [milestone.dueDate compare:[NSDate date]] == NSOrderedAscending;
+    if (late) {
+        dueDateLabel.textColor = [UIColor lateMilestoneProgressColor];
+        progressView.progressColor = [UIColor lateMilestoneProgressColor];
+    } else {
+        dueDateLabel.textColor = [UIColor bugWatchBlueColor];
+        progressView.progressColor = [UIColor milestoneProgressColor];
+    }
 }
 
 @end
