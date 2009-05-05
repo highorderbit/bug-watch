@@ -8,6 +8,7 @@
 
 - (NSString *)shortDescription;
 - (NSString *)shortDateAndTimeDescription;
+- (NSString *)shortDateDescription;
 
 + (NSDate *)dateFromString:(NSString *)string format:(NSString *)formatString;
 

@@ -6,6 +6,6 @@
 
 @interface UIWebView (FileLoadingAdditions)
 
-- (void)loadHtmlRelativeToMainBundle:(NSString *)html;
+- (void)loadHTMLStringRelativeToMainBundle:(NSString *)html;
 
 @end

@@ -68,8 +68,6 @@
 
 - (void)networkAwareViewWillAppear
 {
-    NSLog(@"Network aware view will appear called.");
-
     NSArray * items = [newsFeedDataSource currentNewsFeed];
     newsFeedViewController.newsItems = items;
     [networkAwareViewController setCachedDataAvailable:!!items];

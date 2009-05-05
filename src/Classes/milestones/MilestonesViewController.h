@@ -6,6 +6,9 @@
 
 @interface MilestonesViewController : UITableViewController
 {
+    NSArray * milestones;
 }
+
+@property (nonatomic, readonly, copy) NSArray * milestones;
 
 @end

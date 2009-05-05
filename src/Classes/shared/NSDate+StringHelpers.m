@@ -40,6 +40,16 @@
     return [formatter stringFromDate:self];
 }
 
+- (NSString *)shortDateDescription
+{
+    NSDateFormatter * formatter = [[[NSDateFormatter alloc] init] autorelease];
+
+    [formatter setDateStyle:NSDateFormatterShortStyle];
+    [formatter setTimeStyle:kCFDateFormatterNoStyle];
+
+    return [formatter stringFromDate:self];
+}
+
 + (NSDate *)dateFromString:(NSString *)string format:(NSString *)formatString
 {
     NSDateFormatter * formatter = [[[NSDateFormatter alloc] init] autorelease];
