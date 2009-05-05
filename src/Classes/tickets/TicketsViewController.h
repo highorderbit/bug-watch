@@ -14,6 +14,9 @@
     IBOutlet UIBarButtonItem * addButton;
 
     NSDictionary * tickets;
+    NSDictionary * metaData;
+    NSDictionary * assignedToDict;
+    NSDictionary * milestoneDict;
 }
 
 @property (nonatomic, retain)
@@ -22,6 +25,9 @@
 - (IBAction)cancelSelected:(id)sender;
 - (IBAction)addSelected:(id)sender;
 
-- (void)setTickets:(NSDictionary *)someTickets;
+- (void)setTickets:(NSDictionary *)someTickets
+    metaData:(NSDictionary *)someMetaData
+    assignedToDict:(NSDictionary *)anAssignedToDict
+    milestoneDict:(NSDictionary *)aMilestoneDict;
 
 @end

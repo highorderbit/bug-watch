@@ -34,6 +34,20 @@ enum EditTicketCell
 
 @implementation EditTicketViewController
 
+@synthesize ticketDescription;
+@synthesize message;
+@synthesize tags;
+
+@synthesize members;
+@synthesize member;
+
+@synthesize milestones;
+@synthesize milestone;
+
+@synthesize state;
+
+@synthesize comments;
+
 - (void)dealloc
 {
     [headerView release];
@@ -41,8 +55,19 @@ enum EditTicketCell
     [updateButton release];
     [descriptionTextField release];
     [tagsTextField release];
+
     [addCommentViewController release];
     [itemSelectionTableViewController release];
+
+    [ticketDescription release];
+    [message release];
+    [tags release];
+    [member release];
+    [members release];
+    [milestone release];
+    [milestones release];
+    [comments release];
+
     [super dealloc];
 }
 
@@ -56,6 +81,14 @@ enum EditTicketCell
     [self.navigationItem setLeftBarButtonItem:cancelButton animated:NO];
     [self.navigationItem setRightBarButtonItem:updateButton animated:NO];
     self.navigationItem.title = @"Edit Ticket";
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    descriptionTextField.text = self.ticketDescription;
+    tagsTextField.text = self.tags;
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -179,7 +212,7 @@ enum EditTicketCell
 {
     if (descriptionTextField.editing)
         [descriptionTextField resignFirstResponder];
-    if (tagsTextField.editing)
+    else if (tagsTextField.editing)
         [tagsTextField resignFirstResponder];
     else
         [self dismissModalViewControllerAnimated:YES];
@@ -229,12 +262,15 @@ enum EditTicketCell
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     updateButton.enabled = YES;
+
+    self.ticketDescription = descriptionTextField.text;
+    self.tags = tagsTextField.text;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-
+    
     return YES;
 }
 

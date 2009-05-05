@@ -11,7 +11,7 @@
     IBOutlet UILabel * lastUpdatedLabel;
     IBOutlet UILabel * descriptionLabel;
     IBOutlet UILabel * assignedToLabel;
-    
+    IBOutlet UILabel * milestoneLabel;
     UIColor * stateLabelColor;
 }
 
@@ -20,6 +20,7 @@
 - (void)setLastUpdatedDate:(NSDate *)lastUpdatedDate;
 - (void)setDescription:(NSString *)description;
 - (void)setAssignedToName:(NSString *)assignedToName;
+- (void)setMilestoneName:(NSString *)milestoneName;
 + (CGFloat)heightForContent:(NSString *)description;
 
 @end
