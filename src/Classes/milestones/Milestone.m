@@ -75,7 +75,7 @@
         [[self class] milestoneWithName:@"1.1.0" dueDate:nextMonth
             numOpenTickets:30 numTickets:40],
         [[self class] milestoneWithName:@"1.2.0" dueDate:nil
-            numOpenTickets:30 numTickets:40],
+            numOpenTickets:40 numTickets:40],
         nil];
 }
 
