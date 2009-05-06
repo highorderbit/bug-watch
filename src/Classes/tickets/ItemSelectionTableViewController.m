@@ -23,6 +23,13 @@
     self.view.backgroundColor = [UIColor bugWatchBackgroundColor];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark UITableViewDataSource methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

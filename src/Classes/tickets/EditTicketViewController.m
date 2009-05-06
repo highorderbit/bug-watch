@@ -5,6 +5,8 @@
 #import "EditTicketViewController.h"
 #import "UIColor+BugWatchColors.h"
 #import "EditTicketTableViewCell.h"
+#import "TicketMetaData.h"
+#import "HOTableViewCell.h"
 
 enum EditTicketTableSection
 {
@@ -89,6 +91,8 @@ enum EditTicketCell
 
     descriptionTextField.text = self.ticketDescription;
     tagsTextField.text = self.tags;
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -126,15 +130,20 @@ enum EditTicketCell
         switch (indexPath.row) {
             case kAssignedTo:
                 [editTicketCell setKeyText:@"assigned to"];
-                [editTicketCell setValueText:@"Doug Kurth"];
+                NSString * memberName =
+                    [self.members objectForKey:self.member];
+                [editTicketCell setValueText:memberName];
                 break;
             case kMilestone:
                 [editTicketCell setKeyText:@"milestone"];
-                [editTicketCell setValueText:@"1.1.0"];
+                NSString * milestoneName =
+                    [self.milestones objectForKey:self.milestone];
+                [editTicketCell setValueText:milestoneName];
                 break;
             case kState:
                 [editTicketCell setKeyText:@"state"];
-                [editTicketCell setValueText:@"resolved"];
+                [editTicketCell
+                    setValueText:[TicketMetaData descriptionForState:state]];
                 break;
         }
     }
@@ -150,21 +159,22 @@ enum EditTicketCell
             case kAddComment:
                 self.addCommentViewController.navigationItem.title =
                     @"Add Comment";
-                [self.addCommentViewController setLabelText:@"Add a comment"];
-                [self.addCommentViewController setTextViewText:@""];
                 [self.navigationController
                     pushViewController:self.addCommentViewController
                     animated:YES];
+                [self.addCommentViewController setLabelText:@"Add a comment"];
+                [self.addCommentViewController setTextViewText:@""];
                 break;
             case kEditDescription:
                 self.addCommentViewController.navigationItem.title =
                     @"Edit Description";
-                [self.addCommentViewController
-                    setLabelText:@"Edit description"];
-                [self.addCommentViewController setTextViewText:@"blah blah"];
                 [self.navigationController
                     pushViewController:self.addCommentViewController
                     animated:YES];
+                [self.addCommentViewController
+                    setLabelText:@"Edit description"];
+                [self.addCommentViewController
+                    setTextViewText:ticketDescription];
                 break;
         }
     } else {
@@ -174,25 +184,42 @@ enum EditTicketCell
                     @"Set Responsible";
                 [self.itemSelectionTableViewController
                     setLabelText:@"Who's responsible?"];
-                // TEMPORARY
                 self.itemSelectionTableViewController.selectedItem =
-                    [NSNumber numberWithInt:0];
-
-                NSMutableDictionary * dictionary =
-                    [NSMutableDictionary dictionary];
-                [dictionary setObject:@"Doug Kurth" forKey:[NSNumber numberWithInt:0]];
-                [dictionary setObject:@"John A. Debay" forKey:[NSNumber numberWithInt:1]];
-                [self.itemSelectionTableViewController setItems:dictionary];
-                // TEMPORARY
+                    self.member;
+                [self.itemSelectionTableViewController setItems:self.members];
                 [self.navigationController
                     pushViewController:self.itemSelectionTableViewController
                     animated:YES];
                 break;
             case kMilestone:
-
+                self.itemSelectionTableViewController.navigationItem.title =
+                    @"Set Milestone";
+                [self.itemSelectionTableViewController
+                    setLabelText:@"Milestone"];
+                self.itemSelectionTableViewController.selectedItem =
+                    self.milestone;
+                [self.itemSelectionTableViewController
+                    setItems:self.milestones];
+                [self.navigationController
+                    pushViewController:self.itemSelectionTableViewController
+                    animated:YES];
                 break;
             case kState:
-
+                self.itemSelectionTableViewController.navigationItem.title =
+                    @"Set State";
+                [self.itemSelectionTableViewController
+                    setLabelText:@"State"];
+                NSMutableDictionary * states = [NSMutableDictionary dictionary];
+                for (int i = 0; i < 5; i++)
+                    [states setObject:[TicketMetaData descriptionForState:i]
+                        forKey:[NSNumber numberWithInt:i]];
+                self.itemSelectionTableViewController.selectedItem =
+                    [NSNumber numberWithInt:state];
+                [self.itemSelectionTableViewController
+                    setItems:states];
+                [self.navigationController
+                    pushViewController:self.itemSelectionTableViewController
+                    animated:YES];
                 break;
         }
     }
@@ -229,8 +256,9 @@ enum EditTicketCell
 
     if (section == kEditTicketActionSection)
         cell =
-            [[[UITableViewCell alloc]
-            initWithFrame:CGRectZero reuseIdentifier:@"UITableViewCell"]
+            [[[HOTableViewCell alloc]
+            initWithFrame:CGRectZero reuseIdentifier:@"HOTableViewCell"
+            tableViewStyle:UITableViewStyleGrouped]
             autorelease];
     else {
         NSArray * nib =
@@ -247,7 +275,7 @@ enum EditTicketCell
 {
     NSString * cellIdentifier =
         section == kEditTicketActionSection ?
-        @"UITableViewCell" : @"EditTicketTableViewCell";
+        @"HOTableViewCell" : @"EditTicketTableViewCell";
     
     return [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 }

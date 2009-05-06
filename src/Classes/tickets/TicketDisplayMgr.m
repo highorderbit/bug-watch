@@ -120,6 +120,15 @@
     self.editTicketViewController.tags = metaData.tags;
     self.editTicketViewController.state = metaData.state;
 
+    self.editTicketViewController.member =
+        [ticketCache assignedToKeyForNumber:selectedTicketNumber];
+    self.editTicketViewController.members = [[userDict copy] autorelease];
+    
+    self.editTicketViewController.milestone =
+        [ticketCache milestoneKeyForNumber:selectedTicketNumber];
+    self.editTicketViewController.milestones =
+        [[milestoneDict copy] autorelease];
+    
     UINavigationController * tempNavController =
         [[[UINavigationController alloc]
         initWithRootViewController:self.editTicketViewController]
