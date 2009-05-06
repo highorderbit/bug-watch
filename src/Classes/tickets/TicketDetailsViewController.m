@@ -6,6 +6,8 @@
 #import "UIColor+BugWatchColors.h"
 #import "NSDate+StringHelpers.h"
 #import "UILabel+DrawingAdditions.h"
+#import "CommentTableViewCell.h"
+#import "TicketComment.h"
 
 @interface TicketDetailsViewController (Private)
 
@@ -29,6 +31,8 @@
     [assignedToLabel release];
     [milestoneLabel release];
     [messageLabel release];
+    [comments release];
+    [commentAuthors release];
     [super dealloc];
 }
 
@@ -59,23 +63,24 @@
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return [[comments allKeys] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section
 {
-    return @"Comments and changes";
+    return [[comments allKeys] count] > 0 ? @"Comments and changes" : nil;
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * CellIdentifier = @"CommentTableViewCell";
+    static NSString * cellIdentifier = @"CommentTableViewCell";
     
-    UITableViewCell * cell =
-        [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    CommentTableViewCell * cell =
+        (CommentTableViewCell *)
+        [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         NSArray * nib =
             [[NSBundle mainBundle] loadNibNamed:@"CommentTableViewCell"
@@ -84,7 +89,14 @@
         cell = [nib objectAtIndex:0];
     }
 
-    // Set up the cell...
+    id commentKey = [[comments allKeys] objectAtIndex:indexPath.row];
+    TicketComment * comment = [comments objectForKey:commentKey];
+    [cell setDate:comment.date];
+    [cell setStateChangeText:comment.stateChangeDescription];
+    [cell setCommentText:comment.text];
+    
+    NSString * authorName = [commentAuthors objectForKey:commentKey];
+    [cell setAuthorName:authorName];
 
     return cell;
 }
@@ -97,13 +109,17 @@
 - (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 136;
+    id commentKey = [[comments allKeys] objectAtIndex:indexPath.row];
+    TicketComment * comment = [comments objectForKey:commentKey];
+
+    return [CommentTableViewCell heightForContent:comment.text];
 }
 
 - (void)setTicketNumber:(NSUInteger)aNumber
     ticket:(Ticket *)aTicket metaData:(TicketMetaData *)someMetaData
     reportedBy:(NSString *)reportedBy assignedTo:(NSString *)assignedTo
-    milestone:(NSString *)milestone
+    milestone:(NSString *)milestone comments:(NSDictionary * )someComments
+    commentAuthors:(NSDictionary *)someCommentAuthors
 {
     self.navigationItem.title =
         [NSString stringWithFormat:@"Ticket %d", aNumber];
@@ -119,6 +135,14 @@
         [NSString stringWithFormat:@"Assigned to: %@", assignedTo];
     milestoneLabel.text =
         [NSString stringWithFormat:@"Milestone: %@", milestone];
+
+    NSDictionary * tempComments = [someComments copy];
+    [comments release];
+    comments = tempComments;
+    
+    NSDictionary * tempCommentAuthors = [someCommentAuthors copy];
+    [commentAuthors release];
+    commentAuthors = tempCommentAuthors;
 
     [self layoutView];
     [self.tableView reloadData];
@@ -154,7 +178,7 @@
     milestoneLabel.frame = milestoneLabelFrame;
     
     CGRect stateLabelFrame = stateLabel.frame;
-    stateLabelFrame.origin.y = baseLabelY + 34;
+    stateLabelFrame.origin.y = baseLabelY + 35;
     stateLabel.frame = stateLabelFrame;
     
     CGRect metaDataViewFrame = metaDataView.frame;
@@ -176,8 +200,10 @@
     messageLabel.frame = messageLabelFrame;
 
     CGRect headerViewFrame = headerView.frame;
+    NSInteger headerViewOffset = messageLabel.text != @"" ? 12 : -12;
     headerViewFrame.size.height =
-        messageLabelFrame.origin.y + messageLabelFrame.size.height + 12;
+        messageLabelFrame.origin.y + messageLabelFrame.size.height +
+        headerViewOffset;
     headerView.frame = headerViewFrame;
 
     // necessary to reset header height allocation for table view

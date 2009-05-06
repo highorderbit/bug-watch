@@ -12,4 +12,11 @@
     IBOutlet UILabel * commentLabel;
 }
 
+- (void)setAuthorName:(NSString *)authorName;
+- (void)setDate:(NSDate *)date;
+- (void)setStateChangeText:(NSString *)text;
+- (void)setCommentText:(NSString *)text;
+
++ (CGFloat)heightForContent:(NSString *)comment;
+
 @end

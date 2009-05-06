@@ -103,7 +103,7 @@
 							<object class="IBUILabel" id="698763466">
 								<reference key="NSNextResponder" ref="174174663"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 53}, {283, 76}}</string>
+								<string key="NSFrame">{{14, 56}, {283, 76}}</string>
 								<reference key="NSSuperview" ref="174174663"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -316,10 +316,24 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/shared/NSObject+RuntimeAdditions.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">UILabel</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/shared/UILabel+DrawingAdditions.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UITableViewCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/shared/UITableViewCell+InstantiationAdditions.h</string>
 					</object>
 				</object>
 			</object>

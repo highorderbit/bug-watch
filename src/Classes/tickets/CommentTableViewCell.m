@@ -4,6 +4,8 @@
 
 #import "CommentTableViewCell.h"
 #import "UIColor+BugWatchColors.h"
+#import "NSDate+StringHelpers.h"
+#import "UILabel+DrawingAdditions.h"
 
 @interface CommentTableViewCell (Private)
 
@@ -46,12 +48,60 @@
         [self setNonSelectedTextColors];
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    CGFloat commentHeight =
+        [commentLabel heightForString:commentLabel.text];
+    CGRect commentLabelFrame = commentLabel.frame;
+    commentLabelFrame.size.height = commentHeight;
+    commentLabel.frame = commentLabelFrame;
+}
+
 - (void)setNonSelectedTextColors
 {
     authorLabel.textColor = [UIColor blackColor];
     dateLabel.textColor = [UIColor bugWatchBlueColor];
     stateChangeLabel.textColor = [UIColor blackColor];
     commentLabel.textColor = [UIColor blackColor];
+}
+
+- (void)setAuthorName:(NSString *)authorName
+{
+    authorLabel.text = authorName;
+}
+
+- (void)setDate:(NSDate *)date
+{
+    dateLabel.text = [date shortDescription];
+}
+
+- (void)setStateChangeText:(NSString *)text
+{
+    stateChangeLabel.text = text;
+}
+
+- (void)setCommentText:(NSString *)text
+{
+    commentLabel.text = text;
+}
+
++ (CGFloat)heightForContent:(NSString *)comment
+{
+    CGSize maxSize = CGSizeMake(283, 999999.0);
+    UIFont * font = [UIFont systemFontOfSize:14.0];
+    UILineBreakMode mode = UILineBreakModeWordWrap;
+
+    CGSize size =
+        [comment sizeWithFont:font constrainedToSize:maxSize
+        lineBreakMode:mode];
+
+    static const NSUInteger MIN_HEIGHT = 0;
+    NSUInteger height = 67.0 + size.height;
+    height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
+
+    return height;
 }
 
 @end
