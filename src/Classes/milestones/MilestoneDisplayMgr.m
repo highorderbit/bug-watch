@@ -4,13 +4,24 @@
 
 #import "MilestoneDisplayMgr.h"
 #import "MilestonesViewController.h"
+#import "MilestoneViewController.h"
+
+@interface MilestoneDisplayMgr ()
+
+- (MilestoneViewController *)milestoneViewController;
+
+@end
 
 @implementation MilestoneDisplayMgr
 
 - (void)dealloc
 {
+    [navigationController release];
     [networkAwareViewController release];
     [milestonesViewController release];
+
+    [milestoneViewController release];
+
     [super dealloc];
 }
 
@@ -19,6 +30,9 @@
     if (self = [super init]) {
         networkAwareViewController = [navc retain];
         networkAwareViewController.delegate = self;
+
+        navigationController = 
+            [networkAwareViewController.navigationController retain];
 
         milestonesViewController =
             [[MilestonesViewController alloc]
@@ -44,6 +58,21 @@
 - (void)userDidSelectMilestone:(Milestone *)milestone
 {
     NSLog(@"User selected milestone: '%@'.", milestone);
+
+    [navigationController
+        pushViewController:[self milestoneViewController] animated:YES];
+}
+
+#pragma mark Accessors
+
+- (MilestoneViewController *)milestoneViewController
+{
+    if (!milestoneViewController)
+        milestoneViewController =
+            [[MilestoneViewController alloc]
+            initWithNibName:@"MilestoneView" bundle:nil];
+
+    return milestoneViewController;
 }
 
 @end

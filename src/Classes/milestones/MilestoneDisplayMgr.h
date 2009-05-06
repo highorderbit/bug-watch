@@ -6,14 +6,17 @@
 #import "NetworkAwareViewController.h"
 #import "MilestonesViewControllerDelegate.h"
 
-@class MilestonesViewController;
+@class MilestonesViewController, MilestoneViewController;
 
 @interface MilestoneDisplayMgr :
     NSObject
     <NetworkAwareViewControllerDelegate, MilestonesViewControllerDelegate>
 {
+    UINavigationController * navigationController;
     NetworkAwareViewController * networkAwareViewController;
     MilestonesViewController * milestonesViewController;
+
+    MilestoneViewController * milestoneViewController;
 }
 
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc;
