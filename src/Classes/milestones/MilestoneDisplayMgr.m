@@ -5,6 +5,7 @@
 #import "MilestoneDisplayMgr.h"
 #import "MilestonesViewController.h"
 #import "MilestoneViewController.h"
+#import "Milestone.h"
 
 @interface MilestoneDisplayMgr ()
 
@@ -59,6 +60,7 @@
 {
     NSLog(@"User selected milestone: '%@'.", milestone);
 
+    [self milestoneViewController].navigationItem.title = milestone.name;
     [navigationController
         pushViewController:[self milestoneViewController] animated:YES];
 }
