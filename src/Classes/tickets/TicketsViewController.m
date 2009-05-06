@@ -4,6 +4,7 @@
 
 #import "TicketsViewController.h"
 #import "Ticket.h"
+#import "TicketMetaData.h"
 #import "TicketTableViewCell.h"
 
 @interface TicketsViewController (Private)
@@ -22,6 +23,10 @@
     [searchTextField release];
     [cancelButton release];
     [addButton release];
+    [tickets release];
+    [metaData release];
+    [assignedToDict release];
+    [milestoneDict release];
     [super dealloc];
 }
 
@@ -71,17 +76,22 @@
     if (cell == nil) {
         NSArray * nib =
             [[NSBundle mainBundle] loadNibNamed:@"TicketTableViewCell"
-                owner:self options:nil];
+            owner:self options:nil];
 
         cell = [nib objectAtIndex:0];
     }
-    
+
     NSNumber * ticketNumber = [[tickets allKeys] objectAtIndex:indexPath.row];
     Ticket * ticket = [tickets objectForKey:ticketNumber];
+    TicketMetaData * ticketMetaData =
+        [metaData objectForKey:ticketNumber];
     [cell setNumber:[ticketNumber intValue]];
-    [cell setState:ticket.state];
+    [cell setState:ticketMetaData.state];
     [cell setDescription:ticket.description];
-    
+    [cell setLastUpdatedDate:ticketMetaData.lastModifiedDate];
+    [cell setAssignedToName:[assignedToDict objectForKey:ticketNumber]];
+    [cell setMilestoneName:[milestoneDict objectForKey:ticketNumber]];
+
     return cell;
 }
 
@@ -124,10 +134,25 @@
 #pragma mark TicketsViewController implementation
 
 - (void)setTickets:(NSDictionary *)someTickets
+    metaData:(NSDictionary *)someMetaData
+    assignedToDict:(NSDictionary *)anAssignedToDict
+    milestoneDict:(NSDictionary *)aMilestoneDict
 {
     NSDictionary * tempTickets = [someTickets copy];
     [tickets release];
     tickets = tempTickets;
+    
+    NSDictionary * tempMetaData = [someMetaData copy];
+    [metaData release];
+    metaData = tempMetaData;
+    
+    NSDictionary * tempAssignedToDict = [anAssignedToDict copy];
+    [assignedToDict release];
+    assignedToDict = tempAssignedToDict;
+    
+    NSDictionary * tempMilestoneDict = [aMilestoneDict copy];
+    [milestoneDict release];
+    milestoneDict = tempMilestoneDict;
     
     [self.tableView reloadData];
 }

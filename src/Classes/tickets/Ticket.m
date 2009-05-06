@@ -7,32 +7,24 @@
 @implementation Ticket
 
 @synthesize description;
-@synthesize state;
+@synthesize message;
 @synthesize creationDate;
-@synthesize lastModifiedDate;
-@synthesize comments;
 
 - (void)dealloc
 {
     [description release];
+    [message release];
     [creationDate release];
-    [lastModifiedDate release];
-    [comments release];
-
     [super dealloc];
 }
 
-- (id)initWithDescription:(NSString *)aDescription state:(NSUInteger)aState
+- (id)initWithDescription:(NSString *)aDescription message:(NSString*)aMessage
     creationDate:(NSDate *)aCreationDate
-    lastModifiedDate:(NSDate *)aLastModifiedDate
-    comments:(NSArray *)someComments
 {
     if (self = [super init]) {
         description = [aDescription retain];
-        state = aState;
+        message = [aMessage retain];
         creationDate = [aCreationDate retain];
-        lastModifiedDate = [aLastModifiedDate retain];
-        comments = [someComments retain];
     }
 
     return self;
@@ -41,30 +33,6 @@
 - (id)copy
 {
     return [self retain]; // safe because immutable
-}
-
-+ (NSString *)descriptionForState:(NSUInteger)ticketState
-{
-    NSString * stateDescription;
-    switch(ticketState) {
-        case kNew:
-            stateDescription = @"new";
-            break;
-        case kOpen:
-            stateDescription = @"open";
-            break;
-        case kResolved:
-            stateDescription = @"resolved";
-            break;
-        case kHold:
-            stateDescription = @"hold";
-            break;
-        case kInvalid:
-            stateDescription = @"invalid";
-            break;
-    }
-    
-    return stateDescription;
 }
 
 @end

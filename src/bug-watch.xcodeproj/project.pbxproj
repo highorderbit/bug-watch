@@ -82,6 +82,8 @@
 		91A85B950FAF77BD0084FBE1 /* ItemSelectionTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85B930FAF77BD0084FBE1 /* ItemSelectionTableView.xib */; };
 		91A85B990FAF77E20084FBE1 /* ItemSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A85B980FAF77E20084FBE1 /* ItemSelectionTableViewController.m */; };
 		91C5D8840FAFA49100943292 /* HOTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C5D8830FAFA49100943292 /* HOTableViewCell.m */; };
+		91C5D9120FAFB88000943292 /* TicketComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C5D9110FAFB88000943292 /* TicketComment.m */; };
+		91C5D9830FAFF8A400943292 /* TicketMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C5D9820FAFF8A400943292 /* TicketMetaData.m */; };
 		91CC24270FAC15F40023AB06 /* TicketDetailsGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 91CC24260FAC15F40023AB06 /* TicketDetailsGradient.png */; };
 		91D6805F0F98D9040040A310 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D6805E0F98D9040040A310 /* Default.png */; };
 		91D680800F98DDC40040A310 /* HomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D6807F0F98DDC40040A310 /* HomeIcon.png */; };
@@ -227,6 +229,11 @@
 		91A85B980FAF77E20084FBE1 /* ItemSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemSelectionTableViewController.m; path = tickets/ItemSelectionTableViewController.m; sourceTree = "<group>"; };
 		91C5D8820FAFA49100943292 /* HOTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HOTableViewCell.h; path = shared/HOTableViewCell.h; sourceTree = "<group>"; };
 		91C5D8830FAFA49100943292 /* HOTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HOTableViewCell.m; path = shared/HOTableViewCell.m; sourceTree = "<group>"; };
+		91C5D9100FAFB88000943292 /* TicketComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketComment.h; path = tickets/TicketComment.h; sourceTree = "<group>"; };
+		91C5D9110FAFB88000943292 /* TicketComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketComment.m; path = tickets/TicketComment.m; sourceTree = "<group>"; };
+		91C5D9260FAFC2FB00943292 /* TicketDetailsViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDetailsViewControllerDelegate.h; path = tickets/TicketDetailsViewControllerDelegate.h; sourceTree = "<group>"; };
+		91C5D9810FAFF8A400943292 /* TicketMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketMetaData.h; path = tickets/TicketMetaData.h; sourceTree = "<group>"; };
+		91C5D9820FAFF8A400943292 /* TicketMetaData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketMetaData.m; path = tickets/TicketMetaData.m; sourceTree = "<group>"; };
 		91CC24260FAC15F40023AB06 /* TicketDetailsGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TicketDetailsGradient.png; sourceTree = "<group>"; };
 		91D6805E0F98D9040040A310 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		91D6807F0F98DDC40040A310 /* HomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeIcon.png; sourceTree = "<group>"; };
@@ -525,6 +532,11 @@
 				91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */,
 				91A85B970FAF77E20084FBE1 /* ItemSelectionTableViewController.h */,
 				91A85B980FAF77E20084FBE1 /* ItemSelectionTableViewController.m */,
+				91C5D9100FAFB88000943292 /* TicketComment.h */,
+				91C5D9110FAFB88000943292 /* TicketComment.m */,
+				91C5D9260FAFC2FB00943292 /* TicketDetailsViewControllerDelegate.h */,
+				91C5D9810FAFF8A400943292 /* TicketMetaData.h */,
+				91C5D9820FAFF8A400943292 /* TicketMetaData.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -695,6 +707,8 @@
 				91A85B180FAF6F350084FBE1 /* AddCommentViewController.m in Sources */,
 				91A85B990FAF77E20084FBE1 /* ItemSelectionTableViewController.m in Sources */,
 				91C5D8840FAFA49100943292 /* HOTableViewCell.m in Sources */,
+				91C5D9120FAFB88000943292 /* TicketComment.m in Sources */,
+				91C5D9830FAFF8A400943292 /* TicketMetaData.m in Sources */,
 				059736620FAFB47800059D20 /* MilestonesViewController.m in Sources */,
 				059736770FAFB75000059D20 /* MilestonesTableViewCell.m in Sources */,
 				0597367A0FAFB97100059D20 /* Milestone.m in Sources */,

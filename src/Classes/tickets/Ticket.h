@@ -4,34 +4,18 @@
 
 #import <Foundation/Foundation.h>
 
-enum TicketState {
-    kNew,
-    kOpen,
-    kResolved,
-    kHold,
-    kInvalid
-};
-
 @interface Ticket : NSObject
 {
     NSString * description;
-    NSUInteger state;
+    NSString * message;
     NSDate * creationDate;
-    NSDate * lastModifiedDate;
-    NSArray * comments;
 }
 
 @property (nonatomic, copy, readonly) NSString * description;
-@property (nonatomic, readonly) NSUInteger state;
+@property (nonatomic, copy, readonly) NSString * message;
 @property (nonatomic, copy, readonly) NSDate * creationDate;
-@property (nonatomic, copy, readonly) NSDate * lastModifiedDate;
-@property (nonatomic, copy, readonly) NSArray * comments;
 
-- (id)initWithDescription:(NSString *)aDescription state:(NSUInteger)aState
-    creationDate:(NSDate *)aCreationDate
-    lastModifiedDate:(NSDate *)aLastModifiedDate
-    comments:(NSArray *)someComments;
-
-+ (NSString *)descriptionForState:(NSUInteger)ticketState;
+- (id)initWithDescription:(NSString *)aDescription message:(NSString*)aMessage
+    creationDate:(NSDate *)aCreationDate;
 
 @end

@@ -3,7 +3,7 @@
 //
 
 #import "UIColor+BugWatchColors.h"
-#import "Ticket.h"
+#import "TicketMetaData.h"
 
 @implementation UIColor (BugWatchColors)
 
@@ -14,7 +14,7 @@
 
 + (UIColor *)bugWatchGrayColor
 {
-    return [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1];
+    return [UIColor colorWithRed:.4 green:.4 blue:.4 alpha:1];
 }
 
 + (UIColor *)bugWatchLabelColor
