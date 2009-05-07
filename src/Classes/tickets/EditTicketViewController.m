@@ -79,7 +79,7 @@ enum EditTicketCell
 
     self.tableView.tableHeaderView = headerView;
     self.tableView.backgroundColor = [UIColor bugWatchBackgroundColor];
-    NSLog(@"%@", self.navigationItem);
+
     [self.navigationItem setLeftBarButtonItem:cancelButton animated:NO];
     [self.navigationItem setRightBarButtonItem:updateButton animated:NO];
     self.navigationItem.title = @"Edit Ticket";

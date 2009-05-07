@@ -12,6 +12,7 @@
 #import "NetworkAwareViewController.h"
 #import "TicketComment.h"
 #import "MilestoneDisplayMgr.h"
+#import "ProjectDisplayMgr.h"
 
 @implementation BugWatchAppController
 
@@ -126,6 +127,12 @@
         navigationController:ticketsNavController
         ticketsViewController:ticketsViewController];
     ticketsViewController.delegate = ticketDisplayMgr;
+
+    ProjectDisplayMgr * projectDisplayMgr =
+        [[ProjectDisplayMgr alloc] initWithProjectCache:nil
+        navigationController:projectsNavController
+        projectsViewController:projectsViewController];
+    projectsViewController.delegate = projectDisplayMgr;
 
     // Note: this instantiation/initialization is temporary
     LighthouseNewsFeedService * newsFeedService =

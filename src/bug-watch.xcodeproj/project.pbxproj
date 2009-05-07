@@ -71,6 +71,16 @@
 		913E45A90FAA7779000EB184 /* ProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45A70FAA7779000EB184 /* ProjectTableViewCell.xib */; };
 		913E45AC0FAA7795000EB184 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */; };
 		913E45D60FAA8027000EB184 /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45D50FAA8027000EB184 /* RoundedRectLabel.m */; };
+		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
+		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
+		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
+		917DE35D0FB34B6300BF2015 /* ProjectHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE35C0FB34B6300BF2015 /* ProjectHomeViewController.m */; };
+		917DE3620FB34ED400BF2015 /* ProjectDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3610FB34ED400BF2015 /* ProjectDisplayMgr.m */; };
+		917DE3CD0FB365D600BF2015 /* HomeIconSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3CC0FB365D600BF2015 /* HomeIconSelected.png */; };
+		917DE3D60FB367CE00BF2015 /* BugSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3D50FB367CE00BF2015 /* BugSelected.png */; };
+		917DE3DC0FB368B600BF2015 /* CalendarSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3DB0FB368B600BF2015 /* CalendarSelected.png */; };
+		917DE3E20FB3695000BF2015 /* ThumbtackSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3E10FB3695000BF2015 /* ThumbtackSelected.png */; };
+		917DE3E90FB369E000BF2015 /* PagesSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3E80FB369E000BF2015 /* PagesSelected.png */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
@@ -214,6 +224,20 @@
 		913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectTableViewCell.m; path = projects/ProjectTableViewCell.m; sourceTree = "<group>"; };
 		913E45D40FAA8027000EB184 /* RoundedRectLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedRectLabel.h; path = shared/RoundedRectLabel.h; sourceTree = "<group>"; };
 		913E45D50FAA8027000EB184 /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectLabel.m; path = shared/RoundedRectLabel.m; sourceTree = "<group>"; };
+		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
+		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
+		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
+		917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectHomeTableViewCell.m; path = projects/ProjectHomeTableViewCell.m; sourceTree = "<group>"; };
+		917DE35B0FB34B6300BF2015 /* ProjectHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeViewController.h; path = projects/ProjectHomeViewController.h; sourceTree = "<group>"; };
+		917DE35C0FB34B6300BF2015 /* ProjectHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectHomeViewController.m; path = projects/ProjectHomeViewController.m; sourceTree = "<group>"; };
+		917DE3600FB34ED400BF2015 /* ProjectDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectDisplayMgr.h; path = projects/ProjectDisplayMgr.h; sourceTree = "<group>"; };
+		917DE3610FB34ED400BF2015 /* ProjectDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectDisplayMgr.m; path = projects/ProjectDisplayMgr.m; sourceTree = "<group>"; };
+		917DE3650FB3521F00BF2015 /* ProjectsViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectsViewControllerDelegate.h; path = projects/ProjectsViewControllerDelegate.h; sourceTree = "<group>"; };
+		917DE3CC0FB365D600BF2015 /* HomeIconSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeIconSelected.png; sourceTree = "<group>"; };
+		917DE3D50FB367CE00BF2015 /* BugSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BugSelected.png; sourceTree = "<group>"; };
+		917DE3DB0FB368B600BF2015 /* CalendarSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarSelected.png; sourceTree = "<group>"; };
+		917DE3E10FB3695000BF2015 /* ThumbtackSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ThumbtackSelected.png; sourceTree = "<group>"; };
+		917DE3E80FB369E000BF2015 /* PagesSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PagesSelected.png; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
@@ -502,6 +526,8 @@
 				0597365B0FAFB42200059D20 /* MilestonesView.xib */,
 				059736710FAFB6F600059D20 /* MilestonesTableViewCell.xib */,
 				05DEB1DA0FB1065B0052888E /* MilestoneView.xib */,
+				917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */,
+				917DE3540FB346B500BF2015 /* ProjectHomeView.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -544,10 +570,17 @@
 		913E45A60FAA7757000EB184 /* projects */ = {
 			isa = PBXGroup;
 			children = (
+				917DE35B0FB34B6300BF2015 /* ProjectHomeViewController.h */,
+				917DE35C0FB34B6300BF2015 /* ProjectHomeViewController.m */,
 				913E45A30FAA7579000EB184 /* ProjectsViewController.h */,
 				913E45A40FAA7579000EB184 /* ProjectsViewController.m */,
 				913E45AA0FAA7795000EB184 /* ProjectTableViewCell.h */,
 				913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */,
+				917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */,
+				917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */,
+				917DE3600FB34ED400BF2015 /* ProjectDisplayMgr.h */,
+				917DE3610FB34ED400BF2015 /* ProjectDisplayMgr.m */,
+				917DE3650FB3521F00BF2015 /* ProjectsViewControllerDelegate.h */,
 			);
 			name = projects;
 			sourceTree = "<group>";
@@ -555,6 +588,11 @@
 		91806D8A0F97E72900F08005 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				917DE3E80FB369E000BF2015 /* PagesSelected.png */,
+				917DE3E10FB3695000BF2015 /* ThumbtackSelected.png */,
+				917DE3DB0FB368B600BF2015 /* CalendarSelected.png */,
+				917DE3D50FB367CE00BF2015 /* BugSelected.png */,
+				917DE3CC0FB365D600BF2015 /* HomeIconSelected.png */,
 				91E1FC850FACBBBE00E86DDE /* TextField.png */,
 				91CC24260FAC15F40023AB06 /* TicketDetailsGradient.png */,
 				05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */,
@@ -657,6 +695,13 @@
 				0597365D0FAFB42200059D20 /* MilestonesView.xib in Resources */,
 				059736730FAFB6F600059D20 /* MilestonesTableViewCell.xib in Resources */,
 				05DEB1DC0FB1065B0052888E /* MilestoneView.xib in Resources */,
+				917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */,
+				917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */,
+				917DE3CD0FB365D600BF2015 /* HomeIconSelected.png in Resources */,
+				917DE3D60FB367CE00BF2015 /* BugSelected.png in Resources */,
+				917DE3DC0FB368B600BF2015 /* CalendarSelected.png in Resources */,
+				917DE3E20FB3695000BF2015 /* ThumbtackSelected.png in Resources */,
+				917DE3E90FB369E000BF2015 /* PagesSelected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +763,9 @@
 				0597386A0FB0C26A00059D20 /* MilestoneProgressView.m in Sources */,
 				05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */,
 				05DEB1D90FB106470052888E /* MilestoneViewController.m in Sources */,
+				917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */,
+				917DE35D0FB34B6300BF2015 /* ProjectHomeViewController.m in Sources */,
+				917DE3620FB34ED400BF2015 /* ProjectDisplayMgr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,6 +882,22 @@
 				913E45A80FAA7779000EB184 /* en */,
 			);
 			name = ProjectTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				917DE34E0FB3465F00BF2015 /* en */,
+			);
+			name = ProjectHomeTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		917DE3540FB346B500BF2015 /* ProjectHomeView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				917DE3550FB346B500BF2015 /* en */,
+			);
+			name = ProjectHomeView.xib;
 			sourceTree = "<group>";
 		};
 		919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */ = {

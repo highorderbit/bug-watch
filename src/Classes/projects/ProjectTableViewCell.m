@@ -8,21 +8,29 @@
 
 - (void)dealloc
 {
+    [projectNameLabel release];
+    [openTicketsLabel release];
     [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
+- (void)awakeFromNib
 {
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
-        // Initialization code
-    }
-
-    return self;
+    projectNameLabel.highlightedTextColor = [UIColor whiteColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
+}
+
+- (void)setProjectName:(NSString *)projectName
+{
+    projectNameLabel.text = projectName;
+}
+
+- (void)setNumOpenTickets:(NSUInteger)numOpenTickets
+{
+    openTicketsLabel.text = [NSString stringWithFormat:@"%d", numOpenTickets];
 }
 
 @end

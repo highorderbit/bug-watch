@@ -133,13 +133,7 @@
 + (void)setBackgroundColor:(UIColor *)color
         ofRoundedRectLabel:(RoundedRectLabel *)label
 {
-    const CGFloat * colorComps = CGColorGetComponents(color.CGColor);
-
-    label.roundedRectRed = colorComps[0];
-    label.roundedRectGreen = colorComps[1];
-    label.roundedRectBlue = colorComps[2];
-
-    [label setNeedsDisplay];
+    label.roundedRectColor = color;
 }
 
 @end

@@ -6,10 +6,8 @@
 
 @implementation RoundedRectLabel
 
-@synthesize roundedRectRed;
-@synthesize roundedRectGreen;
-@synthesize roundedRectBlue;
-@synthesize roundedRectAlpha;
+@synthesize roundedRectColor;
+@synthesize highlightedRoundedRectColor;
 @synthesize roundedCornerWidth;
 @synthesize roundedCornerHeight;
 @synthesize font;
@@ -17,6 +15,7 @@
 - (void)dealloc
 {
     [label release];
+    [roundedRectColor release];
     [super dealloc];
 }
 
@@ -24,11 +23,9 @@
 {
     [super awakeFromNib];
 
-    // set defaults
-    roundedRectRed = 0.549;
-    roundedRectGreen = 0.6;
-    roundedRectBlue = 0.706;
-    roundedRectAlpha = 1.0;
+    self.roundedRectColor =
+        [UIColor colorWithRed:.549 green:.6 blue:.706 alpha:1];
+    self.highlightedRoundedRectColor = [UIColor whiteColor];
 
     roundedCornerWidth = 20;
     roundedCornerHeight = self.frame.size.height;
@@ -68,8 +65,11 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     CGContextClearRect(context, rect);
-    CGContextSetRGBFillColor(context, roundedRectRed, roundedRectGreen,
-        roundedRectBlue, roundedRectAlpha);
+    UIColor * rectColor =
+        self.highlighted ?
+        self.highlightedRoundedRectColor : self.roundedRectColor;
+
+    CGContextSetFillColorWithColor(context, [rectColor CGColor]);
 
     CGContextFillRect(context,
         CGRectMake(roundedCornerWidth / 2, 0,
@@ -118,6 +118,30 @@
 - (UIFont *)font
 {
     return label.font;
+}
+
+- (void)setRoundedRectColor:(UIColor *)aRoundedRectColor
+{
+    [aRoundedRectColor retain];
+    [roundedRectColor release];
+    roundedRectColor = aRoundedRectColor;
+    
+    [self setNeedsDisplay];
+}
+
+- (void)setHighlightedRoundedRectColor:(UIColor *)aRoundedRectColor
+{
+    [aRoundedRectColor retain];
+    [highlightedRoundedRectColor release];
+    highlightedRoundedRectColor = aRoundedRectColor;
+    
+    [self setNeedsDisplay];
+}
+
+- (void)setHighlighted:(BOOL)aHighlightedVal
+{
+    [super setHighlighted:aHighlightedVal];
+    [self setNeedsDisplay];
 }
 
 @end

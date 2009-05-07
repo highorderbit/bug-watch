@@ -210,29 +210,13 @@
                  forEntityType:(NSString *)type
 {
     UIColor * color = [UIColor colorForEntity:type];
-
-    const CGFloat * colorComps = CGColorGetComponents(color.CGColor);
-
-    NSLog(@"Setting color to: (%f, %f, %f).", colorComps[0], colorComps[1],
-        colorComps[2]);
-
-    label.roundedRectRed = colorComps[0];
-    label.roundedRectGreen = colorComps[1];
-    label.roundedRectBlue = colorComps[2];
-
-    [label setNeedsDisplay];
+    label.roundedRectColor = color;
 }
 
 + (void)setBackgroundColor:(UIColor *)color
         ofRoundedRectLabel:(RoundedRectLabel *)label
 {
-    const CGFloat * colorComps = CGColorGetComponents(color.CGColor);
-
-    label.roundedRectRed = colorComps[0];
-    label.roundedRectGreen = colorComps[1];
-    label.roundedRectBlue = colorComps[2];
-
-    [label setNeedsDisplay];
+    label.roundedRectColor = color;
 }
 
 @end

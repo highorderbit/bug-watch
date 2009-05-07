@@ -25,25 +25,39 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="IBUITableViewCell" id="530816141">
+			<object class="IBUITableViewCell" id="951729640">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIView" id="812686279">
-						<reference key="NSNextResponder" ref="530816141"/>
+					<object class="IBUIView" id="787697611">
+						<reference key="NSNextResponder" ref="951729640"/>
 						<int key="NSvFlags">256</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUILabel" id="992183184">
-								<reference key="NSNextResponder" ref="812686279"/>
+							<object class="IBUIImageView" id="851754580">
+								<reference key="NSNextResponder" ref="787697611"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 0}, {215, 44}}</string>
-								<reference key="NSSuperview" ref="812686279"/>
+								<string key="NSFrameSize">{44, 44}</string>
+								<reference key="NSSuperview" ref="787697611"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+								<int key="IBUIContentMode">4</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">Bug.png</string>
+								</object>
+							</object>
+							<object class="IBUILabel" id="589994080">
+								<reference key="NSNextResponder" ref="787697611"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{46, 0}, {231, 44}}</string>
+								<reference key="NSSuperview" ref="787697611"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">Project</string>
+								<string key="IBUIText">Tickets</string>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">2.000000e+01</double>
@@ -57,23 +71,9 @@
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
 							</object>
-							<object class="IBUIView" id="828892716">
-								<reference key="NSNextResponder" ref="812686279"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{259, 11}, {32, 22}}</string>
-								<reference key="NSSuperview" ref="812686279"/>
-								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-									<object class="NSColorSpace" key="NSCustomColorSpace">
-										<int key="NSID">2</int>
-									</object>
-								</object>
-								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-							</object>
 						</object>
 						<string key="NSFrameSize">{297, 44}</string>
-						<reference key="NSSuperview" ref="530816141"/>
+						<reference key="NSSuperview" ref="951729640"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -93,8 +93,8 @@
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUIAccessoryType">1</int>
-				<reference key="IBUIContentView" ref="812686279"/>
-				<string key="IBUIReuseIdentifier">ProjectTableViewCell</string>
+				<reference key="IBUIContentView" ref="787697611"/>
+				<string key="IBUIReuseIdentifier">ProjectHomeTableViewCell</string>
 			</object>
 			<object class="IBProxyObject" id="841351856">
 				<string key="IBProxiedObjectIdentifier">IBFilesOwner</string>
@@ -108,17 +108,17 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">projectNameLabel</string>
-						<reference key="source" ref="530816141"/>
-						<reference key="destination" ref="992183184"/>
+						<string key="label">label</string>
+						<reference key="source" ref="951729640"/>
+						<reference key="destination" ref="589994080"/>
 					</object>
 					<int key="connectionID">6</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">openTicketsLabel</string>
-						<reference key="source" ref="530816141"/>
-						<reference key="destination" ref="828892716"/>
+						<string key="label">iconView</string>
+						<reference key="source" ref="951729640"/>
+						<reference key="destination" ref="851754580"/>
 					</object>
 					<int key="connectionID">7</int>
 				</object>
@@ -147,23 +147,23 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2</int>
-						<reference key="object" ref="530816141"/>
+						<reference key="object" ref="951729640"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="992183184"/>
-							<reference ref="828892716"/>
+							<reference ref="851754580"/>
+							<reference ref="589994080"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
-						<reference key="object" ref="992183184"/>
-						<reference key="parent" ref="530816141"/>
+						<reference key="object" ref="851754580"/>
+						<reference key="parent" ref="951729640"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">5</int>
-						<reference key="object" ref="828892716"/>
-						<reference key="parent" ref="530816141"/>
+						<int key="objectID">4</int>
+						<reference key="object" ref="589994080"/>
+						<reference key="parent" ref="951729640"/>
 					</object>
 				</object>
 			</object>
@@ -176,17 +176,15 @@
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
-					<string>5.CustomClassName</string>
-					<string>5.IBPluginDependency</string>
+					<string>4.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
-					<string>ProjectTableViewCell</string>
-					<string>{{199, 499}, {320, 44}}</string>
+					<string>ProjectHomeTableViewCell</string>
+					<string>{{257, 434}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>RoundedRectLabel</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -223,32 +221,24 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">ProjectTableViewCell</string>
+					<string key="className">ProjectHomeTableViewCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>openTicketsLabel</string>
-							<string>projectNameLabel</string>
+							<string>iconView</string>
+							<string>label</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>RoundedRectLabel</string>
+							<string>UIImageView</string>
 							<string>UILabel</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/projects/ProjectTableViewCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">RoundedRectLabel</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/shared/RoundedRectLabel.h</string>
+						<string key="minorKey">Classes/projects/ProjectHomeTableViewCell.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

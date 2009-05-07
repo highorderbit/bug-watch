@@ -6,6 +6,7 @@
 #import "TicketsViewController.h"
 #import "TicketCache.h"
 #import "TicketDisplayMgr.h"
+#import "ProjectsViewController.h"
 
 @class NetworkAwareViewController;
 @class NewsFeedDisplayMgr, MilestoneDisplayMgr;
@@ -17,7 +18,7 @@
     IBOutlet TicketsViewController * ticketsViewController;
     IBOutlet UINavigationController * ticketsNavController;
 
-    IBOutlet UIViewController * projectsViewController;
+    IBOutlet ProjectsViewController * projectsViewController;
     IBOutlet UINavigationController * projectsNavController;
 
     IBOutlet NetworkAwareViewController * milestonesNetworkAwareViewController;
