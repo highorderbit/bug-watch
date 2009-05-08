@@ -3,11 +3,15 @@
 //
 
 #import "ProjectsViewController.h"
+#import "ProjectTableViewCell.h"
 
 @implementation ProjectsViewController
 
+@synthesize delegate;
+
 - (void)dealloc
 {
+    [delegate release];
     [super dealloc];
 }
 
@@ -21,16 +25,17 @@
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 1; // TEMPORARY
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * CellIdentifier = @"ProjectTableViewCell";
+    static NSString * cellIdentifier = @"ProjectTableViewCell";
     
-    UITableViewCell * cell =
-        [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ProjectTableViewCell * cell =
+        (ProjectTableViewCell *)
+        [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         NSArray * nib =
             [[NSBundle mainBundle] loadNibNamed:@"ProjectTableViewCell"
@@ -39,7 +44,8 @@
         cell = [nib objectAtIndex:0];
     }
 
-    // Set up the cell...
+    [cell setProjectName:@"Code Watch"];
+    [cell setNumOpenTickets:14];
 
     return cell;
 }
@@ -47,6 +53,7 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [delegate selectedProjectKey:nil];
 }
 
 @end

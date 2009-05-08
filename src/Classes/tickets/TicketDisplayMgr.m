@@ -65,9 +65,23 @@
     id milestoneKey = [ticketCache milestoneKeyForNumber:number];
     NSString * milestone = [milestoneDict objectForKey:milestoneKey];
     
+    NSArray * commentKeys = [ticketCache commentKeysForNumber:number];
+    NSMutableDictionary * comments = [NSMutableDictionary dictionary];
+    for (id commentKey in commentKeys) {
+        TicketComment * comment = [ticketCache commentForKey:commentKey];
+        [comments setObject:comment forKey:commentKey];
+    }
+    
+    NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
+    for (id commentKey in commentKeys) {
+        NSString * userKey = [ticketCache authorKeyForCommentKey:commentKey];
+        NSString * commentAuthor = [userDict objectForKey:userKey];
+        [commentAuthors setObject:commentAuthor forKey:commentKey];
+    }
+    
     [self.detailsViewController setTicketNumber:number ticket:ticket
         metaData:metaData reportedBy:reportedBy assignedTo:assignedTo
-        milestone:milestone];
+        milestone:milestone comments:comments commentAuthors:commentAuthors];
 }
 
 - (void)ticketsFilteredByFilterKey:(NSString *)filterKey
@@ -106,6 +120,15 @@
     self.editTicketViewController.tags = metaData.tags;
     self.editTicketViewController.state = metaData.state;
 
+    self.editTicketViewController.member =
+        [ticketCache assignedToKeyForNumber:selectedTicketNumber];
+    self.editTicketViewController.members = [[userDict copy] autorelease];
+    
+    self.editTicketViewController.milestone =
+        [ticketCache milestoneKeyForNumber:selectedTicketNumber];
+    self.editTicketViewController.milestones =
+        [[milestoneDict copy] autorelease];
+    
     UINavigationController * tempNavController =
         [[[UINavigationController alloc]
         initWithRootViewController:self.editTicketViewController]

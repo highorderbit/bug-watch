@@ -20,7 +20,11 @@
     IBOutlet UILabel * assignedToLabel;
     IBOutlet UILabel * milestoneLabel;
     IBOutlet UILabel * messageLabel;
+
     NSObject<TicketDetailsViewControllerDelegate> * delegate;
+
+    NSDictionary * comments;
+    NSDictionary * commentAuthors;
 }
 
 @property (nonatomic, retain)
@@ -29,6 +33,7 @@
 - (void)setTicketNumber:(NSUInteger)aNumber
     ticket:(Ticket *)aTicket metaData:(TicketMetaData *)someMetaData
     reportedBy:(NSString *)reportedBy assignedTo:(NSString *)assignedTo
-    milestone:(NSString *)milestone;
+    milestone:(NSString *)milestone comments:(NSDictionary *)someComments
+    commentAuthors:(NSDictionary *)someCommentAuthors;
 
 @end

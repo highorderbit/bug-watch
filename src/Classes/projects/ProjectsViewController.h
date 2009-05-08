@@ -3,9 +3,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProjectsViewControllerDelegate.h"
 
 @interface ProjectsViewController : UITableViewController
 {
+    NSObject<ProjectsViewControllerDelegate> * delegate;
 }
 
+@property (nonatomic, retain)
+    NSObject<ProjectsViewControllerDelegate> * delegate;
+    
 @end

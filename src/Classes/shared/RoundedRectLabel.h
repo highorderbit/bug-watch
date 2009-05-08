@@ -4,23 +4,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RoundedRectLabel : UIView
+@interface RoundedRectLabel : UIControl
 {
-    CGFloat roundedRectRed;
-    CGFloat roundedRectGreen;
-    CGFloat roundedRectBlue;
-    CGFloat roundedRectAlpha;
-    
+    UIColor * roundedRectColor;
+    UIColor * highlightedRoundedRectColor;
+
     CGFloat roundedCornerWidth;
     CGFloat roundedCornerHeight;
-    
+
     UILabel * label;
 }
 
-@property (nonatomic, assign) CGFloat roundedRectRed;
-@property (nonatomic, assign) CGFloat roundedRectGreen;
-@property (nonatomic, assign) CGFloat roundedRectBlue;
-@property (nonatomic, assign) CGFloat roundedRectAlpha;
+@property (nonatomic, retain) UIColor * roundedRectColor;
+@property (nonatomic, retain) UIColor * highlightedRoundedRectColor;
 
 @property (nonatomic, assign) CGFloat roundedCornerWidth;
 @property (nonatomic, assign) CGFloat roundedCornerHeight;
