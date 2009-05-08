@@ -22,6 +22,8 @@
 		052C5ACF0FB3A28000C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5ACD0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m */; };
 		052C5B900FB3AD6600C7A30C /* tickets.xml in Resources */ = {isa = PBXBuildFile; fileRef = 052C5B8F0FB3AD6600C7A30C /* tickets.xml */; };
 		052C5C1B0FB490F100C7A30C /* milestone.xml in Resources */ = {isa = PBXBuildFile; fileRef = 052C5C1A0FB490F100C7A30C /* milestone.xml */; };
+		052C5C640FB49D9300C7A30C /* LighthouseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C610FB49D6E00C7A30C /* LighthouseApi.m */; };
+		052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -141,6 +143,12 @@
 		052C5ACD0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TicketMetaData+LighthouseApiParsingAdditions.m"; path = "lighthouse/api/TicketMetaData+LighthouseApiParsingAdditions.m"; sourceTree = "<group>"; };
 		052C5B8F0FB3AD6600C7A30C /* tickets.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tickets.xml; path = "test/xml-samples/tickets.xml"; sourceTree = "<group>"; };
 		052C5C1A0FB490F100C7A30C /* milestone.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = milestone.xml; path = "test/xml-samples/milestone.xml"; sourceTree = "<group>"; };
+		052C5C600FB49D6E00C7A30C /* LighthouseApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApi.h; path = lighthouse/api/LighthouseApi.h; sourceTree = "<group>"; };
+		052C5C610FB49D6E00C7A30C /* LighthouseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseApi.m; path = lighthouse/api/LighthouseApi.m; sourceTree = "<group>"; };
+		052C5C630FB49D8C00C7A30C /* LighthouseApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiDelegate.h; path = lighthouse/api/LighthouseApiDelegate.h; sourceTree = "<group>"; };
+		052C5C8A0FB4A46E00C7A30C /* LighthouseApiService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiService.h; path = lighthouse/api/LighthouseApiService.h; sourceTree = "<group>"; };
+		052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseApiService.m; path = lighthouse/api/LighthouseApiService.m; sourceTree = "<group>"; };
+		052C5C8D0FB4A48200C7A30C /* LighthouseApiServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiServiceDelegate.h; path = lighthouse/api/LighthouseApiServiceDelegate.h; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -455,9 +463,14 @@
 		05DEB23C0FB2194E0052888E /* api */ = {
 			isa = PBXGroup;
 			children = (
+				052C5C600FB49D6E00C7A30C /* LighthouseApi.h */,
+				052C5C610FB49D6E00C7A30C /* LighthouseApi.m */,
+				052C5C630FB49D8C00C7A30C /* LighthouseApiDelegate.h */,
+				052C5C8A0FB4A46E00C7A30C /* LighthouseApiService.h */,
+				052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */,
+				052C5C8D0FB4A48200C7A30C /* LighthouseApiServiceDelegate.h */,
 				05DEB2450FB219910052888E /* LighthouseApiParser.h */,
 				05DEB2460FB219910052888E /* LighthouseApiParser.m */,
-				05DEB33E0FB255160052888E /* LighthouseMilestoneParserTest.m */,
 				052C58FB0FB35C6D00C7A30C /* LighthouseApiTypeConverter.h */,
 				052C58FC0FB35C6D00C7A30C /* LighthouseApiTypeConverter.m */,
 				052C58FF0FB35C8100C7A30C /* NSNumberLighthouseApiTypeConverter.h */,
@@ -466,6 +479,7 @@
 				052C59040FB35C9900C7A30C /* NSDateLighthouseApiTypeConverter.m */,
 				052C5ACC0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.h */,
 				052C5ACD0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m */,
+				05DEB33E0FB255160052888E /* LighthouseMilestoneParserTest.m */,
 			);
 			name = api;
 			sourceTree = "<group>";
@@ -498,6 +512,9 @@
 				05EFD88C0FA9405C001DFCFB /* NewsFeedItem.m */,
 				055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */,
 				0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */,
+				0552130B0FAA757300626049 /* NewsFeedDataSource.h */,
+				0552130C0FAA757300626049 /* NewsFeedDataSource.m */,
+				055213120FAA7CED00626049 /* NewsFeedDataSourceDelegate.h */,
 				05E636C80FA8C1B900F736A5 /* NewsFeedViewController.h */,
 				05E636C90FA8C1B900F736A5 /* NewsFeedViewController.m */,
 				0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */,
@@ -505,9 +522,6 @@
 				05E6372F0FA8CD2C00F736A5 /* NewsFeedTableViewCell.m */,
 				055212920FAA599600626049 /* NewsFeedItemViewController.h */,
 				055212930FAA599600626049 /* NewsFeedItemViewController.m */,
-				0552130B0FAA757300626049 /* NewsFeedDataSource.h */,
-				0552130C0FAA757300626049 /* NewsFeedDataSource.m */,
-				055213120FAA7CED00626049 /* NewsFeedDataSourceDelegate.h */,
 			);
 			name = "news-feed";
 			sourceTree = "<group>";
@@ -960,6 +974,8 @@
 				917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */,
 				917DE35D0FB34B6300BF2015 /* ProjectHomeViewController.m in Sources */,
 				917DE3620FB34ED400BF2015 /* ProjectDisplayMgr.m in Sources */,
+				052C5C640FB49D9300C7A30C /* LighthouseApi.m in Sources */,
+				052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1147,7 +1163,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos2.0;
 			};
 			name = Distribution;
 		};
@@ -1174,7 +1190,7 @@
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos2.0;
 			};
 			name = "Release - Doug";
 		};
@@ -1202,7 +1218,7 @@
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos2.0;
 			};
 			name = "Debug - Doug";
 		};
@@ -1363,7 +1379,7 @@
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos2.0;
 			};
 			name = "Debug - John";
 		};
@@ -1378,7 +1394,7 @@
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos2.0;
 			};
 			name = "Release - John";
 		};
@@ -1395,7 +1411,7 @@
 				05DEB25D0FB2374A0052888E /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release - John";
+			defaultConfigurationName = "Debug - John";
 		};
 		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Bug Watch" */ = {
 			isa = XCConfigurationList;
@@ -1407,7 +1423,7 @@
 				055005170F96C04D0046C10B /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release - John";
+			defaultConfigurationName = "Debug - John";
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "bug-watch" */ = {
 			isa = XCConfigurationList;
@@ -1419,7 +1435,7 @@
 				055005160F96C04D0046C10B /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release - John";
+			defaultConfigurationName = "Debug - John";
 		};
 /* End XCConfigurationList section */
 	};
