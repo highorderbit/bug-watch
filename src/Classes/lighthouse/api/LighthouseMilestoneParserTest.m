@@ -37,7 +37,7 @@
     parser = nil;
 }
 
-- (void)___testMilestoneParsing
+- (void)testMilestoneParsing
 {
     NSData * xml =
         [[[self class] milestoneXml] dataUsingEncoding:NSUTF8StringEncoding];
@@ -47,7 +47,6 @@
     parser.attributeMappings = [[self class] milestoneMappings];
     parser.classElementCollection = nil;
     Milestone * milestone = [parser parse:xml];
-    NSLog(@"Received parsed milestone: '%@'.", milestone);
 
     STAssertEqualStrings(@"1.0.0", milestone.name,
         @"Milestone name parsed incorrectly.");
