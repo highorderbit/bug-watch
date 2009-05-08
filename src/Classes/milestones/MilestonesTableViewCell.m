@@ -59,7 +59,7 @@
             NSLocalizedString(@"milestones.due.never.formatstring", @"");
 
     numOpenTicketsLabel.text =
-        [NSString stringWithFormat:@"%d", milestone.numOpenTickets];
+        [NSString stringWithFormat:@"%u", milestone.numOpenTickets];
     numOpenTicketsTitleLabel.text =
         milestone.numOpenTickets == 1 ?
         NSLocalizedString(@"milestones.tickets.open.count.label.singular",

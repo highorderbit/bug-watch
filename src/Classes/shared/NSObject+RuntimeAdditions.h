@@ -18,4 +18,6 @@
 
 #endif
 
++ (Class)classNamed:(NSString *)name;
+
 @end

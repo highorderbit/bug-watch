@@ -51,7 +51,9 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"milestone: '%@'", name];
+    return [NSString stringWithFormat:@"milestone: '%@', due: '%@', number of "
+        "open tickets: %u, number of tickets: %u:", name, dueDate,
+        numOpenTickets, numTickets];
 }
 
 #pragma mark NSCopying protocol implementation
@@ -74,7 +76,7 @@
         [[self class] milestoneWithName:@"1.0 Beta" dueDate:lastWeek
             numOpenTickets:1 numTickets:40],
         [[self class] milestoneWithName:@"The Big 1.0" dueDate:nextWeek
-            numOpenTickets:8 numTickets:40],
+            numOpenTickets:4 numTickets:40],
         [[self class] milestoneWithName:@"1.1.0" dueDate:nextMonth
             numOpenTickets:30 numTickets:40],
         [[self class] milestoneWithName:@"1.2.0" dueDate:nil

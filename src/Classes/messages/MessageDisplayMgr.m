@@ -52,7 +52,7 @@
     }
     
     NSMutableDictionary * projectDict = [NSMutableDictionary dictionary];
-    NSLog(@"Posted by dict :%@", postedByDict);
+
     [messagesViewController setMessages:[messageCache allMessages]
         postedByDict:postedByDict projectDict:projectDict];
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<milestone>
+  <created-at type="datetime">2009-04-15T13:48:39-06:00</created-at>
+  <due-on type="datetime">2009-04-19T00:00:00-06:00</due-on>
+  <goals>First version released to the App Store.</goals>
+  <goals-html>&lt;div&gt;&lt;p&gt;First version released to the App Store.&lt;/p&gt;&lt;/div&gt;</goals-html>
+  <id type="integer">37266</id>
+  <open-tickets-count type="integer">3</open-tickets-count>
+  <permalink>100</permalink>
+  <project-id type="integer">27400</project-id>
+  <tickets-count type="integer">26</tickets-count>
+  <title>1.0.0</title>
+  <updated-at type="datetime">2009-04-27T12:12:12-06:00</updated-at>
+  <url>http://highorderbit.lighthouseapp.com/projects/27400/milestones/37266</url>
+  <user-name nil="true"></user-name>
+</milestone>
