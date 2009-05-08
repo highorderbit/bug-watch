@@ -24,4 +24,9 @@
 
 #endif
 
++ (Class)classNamed:(NSString *)name
+{
+    return objc_lookUpClass([name UTF8String]);
+}
+
 @end

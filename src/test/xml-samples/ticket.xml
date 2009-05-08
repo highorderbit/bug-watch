@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ticket>
+  <assigned-user-id type="integer">50209</assigned-user-id>
+  <attachments-count type="integer">0</attachments-count>
+  <closed type="boolean">true</closed>
+  <created-at type="datetime">2009-04-22T10:05:25-06:00</created-at>
+  <creator-id type="integer">50190</creator-id>
+  <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+  <milestone-id type="integer">37670</milestone-id>
+  <number type="integer">205</number>
+  <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+  <priority type="integer">1</priority>
+  <project-id type="integer">27400</project-id>
+  <state>resolved</state>
+  <tag>bug loginview</tag>
+  <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+  <updated-at type="datetime">2009-05-01T18:19:55-06:00</updated-at>
+  <user-id type="integer">50190</user-id>
+  <user-name>Doug Kurth</user-name>
+  <creator-name>Doug Kurth</creator-name>
+  <assigned-user-name>John A. Debay</assigned-user-name>
+  <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+  <milestone-title>1.1.0</milestone-title>
+</ticket>

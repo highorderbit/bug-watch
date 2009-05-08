@@ -59,9 +59,9 @@
             NSLocalizedString(@"milestones.due.never.formatstring", @"");
 
     numOpenTicketsLabel.text =
-        [NSString stringWithFormat:@"%d", milestone.numOpenTickets];
+        [NSString stringWithFormat:@"%@", milestone.numOpenTickets];
     numOpenTicketsTitleLabel.text =
-        milestone.numOpenTickets == 1 ?
+        [milestone.numOpenTickets integerValue] == 1 ?
         NSLocalizedString(@"milestones.tickets.open.count.label.singular",
         @"") :
         NSLocalizedString(@"milestones.tickets.open.count.label.plural", @"");
@@ -70,8 +70,9 @@
         progressView.progress = 0.0;
     else
         progressView.progress =
-            ((float) milestone.numTickets - milestone.numOpenTickets) /
-            (float) milestone.numTickets;
+            ((float) [milestone.numTickets integerValue] -
+                     [milestone.numOpenTickets integerValue]) /
+            (float) [milestone.numTickets integerValue];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

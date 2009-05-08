@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets type="array">
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T10:05:25-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">205</number>
+    <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+    <priority type="integer">1</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug</tag>
+    <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+    <updated-at type="datetime">2009-05-01T18:19:55-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T15:29:33-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">231</number>
+    <permalink>add-followed-users-to-user-info-view</permalink>
+    <priority type="integer">1</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>userview</tag>
+    <title>Add followed users to user info view</title>
+    <updated-at type="datetime">2009-04-29T19:00:47-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/231</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T16:13:03-06:00</created-at>
+    <creator-id type="integer">50209</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">232</number>
+    <permalink>add-following-to-user-info-view</permalink>
+    <priority type="integer">4</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>following userview</tag>
+    <title>Add following to user info view</title>
+    <updated-at type="datetime">2009-04-28T10:21:54-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>John A. Debay</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/232</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T22:29:55-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">234</number>
+    <permalink>opening-user-location-in-maps-doesnt-work</permalink>
+    <priority type="integer">1</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug</tag>
+    <title>Opening user location in maps doesn't work</title>
+    <updated-at type="datetime">2009-04-28T10:16:53-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/234</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T20:59:40-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">233</number>
+    <permalink>set-background-color-for-modal-views</permalink>
+    <priority type="integer">6</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Set background color for modal views</title>
+    <updated-at type="datetime">2009-04-28T10:16:32-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/233</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T22:30:49-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">235</number>
+    <permalink>better-distinguish-private-and-public-repo-icons</permalink>
+    <priority type="integer">7</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Better distinguish private and public repo icons</title>
+    <updated-at type="datetime">2009-04-27T23:24:43-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/235</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T12:45:56-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">228</number>
+    <permalink>add-privacy-icon-to-repo-name-cells</permalink>
+    <priority type="integer">4</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Add privacy icon to repo name cells</title>
+    <updated-at type="datetime">2009-04-27T22:28:43-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/228</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T12:37:27-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-27T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">38302</milestone-id>
+    <number type="integer">225</number>
+    <permalink>add-disclosure-indicators-to-news-feed</permalink>
+    <priority type="integer">1</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug newsfeed</tag>
+    <title>Add disclosure indicators to news feed</title>
+    <updated-at type="datetime">2009-04-27T19:39:20-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/225</url>
+    <milestone-title>1.1.1</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T15:22:57-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">229</number>
+    <permalink>make-location-cell-clicks-in-user-info-view-open-maps</permalink>
+    <priority type="integer">5</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Make location cell clicks in user info view open maps</title>
+    <updated-at type="datetime">2009-04-27T16:53:49-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/229</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T12:43:18-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">227</number>
+    <permalink>make-email-address-in-info-view-a-link</permalink>
+    <priority type="integer">3</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Make email address in info view a link</title>
+    <updated-at type="datetime">2009-04-27T16:14:38-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/227</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T15:28:58-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">230</number>
+    <permalink>support-followed-users-in-github-service</permalink>
+    <priority type="integer">3</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Support followed users in GitHub service</title>
+    <updated-at type="datetime">2009-04-27T15:57:18-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/230</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T12:14:53-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">224</number>
+    <permalink>implement-user-search-in-front-end</permalink>
+    <priority type="integer">1</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>searchview</tag>
+    <title>Implement user search in front-end</title>
+    <updated-at type="datetime">2009-04-27T15:26:50-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/224</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T12:14:29-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">223</number>
+    <permalink>implement-user-search-in-github-service</permalink>
+    <priority type="integer">1</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>github search</tag>
+    <title>Implement user search in GitHub Service</title>
+    <updated-at type="datetime">2009-04-27T15:26:08-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/223</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-27T12:41:21-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime" nil="true"></milestone-due-on>
+    <milestone-id type="integer">38299</milestone-id>
+    <number type="integer">226</number>
+    <permalink>change-striped-backgrounds-to-blue-color-used-in-repo-info-header</permalink>
+    <priority type="integer">2</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Change striped backgrounds to blue color used in repo info header</title>
+    <updated-at type="datetime">2009-04-27T14:59:27-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/226</url>
+    <milestone-title>1.2.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T11:28:31-06:00</created-at>
+    <creator-id type="integer">50209</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">213</number>
+    <permalink>news-feed-display-causes-memory-warnings</permalink>
+    <priority type="integer">5</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug newsfeed performance</tag>
+    <title>News feed display causes memory warnings</title>
+    <updated-at type="datetime">2009-04-23T11:56:25-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>John A. Debay</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/213</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T18:40:42-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">222</number>
+    <permalink>audit-the-commit-email-text</permalink>
+    <priority type="integer">17</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Audit the commit email text</title>
+    <updated-at type="datetime">2009-04-23T11:16:05-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/222</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T18:38:20-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">220</number>
+    <permalink>empty-caches-when-we-receive-a-memory-warning</permalink>
+    <priority type="integer">3</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Empty caches when we receive a memory warning</title>
+    <updated-at type="datetime">2009-04-23T10:01:36-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/220</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T18:01:54-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">219</number>
+    <permalink>force-cell-selection-on-all-table-view-controllers</permalink>
+    <priority type="integer">14</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Force cell deselection on all table view controllers</title>
+    <updated-at type="datetime">2009-04-23T09:44:42-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/219</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T18:38:57-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">221</number>
+    <permalink>lower-max-size-of-news-feed-cache</permalink>
+    <priority type="integer">16</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Lower max size of news feed cache</title>
+    <updated-at type="datetime">2009-04-23T09:34:01-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/221</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T17:41:00-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">218</number>
+    <permalink>clear-following-cache-after-logging-out</permalink>
+    <priority type="integer">13</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Clear following cache after logging out</title>
+    <updated-at type="datetime">2009-04-22T18:11:46-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/218</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T15:56:13-06:00</created-at>
+    <creator-id type="integer">50209</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">217</number>
+    <permalink>repo-view-will-possibly-show-the-wrong-repository</permalink>
+    <priority type="integer">15</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug repoview</tag>
+    <title>Repo view: will possibly show the wrong repository</title>
+    <updated-at type="datetime">2009-04-22T16:31:23-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>John A. Debay</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/217</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T13:29:22-06:00</created-at>
+    <creator-id type="integer">50209</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">214</number>
+    <permalink>favorite-repos-failed-addition-doesnt-re-show-the-keyboard</permalink>
+    <priority type="integer">3</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug ui</tag>
+    <title>Favorite repos: failed addition doesn't re-show the keyboard</title>
+    <updated-at type="datetime">2009-04-22T16:04:33-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>John A. Debay</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/214</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T11:05:11-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">211</number>
+    <permalink>dynamically-size-repo-info-cell-labels</permalink>
+    <priority type="integer">4</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>ui</tag>
+    <title>Dynamically size repo info cell labels?</title>
+    <updated-at type="datetime">2009-04-22T15:53:47-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/211</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T15:40:20-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">216</number>
+    <permalink>if-timing-is-just-right-updating-view-can-be-added-to-wrong-view-controller-when-backing-out-of-drill-down</permalink>
+    <priority type="integer">12</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug</tag>
+    <title>If timing is just right, updating view can be added to wrong view controller when backing out of drill-down</title>
+    <updated-at type="datetime">2009-04-22T15:51:06-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/216</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50190</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T14:29:16-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">215</number>
+    <permalink>search-frame-incorrect-while-loading</permalink>
+    <priority type="integer">11</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag nil="true"></tag>
+    <title>Search frame incorrect while loading</title>
+    <updated-at type="datetime">2009-04-22T15:15:56-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>Doug Kurth</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/215</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T09:30:52-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">204</number>
+    <permalink>repo-info-view-not-scrolled-to-top-when-selected-in-search</permalink>
+    <priority type="integer">11</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug searchview</tag>
+    <title>Repo info view not scrolled to top when selected in search</title>
+    <updated-at type="datetime">2009-04-22T13:40:33-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/204</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T10:45:56-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">209</number>
+    <permalink>selecting-recent-activity-doesnt-scroll-news-feed-to-top</permalink>
+    <priority type="integer">12</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug</tag>
+    <title>Selecting recent activity doesn't scroll news feed to top</title>
+    <updated-at type="datetime">2009-04-22T13:40:18-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/209</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T10:54:38-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">210</number>
+    <permalink>repo-selection-doesnt-scroll-repo-info-view-to-top</permalink>
+    <priority type="integer">13</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug</tag>
+    <title>Repo selection doesn't scroll repo info view to top</title>
+    <updated-at type="datetime">2009-04-22T13:40:02-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/210</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T11:08:48-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">212</number>
+    <permalink>commit-info-selections-dont-scroll-to-top</permalink>
+    <priority type="integer">14</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug</tag>
+    <title>Commit info selections don't scroll to top</title>
+    <updated-at type="datetime">2009-04-22T13:39:51-06:00</updated-at>
+    <user-id type="integer">50190</user-id>
+    <user-name>Doug Kurth</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/212</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+  <ticket>
+    <assigned-user-id type="integer">50209</assigned-user-id>
+    <attachments-count type="integer">0</attachments-count>
+    <closed type="boolean">true</closed>
+    <created-at type="datetime">2009-04-22T10:11:39-06:00</created-at>
+    <creator-id type="integer">50190</creator-id>
+    <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+    <milestone-id type="integer">37670</milestone-id>
+    <number type="integer">208</number>
+    <permalink>typo-in-first-paragraph-of-log-in-help</permalink>
+    <priority type="integer">3</priority>
+    <project-id type="integer">27400</project-id>
+    <state>resolved</state>
+    <tag>bug</tag>
+    <title>Typo in first paragraph of log in help</title>
+    <updated-at type="datetime">2009-04-22T11:00:28-06:00</updated-at>
+    <user-id type="integer">50209</user-id>
+    <user-name>John A. Debay</user-name>
+    <creator-name>Doug Kurth</creator-name>
+    <assigned-user-name>John A. Debay</assigned-user-name>
+    <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/208</url>
+    <milestone-title>1.1.0</milestone-title>
+  </ticket>
+</tickets>

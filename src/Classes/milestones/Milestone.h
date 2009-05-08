@@ -9,22 +9,22 @@
     NSString * name;
     NSDate * dueDate;
 
-    NSUInteger numOpenTickets;
-    NSUInteger numTickets;
+    NSNumber * numOpenTickets;
+    NSNumber * numTickets;
 }
 
 + (id)milestoneWithName:(NSString *)aName dueDate:(NSDate *)aDueDate
-    numOpenTickets:(NSUInteger)openTickets
-    numTickets:(NSUInteger)totalNumTickets;
+    numOpenTickets:(NSNumber *)openTickets
+    numTickets:(NSNumber *)totalNumTickets;
 
 - (id)initWithName:(NSString *)aName dueDate:(NSDate *)aDueDate
-    numOpenTickets:(NSUInteger)openTickets
-    numTickets:(NSUInteger)totalNumTickets;
+    numOpenTickets:(NSNumber *)openTickets
+    numTickets:(NSNumber *)totalNumTickets;
 
 @property (nonatomic, readonly, copy) NSString * name;
 @property (nonatomic, readonly, copy) NSDate * dueDate;
-@property (nonatomic, readonly, assign) NSUInteger numOpenTickets;
-@property (nonatomic, readonly, assign) NSUInteger numTickets;
+@property (nonatomic, readonly, copy) NSNumber * numOpenTickets;
+@property (nonatomic, readonly, copy) NSNumber * numTickets;
 
 // TODO: Replace me with real data
 
