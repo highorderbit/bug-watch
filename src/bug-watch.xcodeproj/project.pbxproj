@@ -24,6 +24,7 @@
 		052C5C1B0FB490F100C7A30C /* milestone.xml in Resources */ = {isa = PBXBuildFile; fileRef = 052C5C1A0FB490F100C7A30C /* milestone.xml */; };
 		052C5C640FB49D9300C7A30C /* LighthouseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C610FB49D6E00C7A30C /* LighthouseApi.m */; };
 		052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */; };
+		052C5D840FB4C75F00C7A30C /* TicketNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5D830FB4C75F00C7A30C /* TicketNumber.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -149,6 +150,8 @@
 		052C5C8A0FB4A46E00C7A30C /* LighthouseApiService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiService.h; path = lighthouse/api/LighthouseApiService.h; sourceTree = "<group>"; };
 		052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseApiService.m; path = lighthouse/api/LighthouseApiService.m; sourceTree = "<group>"; };
 		052C5C8D0FB4A48200C7A30C /* LighthouseApiServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiServiceDelegate.h; path = lighthouse/api/LighthouseApiServiceDelegate.h; sourceTree = "<group>"; };
+		052C5D820FB4C75F00C7A30C /* TicketNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketNumber.h; path = lighthouse/api/TicketNumber.h; sourceTree = "<group>"; };
+		052C5D830FB4C75F00C7A30C /* TicketNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketNumber.m; path = lighthouse/api/TicketNumber.m; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -479,6 +482,8 @@
 				052C59040FB35C9900C7A30C /* NSDateLighthouseApiTypeConverter.m */,
 				052C5ACC0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.h */,
 				052C5ACD0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m */,
+				052C5D820FB4C75F00C7A30C /* TicketNumber.h */,
+				052C5D830FB4C75F00C7A30C /* TicketNumber.m */,
 				05DEB33E0FB255160052888E /* LighthouseMilestoneParserTest.m */,
 			);
 			name = api;
@@ -976,6 +981,7 @@
 				917DE3620FB34ED400BF2015 /* ProjectDisplayMgr.m in Sources */,
 				052C5C640FB49D9300C7A30C /* LighthouseApi.m in Sources */,
 				052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */,
+				052C5D840FB4C75F00C7A30C /* TicketNumber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -89,7 +89,7 @@
     qualifiedName:(NSString *)qualifiedName
 {
     if ([elementName isEqualToString:self.classElementType])
-        [self.elements addObject:elementName];
+        [self.elements addObject:self.obj];
     else
         [self setValue:self.elementValue forPath:self.elementPath object:obj];
 }

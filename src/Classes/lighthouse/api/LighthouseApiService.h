@@ -18,4 +18,12 @@
 
 @property (nonatomic, assign) id<LighthouseApiServiceDelegate> delegate;
 
+#pragma mark Initialization
+
+- (id)initWithBaseUrlString:(NSString *)aBaseUrlString;
+
+#pragma mark Fetching tickets
+
+- (void)fetchTicketsForAllProjects:(NSString *)token;
+    
 @end

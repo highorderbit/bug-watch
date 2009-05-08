@@ -9,7 +9,8 @@
 #pragma mark Fetching tickets
 
 - (void)tickets:(NSArray *)tickets
-    fetchedForAllProjectsWithMetadata:(NSArray *)metadata;
+    fetchedForAllProjectsWithMetadata:(NSArray *)metadata
+    ticketNumbers:(NSArray *)ticketNumbers;
 - (void)failedToFetchTicketsForAllProjects:(NSError *)response;
 
 @end
