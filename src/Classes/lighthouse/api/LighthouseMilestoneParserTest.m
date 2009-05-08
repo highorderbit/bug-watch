@@ -49,13 +49,12 @@
 
     STAssertEqualStrings(@"1.0.0", milestone.name,
         @"Milestone name parsed incorrectly.");
-    STAssertEqualObjects(
-        [NSNumber numberWithInteger:3],
-        milestone.numOpenTickets,
+    // use subtraction to avoid type mismatch errors
+    STAssertTrue(
+        milestone.numOpenTickets - 3 == 0,
         @"Milestone open tickets parsed incorrectly.");
-    STAssertEqualObjects(
-        [NSNumber numberWithInteger:26],
-        milestone.numTickets,
+    STAssertTrue(
+        milestone.numTickets - 26 == 0,
         @"Milestone ticket count parsed incorrectly.");
     STAssertEqualObjects(
         [NSDate dateWithLighthouseString:@"2009-04-19T00:00:00-06:00"],

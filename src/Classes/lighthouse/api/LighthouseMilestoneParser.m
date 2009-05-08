@@ -149,7 +149,8 @@
         converters =
             [[NSDictionary alloc] initWithObjectsAndKeys:
              [NSDateLighthouseApiTypeConverter converter], @"datetime",
-             [NSNumberLighthouseApiTypeConverter converter], @"integer", nil];
+             [NSNumberLighthouseApiTypeConverter converter], @"integer",
+             nil];
 
     return converters;
 }

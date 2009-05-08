@@ -8,8 +8,8 @@
 
 @property (nonatomic, copy) NSString * name;
 @property (nonatomic, copy) NSDate * dueDate;
-@property (nonatomic, copy) NSNumber * numOpenTickets;
-@property (nonatomic, copy) NSNumber * numTickets;
+@property (nonatomic, assign) NSUInteger numOpenTickets;
+@property (nonatomic, assign) NSUInteger numTickets;
 
 @end
 
@@ -22,25 +22,22 @@
     [name release];
     [dueDate release];
 
-    [numOpenTickets release];
-    [numTickets release];
-
     [super dealloc];
 }
 
 #pragma mark Initialization
 
 + (id)milestoneWithName:(NSString *)aName dueDate:(NSDate *)aDueDate
-    numOpenTickets:(NSNumber *)openTickets
-    numTickets:(NSNumber *)totalNumTickets
+    numOpenTickets:(NSUInteger)openTickets
+    numTickets:(NSUInteger)totalNumTickets
 {
     return [[[[self class] alloc] initWithName:aName dueDate:aDueDate
         numOpenTickets:openTickets numTickets:totalNumTickets] autorelease];
 }
 
 - (id)initWithName:(NSString *)aName dueDate:(NSDate *)aDueDate
-    numOpenTickets:(NSNumber *)openTickets
-    numTickets:(NSNumber *)totalNumTickets
+    numOpenTickets:(NSUInteger)openTickets
+    numTickets:(NSUInteger)totalNumTickets
 {
     if (self = [super init]) {
         self.name = aName;
@@ -55,7 +52,7 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"milestone: '%@', due: '%@', number of "
-        "open tickets: %@, number of tickets: %@:", name, dueDate,
+        "open tickets: %u, number of tickets: %u:", name, dueDate,
         numOpenTickets, numTickets];
 }
 
@@ -64,13 +61,6 @@
 - (id)copyWithZone:(NSZone *)zone
 {
     return [self retain];  // immutable
-}
-
-#pragma mark NSKeyValueCoding informal protocol implementation
-
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
-    NSLog(@"Attempting to set value '%@' for undefined key: '%@'.", value, key);
 }
 
 // TODO: Replace me with real data
@@ -84,17 +74,13 @@
 
     return [NSArray arrayWithObjects:
         [[self class] milestoneWithName:@"1.0 Beta" dueDate:lastWeek
-            numOpenTickets:[NSNumber numberWithInteger:1]
-            numTickets:[NSNumber numberWithInteger:40]],
+            numOpenTickets:1 numTickets:40],
         [[self class] milestoneWithName:@"The Big 1.0" dueDate:nextWeek
-            numOpenTickets:[NSNumber numberWithInteger:4]
-            numTickets:[NSNumber numberWithInteger:40]],
+            numOpenTickets:4 numTickets:40],
         [[self class] milestoneWithName:@"1.1.0" dueDate:nextMonth
-            numOpenTickets:[NSNumber numberWithInteger:30]
-            numTickets:[NSNumber numberWithInteger:40]],
+            numOpenTickets:30 numTickets:40],
         [[self class] milestoneWithName:@"1.2.0" dueDate:nil
-            numOpenTickets:[NSNumber numberWithInteger:40]
-            numTickets:[NSNumber numberWithInteger:40]],
+            numOpenTickets:40 numTickets:40],
         nil];
 }
 
