@@ -55,12 +55,12 @@
 		05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2200FB217090052888E /* LighthouseNewsFeed.m */; };
 		05DEB2280FB217090052888E /* LighthouseNewsFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2230FB217090052888E /* LighthouseNewsFeedParser.m */; };
 		05DEB2290FB217090052888E /* LighthouseNewsFeedService.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2250FB217090052888E /* LighthouseNewsFeedService.m */; };
-		05DEB2470FB219910052888E /* LighthouseMilestoneParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2460FB219910052888E /* LighthouseMilestoneParser.m */; };
+		05DEB2470FB219910052888E /* LighthouseApiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2460FB219910052888E /* LighthouseApiParser.m */; };
 		05DEB3090FB238580052888E /* GTMIPhoneUnitTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB3050FB238580052888E /* GTMIPhoneUnitTestDelegate.m */; };
 		05DEB30A0FB238580052888E /* GTMIPhoneUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB3060FB238580052888E /* GTMIPhoneUnitTestMain.m */; };
 		05DEB30B0FB238580052888E /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB3080FB238580052888E /* GTMSenTestCase.m */; };
 		05DEB33F0FB255160052888E /* LighthouseMilestoneParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB33E0FB255160052888E /* LighthouseMilestoneParserTest.m */; };
-		05DEB37F0FB25BF50052888E /* LighthouseMilestoneParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2460FB219910052888E /* LighthouseMilestoneParser.m */; };
+		05DEB37F0FB25BF50052888E /* LighthouseApiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2460FB219910052888E /* LighthouseApiParser.m */; };
 		05E636BE0FA8C11C00F736A5 /* NewsFeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */; };
 		05E636CA0FA8C1B900F736A5 /* NewsFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E636C90FA8C1B900F736A5 /* NewsFeedViewController.m */; };
 		05E637290FA8C8EB00F736A5 /* NewsFeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E637270FA8C8EB00F736A5 /* NewsFeedTableViewCell.xib */; };
@@ -201,8 +201,8 @@
 		05DEB2240FB217090052888E /* LighthouseNewsFeedService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeedService.h; path = "lighthouse/news-feed/LighthouseNewsFeedService.h"; sourceTree = "<group>"; };
 		05DEB2250FB217090052888E /* LighthouseNewsFeedService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseNewsFeedService.m; path = "lighthouse/news-feed/LighthouseNewsFeedService.m"; sourceTree = "<group>"; };
 		05DEB2260FB217090052888E /* LighthouseNewsFeedServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeedServiceDelegate.h; path = "lighthouse/news-feed/LighthouseNewsFeedServiceDelegate.h"; sourceTree = "<group>"; };
-		05DEB2450FB219910052888E /* LighthouseMilestoneParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseMilestoneParser.h; path = lighthouse/api/LighthouseMilestoneParser.h; sourceTree = "<group>"; };
-		05DEB2460FB219910052888E /* LighthouseMilestoneParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseMilestoneParser.m; path = lighthouse/api/LighthouseMilestoneParser.m; sourceTree = "<group>"; };
+		05DEB2450FB219910052888E /* LighthouseApiParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiParser.h; path = lighthouse/api/LighthouseApiParser.h; sourceTree = "<group>"; };
+		05DEB2460FB219910052888E /* LighthouseApiParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseApiParser.m; path = lighthouse/api/LighthouseApiParser.m; sourceTree = "<group>"; };
 		05DEB2500FB237490052888E /* Unit Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unit Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05DEB2580FB237490052888E /* Unit Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Unit Tests-Info.plist"; sourceTree = "<group>"; };
 		05DEB2600FB237890052888E /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "vendor/google-toolbox/GTMDefines.h"; sourceTree = "<group>"; };
@@ -455,8 +455,8 @@
 		05DEB23C0FB2194E0052888E /* api */ = {
 			isa = PBXGroup;
 			children = (
-				05DEB2450FB219910052888E /* LighthouseMilestoneParser.h */,
-				05DEB2460FB219910052888E /* LighthouseMilestoneParser.m */,
+				05DEB2450FB219910052888E /* LighthouseApiParser.h */,
+				05DEB2460FB219910052888E /* LighthouseApiParser.m */,
 				05DEB33E0FB255160052888E /* LighthouseMilestoneParserTest.m */,
 				052C58FB0FB35C6D00C7A30C /* LighthouseApiTypeConverter.h */,
 				052C58FC0FB35C6D00C7A30C /* LighthouseApiTypeConverter.m */,
@@ -883,7 +883,7 @@
 				05DEB30A0FB238580052888E /* GTMIPhoneUnitTestMain.m in Sources */,
 				05DEB30B0FB238580052888E /* GTMSenTestCase.m in Sources */,
 				05DEB33F0FB255160052888E /* LighthouseMilestoneParserTest.m in Sources */,
-				05DEB37F0FB25BF50052888E /* LighthouseMilestoneParser.m in Sources */,
+				05DEB37F0FB25BF50052888E /* LighthouseApiParser.m in Sources */,
 				0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */,
 				05D6A0050FB357C10081AE18 /* NSObject+RuntimeAdditions.m in Sources */,
 				052C58FD0FB35C6D00C7A30C /* LighthouseApiTypeConverter.m in Sources */,
@@ -952,7 +952,7 @@
 				05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */,
 				05DEB2280FB217090052888E /* LighthouseNewsFeedParser.m in Sources */,
 				05DEB2290FB217090052888E /* LighthouseNewsFeedService.m in Sources */,
-				05DEB2470FB219910052888E /* LighthouseMilestoneParser.m in Sources */,
+				05DEB2470FB219910052888E /* LighthouseApiParser.m in Sources */,
 				052C58FE0FB35C6D00C7A30C /* LighthouseApiTypeConverter.m in Sources */,
 				052C59010FB35C8100C7A30C /* NSNumberLighthouseApiTypeConverter.m in Sources */,
 				052C59050FB35C9900C7A30C /* NSDateLighthouseApiTypeConverter.m in Sources */,

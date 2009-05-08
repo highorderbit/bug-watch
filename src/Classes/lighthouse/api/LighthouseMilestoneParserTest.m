@@ -3,16 +3,16 @@
 //
 
 #import "GTMSenTestCase.h"
-#import "LighthouseMilestoneParser.h"
+#import "LighthouseApiParser.h"
 #import "NSDate+LighthouseStringHelpers.h"
 
 #import "Milestone.h"
 #import "Ticket.h"
 #import "TicketMetaData.h"
 
-@interface LighthouseMilestoneParserTest : GTMTestCase
+@interface LighthouseApiParserTest : GTMTestCase
 {
-    LighthouseMilestoneParser * parser;
+    LighthouseApiParser * parser;
 }
 
 + (NSString *)milestoneXml;
@@ -24,11 +24,11 @@
 
 @end
 
-@implementation LighthouseMilestoneParserTest
+@implementation LighthouseApiParserTest
 
 - (void)setUp
 {
-    parser = [[LighthouseMilestoneParser alloc] init];
+    parser = [[LighthouseApiParser alloc] init];
 }
 
 - (void)tearDown
@@ -49,7 +49,7 @@
 
     STAssertEqualStrings(@"1.0.0", milestone.name,
         @"Milestone name parsed incorrectly.");
-    // use subtraction to avoid type mismatch errors
+    // use subtraction to avoid type mismatch errors from STAssertEquals
     STAssertTrue(
         milestone.numOpenTickets - 3 == 0,
         @"Milestone open tickets parsed incorrectly.");
