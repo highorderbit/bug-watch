@@ -14,10 +14,10 @@
     [assignedToDict release];
     [milestoneDict release];
     [commentDict release];
-    
+
     [comments release];
     [commentAuthors release];
-    
+
     [super dealloc];
 }
 
@@ -30,7 +30,7 @@
         assignedToDict = [[NSMutableDictionary dictionary] retain];
         milestoneDict = [[NSMutableDictionary dictionary] retain];
         commentDict = [[NSMutableDictionary dictionary] retain];
-        
+
         comments = [[NSMutableDictionary dictionary] retain];
         commentAuthors = [[NSMutableDictionary dictionary] retain];
     }
@@ -50,7 +50,7 @@
 
 - (NSDictionary *)allTickets
 {
-    return [tickets copy];
+    return [[tickets copy] autorelease];
 }
 
 - (void)setMetaData:(TicketMetaData *)someMetaData forNumber:(NSUInteger)number
@@ -65,7 +65,7 @@
 
 - (NSDictionary *)allMetaData
 {
-    return [metaData copy];
+    return [[metaData copy] autorelease];
 }
 
 - (void)setCreatedByKey:(id)key forNumber:(NSUInteger)number
@@ -80,7 +80,7 @@
 
 - (NSDictionary *)allCreatedByKeys
 {
-    return [createdByDict copy];
+    return [[createdByDict copy] autorelease];
 }
 
 - (void)setAssignedToKey:(id)key forNumber:(NSUInteger)number
@@ -95,7 +95,7 @@
 
 - (NSDictionary *)allAssignedToKeys
 {
-    return [assignedToDict copy];
+    return [[assignedToDict copy] autorelease];
 }
 
 - (void)setMilestoneKey:(id)key forNumber:(NSUInteger)number
@@ -110,7 +110,7 @@
 
 - (NSDictionary *)allMilestoneKeys
 {
-    return [milestoneDict copy];
+    return [[milestoneDict copy] autorelease];
 }
 
 - (void)setCommentKeys:(NSArray *)keys forNumber:(NSUInteger)number

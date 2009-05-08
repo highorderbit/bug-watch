@@ -81,6 +81,14 @@
 		917DE3DC0FB368B600BF2015 /* CalendarSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3DB0FB368B600BF2015 /* CalendarSelected.png */; };
 		917DE3E20FB3695000BF2015 /* ThumbtackSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3E10FB3695000BF2015 /* ThumbtackSelected.png */; };
 		917DE3E90FB369E000BF2015 /* PagesSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3E80FB369E000BF2015 /* PagesSelected.png */; };
+		917DE3F90FB37A3600BF2015 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3F80FB37A3600BF2015 /* MessagesViewController.m */; };
+		917DE4030FB37B3300BF2015 /* MessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE4010FB37B3300BF2015 /* MessagesView.xib */; };
+		917DE4220FB38CF900BF2015 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE4200FB38CF900BF2015 /* MessageTableViewCell.xib */; };
+		917DE4250FB38D1100BF2015 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE4240FB38D1100BF2015 /* MessageTableViewCell.m */; };
+		917DE4790FB3A83600BF2015 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE4780FB3A83600BF2015 /* Message.m */; };
+		917DE47E0FB3AA1B00BF2015 /* MessageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE47D0FB3AA1B00BF2015 /* MessageCache.m */; };
+		917DE4810FB3AA3A00BF2015 /* MessageDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE4800FB3AA3A00BF2015 /* MessageDisplayMgr.m */; };
+		917DE49F0FB48C3600BF2015 /* MessageResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE49E0FB48C3600BF2015 /* MessageResponse.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
@@ -238,6 +246,21 @@
 		917DE3DB0FB368B600BF2015 /* CalendarSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarSelected.png; sourceTree = "<group>"; };
 		917DE3E10FB3695000BF2015 /* ThumbtackSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ThumbtackSelected.png; sourceTree = "<group>"; };
 		917DE3E80FB369E000BF2015 /* PagesSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PagesSelected.png; sourceTree = "<group>"; };
+		917DE3F70FB37A3600BF2015 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagesViewController.h; path = messages/MessagesViewController.h; sourceTree = "<group>"; };
+		917DE3F80FB37A3600BF2015 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagesViewController.m; path = messages/MessagesViewController.m; sourceTree = "<group>"; };
+		917DE4020FB37B3300BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MessagesView.xib; sourceTree = "<group>"; };
+		917DE4210FB38CF900BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MessageTableViewCell.xib; sourceTree = "<group>"; };
+		917DE4230FB38D1100BF2015 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewCell.h; path = messages/MessageTableViewCell.h; sourceTree = "<group>"; };
+		917DE4240FB38D1100BF2015 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageTableViewCell.m; path = messages/MessageTableViewCell.m; sourceTree = "<group>"; };
+		917DE4770FB3A83600BF2015 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Message.h; path = messages/Message.h; sourceTree = "<group>"; };
+		917DE4780FB3A83600BF2015 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Message.m; path = messages/Message.m; sourceTree = "<group>"; };
+		917DE47C0FB3AA1B00BF2015 /* MessageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageCache.h; path = messages/MessageCache.h; sourceTree = "<group>"; };
+		917DE47D0FB3AA1B00BF2015 /* MessageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageCache.m; path = messages/MessageCache.m; sourceTree = "<group>"; };
+		917DE47F0FB3AA3A00BF2015 /* MessageDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDisplayMgr.h; path = messages/MessageDisplayMgr.h; sourceTree = "<group>"; };
+		917DE4800FB3AA3A00BF2015 /* MessageDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDisplayMgr.m; path = messages/MessageDisplayMgr.m; sourceTree = "<group>"; };
+		917DE49D0FB48C3600BF2015 /* MessageResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageResponse.h; path = messages/MessageResponse.h; sourceTree = "<group>"; };
+		917DE49E0FB48C3600BF2015 /* MessageResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageResponse.m; path = messages/MessageResponse.m; sourceTree = "<group>"; };
+		917DE4CD0FB49FD400BF2015 /* MessagesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagesViewControllerDelegate.h; path = messages/MessagesViewControllerDelegate.h; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
@@ -450,6 +473,7 @@
 				05C870720FA77FCC0069BC72 /* web-service */,
 				05E637760FA8D35100F736A5 /* shared */,
 				0552136E0FAB555900626049 /* vendor */,
+				917DE3FA0FB37A3F00BF2015 /* messages */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -528,6 +552,8 @@
 				05DEB1DA0FB1065B0052888E /* MilestoneView.xib */,
 				917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */,
 				917DE3540FB346B500BF2015 /* ProjectHomeView.xib */,
+				917DE4010FB37B3300BF2015 /* MessagesView.xib */,
+				917DE4200FB38CF900BF2015 /* MessageTableViewCell.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -583,6 +609,26 @@
 				917DE3650FB3521F00BF2015 /* ProjectsViewControllerDelegate.h */,
 			);
 			name = projects;
+			sourceTree = "<group>";
+		};
+		917DE3FA0FB37A3F00BF2015 /* messages */ = {
+			isa = PBXGroup;
+			children = (
+				917DE3F70FB37A3600BF2015 /* MessagesViewController.h */,
+				917DE3F80FB37A3600BF2015 /* MessagesViewController.m */,
+				917DE4230FB38D1100BF2015 /* MessageTableViewCell.h */,
+				917DE4240FB38D1100BF2015 /* MessageTableViewCell.m */,
+				917DE4770FB3A83600BF2015 /* Message.h */,
+				917DE4780FB3A83600BF2015 /* Message.m */,
+				917DE47C0FB3AA1B00BF2015 /* MessageCache.h */,
+				917DE47D0FB3AA1B00BF2015 /* MessageCache.m */,
+				917DE47F0FB3AA3A00BF2015 /* MessageDisplayMgr.h */,
+				917DE4800FB3AA3A00BF2015 /* MessageDisplayMgr.m */,
+				917DE49D0FB48C3600BF2015 /* MessageResponse.h */,
+				917DE49E0FB48C3600BF2015 /* MessageResponse.m */,
+				917DE4CD0FB49FD400BF2015 /* MessagesViewControllerDelegate.h */,
+			);
+			name = messages;
 			sourceTree = "<group>";
 		};
 		91806D8A0F97E72900F08005 /* images */ = {
@@ -702,6 +748,8 @@
 				917DE3DC0FB368B600BF2015 /* CalendarSelected.png in Resources */,
 				917DE3E20FB3695000BF2015 /* ThumbtackSelected.png in Resources */,
 				917DE3E90FB369E000BF2015 /* PagesSelected.png in Resources */,
+				917DE4030FB37B3300BF2015 /* MessagesView.xib in Resources */,
+				917DE4220FB38CF900BF2015 /* MessageTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +814,12 @@
 				917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */,
 				917DE35D0FB34B6300BF2015 /* ProjectHomeViewController.m in Sources */,
 				917DE3620FB34ED400BF2015 /* ProjectDisplayMgr.m in Sources */,
+				917DE3F90FB37A3600BF2015 /* MessagesViewController.m in Sources */,
+				917DE4250FB38D1100BF2015 /* MessageTableViewCell.m in Sources */,
+				917DE4790FB3A83600BF2015 /* Message.m in Sources */,
+				917DE47E0FB3AA1B00BF2015 /* MessageCache.m in Sources */,
+				917DE4810FB3AA3A00BF2015 /* MessageDisplayMgr.m in Sources */,
+				917DE49F0FB48C3600BF2015 /* MessageResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,6 +952,22 @@
 				917DE3550FB346B500BF2015 /* en */,
 			);
 			name = ProjectHomeView.xib;
+			sourceTree = "<group>";
+		};
+		917DE4010FB37B3300BF2015 /* MessagesView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				917DE4020FB37B3300BF2015 /* en */,
+			);
+			name = MessagesView.xib;
+			sourceTree = "<group>";
+		};
+		917DE4200FB38CF900BF2015 /* MessageTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				917DE4210FB38CF900BF2015 /* en */,
+			);
+			name = MessageTableViewCell.xib;
 			sourceTree = "<group>";
 		};
 		919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */ = {

@@ -154,8 +154,6 @@
     return detailsViewController;
 }
 
-#pragma mark TicketDetailsViewController implementation
-
 - (EditTicketViewController *)editTicketViewController
 {
     if (!editTicketViewController)

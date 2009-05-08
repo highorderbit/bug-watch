@@ -2,25 +2,27 @@
 //  Copyright 2009 High Order Bit, Inc. All rights reserved.
 //
 
-#import "CommentTableViewCell.h"
+#import "MessageTableViewCell.h"
 #import "UIColor+BugWatchColors.h"
 #import "NSDate+StringHelpers.h"
 #import "UILabel+DrawingAdditions.h"
 
-@interface CommentTableViewCell (Private)
+@interface MessageTableViewCell (Private)
 
 - (void)setNonSelectedTextColors;
 
 @end
 
-@implementation CommentTableViewCell
+@implementation MessageTableViewCell
 
 - (void)dealloc
 {
     [authorLabel release];
     [dateLabel release];
-    [stateChangeLabel release];
+    [projectLabel release];
+    [titleLabel release];
     [commentLabel release];
+    [numResponsesLabel release];
     [super dealloc];
 }
 
@@ -42,8 +44,10 @@
     if (selected) {
         authorLabel.textColor = [UIColor whiteColor];
         dateLabel.textColor = [UIColor whiteColor];
-        stateChangeLabel.textColor = [UIColor whiteColor];
+        projectLabel.textColor = [UIColor whiteColor];
+        titleLabel.textColor = [UIColor whiteColor];
         commentLabel.textColor = [UIColor whiteColor];
+        numResponsesLabel.textColor = [UIColor whiteColor];
     } else
         [self setNonSelectedTextColors];
 }
@@ -52,13 +56,18 @@
 {
     [super layoutSubviews];
 
-    CGFloat commentHeight =
-        [commentLabel heightForString:commentLabel.text];
-    static const CGFloat MAX_COMMENT_HEIGHT = 72;
+    CGFloat titleHeight = [titleLabel heightForString:titleLabel.text];
+    CGRect titleLabelFrame = titleLabel.frame;
+    titleLabelFrame.size.height = titleHeight;
+    titleLabel.frame = titleLabelFrame;
+
+    CGFloat commentHeight = [commentLabel heightForString:commentLabel.text];
+    static const CGFloat MAX_COMMENT_HEIGHT = 54;
     commentHeight =
         commentHeight > MAX_COMMENT_HEIGHT ? MAX_COMMENT_HEIGHT : commentHeight;
     CGRect commentLabelFrame = commentLabel.frame;
     commentLabelFrame.size.height = commentHeight;
+    commentLabelFrame.origin.y = titleHeight + 57;
     commentLabel.frame = commentLabelFrame;
 }
 
@@ -66,8 +75,10 @@
 {
     authorLabel.textColor = [UIColor blackColor];
     dateLabel.textColor = [UIColor bugWatchBlueColor];
-    stateChangeLabel.textColor = [UIColor blackColor];
+    projectLabel.textColor = [UIColor bugWatchGrayColor];
+    titleLabel.textColor = [UIColor blackColor];
     commentLabel.textColor = [UIColor blackColor];
+    numResponsesLabel.textColor = [UIColor bugWatchGrayColor];
 }
 
 - (void)setAuthorName:(NSString *)authorName
@@ -80,9 +91,14 @@
     dateLabel.text = [date shortDescription];
 }
 
-- (void)setStateChangeText:(NSString *)text
+- (void)setProjectName:(NSString *)projectName
 {
-    stateChangeLabel.text = text;
+    projectLabel.text = projectName;
+}
+
+- (void)setTitleText:(NSString *)text
+{
+    titleLabel.text = text;
 }
 
 - (void)setCommentText:(NSString *)text
@@ -90,18 +106,30 @@
     commentLabel.text = text;
 }
 
-+ (CGFloat)heightForContent:(NSString *)comment
+- (void)setNumResponses:(NSUInteger *)numResponses
 {
-    CGSize maxSize = CGSizeMake(283, 72.0);
-    UIFont * font = [UIFont systemFontOfSize:14.0];
-    UILineBreakMode mode = UILineBreakModeWordWrap;
+    numResponsesLabel.text =
+        [NSString stringWithFormat:@"%d comments", numResponses];
+}
 
-    CGSize size =
-        [comment sizeWithFont:font constrainedToSize:maxSize
++ (CGFloat)heightForTitle:(NSString *)title comment:(NSString *)comment
+{
+    UILineBreakMode mode = UILineBreakModeWordWrap;
+ 
+    CGSize titleMaxSize = CGSizeMake(283, 999999.0);
+    UIFont * titleFont = [UIFont boldSystemFontOfSize:14.0];
+    CGSize titleSize =
+        [title sizeWithFont:titleFont constrainedToSize:titleMaxSize
+        lineBreakMode:mode];
+
+    CGSize commentMaxSize = CGSizeMake(283, 54.0);
+    UIFont * commentFont = [UIFont systemFontOfSize:14.0];
+    CGSize commentSize =
+        [comment sizeWithFont:commentFont constrainedToSize:commentMaxSize
         lineBreakMode:mode];
 
     static const NSUInteger MIN_HEIGHT = 0;
-    NSUInteger height = 67.0 + size.height;
+    NSUInteger height = 67.0 + commentSize.height + titleSize.height;
     height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
 
     return height;

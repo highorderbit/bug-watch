@@ -7,6 +7,8 @@
 #import "TicketCache.h"
 #import "TicketDisplayMgr.h"
 #import "ProjectsViewController.h"
+#import "MessageCache.h"
+#import "MessagesViewController.h"
 
 @class NetworkAwareViewController;
 @class NewsFeedDisplayMgr, MilestoneDisplayMgr;
@@ -23,13 +25,14 @@
 
     IBOutlet NetworkAwareViewController * milestonesNetworkAwareViewController;
 
-    IBOutlet UIViewController * messagesViewController;
+    IBOutlet MessagesViewController * messagesViewController;
     IBOutlet UINavigationController * messagesNavController;
 
     IBOutlet UIViewController * pagesViewController;
     IBOutlet UINavigationController * pagesNavController;
 
     TicketCache * ticketCache;
+    MessageCache * messageCache;
 
     NewsFeedDisplayMgr * newsFeedDisplayMgr;
     MilestoneDisplayMgr * milestoneDisplayMgr;

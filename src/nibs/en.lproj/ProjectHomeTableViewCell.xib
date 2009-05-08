@@ -25,23 +25,24 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="IBUITableViewCell" id="951729640">
+			<object class="IBUITableViewCell" id="151805248">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIView" id="787697611">
-						<reference key="NSNextResponder" ref="951729640"/>
+					<object class="IBUIView" id="490327172">
+						<reference key="NSNextResponder" ref="151805248"/>
 						<int key="NSvFlags">256</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIImageView" id="851754580">
-								<reference key="NSNextResponder" ref="787697611"/>
+							<object class="IBUIImageView" id="625740857">
+								<reference key="NSNextResponder" ref="490327172"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{44, 44}</string>
-								<reference key="NSSuperview" ref="787697611"/>
+								<reference key="NSSuperview" ref="490327172"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+								<float key="IBUIAlpha">8.000000e-01</float>
 								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -49,11 +50,11 @@
 									<string key="NSResourceName">Bug.png</string>
 								</object>
 							</object>
-							<object class="IBUILabel" id="589994080">
-								<reference key="NSNextResponder" ref="787697611"/>
+							<object class="IBUILabel" id="962785392">
+								<reference key="NSNextResponder" ref="490327172"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{46, 0}, {231, 44}}</string>
-								<reference key="NSSuperview" ref="787697611"/>
+								<reference key="NSSuperview" ref="490327172"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -73,7 +74,7 @@
 							</object>
 						</object>
 						<string key="NSFrameSize">{297, 44}</string>
-						<reference key="NSSuperview" ref="951729640"/>
+						<reference key="NSSuperview" ref="151805248"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -93,7 +94,7 @@
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUIAccessoryType">1</int>
-				<reference key="IBUIContentView" ref="787697611"/>
+				<reference key="IBUIContentView" ref="490327172"/>
 				<string key="IBUIReuseIdentifier">ProjectHomeTableViewCell</string>
 			</object>
 			<object class="IBProxyObject" id="841351856">
@@ -109,16 +110,16 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">label</string>
-						<reference key="source" ref="951729640"/>
-						<reference key="destination" ref="589994080"/>
+						<reference key="source" ref="151805248"/>
+						<reference key="destination" ref="962785392"/>
 					</object>
 					<int key="connectionID">6</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">iconView</string>
-						<reference key="source" ref="951729640"/>
-						<reference key="destination" ref="851754580"/>
+						<reference key="source" ref="151805248"/>
+						<reference key="destination" ref="625740857"/>
 					</object>
 					<int key="connectionID">7</int>
 				</object>
@@ -147,23 +148,23 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2</int>
-						<reference key="object" ref="951729640"/>
+						<reference key="object" ref="151805248"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="851754580"/>
-							<reference ref="589994080"/>
+							<reference ref="625740857"/>
+							<reference ref="962785392"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
-						<reference key="object" ref="851754580"/>
-						<reference key="parent" ref="951729640"/>
+						<reference key="object" ref="625740857"/>
+						<reference key="parent" ref="151805248"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">4</int>
-						<reference key="object" ref="589994080"/>
-						<reference key="parent" ref="951729640"/>
+						<reference key="object" ref="962785392"/>
+						<reference key="parent" ref="151805248"/>
 					</object>
 				</object>
 			</object>

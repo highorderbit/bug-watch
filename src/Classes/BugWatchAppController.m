@@ -13,6 +13,7 @@
 #import "TicketComment.h"
 #import "MilestoneDisplayMgr.h"
 #import "ProjectDisplayMgr.h"
+#import "MessageDisplayMgr.h"
 
 @implementation BugWatchAppController
 
@@ -35,6 +36,7 @@
     [pagesNavController release];
 
     [ticketCache release];
+    [messageCache release];
 
     [newsFeedDisplayMgr release];
     [milestoneDisplayMgr release];
@@ -45,8 +47,9 @@
 - (void)start
 {
     ticketCache = [[TicketCache alloc] init];
+    messageCache = [[MessageCache alloc] init];
 
-    // TEMPORARY
+    // TEMPORARY: populate ticket cache
     NSString * description1 =
         @"If timing is just right, updating view can be added to wrong view controller when backing out of drill-down";
     NSString * message1 =
@@ -121,6 +124,23 @@
     [ticketCache setAuthorKey:[NSNumber numberWithInt:0]
         forCommentKey:[NSNumber numberWithInt:1]];
     // TEMPORARY
+    
+    // TEMPORARY: populate message cache
+   Message * msg1 =
+       [[Message alloc] initWithPostedDate:[NSDate date]
+       title:@"App Store Description"
+       message:@"Code Watch is the best way to get GitHub on your iPhone.\nKeep track of what's going on with all of your GitHub repositories, including your private ones."];
+    Message * msg2 =
+        [[Message alloc] initWithPostedDate:[NSDate date]
+        title:@"What should we do with private information after logging out?"
+        message:@"We don't really address this issue at all, currently. Off the top of my head, I suppose we should clear the primary user info (do we do that currently?), clear the news feed cache, and remove all repos in the repo cache marked as private. We could also just do the easy thing and clear all caches with potentially private information. Actually, I would probably favor the last solution. It's easy, and I don't think this use-case will be very common."];
+    [messageCache setMessage:msg1 forKey:[NSNumber numberWithInt:0]];
+    [messageCache setMessage:msg2 forKey:[NSNumber numberWithInt:1]];
+    [messageCache setPostedByKey:[NSNumber numberWithInt:0]
+        forKey:[NSNumber numberWithInt:1]];
+    [messageCache setPostedByKey:[NSNumber numberWithInt:1]
+        forKey:[NSNumber numberWithInt:0]];
+    // TEMPORARY
 
     TicketDisplayMgr * ticketDisplayMgr =
         [[TicketDisplayMgr alloc] initWithTicketCache:ticketCache
@@ -133,6 +153,12 @@
         navigationController:projectsNavController
         projectsViewController:projectsViewController];
     projectsViewController.delegate = projectDisplayMgr;
+    
+    MessageDisplayMgr * messageDisplayMgr =
+        [[MessageDisplayMgr alloc] initWithMessageCache:messageCache
+        navigationController:messagesNavController
+        messagesViewController:messagesViewController];
+    messagesViewController.delegate = messageDisplayMgr;
 
     // Note: this instantiation/initialization is temporary
     LighthouseNewsFeedService * newsFeedService =
