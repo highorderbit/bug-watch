@@ -21,6 +21,7 @@
 		052C5ACE0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5ACD0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m */; };
 		052C5ACF0FB3A28000C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5ACD0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m */; };
 		052C5B900FB3AD6600C7A30C /* tickets.xml in Resources */ = {isa = PBXBuildFile; fileRef = 052C5B8F0FB3AD6600C7A30C /* tickets.xml */; };
+		052C5C1B0FB490F100C7A30C /* milestone.xml in Resources */ = {isa = PBXBuildFile; fileRef = 052C5C1A0FB490F100C7A30C /* milestone.xml */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -139,6 +140,7 @@
 		052C5ACC0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TicketMetaData+LighthouseApiParsingAdditions.h"; path = "lighthouse/api/TicketMetaData+LighthouseApiParsingAdditions.h"; sourceTree = "<group>"; };
 		052C5ACD0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TicketMetaData+LighthouseApiParsingAdditions.m"; path = "lighthouse/api/TicketMetaData+LighthouseApiParsingAdditions.m"; sourceTree = "<group>"; };
 		052C5B8F0FB3AD6600C7A30C /* tickets.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tickets.xml; path = "test/xml-samples/tickets.xml"; sourceTree = "<group>"; };
+		052C5C1A0FB490F100C7A30C /* milestone.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = milestone.xml; path = "test/xml-samples/milestone.xml"; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 			children = (
 				052C5B8F0FB3AD6600C7A30C /* tickets.xml */,
 				052C59CA0FB3916300C7A30C /* ticket.xml */,
+				052C5C1A0FB490F100C7A30C /* milestone.xml */,
 			);
 			name = "xml-samples";
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 			files = (
 				052C59CB0FB3916300C7A30C /* ticket.xml in Resources */,
 				052C5B900FB3AD6600C7A30C /* tickets.xml in Resources */,
+				052C5C1B0FB490F100C7A30C /* milestone.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

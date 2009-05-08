@@ -39,8 +39,7 @@
 
 - (void)testMilestoneParsing
 {
-    NSData * xml =
-        [[[self class] milestoneXml] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData * xml = [[self class] loadXmlFileNamed:@"milestone"];
 
     parser.className = @"Milestone";
     parser.classElementType = @"milestone";
