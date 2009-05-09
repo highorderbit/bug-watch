@@ -9,18 +9,27 @@
 #import "TicketsViewController.h"
 #import "TicketDetailsViewController.h"
 #import "EditTicketViewController.h"
+#import "NetworkAwareViewController.h"
+#import "NetworkAwareViewControllerDelegate.h"
+#import "TicketDataSource.h"
+#import "TicketDataSourceDelegate.h"
 
 @interface TicketDisplayMgr :
     NSObject <TicketsViewControllerDelegate,
-    TicketDetailsViewControllerDelegate>
+    TicketDetailsViewControllerDelegate, NetworkAwareViewControllerDelegate,
+    TicketDataSourceDelegate>
 {
+    NSString * filterString;
     NSUInteger selectedTicketNumber;
+
     TicketCache * ticketCache;
     UINavigationController * navController;
+    NetworkAwareViewController * wrapperController;
     TicketsViewController * ticketsViewController;
+    TicketDataSource * dataSource;
     TicketDetailsViewController * detailsViewController;
     EditTicketViewController * editTicketViewController;
-    
+
     // TEMPORARY
     NSMutableDictionary * userDict;
     NSMutableDictionary * milestoneDict;
@@ -30,8 +39,14 @@
 @property (readonly) TicketDetailsViewController * detailsViewController;
 @property (readonly) EditTicketViewController * editTicketViewController;
 
+@property (nonatomic, retain) TicketCache * ticketCache;
+@property (nonatomic, copy) NSString * filterString;
+
 - (id)initWithTicketCache:(TicketCache *)aTicketCache
+    initialFilterString:(NSString *)initialFilterString
     navigationController:(UINavigationController *)aNavController
-    ticketsViewController:(TicketsViewController *)aTicketsViewController;
+    networkAwareViewController:(NetworkAwareViewController *)wrapperController
+    ticketsViewController:(TicketsViewController *)aTicketsViewController
+    dataSource:(TicketDataSource *)aDataSource;
 
 @end

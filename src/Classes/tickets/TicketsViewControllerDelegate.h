@@ -7,6 +7,6 @@
 @protocol TicketsViewControllerDelegate
 
 - (void)selectedTicketNumber:(NSUInteger)number;
-- (void)ticketsFilteredByFilterKey:(NSString *)filterKey;
+- (void)ticketsFilteredByFilterString:(NSString *)filterString;
 
 @end

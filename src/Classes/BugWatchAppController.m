@@ -14,6 +14,8 @@
 #import "MilestoneDisplayMgr.h"
 #import "ProjectDisplayMgr.h"
 #import "MessageDisplayMgr.h"
+#import "TicketsViewController.h"
+#import "TicketDataSource.h"
 
 @implementation BugWatchAppController
 
@@ -21,7 +23,7 @@
 {
     [newsFeedNetworkAwareViewController release];
 
-    [ticketsViewController release];
+    [ticketsNetAwareViewController release];
     [ticketsNavController release];
 
     [projectsViewController release];
@@ -142,18 +144,33 @@
         forKey:[NSNumber numberWithInt:0]];
     // TEMPORARY
 
+    TicketsViewController * ticketsViewController =
+        [[TicketsViewController alloc]
+        initWithNibName:@"TicketsView" bundle:nil];
+    ticketsNetAwareViewController.targetViewController = ticketsViewController;
+    LighthouseApiService * lighthouseApiService =
+        [[LighthouseApiService alloc]
+        initWithBaseUrlString: @"https://highorderbit.lighthouseapp.com/"];
+    TicketDataSource * ticketDataSource =
+        [[[TicketDataSource alloc] initWithService:lighthouseApiService]
+        autorelease];
+    lighthouseApiService.delegate = ticketDataSource;
     TicketDisplayMgr * ticketDisplayMgr =
-        [[TicketDisplayMgr alloc] initWithTicketCache:ticketCache
-        navigationController:ticketsNavController
-        ticketsViewController:ticketsViewController];
+        [[TicketDisplayMgr alloc] initWithTicketCache:nil
+        initialFilterString:nil navigationController:ticketsNavController
+        networkAwareViewController:ticketsNetAwareViewController
+        ticketsViewController:ticketsViewController
+        dataSource:ticketDataSource];
     ticketsViewController.delegate = ticketDisplayMgr;
+    ticketsNetAwareViewController.delegate = ticketDisplayMgr;
+    ticketDataSource.delegate = ticketDisplayMgr;
 
     ProjectDisplayMgr * projectDisplayMgr =
         [[ProjectDisplayMgr alloc] initWithProjectCache:nil
         navigationController:projectsNavController
         projectsViewController:projectsViewController];
     projectsViewController.delegate = projectDisplayMgr;
-    
+
     MessageDisplayMgr * messageDisplayMgr =
         [[MessageDisplayMgr alloc] initWithMessageCache:messageCache
         navigationController:messagesNavController

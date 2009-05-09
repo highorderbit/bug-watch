@@ -47,7 +47,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [delegate ticketsFilteredByFilterKey:nil];
     [self updateNavigationBarForNotSearching:animated];
 }
 

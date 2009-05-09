@@ -3,7 +3,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TicketsViewController.h"
 #import "TicketCache.h"
 #import "TicketDisplayMgr.h"
 #import "ProjectsViewController.h"
@@ -17,7 +16,7 @@
 {
     IBOutlet NetworkAwareViewController * newsFeedNetworkAwareViewController;
 
-    IBOutlet TicketsViewController * ticketsViewController;
+    IBOutlet NetworkAwareViewController * ticketsNetAwareViewController;
     IBOutlet UINavigationController * ticketsNavController;
 
     IBOutlet ProjectsViewController * projectsViewController;

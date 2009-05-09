@@ -6,11 +6,18 @@
 
 @implementation TicketDisplayMgr
 
+@synthesize ticketCache;
+@synthesize filterString;
+
 - (void)dealloc
 {
+    [filterString release];
+
     [ticketCache release];
     [navController release];
+    [wrapperController release];
     [ticketsViewController release];
+    [dataSource release];
     [detailsViewController release];
     [editTicketViewController release];
 
@@ -23,14 +30,20 @@
 }
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache
+    initialFilterString:(NSString *)initialFilterString
     navigationController:(UINavigationController *)aNavController
-    ticketsViewController:(TicketsViewController *)aTicketsViewController;
+    networkAwareViewController:(NetworkAwareViewController *)aWrapperController
+    ticketsViewController:(TicketsViewController *)aTicketsViewController
+    dataSource:(TicketDataSource *)aDataSource;
 {
     if (self = [super init]) {
+        self.filterString = initialFilterString;
         ticketCache = [aTicketCache retain];
         navController = [aNavController retain];
+        wrapperController = [aWrapperController retain];
         ticketsViewController = [aTicketsViewController retain];
-        
+        dataSource = [aDataSource retain];
+
         // TEMPORARY
         // this will eventually be read from a user cache of some sort
         userDict = [[NSMutableDictionary dictionary] retain];
@@ -56,13 +69,13 @@
 
     [navController pushViewController:self.detailsViewController animated:YES];
     
-    Ticket * ticket = [ticketCache ticketForNumber:number];
-    TicketMetaData * metaData = [ticketCache metaDataForNumber:number];
-    id reportedByKey = [ticketCache createdByKeyForNumber:number];
+    Ticket * ticket = [self.ticketCache ticketForNumber:number];
+    TicketMetaData * metaData = [self.ticketCache metaDataForNumber:number];
+    id reportedByKey = [self.ticketCache createdByKeyForNumber:number];
     NSString * reportedBy = [userDict objectForKey:reportedByKey];
-    id assignedToKey = [ticketCache assignedToKeyForNumber:number];
+    id assignedToKey = [self.ticketCache assignedToKeyForNumber:number];
     NSString * assignedTo = [userDict objectForKey:assignedToKey];
-    id milestoneKey = [ticketCache milestoneKeyForNumber:number];
+    id milestoneKey = [self.ticketCache milestoneKeyForNumber:number];
     NSString * milestone = [milestoneDict objectForKey:milestoneKey];
     
     NSArray * commentKeys = [ticketCache commentKeysForNumber:number];
@@ -84,35 +97,53 @@
         milestone:milestone comments:comments commentAuthors:commentAuthors];
 }
 
-- (void)ticketsFilteredByFilterKey:(NSString *)filterKey
+- (void)ticketsFilteredByFilterString:(NSString *)aFilterString
 {
-    NSDictionary * allAssignedToKeys = [ticketCache allAssignedToKeys];
-    NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
-    for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
-        id userKey = [allAssignedToKeys objectForKey:ticketNumber];
-        [assignedToDict setObject:[userDict objectForKey:userKey]
-            forKey:ticketNumber];
+    NSDictionary * allTickets = [ticketCache allTickets];
+
+    if (allTickets &&
+        (aFilterString == self.filterString ||
+        [aFilterString isEqual:self.filterString])) {
+
+        NSDictionary * allAssignedToKeys = [self.ticketCache allAssignedToKeys];
+
+        [wrapperController setUpdatingState:kConnectedAndNotUpdating];        
+        wrapperController.cachedDataAvailable = YES;
+        
+        NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
+        for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
+            id userKey = [allAssignedToKeys objectForKey:ticketNumber];
+            [assignedToDict setObject:[userDict objectForKey:userKey]
+                forKey:ticketNumber];
+        }
+
+        NSDictionary * allMilestoneKeys = [self.ticketCache allMilestoneKeys];
+        NSMutableDictionary * associatedMilestoneDict =
+            [NSMutableDictionary dictionary];
+        for (NSNumber * ticketNumber in [allMilestoneKeys allKeys]) {
+            id userKey = [allMilestoneKeys objectForKey:ticketNumber];
+            [associatedMilestoneDict
+                setObject:[milestoneDict objectForKey:userKey]
+                forKey:ticketNumber];
+        }
+
+        [ticketsViewController setTickets:allTickets
+            metaData:[ticketCache allMetaData] assignedToDict:assignedToDict
+            milestoneDict:associatedMilestoneDict];
+    } else {
+        [wrapperController setUpdatingState:kConnectedAndUpdating];
+        wrapperController.cachedDataAvailable = NO;
+        [dataSource fetchTicketsWithQuery:aFilterString];
     }
 
-    NSDictionary * allMilestoneKeys = [ticketCache allMilestoneKeys];
-    NSMutableDictionary * associatedMilestoneDict =
-        [NSMutableDictionary dictionary];
-    for (NSNumber * ticketNumber in [allMilestoneKeys allKeys]) {
-        id userKey = [allMilestoneKeys objectForKey:ticketNumber];
-        [associatedMilestoneDict setObject:[milestoneDict objectForKey:userKey]
-            forKey:ticketNumber];
-    }
-
-    [ticketsViewController setTickets:[ticketCache allTickets]
-        metaData:[ticketCache allMetaData] assignedToDict:assignedToDict
-        milestoneDict:associatedMilestoneDict];
+    self.filterString = aFilterString;
 }
 
 #pragma mark TicketDetailsViewControllerDelegate implementation
 
 - (void)editTicket
 {
-    Ticket * ticket = [ticketCache ticketForNumber:selectedTicketNumber];
+    Ticket * ticket = [self.ticketCache ticketForNumber:selectedTicketNumber];
     TicketMetaData * metaData =
         [ticketCache metaDataForNumber:selectedTicketNumber];
     self.editTicketViewController.ticketDescription = ticket.description;
@@ -136,6 +167,21 @@
 
     [self.detailsViewController presentModalViewController:tempNavController
         animated:YES];
+}
+
+#pragma mark NetworkAwareViewControllerDelegate
+
+- (void)networkAwareViewWillAppear
+{
+    [self ticketsFilteredByFilterString:nil];
+}
+
+#pragma mark TicketDataSourceDelegate implementation
+
+- (void)receivedTicketsFromDataSource:(TicketCache *)aTicketCache
+{
+    self.ticketCache = aTicketCache;
+    [self ticketsFilteredByFilterString:self.filterString];
 }
 
 #pragma mark Accessors

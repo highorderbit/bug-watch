@@ -115,6 +115,7 @@
 		917DE47E0FB3AA1B00BF2015 /* MessageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE47D0FB3AA1B00BF2015 /* MessageCache.m */; };
 		917DE4810FB3AA3A00BF2015 /* MessageDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE4800FB3AA3A00BF2015 /* MessageDisplayMgr.m */; };
 		917DE49F0FB48C3600BF2015 /* MessageResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE49E0FB48C3600BF2015 /* MessageResponse.m */; };
+		917DE58C0FB4E23000BF2015 /* TicketDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE58B0FB4E23000BF2015 /* TicketDataSource.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
@@ -317,6 +318,9 @@
 		917DE49D0FB48C3600BF2015 /* MessageResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageResponse.h; path = messages/MessageResponse.h; sourceTree = "<group>"; };
 		917DE49E0FB48C3600BF2015 /* MessageResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageResponse.m; path = messages/MessageResponse.m; sourceTree = "<group>"; };
 		917DE4CD0FB49FD400BF2015 /* MessagesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagesViewControllerDelegate.h; path = messages/MessagesViewControllerDelegate.h; sourceTree = "<group>"; };
+		917DE58A0FB4E23000BF2015 /* TicketDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDataSource.h; path = tickets/TicketDataSource.h; sourceTree = "<group>"; };
+		917DE58B0FB4E23000BF2015 /* TicketDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDataSource.m; path = tickets/TicketDataSource.m; sourceTree = "<group>"; };
+		917DE6040FB602C100BF2015 /* TicketDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDataSourceDelegate.h; path = tickets/TicketDataSourceDelegate.h; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
@@ -702,6 +706,7 @@
 		9100C09E0FA8C87D003C2ECF /* tickets */ = {
 			isa = PBXGroup;
 			children = (
+				917DE6040FB602C100BF2015 /* TicketDataSourceDelegate.h */,
 				9100C09B0FA8C876003C2ECF /* TicketsViewController.h */,
 				9100C09C0FA8C876003C2ECF /* TicketsViewController.m */,
 				9100C1E90FA918C0003C2ECF /* Ticket.h */,
@@ -730,6 +735,8 @@
 				91C5D9260FAFC2FB00943292 /* TicketDetailsViewControllerDelegate.h */,
 				91C5D9810FAFF8A400943292 /* TicketMetaData.h */,
 				91C5D9820FAFF8A400943292 /* TicketMetaData.m */,
+				917DE58A0FB4E23000BF2015 /* TicketDataSource.h */,
+				917DE58B0FB4E23000BF2015 /* TicketDataSource.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1036,6 +1043,7 @@
 				052C5C640FB49D9300C7A30C /* LighthouseApi.m in Sources */,
 				052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */,
 				052C5D840FB4C75F00C7A30C /* TicketNumber.m in Sources */,
+				917DE58C0FB4E23000BF2015 /* TicketDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
