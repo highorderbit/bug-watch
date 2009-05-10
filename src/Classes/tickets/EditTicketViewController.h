@@ -31,6 +31,8 @@
     NSUInteger state;
 
     NSArray * comments;
+    
+    BOOL edit;
 }
 
 @property (nonatomic, readonly)
@@ -51,6 +53,8 @@
 @property (nonatomic, assign) NSUInteger state;
 
 @property (nonatomic, copy) NSArray * comments;
+
+@property (nonatomic, assign) BOOL edit;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)update:(id)sender;

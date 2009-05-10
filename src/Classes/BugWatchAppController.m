@@ -222,6 +222,8 @@
     ticketsNetAwareViewController.delegate = ticketDisplayMgr;
     ticketDataSource.delegate = ticketDisplayMgr;
     ticketSearchMgr.delegate = ticketDisplayMgr;
+    addButton.target = ticketDisplayMgr;
+    addButton.action = @selector(addSelected);
 }
 
 @end

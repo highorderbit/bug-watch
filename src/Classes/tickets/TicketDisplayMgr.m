@@ -167,6 +167,8 @@
 
     [self.detailsViewController presentModalViewController:tempNavController
         animated:YES];
+        
+    self.editTicketViewController.edit = YES;
 }
 
 #pragma mark NetworkAwareViewControllerDelegate
@@ -182,6 +184,35 @@
 {
     self.ticketCache = aTicketCache;
     [self ticketsFilteredByFilterString:self.filterString];
+}
+
+#pragma mark TicketDisplayMgr implementation
+
+- (void)addSelected
+{
+    NSLog(@"Presenting 'add ticket' view");
+    
+    self.editTicketViewController.ticketDescription = @"";
+    self.editTicketViewController.message = @"";
+    self.editTicketViewController.tags = @"";
+    self.editTicketViewController.state = kNew;
+
+    self.editTicketViewController.member = nil;
+    self.editTicketViewController.members = [[userDict copy] autorelease];
+    
+    self.editTicketViewController.milestone = nil;
+    self.editTicketViewController.milestones =
+        [[milestoneDict copy] autorelease];
+        
+    UINavigationController * tempNavController =
+        [[[UINavigationController alloc]
+        initWithRootViewController:self.editTicketViewController]
+        autorelease];
+
+    [navController presentModalViewController:tempNavController
+        animated:YES];
+        
+    self.editTicketViewController.edit = NO;
 }
 
 #pragma mark Accessors

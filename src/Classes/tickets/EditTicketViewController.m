@@ -16,8 +16,8 @@ enum EditTicketTableSection
 
 enum EditTicketAction
 {
-    kAddComment,
-    kEditDescription
+    kEditDescription,
+    kAddComment
 };
 
 enum EditTicketCell
@@ -49,6 +49,8 @@ enum EditTicketCell
 @synthesize state;
 
 @synthesize comments;
+
+@synthesize edit;
 
 - (void)dealloc
 {
@@ -82,7 +84,7 @@ enum EditTicketCell
 
     [self.navigationItem setLeftBarButtonItem:cancelButton animated:NO];
     [self.navigationItem setRightBarButtonItem:updateButton animated:NO];
-    self.navigationItem.title = @"Edit Ticket";
+    self.edit = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -105,7 +107,7 @@ enum EditTicketCell
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return section == kEditTicketActionSection ? 2 : 3;
+    return section == kEditTicketActionSection ? (self.edit ? 2 : 1) : 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView
@@ -322,6 +324,13 @@ enum EditTicketCell
             initWithNibName:@"ItemSelectionTableView" bundle:nil];
 
     return itemSelectionTableViewController;
+}
+
+- (void)setEdit:(BOOL)editVal
+{
+    edit = editVal;
+    self.navigationItem.title = edit ? @"Edit Ticket" : @"Add Ticket";
+    [self.tableView reloadData];
 }
 
 @end

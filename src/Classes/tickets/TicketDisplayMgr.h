@@ -49,5 +49,7 @@
     networkAwareViewController:(NetworkAwareViewController *)wrapperController
     ticketsViewController:(TicketsViewController *)aTicketsViewController
     dataSource:(TicketDataSource *)aDataSource;
+    
+- (void)addSelected;
 
 @end

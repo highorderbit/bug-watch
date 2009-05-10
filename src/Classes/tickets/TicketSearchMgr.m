@@ -7,7 +7,6 @@
 @interface TicketSearchMgr (Private)
 
 - (void)cancelSelected;
-- (void)addSelected;
 - (void)updateNavigationBarForNotSearching:(BOOL)animated;
 
 @end
@@ -45,9 +44,6 @@
         frame.size.height = 28;
         searchField.frame = frame;
         searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                
-        addButton.target = self;
-        addButton.action = @selector(addSelected);
         
         cancelButton.target = self;
         cancelButton.action = @selector(cancelSelected);
@@ -64,9 +60,6 @@
     [searchField resignFirstResponder];
     [self updateNavigationBarForNotSearching:YES];
 }
-
-- (void)addSelected
-{}
 
 - (void)updateNavigationBarForNotSearching:(BOOL)animated
 {
