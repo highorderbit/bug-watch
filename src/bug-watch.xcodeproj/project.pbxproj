@@ -117,6 +117,7 @@
 		917DE49F0FB48C3600BF2015 /* MessageResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE49E0FB48C3600BF2015 /* MessageResponse.m */; };
 		917DE58C0FB4E23000BF2015 /* TicketDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE58B0FB4E23000BF2015 /* TicketDataSource.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
+		918883F20FB749AE009F5861 /* TicketSearchMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 918883F10FB749AE009F5861 /* TicketSearchMgr.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
@@ -322,6 +323,9 @@
 		917DE58B0FB4E23000BF2015 /* TicketDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDataSource.m; path = tickets/TicketDataSource.m; sourceTree = "<group>"; };
 		917DE6040FB602C100BF2015 /* TicketDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDataSourceDelegate.h; path = tickets/TicketDataSourceDelegate.h; sourceTree = "<group>"; };
 		91806D8B0F97E72900F08005 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		918883F00FB749AE009F5861 /* TicketSearchMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSearchMgr.h; path = tickets/TicketSearchMgr.h; sourceTree = "<group>"; };
+		918883F10FB749AE009F5861 /* TicketSearchMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSearchMgr.m; path = tickets/TicketSearchMgr.m; sourceTree = "<group>"; };
+		918883F40FB749D3009F5861 /* TicketSearchMgrDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSearchMgrDelegate.h; path = tickets/TicketSearchMgrDelegate.h; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -737,6 +741,9 @@
 				91C5D9820FAFF8A400943292 /* TicketMetaData.m */,
 				917DE58A0FB4E23000BF2015 /* TicketDataSource.h */,
 				917DE58B0FB4E23000BF2015 /* TicketDataSource.m */,
+				918883F00FB749AE009F5861 /* TicketSearchMgr.h */,
+				918883F10FB749AE009F5861 /* TicketSearchMgr.m */,
+				918883F40FB749D3009F5861 /* TicketSearchMgrDelegate.h */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1044,6 +1051,7 @@
 				052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */,
 				052C5D840FB4C75F00C7A30C /* TicketNumber.m in Sources */,
 				917DE58C0FB4E23000BF2015 /* TicketDataSource.m in Sources */,
+				918883F20FB749AE009F5861 /* TicketSearchMgr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

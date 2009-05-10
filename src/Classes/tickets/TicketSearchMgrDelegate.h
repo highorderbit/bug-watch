@@ -4,8 +4,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TicketsViewControllerDelegate
+@protocol TicketSearchMgrDelegate
 
-- (void)selectedTicketNumber:(NSUInteger)number;
+- (void)ticketsFilteredByFilterString:(NSString *)filterString;
 
 @end

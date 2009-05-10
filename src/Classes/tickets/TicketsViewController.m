@@ -7,12 +7,6 @@
 #import "TicketMetaData.h"
 #import "TicketTableViewCell.h"
 
-@interface TicketsViewController (Private)
-
-- (void)updateNavigationBarForNotSearching:(BOOL)animated;
-
-@end
-
 @implementation TicketsViewController
 
 @synthesize delegate;
@@ -20,34 +14,13 @@
 - (void)dealloc
 {
     [delegate release];
-    [searchTextField release];
-    [cancelButton release];
-    [addButton release];
+    
     [tickets release];
     [metaData release];
     [assignedToDict release];
     [milestoneDict release];
+    
     [super dealloc];
-}
-
-#pragma mark UIViewController implementation
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    // Can't be set in IB, so setting it here
-    CGRect frame = searchTextField.frame;
-    frame.size.height = 28;
-    searchTextField.frame = frame;
-    
-    searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self updateNavigationBarForNotSearching:animated];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -66,7 +39,6 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *CellIdentifier = @"TicketTableViewCell";
     
     TicketTableViewCell * cell =
@@ -113,23 +85,6 @@
     return [TicketTableViewCell heightForContent:ticket.description];
 }
 
-#pragma mark UITextFieldDelegate implementation
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationTransition:UIViewAnimationTransitionNone
-        forView:searchTextField cache:YES];
-
-    CGRect frame = searchTextField.frame;
-    frame.size.width = 245;
-    searchTextField.frame = frame;
-
-    [UIView commitAnimations];
-
-    [self.navigationItem setRightBarButtonItem:cancelButton animated:YES];
-}
-
 #pragma mark TicketsViewController implementation
 
 - (void)setTickets:(NSDictionary *)someTickets
@@ -154,33 +109,6 @@
     milestoneDict = tempMilestoneDict;
     
     [self.tableView reloadData];
-}
-
-- (IBAction)cancelSelected:(id)sender
-{
-    [searchTextField resignFirstResponder];
-    [self updateNavigationBarForNotSearching:YES];
-}
-
-- (IBAction)addSelected:(id)sender
-{}
-
-- (void)updateNavigationBarForNotSearching:(BOOL)animated
-{
-    if (animated) {
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationTransition:UIViewAnimationTransitionNone
-            forView:searchTextField cache:YES];
-    }
-
-    CGRect frame = searchTextField.frame;
-    frame.size.width = 300;
-    searchTextField.frame = frame;
-    
-    if (animated)
-        [UIView commitAnimations];
-
-    [self.navigationItem setRightBarButtonItem:addButton animated:animated];
 }
 
 @end

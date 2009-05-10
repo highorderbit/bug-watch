@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="129"/>
+			<integer value="132"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -75,6 +75,42 @@
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="45198810">
 								<reference key="IBUINavigationBar"/>
 								<string key="IBUITitle">Tickets</string>
+								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="410430477">
+									<int key="IBUIStyle">1</int>
+									<int key="IBUISystemItemIdentifier">1</int>
+								</object>
+								<object class="IBUITextField" key="IBUITitleView" id="618903335">
+									<reference key="NSNextResponder"/>
+									<int key="NSvFlags">292</int>
+									<string key="NSFrame">{{73, 7}, {201, 31}}</string>
+									<reference key="NSSuperview"/>
+									<bool key="IBUIOpaque">NO</bool>
+									<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+									<int key="IBUIContentVerticalAlignment">0</int>
+									<string key="IBUIText"/>
+									<int key="IBUIBorderStyle">3</int>
+									<string key="IBUIPlaceholder">Filter tickets</string>
+									<object class="NSColor" key="IBUITextColor">
+										<int key="NSColorSpace">3</int>
+										<bytes key="NSWhite">MAA</bytes>
+										<object class="NSColorSpace" key="NSCustomColorSpace">
+											<int key="NSID">2</int>
+										</object>
+									</object>
+									<object class="NSFont" key="IBUIFont">
+										<string key="NSName">Helvetica</string>
+										<double key="NSSize">1.600000e+01</double>
+										<int key="NSfFlags">16</int>
+									</object>
+									<bool key="IBUIClearsOnBeginEditing">YES</bool>
+									<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
+									<float key="IBUIMinimumFontSize">1.700000e+01</float>
+									<object class="IBUITextInputTraits" key="IBUITextInputTraits"/>
+								</object>
+								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="45651249">
+									<int key="IBUIStyle">1</int>
+									<int key="IBUISystemItemIdentifier">4</int>
+								</object>
 							</object>
 							<reference key="IBUIParentViewController" ref="129528834"/>
 						</object>
@@ -484,6 +520,9 @@
 						<reference key="object" ref="45198810"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="618903335"/>
+							<reference ref="45651249"/>
+							<reference ref="410430477"/>
 						</object>
 						<reference key="parent" ref="360103391"/>
 					</object>
@@ -637,6 +676,21 @@
 						<reference key="object" ref="127522796"/>
 						<reference key="parent" ref="957960031"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">201</int>
+						<reference key="object" ref="618903335"/>
+						<reference key="parent" ref="45198810"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">202</int>
+						<reference key="object" ref="45651249"/>
+						<reference key="parent" ref="45198810"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">203</int>
+						<reference key="object" ref="410430477"/>
+						<reference key="parent" ref="45198810"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -685,6 +739,9 @@
 					<string>2.IBAttributePlaceholdersKey</string>
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBPluginDependency</string>
+					<string>201.IBPluginDependency</string>
+					<string>202.IBPluginDependency</string>
+					<string>203.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
 				</object>
@@ -692,7 +749,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIApplication</string>
 					<string>UIResponder</string>
-					<string>{{440, 340}, {320, 480}}</string>
+					<string>{{449, 181}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{0, 365}, {320, 480}}</string>
@@ -740,6 +797,9 @@
 					</object>
 					<string>{{229, 373}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>BugWatchAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -764,7 +824,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">200</int>
+			<int key="maxID">203</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

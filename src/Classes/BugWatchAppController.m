@@ -16,6 +16,13 @@
 #import "MessageDisplayMgr.h"
 #import "TicketsViewController.h"
 #import "TicketDataSource.h"
+#import "TicketSearchMgr.h"
+
+@interface BugWatchAppController (Private)
+
+- (void)initTicketsTab;
+
+@end
 
 @implementation BugWatchAppController
 
@@ -144,26 +151,7 @@
         forKey:[NSNumber numberWithInt:0]];
     // TEMPORARY
 
-    TicketsViewController * ticketsViewController =
-        [[TicketsViewController alloc]
-        initWithNibName:@"TicketsView" bundle:nil];
-    ticketsNetAwareViewController.targetViewController = ticketsViewController;
-    LighthouseApiService * lighthouseApiService =
-        [[LighthouseApiService alloc]
-        initWithBaseUrlString: @"https://highorderbit.lighthouseapp.com/"];
-    TicketDataSource * ticketDataSource =
-        [[[TicketDataSource alloc] initWithService:lighthouseApiService]
-        autorelease];
-    lighthouseApiService.delegate = ticketDataSource;
-    TicketDisplayMgr * ticketDisplayMgr =
-        [[TicketDisplayMgr alloc] initWithTicketCache:nil
-        initialFilterString:nil navigationController:ticketsNavController
-        networkAwareViewController:ticketsNetAwareViewController
-        ticketsViewController:ticketsViewController
-        dataSource:ticketDataSource];
-    ticketsViewController.delegate = ticketDisplayMgr;
-    ticketsNetAwareViewController.delegate = ticketDisplayMgr;
-    ticketDataSource.delegate = ticketDisplayMgr;
+    [self initTicketsTab];
 
     ProjectDisplayMgr * projectDisplayMgr =
         [[ProjectDisplayMgr alloc] initWithProjectCache:nil
@@ -194,6 +182,46 @@
         [[MilestoneDisplayMgr alloc]
         initWithNetworkAwareViewController:
         milestonesNetworkAwareViewController];
+}
+
+- (void)initTicketsTab
+{
+    UIBarButtonItem * cancelButton =
+        ticketsNetAwareViewController.navigationItem.leftBarButtonItem;
+    UIBarButtonItem * addButton =
+        ticketsNetAwareViewController.navigationItem.rightBarButtonItem;
+    UITextField * searchField =
+        (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
+    TicketSearchMgr * ticketSearchMgr =
+        [[TicketSearchMgr alloc]
+        initWithSearchField:searchField addButton:addButton
+        cancelButton:cancelButton
+        navigationItem:ticketsNetAwareViewController.navigationItem];
+    
+    TicketsViewController * ticketsViewController =
+        [[TicketsViewController alloc]
+        initWithNibName:@"TicketsView" bundle:nil];
+    ticketsNetAwareViewController.targetViewController = ticketsViewController;
+    
+    LighthouseApiService * lighthouseApiService =
+        [[LighthouseApiService alloc]
+        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"];
+
+    TicketDataSource * ticketDataSource =
+        [[[TicketDataSource alloc] initWithService:lighthouseApiService]
+        autorelease];
+    lighthouseApiService.delegate = ticketDataSource;
+    
+    TicketDisplayMgr * ticketDisplayMgr =
+        [[TicketDisplayMgr alloc] initWithTicketCache:nil
+        initialFilterString:nil navigationController:ticketsNavController
+        networkAwareViewController:ticketsNetAwareViewController
+        ticketsViewController:ticketsViewController
+        dataSource:ticketDataSource];
+    ticketsViewController.delegate = ticketDisplayMgr;
+    ticketsNetAwareViewController.delegate = ticketDisplayMgr;
+    ticketDataSource.delegate = ticketDisplayMgr;
+    ticketSearchMgr.delegate = ticketDisplayMgr;
 }
 
 @end

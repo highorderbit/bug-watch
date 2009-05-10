@@ -13,11 +13,12 @@
 #import "NetworkAwareViewControllerDelegate.h"
 #import "TicketDataSource.h"
 #import "TicketDataSourceDelegate.h"
+#import "TicketSearchMgrDelegate.h"
 
 @interface TicketDisplayMgr :
     NSObject <TicketsViewControllerDelegate,
     TicketDetailsViewControllerDelegate, NetworkAwareViewControllerDelegate,
-    TicketDataSourceDelegate>
+    TicketDataSourceDelegate, TicketSearchMgrDelegate>
 {
     NSString * filterString;
     NSUInteger selectedTicketNumber;
