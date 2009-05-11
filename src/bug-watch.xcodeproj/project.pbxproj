@@ -123,6 +123,8 @@
 		918884B90FB7BBE9009F5861 /* NewMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918884B80FB7BBE9009F5861 /* NewMessageViewController.m */; };
 		9188852C0FB8822F009F5861 /* MessageDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9188852A0FB8822F009F5861 /* MessageDetailsView.xib */; };
 		9188852F0FB88249009F5861 /* MessageDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9188852E0FB88249009F5861 /* MessageDetailsViewController.m */; };
+		918885BE0FB8B8DD009F5861 /* ResponseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 918885BC0FB8B8DD009F5861 /* ResponseTableViewCell.xib */; };
+		918885C30FB8B981009F5861 /* ResponseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918885C20FB8B981009F5861 /* ResponseTableViewCell.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
@@ -340,6 +342,9 @@
 		9188852B0FB8822F009F5861 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MessageDetailsView.xib; sourceTree = "<group>"; };
 		9188852D0FB88249009F5861 /* MessageDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDetailsViewController.h; path = messages/MessageDetailsViewController.h; sourceTree = "<group>"; };
 		9188852E0FB88249009F5861 /* MessageDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDetailsViewController.m; path = messages/MessageDetailsViewController.m; sourceTree = "<group>"; };
+		918885BD0FB8B8DD009F5861 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ResponseTableViewCell.xib; sourceTree = "<group>"; };
+		918885C10FB8B981009F5861 /* ResponseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResponseTableViewCell.h; path = messages/ResponseTableViewCell.h; sourceTree = "<group>"; };
+		918885C20FB8B981009F5861 /* ResponseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResponseTableViewCell.m; path = messages/ResponseTableViewCell.m; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -722,6 +727,7 @@
 				917DE4200FB38CF900BF2015 /* MessageTableViewCell.xib */,
 				918884B40FB7BBAF009F5861 /* NewMessageView.xib */,
 				9188852A0FB8822F009F5861 /* MessageDetailsView.xib */,
+				918885BC0FB8B8DD009F5861 /* ResponseTableViewCell.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -805,6 +811,8 @@
 				918884B80FB7BBE9009F5861 /* NewMessageViewController.m */,
 				9188852D0FB88249009F5861 /* MessageDetailsViewController.h */,
 				9188852E0FB88249009F5861 /* MessageDetailsViewController.m */,
+				918885C10FB8B981009F5861 /* ResponseTableViewCell.h */,
+				918885C20FB8B981009F5861 /* ResponseTableViewCell.m */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -959,6 +967,7 @@
 				917DE4220FB38CF900BF2015 /* MessageTableViewCell.xib in Resources */,
 				918884B60FB7BBAF009F5861 /* NewMessageView.xib in Resources */,
 				9188852C0FB8822F009F5861 /* MessageDetailsView.xib in Resources */,
+				918885BE0FB8B8DD009F5861 /* ResponseTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1080,6 +1089,7 @@
 				918883F20FB749AE009F5861 /* TicketSearchMgr.m in Sources */,
 				918884B90FB7BBE9009F5861 /* NewMessageViewController.m in Sources */,
 				9188852F0FB88249009F5861 /* MessageDetailsViewController.m in Sources */,
+				918885C30FB8B981009F5861 /* ResponseTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1244,6 +1254,14 @@
 				9188852B0FB8822F009F5861 /* en */,
 			);
 			name = MessageDetailsView.xib;
+			sourceTree = "<group>";
+		};
+		918885BC0FB8B8DD009F5861 /* ResponseTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				918885BD0FB8B8DD009F5861 /* en */,
+			);
+			name = ResponseTableViewCell.xib;
 			sourceTree = "<group>";
 		};
 		919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */ = {

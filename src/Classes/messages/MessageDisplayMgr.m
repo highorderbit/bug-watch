@@ -68,7 +68,11 @@
 - (void)selectedMessageKey:(id)key
 {
     NSLog(@"Message %@ selected", key);
-    [self.navController pushViewController:self.detailsViewController animated:YES];
+    [self.navController
+        pushViewController:self.detailsViewController animated:YES];
+
+    [self.detailsViewController setAuthorName:nil date:nil projectName:nil
+        title:nil comment:nil];
 }
 
 #pragma mark NetworkAwareViewControllerDelegate
