@@ -57,6 +57,7 @@
 - (void)setIcon
 {
     iconView.image = self.selected ? highlightedIcon : icon;
+    iconView.alpha = self.selected ? 1.0 : 0.8;
 }
 
 @end

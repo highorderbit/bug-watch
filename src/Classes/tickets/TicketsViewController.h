@@ -5,13 +5,9 @@
 #import <UIKit/UIKit.h>
 #import "TicketsViewControllerDelegate.h"
 
-@interface TicketsViewController : UITableViewController <UITextFieldDelegate>
+@interface TicketsViewController : UITableViewController
 {
     NSObject<TicketsViewControllerDelegate> * delegate;
-    
-    IBOutlet UITextField * searchTextField;
-    IBOutlet UIBarButtonItem * cancelButton;
-    IBOutlet UIBarButtonItem * addButton;
 
     NSDictionary * tickets;
     NSDictionary * metaData;
@@ -21,9 +17,6 @@
 
 @property (nonatomic, retain)
     NSObject<TicketsViewControllerDelegate> * delegate;
-
-- (IBAction)cancelSelected:(id)sender;
-- (IBAction)addSelected:(id)sender;
 
 - (void)setTickets:(NSDictionary *)someTickets
     metaData:(NSDictionary *)someMetaData

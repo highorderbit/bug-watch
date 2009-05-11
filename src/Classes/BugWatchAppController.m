@@ -15,6 +15,18 @@
 #import "ProjectDisplayMgr.h"
 #import "LighthouseApiService.h"
 #import "MilestoneDataSource.h"
+#import "MessageDisplayMgr.h"
+#import "TicketsViewController.h"
+#import "TicketDataSource.h"
+#import "TicketSearchMgr.h"
+
+@interface BugWatchAppController (Private)
+
+- (void)initTicketsTab;
+- (void)initProjectsTab;
+- (void)initMessagesTab;
+
+@end
 
 @implementation BugWatchAppController
 
@@ -22,7 +34,7 @@
 {
     [newsFeedNetworkAwareViewController release];
 
-    [ticketsViewController release];
+    [ticketsNetAwareViewController release];
     [ticketsNavController release];
 
     [projectsViewController release];
@@ -30,13 +42,14 @@
 
     [milestonesNetworkAwareViewController release];
 
-    [messagesViewController release];
+    [messagesNetAwareViewController release];
     [messagesNavController release];
 
     [pagesViewController release];
     [pagesNavController release];
 
     [ticketCache release];
+    [messageCache release];
 
     [newsFeedDisplayMgr release];
     [milestoneDisplayMgr release];
@@ -47,8 +60,9 @@
 - (void)start
 {
     ticketCache = [[TicketCache alloc] init];
+    messageCache = [[MessageCache alloc] init];
 
-    // TEMPORARY
+    // TEMPORARY: populate ticket cache
     NSString * description1 =
         @"If timing is just right, updating view can be added to wrong view controller when backing out of drill-down";
     NSString * message1 =
@@ -123,18 +137,27 @@
     [ticketCache setAuthorKey:[NSNumber numberWithInt:0]
         forCommentKey:[NSNumber numberWithInt:1]];
     // TEMPORARY
+    
+    // TEMPORARY: populate message cache
+   Message * msg1 =
+       [[Message alloc] initWithPostedDate:[NSDate date]
+       title:@"App Store Description"
+       message:@"Code Watch is the best way to get GitHub on your iPhone.\nKeep track of what's going on with all of your GitHub repositories, including your private ones."];
+    Message * msg2 =
+        [[Message alloc] initWithPostedDate:[NSDate date]
+        title:@"What should we do with private information after logging out?"
+        message:@"We don't really address this issue at all, currently. Off the top of my head, I suppose we should clear the primary user info (do we do that currently?), clear the news feed cache, and remove all repos in the repo cache marked as private. We could also just do the easy thing and clear all caches with potentially private information. Actually, I would probably favor the last solution. It's easy, and I don't think this use-case will be very common."];
+    [messageCache setMessage:msg1 forKey:[NSNumber numberWithInt:0]];
+    [messageCache setMessage:msg2 forKey:[NSNumber numberWithInt:1]];
+    [messageCache setPostedByKey:[NSNumber numberWithInt:0]
+        forKey:[NSNumber numberWithInt:1]];
+    [messageCache setPostedByKey:[NSNumber numberWithInt:1]
+        forKey:[NSNumber numberWithInt:0]];
+    // TEMPORARY
 
-    TicketDisplayMgr * ticketDisplayMgr =
-        [[TicketDisplayMgr alloc] initWithTicketCache:ticketCache
-        navigationController:ticketsNavController
-        ticketsViewController:ticketsViewController];
-    ticketsViewController.delegate = ticketDisplayMgr;
-
-    ProjectDisplayMgr * projectDisplayMgr =
-        [[ProjectDisplayMgr alloc] initWithProjectCache:nil
-        navigationController:projectsNavController
-        projectsViewController:projectsViewController];
-    projectsViewController.delegate = projectDisplayMgr;
+    [self initTicketsTab];
+    [self initProjectsTab];
+    [self initMessagesTab];
 
     // Note: this instantiation/initialization is temporary
     LighthouseNewsFeedService * newsFeedService =
@@ -161,6 +184,81 @@
         initWithNetworkAwareViewController:
         milestonesNetworkAwareViewController
          milestoneDataSource:milestoneDataSource];
+}
+
+- (void)initTicketsTab
+{
+    UIBarButtonItem * cancelButton =
+        ticketsNetAwareViewController.navigationItem.leftBarButtonItem;
+    UIBarButtonItem * addButton =
+        ticketsNetAwareViewController.navigationItem.rightBarButtonItem;
+    UITextField * searchField =
+        (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
+    TicketSearchMgr * ticketSearchMgr =
+        [[[TicketSearchMgr alloc]
+        initWithSearchField:searchField addButton:addButton
+        cancelButton:cancelButton
+        navigationItem:ticketsNetAwareViewController.navigationItem]
+        autorelease];
+    
+    TicketsViewController * ticketsViewController =
+        [[[TicketsViewController alloc]
+        initWithNibName:@"TicketsView" bundle:nil] autorelease];
+    ticketsNetAwareViewController.targetViewController = ticketsViewController;
+    
+    LighthouseApiService * lighthouseApiService =
+        [[[LighthouseApiService alloc]
+        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
+        autorelease];
+
+    TicketDataSource * ticketDataSource =
+        [[[TicketDataSource alloc] initWithService:lighthouseApiService]
+        autorelease];
+    lighthouseApiService.delegate = ticketDataSource;
+    
+    TicketDisplayMgr * ticketDisplayMgr =
+        [[[TicketDisplayMgr alloc] initWithTicketCache:nil
+        initialFilterString:nil navigationController:ticketsNavController
+        networkAwareViewController:ticketsNetAwareViewController
+        ticketsViewController:ticketsViewController
+        dataSource:ticketDataSource] autorelease];
+    ticketsViewController.delegate = ticketDisplayMgr;
+    ticketsNetAwareViewController.delegate = ticketDisplayMgr;
+    ticketDataSource.delegate = ticketDisplayMgr;
+    ticketSearchMgr.delegate = ticketDisplayMgr;
+    addButton.target = ticketDisplayMgr;
+    addButton.action = @selector(addSelected);
+}
+
+- (void)initProjectsTab
+{
+    ProjectDisplayMgr * projectDisplayMgr =
+        [[[ProjectDisplayMgr alloc] initWithProjectCache:nil
+        navigationController:projectsNavController
+        projectsViewController:projectsViewController] autorelease];
+    projectsViewController.delegate = projectDisplayMgr;
+}
+
+- (void)initMessagesTab
+{
+    MessagesViewController * messagesViewController =
+        [[MessagesViewController alloc]
+        initWithNibName:@"MessagesView" bundle:nil];
+    messagesNetAwareViewController.targetViewController =
+        messagesViewController;
+
+    MessageDisplayMgr * messageDisplayMgr =
+        [[[MessageDisplayMgr alloc] initWithMessageCache:messageCache
+        navigationController:messagesNavController
+        networkAwareViewController:messagesNetAwareViewController
+        messagesViewController:messagesViewController] autorelease];
+    messagesViewController.delegate = messageDisplayMgr;
+    messagesNetAwareViewController.delegate = messageDisplayMgr;
+    
+    UIBarButtonItem * addButton =
+        messagesNetAwareViewController.navigationItem.rightBarButtonItem;
+    addButton.target = messageDisplayMgr;
+    addButton.action = @selector(createNewMessage);
 }
 
 @end

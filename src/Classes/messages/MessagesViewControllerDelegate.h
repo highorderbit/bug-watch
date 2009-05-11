@@ -4,8 +4,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TicketsViewControllerDelegate
+@protocol MessagesViewControllerDelegate
 
-- (void)selectedTicketNumber:(NSUInteger)number;
+- (void)selectedMessageKey:(id)key;
 
 @end
