@@ -6,15 +6,13 @@
 
 @implementation TicketDisplayMgr
 
-@synthesize ticketCache;
-@synthesize filterString;
+@synthesize ticketCache, filterString;
 
 - (void)dealloc
 {
     [filterString release];
 
     [ticketCache release];
-    [navController release];
     [wrapperController release];
     [ticketsViewController release];
     [dataSource release];
@@ -31,7 +29,6 @@
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache
     initialFilterString:(NSString *)initialFilterString
-    navigationController:(UINavigationController *)aNavController
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
     ticketsViewController:(TicketsViewController *)aTicketsViewController
     dataSource:(TicketDataSource *)aDataSource;
@@ -39,7 +36,6 @@
     if (self = [super init]) {
         self.filterString = initialFilterString;
         ticketCache = [aTicketCache retain];
-        navController = [aNavController retain];
         wrapperController = [aWrapperController retain];
         ticketsViewController = [aTicketsViewController retain];
         dataSource = [aDataSource retain];
@@ -67,7 +63,8 @@
     NSLog(@"Ticket %d selected", number);
     selectedTicketNumber = number;
 
-    [navController pushViewController:self.detailsViewController animated:YES];
+    [self.navController pushViewController:self.detailsViewController
+        animated:YES];
     
     Ticket * ticket = [self.ticketCache ticketForNumber:number];
     TicketMetaData * metaData = [self.ticketCache metaDataForNumber:number];
@@ -209,7 +206,7 @@
         initWithRootViewController:self.editTicketViewController]
         autorelease];
 
-    [navController presentModalViewController:tempNavController
+    [self.navController presentModalViewController:tempNavController
         animated:YES];
         
     self.editTicketViewController.edit = NO;
@@ -239,6 +236,11 @@
             initWithNibName:@"EditTicketView" bundle:nil];
 
     return editTicketViewController;
+}
+
+- (UINavigationController *)navController
+{
+    return wrapperController.navigationController;
 }
 
 @end

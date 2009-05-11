@@ -33,20 +33,11 @@
 - (void)dealloc
 {
     [newsFeedNetworkAwareViewController release];
-
     [ticketsNetAwareViewController release];
-    [ticketsNavController release];
-
     [projectsViewController release];
-    [projectsNavController release];
-
     [milestonesNetworkAwareViewController release];
-
     [messagesNetAwareViewController release];
-    [messagesNavController release];
-
     [pagesViewController release];
-    [pagesNavController release];
 
     [ticketCache release];
     [messageCache release];
@@ -218,7 +209,7 @@
     
     TicketDisplayMgr * ticketDisplayMgr =
         [[[TicketDisplayMgr alloc] initWithTicketCache:nil
-        initialFilterString:nil navigationController:ticketsNavController
+        initialFilterString:nil
         networkAwareViewController:ticketsNetAwareViewController
         ticketsViewController:ticketsViewController
         dataSource:ticketDataSource] autorelease];
@@ -234,7 +225,6 @@
 {
     ProjectDisplayMgr * projectDisplayMgr =
         [[[ProjectDisplayMgr alloc] initWithProjectCache:nil
-        navigationController:projectsNavController
         projectsViewController:projectsViewController] autorelease];
     projectsViewController.delegate = projectDisplayMgr;
 }
@@ -249,7 +239,6 @@
 
     MessageDisplayMgr * messageDisplayMgr =
         [[[MessageDisplayMgr alloc] initWithMessageCache:messageCache
-        navigationController:messagesNavController
         networkAwareViewController:messagesNetAwareViewController
         messagesViewController:messagesViewController] autorelease];
     messagesViewController.delegate = messageDisplayMgr;

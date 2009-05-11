@@ -62,6 +62,8 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    id messageKey = [[messages allKeys] objectAtIndex:indexPath.row];
+    [delegate selectedMessageKey:messageKey];
 }
 
 #pragma mark UITableViewDelegate implementation

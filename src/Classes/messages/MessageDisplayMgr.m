@@ -9,11 +9,11 @@
 - (void)dealloc
 {
     [messageCache release];
-    [navController release];
     [messagesViewController release];
     [wrapperController release];
 
     [newMessageViewController release];
+    [detailsViewController release];
 
     // TEMPORARY
     [userDict release];
@@ -23,13 +23,11 @@
 }
 
 - (id)initWithMessageCache:(MessageCache *)aMessageCache
-    navigationController:(UINavigationController *)aNavController
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
     messagesViewController:(MessagesViewController *)aMessagesViewController
 {
     if (self = [super init]) {
         messageCache = [aMessageCache retain];
-        navController = [aNavController retain];
         wrapperController = [aWrapperController retain];
         messagesViewController = [aMessagesViewController retain];
         
@@ -68,7 +66,10 @@
 }
 
 - (void)selectedMessageKey:(id)key
-{}
+{
+    NSLog(@"Message %@ selected", key);
+    [self.navController pushViewController:self.detailsViewController animated:YES];
+}
 
 #pragma mark NetworkAwareViewControllerDelegate
 
@@ -82,7 +83,7 @@
 - (void)createNewMessage
 {
     NSLog(@"Presenting 'create message' view");
-    [navController presentModalViewController:self.newMessageViewController
+    [self.navController presentModalViewController:self.newMessageViewController
         animated:YES];
 }
 
@@ -97,6 +98,22 @@
     }
 
     return newMessageViewController;
+}
+
+- (MessageDetailsViewController *)detailsViewController
+{
+    if (!detailsViewController) {
+        detailsViewController =
+            [[MessageDetailsViewController alloc]
+            initWithNibName:@"MessageDetailsView" bundle:nil];
+    }
+
+    return detailsViewController;
+}
+
+- (UINavigationController *)navController
+{
+    return wrapperController.navigationController;
 }
 
 @end

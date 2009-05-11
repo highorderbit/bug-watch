@@ -24,7 +24,6 @@
     NSUInteger selectedTicketNumber;
 
     TicketCache * ticketCache;
-    UINavigationController * navController;
     NetworkAwareViewController * wrapperController;
     TicketsViewController * ticketsViewController;
     TicketDataSource * dataSource;
@@ -39,13 +38,13 @@
 
 @property (readonly) TicketDetailsViewController * detailsViewController;
 @property (readonly) EditTicketViewController * editTicketViewController;
+@property (readonly) UINavigationController * navController;
 
 @property (nonatomic, retain) TicketCache * ticketCache;
 @property (nonatomic, copy) NSString * filterString;
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache
     initialFilterString:(NSString *)initialFilterString
-    navigationController:(UINavigationController *)aNavController
     networkAwareViewController:(NetworkAwareViewController *)wrapperController
     ticketsViewController:(TicketsViewController *)aTicketsViewController
     dataSource:(TicketDataSource *)aDataSource;

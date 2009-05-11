@@ -8,17 +8,19 @@
 #import "NetworkAwareViewController.h"
 #import "NetworkAwareViewControllerDelegate.h"
 #import "NewMessageViewController.h"
+#import "MessageDetailsViewController.h"
 
 @interface MessageDisplayMgr :
     NSObject
     <MessagesViewControllerDelegate, NetworkAwareViewControllerDelegate>
 {
     MessageCache * messageCache;
-    UINavigationController * navController;
     NetworkAwareViewController * wrapperController;
     MessagesViewController * messagesViewController;
     
     NewMessageViewController * newMessageViewController;
+    MessageDetailsViewController * detailsViewController;
+
     // TEMPORARY
     NSMutableDictionary * userDict;
     // TEMPORARY
@@ -26,9 +28,11 @@
 
 @property (nonatomic, readonly)
     NewMessageViewController * newMessageViewController;
+@property (nonatomic, readonly)
+    MessageDetailsViewController * detailsViewController;
+@property (nonatomic, readonly) UINavigationController * navController;
 
 - (id)initWithMessageCache:(MessageCache *)aMessageCache
-    navigationController:(UINavigationController *)aNavController
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
     messagesViewController:(MessagesViewController *)aMessagesViewController;
 

@@ -15,20 +15,11 @@
 @interface BugWatchAppController : NSObject
 {
     IBOutlet NetworkAwareViewController * newsFeedNetworkAwareViewController;
-
     IBOutlet NetworkAwareViewController * ticketsNetAwareViewController;
-    IBOutlet UINavigationController * ticketsNavController;
-
     IBOutlet ProjectsViewController * projectsViewController;
-    IBOutlet UINavigationController * projectsNavController;
-
     IBOutlet NetworkAwareViewController * milestonesNetworkAwareViewController;
-
     IBOutlet NetworkAwareViewController * messagesNetAwareViewController;
-    IBOutlet UINavigationController * messagesNavController;
-
     IBOutlet UIViewController * pagesViewController;
-    IBOutlet UINavigationController * pagesNavController;
 
     TicketCache * ticketCache;
     MessageCache * messageCache;

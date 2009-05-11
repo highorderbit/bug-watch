@@ -38,6 +38,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
     [self.navigationItem setRightBarButtonItem:self.editButtonItem
         animated:NO];
 

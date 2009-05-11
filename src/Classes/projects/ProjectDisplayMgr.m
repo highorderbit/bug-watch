@@ -9,19 +9,16 @@
 - (void)dealloc
 {
     [projectCache release];
-    [navController release];
     [projectsViewController release];
     [projectHomeViewController release];
     [super dealloc];
 }
 
 - (id)initWithProjectCache:(id)aProjectCache
-    navigationController:(UINavigationController *)aNavController
     projectsViewController:(ProjectsViewController *)aProjectsViewController
 {
     if (self = [super init]) {
         projectCache = [aProjectCache retain];
-        navController = [aNavController retain];
         projectsViewController = [aProjectsViewController retain];
     }
 
@@ -33,7 +30,7 @@
 - (void)selectedProjectKey:(id)key
 {
     NSLog(@"Project %@ selected", key);
-    [navController pushViewController:self.projectHomeViewController
+    [self.navController pushViewController:self.projectHomeViewController
         animated:YES];
 }
 
@@ -47,6 +44,11 @@
             initWithNibName:@"ProjectHomeView" bundle:nil];
 
     return projectHomeViewController;
+}
+
+- (UINavigationController *)navController
+{
+    return projectsViewController.navigationController;
 }
 
 @end

@@ -11,17 +11,14 @@
 @interface ProjectDisplayMgr : NSObject <ProjectsViewControllerDelegate>
 {
     id projectCache;
-    UINavigationController * navController;
     ProjectsViewController * projectsViewController;
-    
     ProjectHomeViewController * projectHomeViewController;
 }
 
 - (id)initWithProjectCache:(id)aProjectCache
-    navigationController:(UINavigationController *)aNavController
     projectsViewController:(ProjectsViewController *)aProjectsViewController;
 
-@property (nonatomic, readonly)
-    ProjectHomeViewController * projectHomeViewController;
+@property (readonly) ProjectHomeViewController * projectHomeViewController;
+@property (readonly) UINavigationController * navController;
 
 @end
