@@ -38,7 +38,7 @@
 							<object class="IBUILabel" id="621084409">
 								<reference key="NSNextResponder" ref="174174663"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 9}, {183, 21}}</string>
+								<string key="NSFrame">{{14, 9}, {184, 21}}</string>
 								<reference key="NSSuperview" ref="174174663"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -60,7 +60,7 @@
 							<object class="IBUILabel" id="360618250">
 								<reference key="NSNextResponder" ref="174174663"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{205, 9}, {92, 21}}</string>
+								<string key="NSFrame">{{206, 9}, {100, 21}}</string>
 								<reference key="NSSuperview" ref="174174663"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -103,7 +103,7 @@
 							<object class="IBUILabel" id="698763466">
 								<reference key="NSNextResponder" ref="174174663"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 56}, {283, 76}}</string>
+								<string key="NSFrame">{{14, 56}, {292, 76}}</string>
 								<reference key="NSSuperview" ref="174174663"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -117,7 +117,7 @@
 								<int key="IBUINumberOfLines">4</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{297, 136}</string>
+						<string key="NSFrameSize">{320, 136}</string>
 						<reference key="NSSuperview" ref="385269406"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -137,7 +137,6 @@
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="174174663"/>
 				<string key="IBUIReuseIdentifier">CommentTableViewCell</string>
 			</object>

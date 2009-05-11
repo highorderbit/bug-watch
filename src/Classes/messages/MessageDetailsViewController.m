@@ -62,6 +62,7 @@
             owner:self options:nil];
 
         cell = [nib objectAtIndex:0];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;
@@ -82,6 +83,12 @@
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 124;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView
+    willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
 }
 
 #pragma mark MessageDetailsViewController implementation
