@@ -24,7 +24,7 @@
 
     IBOutlet NetworkAwareViewController * milestonesNetworkAwareViewController;
 
-    IBOutlet MessagesViewController * messagesViewController;
+    IBOutlet NetworkAwareViewController * messagesNetAwareViewController;
     IBOutlet UINavigationController * messagesNavController;
 
     IBOutlet UIViewController * pagesViewController;

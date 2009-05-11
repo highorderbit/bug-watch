@@ -6,7 +6,6 @@
 
 @protocol MessagesViewControllerDelegate
 
-- (void)showAllMessages;
 - (void)selectedMessageKey:(id)key;
 
 @end

@@ -11,6 +11,7 @@
     [messageCache release];
     [navController release];
     [messagesViewController release];
+    [wrapperController release];
     
     // TEMPORARY
     [userDict release];
@@ -21,11 +22,13 @@
 
 - (id)initWithMessageCache:(MessageCache *)aMessageCache
     navigationController:(UINavigationController *)aNavController
+    networkAwareViewController:(NetworkAwareViewController *)aWrapperController
     messagesViewController:(MessagesViewController *)aMessagesViewController
 {
     if (self = [super init]) {
         messageCache = [aMessageCache retain];
         navController = [aNavController retain];
+        wrapperController = [aWrapperController retain];
         messagesViewController = [aMessagesViewController retain];
         
         // TEMPORARY
@@ -43,6 +46,11 @@
 
 - (void)showAllMessages
 {
+    // TEMPORARY
+    wrapperController.cachedDataAvailable = YES;
+    [wrapperController setUpdatingState:kConnectedAndNotUpdating];
+    // TEMPORARY
+    
     NSMutableDictionary * postedByDict = [NSMutableDictionary dictionary];
     NSDictionary * allPostedByKeys = [messageCache allPostedByKeys];
     for (id key in allPostedByKeys) {
@@ -59,5 +67,19 @@
 
 - (void)selectedMessageKey:(id)key
 {}
+
+#pragma mark NetworkAwareViewControllerDelegate
+
+- (void)networkAwareViewWillAppear
+{
+    [self showAllMessages];
+}
+
+#pragma mark MessageDisplayMgr implementation
+
+- (void)createNewMessage
+{
+    NSLog(@"Presenting 'create message' view");
+}
 
 @end

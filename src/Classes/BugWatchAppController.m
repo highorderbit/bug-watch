@@ -21,6 +21,8 @@
 @interface BugWatchAppController (Private)
 
 - (void)initTicketsTab;
+- (void)initProjectsTab;
+- (void)initMessagesTab;
 
 @end
 
@@ -38,7 +40,7 @@
 
     [milestonesNetworkAwareViewController release];
 
-    [messagesViewController release];
+    [messagesNetAwareViewController release];
     [messagesNavController release];
 
     [pagesViewController release];
@@ -152,18 +154,8 @@
     // TEMPORARY
 
     [self initTicketsTab];
-
-    ProjectDisplayMgr * projectDisplayMgr =
-        [[ProjectDisplayMgr alloc] initWithProjectCache:nil
-        navigationController:projectsNavController
-        projectsViewController:projectsViewController];
-    projectsViewController.delegate = projectDisplayMgr;
-
-    MessageDisplayMgr * messageDisplayMgr =
-        [[MessageDisplayMgr alloc] initWithMessageCache:messageCache
-        navigationController:messagesNavController
-        messagesViewController:messagesViewController];
-    messagesViewController.delegate = messageDisplayMgr;
+    [self initProjectsTab];
+    [self initMessagesTab];
 
     // Note: this instantiation/initialization is temporary
     LighthouseNewsFeedService * newsFeedService =
@@ -193,19 +185,21 @@
     UITextField * searchField =
         (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
     TicketSearchMgr * ticketSearchMgr =
-        [[TicketSearchMgr alloc]
+        [[[TicketSearchMgr alloc]
         initWithSearchField:searchField addButton:addButton
         cancelButton:cancelButton
-        navigationItem:ticketsNetAwareViewController.navigationItem];
+        navigationItem:ticketsNetAwareViewController.navigationItem]
+        autorelease];
     
     TicketsViewController * ticketsViewController =
-        [[TicketsViewController alloc]
-        initWithNibName:@"TicketsView" bundle:nil];
+        [[[TicketsViewController alloc]
+        initWithNibName:@"TicketsView" bundle:nil] autorelease];
     ticketsNetAwareViewController.targetViewController = ticketsViewController;
     
     LighthouseApiService * lighthouseApiService =
-        [[LighthouseApiService alloc]
-        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"];
+        [[[LighthouseApiService alloc]
+        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
+        autorelease];
 
     TicketDataSource * ticketDataSource =
         [[[TicketDataSource alloc] initWithService:lighthouseApiService]
@@ -213,17 +207,48 @@
     lighthouseApiService.delegate = ticketDataSource;
     
     TicketDisplayMgr * ticketDisplayMgr =
-        [[TicketDisplayMgr alloc] initWithTicketCache:nil
+        [[[TicketDisplayMgr alloc] initWithTicketCache:nil
         initialFilterString:nil navigationController:ticketsNavController
         networkAwareViewController:ticketsNetAwareViewController
         ticketsViewController:ticketsViewController
-        dataSource:ticketDataSource];
+        dataSource:ticketDataSource] autorelease];
     ticketsViewController.delegate = ticketDisplayMgr;
     ticketsNetAwareViewController.delegate = ticketDisplayMgr;
     ticketDataSource.delegate = ticketDisplayMgr;
     ticketSearchMgr.delegate = ticketDisplayMgr;
     addButton.target = ticketDisplayMgr;
     addButton.action = @selector(addSelected);
+}
+
+- (void)initProjectsTab
+{
+    ProjectDisplayMgr * projectDisplayMgr =
+        [[[ProjectDisplayMgr alloc] initWithProjectCache:nil
+        navigationController:projectsNavController
+        projectsViewController:projectsViewController] autorelease];
+    projectsViewController.delegate = projectDisplayMgr;
+}
+
+- (void)initMessagesTab
+{
+    MessagesViewController * messagesViewController =
+        [[MessagesViewController alloc]
+        initWithNibName:@"MessagesView" bundle:nil];
+    messagesNetAwareViewController.targetViewController =
+        messagesViewController;
+
+    MessageDisplayMgr * messageDisplayMgr =
+        [[[MessageDisplayMgr alloc] initWithMessageCache:messageCache
+        navigationController:messagesNavController
+        networkAwareViewController:messagesNetAwareViewController
+        messagesViewController:messagesViewController] autorelease];
+    messagesViewController.delegate = messageDisplayMgr;
+    messagesNetAwareViewController.delegate = messageDisplayMgr;
+    
+    UIBarButtonItem * addButton =
+        messagesNetAwareViewController.navigationItem.rightBarButtonItem;
+    addButton.target = messageDisplayMgr;
+    addButton.action = @selector(createNewMessage);
 }
 
 @end
