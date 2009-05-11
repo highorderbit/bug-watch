@@ -111,10 +111,7 @@
 
     progressView.outlineColor = [UIColor blackColor];
 
-    BOOL late =
-        milestone.dueDate &&
-        [milestone.dueDate compare:[NSDate date]] == NSOrderedAscending;
-    if (late) {
+    if ([milestone isLate]) {
         dueDateLabel.textColor = [UIColor lateMilestoneProgressColor];
         progressView.progressColor = [UIColor lateMilestoneProgressColor];
     } else {

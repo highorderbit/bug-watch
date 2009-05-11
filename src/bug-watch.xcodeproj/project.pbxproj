@@ -77,6 +77,7 @@
 		05EFD7C40FA924F6001DFCFB /* WebServiceResponseDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7C30FA924F6001DFCFB /* WebServiceResponseDispatcher.m */; };
 		05EFD7E30FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */; };
 		05EFD88D0FA9405C001DFCFB /* NewsFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD88C0FA9405C001DFCFB /* NewsFeedItem.m */; };
+		05F0F2870FB8D8DC00963F6E /* NSArray+IterationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -264,6 +265,8 @@
 		05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+NonRetainedKeyAdditions.m"; path = "web-service/NSDictionary+NonRetainedKeyAdditions.m"; sourceTree = "<group>"; };
 		05EFD88B0FA9405C001DFCFB /* NewsFeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedItem.h; path = "news-feed/NewsFeedItem.h"; sourceTree = "<group>"; };
 		05EFD88C0FA9405C001DFCFB /* NewsFeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedItem.m; path = "news-feed/NewsFeedItem.m"; sourceTree = "<group>"; };
+		05F0F2850FB8D8DC00963F6E /* NSArray+IterationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+IterationAdditions.h"; path = "shared/NSArray+IterationAdditions.h"; sourceTree = "<group>"; };
+		05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+IterationAdditions.m"; path = "shared/NSArray+IterationAdditions.m"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -616,6 +619,8 @@
 				059737230FAFD05200059D20 /* RoundedRectView.m */,
 				059738680FB0C26A00059D20 /* MilestoneProgressView.h */,
 				059738690FB0C26A00059D20 /* MilestoneProgressView.m */,
+				05F0F2850FB8D8DC00963F6E /* NSArray+IterationAdditions.h */,
+				05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -1090,6 +1095,7 @@
 				918884B90FB7BBE9009F5861 /* NewMessageViewController.m in Sources */,
 				9188852F0FB88249009F5861 /* MessageDetailsViewController.m in Sources */,
 				918885C30FB8B981009F5861 /* ResponseTableViewCell.m in Sources */,
+				05F0F2870FB8D8DC00963F6E /* NSArray+IterationAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

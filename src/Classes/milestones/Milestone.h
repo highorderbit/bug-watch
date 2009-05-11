@@ -26,6 +26,9 @@
 @property (nonatomic, readonly, assign) NSUInteger numOpenTickets;
 @property (nonatomic, readonly, assign) NSUInteger numTickets;
 
+- (BOOL)completed;
+- (BOOL)isLate;
+
 // TODO: Replace me with real data
 
 + (NSArray *)dummyData;

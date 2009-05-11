@@ -63,6 +63,20 @@
     return [self retain];  // immutable
 }
 
+- (BOOL)completed
+{
+    return
+        numOpenTickets == 0 &&
+        numTickets > 0 &&
+        (dueDate == nil ||
+         [dueDate compare:[NSDate date]] == NSOrderedAscending);
+}
+
+- (BOOL)isLate
+{
+    return ![self completed] && dueDate;
+}
+
 // TODO: Replace me with real data
 
 + (NSArray *)dummyData
