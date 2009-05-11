@@ -116,6 +116,11 @@
     return [UIColor colorWithRed:0 green:.667 blue:.133 alpha:1.0];
 }
 
++ (UIColor *)replyEntityColor
+{
+    return [UIColor colorWithRed:.824 green:.318 blue:.125 alpha:1.0];
+}
+
 + (UIColor *)unknownEntityColor
 {
     return [[self class] ticketEntityColor];
@@ -132,6 +137,7 @@
          [[self class] changesetEntityColor], @"changeset",
          [[self class] messageEntityColor], @"message",
          [[self class] pageEntityColor], @"page",
+         [[self class] replyEntityColor], @"reply",
          nil];
     }
 
