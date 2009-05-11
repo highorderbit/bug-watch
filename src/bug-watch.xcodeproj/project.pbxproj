@@ -25,6 +25,7 @@
 		052C5C640FB49D9300C7A30C /* LighthouseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C610FB49D6E00C7A30C /* LighthouseApi.m */; };
 		052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */; };
 		052C5D840FB4C75F00C7A30C /* TicketNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5D830FB4C75F00C7A30C /* TicketNumber.m */; };
+		052C5DA50FB4E25900C7A30C /* MilestoneDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5DA40FB4E25900C7A30C /* MilestoneDataSource.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -152,6 +153,9 @@
 		052C5C8D0FB4A48200C7A30C /* LighthouseApiServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiServiceDelegate.h; path = lighthouse/api/LighthouseApiServiceDelegate.h; sourceTree = "<group>"; };
 		052C5D820FB4C75F00C7A30C /* TicketNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketNumber.h; path = lighthouse/api/TicketNumber.h; sourceTree = "<group>"; };
 		052C5D830FB4C75F00C7A30C /* TicketNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketNumber.m; path = lighthouse/api/TicketNumber.m; sourceTree = "<group>"; };
+		052C5DA30FB4E25900C7A30C /* MilestoneDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDataSource.h; path = Classes/milestones/MilestoneDataSource.h; sourceTree = "<group>"; };
+		052C5DA40FB4E25900C7A30C /* MilestoneDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDataSource.m; path = Classes/milestones/MilestoneDataSource.m; sourceTree = "<group>"; };
+		052C5DE10FB664A200C7A30C /* MilestoneDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDataSourceDelegate.h; path = Classes/milestones/MilestoneDataSourceDelegate.h; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -416,6 +420,9 @@
 				059736760FAFB75000059D20 /* MilestonesTableViewCell.m */,
 				05DEB1D70FB106470052888E /* MilestoneViewController.h */,
 				05DEB1D80FB106470052888E /* MilestoneViewController.m */,
+				052C5DA30FB4E25900C7A30C /* MilestoneDataSource.h */,
+				052C5DA40FB4E25900C7A30C /* MilestoneDataSource.m */,
+				052C5DE10FB664A200C7A30C /* MilestoneDataSourceDelegate.h */,
 			);
 			name = milestones;
 			path = ..;
@@ -982,6 +989,7 @@
 				052C5C640FB49D9300C7A30C /* LighthouseApi.m in Sources */,
 				052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */,
 				052C5D840FB4C75F00C7A30C /* TicketNumber.m in Sources */,
+				052C5DA50FB4E25900C7A30C /* MilestoneDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

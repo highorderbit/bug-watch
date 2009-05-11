@@ -9,9 +9,14 @@
 
 @interface LighthouseApiService ()
 
+- (void)notifyDelegate:(SEL)selector;
+- (void)notifyDelegate:(SEL)selector withObject:(id)obj;
+- (void)notifyDelegate:(SEL)selector withObject:(id)obj1 withObject:(id)obj2;
+
 - (NSArray *)parseTickets:(NSData *)xml;
 - (NSArray *)parseTicketMetaData:(NSData *)xml;
 - (NSArray *)parseTicketNumbers:(NSData *)xml;
+- (NSArray *)parseMilestones:(NSData *)xml;
 
 @end
 
@@ -48,22 +53,71 @@
     [api fetchTicketsForAllProjects:token];
 }
 
+#pragma mark Fetching milestones
+
+- (void)fetchMilestonesForAllProjects:(NSString *)token
+{
+    [api fetchMilestonesForAllProjects:token];
+}
+
 #pragma mark LighthouseApiDelegate implementation
 
-- (void)tickets:(NSData *)data fetchedForAllProjects:(NSString *)token
+- (void)tickets:(NSData *)data
+    fetchedForAllProjectsWithToken:(NSString *)token
 {
     NSArray * ticketNumbers = [self parseTicketNumbers:data];
     NSArray * tickets = [self parseTickets:data];
     NSArray * metadata = [self parseTicketMetaData:data];
 
-    [delegate tickets:tickets fetchedForAllProjectsWithMetadata:metadata
-        ticketNumbers:ticketNumbers];
+    SEL sel =
+        @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:);
+    if ([delegate respondsToSelector:sel])
+        [delegate tickets:tickets fetchedForAllProjectsWithMetadata:metadata
+            ticketNumbers:ticketNumbers];
 }
 
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
                                      error:(NSError *)error
 {
-    [delegate failedToFetchTicketsForAllProjects:error];
+    SEL sel = @selector(failedToFetchTicketsForAllProjects:);
+    if ([delegate respondsToSelector:sel])
+        [delegate failedToFetchTicketsForAllProjects:error];
+}
+
+- (void)milestones:(NSData *)data
+    fetchedForAllProjectsWithToken:(NSString *)token
+{
+    NSArray * milestones = [self parseMilestones:data];
+
+    SEL sel = @selector(milestonesFetchedForAllProjects:);
+    if ([delegate respondsToSelector:sel])
+        [delegate milestonesFetchedForAllProjects:milestones];
+}
+
+- (void)failedToFetchMilestonesForAllProjects:(NSString *)token
+                                        error:(NSError *)error
+{
+    [delegate failedToFetchMilestonesForAllProjects:error];
+}
+
+#pragma mark Helper functions for invoking delegate methods
+
+- (void)notifyDelegate:(SEL)selector
+{
+    if ([delegate respondsToSelector:selector])
+        [delegate performSelector:selector];
+}
+
+- (void)notifyDelegate:(SEL)selector withObject:(id)obj
+{
+    if ([delegate respondsToSelector:selector])
+        [delegate performSelector:selector withObject:obj];
+}
+
+- (void)notifyDelegate:(SEL)selector withObject:(id)obj1 withObject:(id)obj2
+{
+    if ([delegate respondsToSelector:selector])
+        [delegate performSelector:selector withObject:obj1 withObject:obj2];
 }
 
 #pragma mark Parsing XML
@@ -114,6 +168,22 @@
         [numbers addObject:n.ticketNumber];
 
     return numbers;
+}
+
+- (NSArray *)parseMilestones:(NSData *)xml
+{
+    parser.className = @"Milestone";
+    parser.classElementType = @"milestone";
+    parser.classElementCollection = @"milestones";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"title",
+            @"dueDate", @"due-on",
+            @"numOpenTickets", @"open-tickets-count",
+            @"numTickets", @"tickets-count",
+            nil];
+
+    return [parser parse:xml];
 }
 
 @end

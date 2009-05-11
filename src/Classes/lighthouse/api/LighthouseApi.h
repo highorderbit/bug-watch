@@ -28,4 +28,8 @@
 
 - (void)fetchTicketsForAllProjects:(NSString *)token;
 
+#pragma mark Fetching milestones
+
+- (void)fetchMilestonesForAllProjects:(NSString *)token;
+
 @end

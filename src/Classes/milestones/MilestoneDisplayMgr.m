@@ -5,6 +5,7 @@
 #import "MilestoneDisplayMgr.h"
 #import "MilestonesViewController.h"
 #import "MilestoneViewController.h"
+#import "MilestoneDataSource.h"
 #import "Milestone.h"
 
 @interface MilestoneDisplayMgr ()
@@ -23,10 +24,15 @@
 
     [milestoneViewController release];
 
+    [milestoneDataSource release];
+
     [super dealloc];
 }
 
+#pragma mark Initialization
+
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
+                     milestoneDataSource:(MilestoneDataSource *)dataSource
 {
     if (self = [super init]) {
         networkAwareViewController = [navc retain];
@@ -41,6 +47,9 @@
         milestonesViewController.delegate = self;
         networkAwareViewController.targetViewController =
             milestonesViewController;
+
+        milestoneDataSource = [dataSource retain];
+        milestoneDataSource.delegate = self;
     }
 
     return self;
@@ -50,8 +59,15 @@
 
 - (void)networkAwareViewWillAppear
 {
-    [networkAwareViewController setCachedDataAvailable:YES];
-    [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
+    NSArray * milestones = [milestoneDataSource currentMilestones];
+    milestonesViewController.milestones = milestones;
+
+    [networkAwareViewController setCachedDataAvailable:!!milestones];
+
+    BOOL updating = [milestoneDataSource fetchMilestonesIfNecessary];
+    [networkAwareViewController
+        setUpdatingState:
+        updating ? kConnectedAndUpdating : kConnectedAndNotUpdating];
 }
 
 #pragma mark MilestonesViewControllerDelegate implementation
@@ -63,6 +79,21 @@
     [self milestoneViewController].navigationItem.title = milestone.name;
     [navigationController
         pushViewController:[self milestoneViewController] animated:YES];
+}
+
+#pragma mark MilestoneDataSourceDelegate implementation
+
+- (void)milestonesFetchedForAllProjects:(NSArray *)milestones
+{
+    milestonesViewController.milestones = milestones;
+    [networkAwareViewController setCachedDataAvailable:YES];
+    [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
+}
+
+- (void)failedToFetchMilestonesForAllProjects:(NSError *)error
+{
+    NSLog(@"Failed to fetch milestiones: '%@'.", error);
+    [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
 }
 
 #pragma mark Accessors

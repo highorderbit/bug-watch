@@ -13,6 +13,6 @@
 }
 
 @property (nonatomic, assign) id<MilestonesViewControllerDelegate> delegate;
-@property (nonatomic, readonly, copy) NSArray * milestones;
+@property (nonatomic, copy) NSArray * milestones;
 
 @end

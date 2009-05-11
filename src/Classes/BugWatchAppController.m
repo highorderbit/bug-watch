@@ -13,6 +13,8 @@
 #import "TicketComment.h"
 #import "MilestoneDisplayMgr.h"
 #import "ProjectDisplayMgr.h"
+#import "LighthouseApiService.h"
+#import "MilestoneDataSource.h"
 
 @implementation BugWatchAppController
 
@@ -147,10 +149,18 @@
         initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
                         newsFeedDataSource:newsFeedDataSource];
 
+    LighthouseApiService * service =
+        [[[LighthouseApiService alloc]
+        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
+        autorelease];
+    MilestoneDataSource * milestoneDataSource =
+        [[[MilestoneDataSource alloc]
+        initWithLighthouseApiService:service] autorelease];
     milestoneDisplayMgr =
         [[MilestoneDisplayMgr alloc]
         initWithNetworkAwareViewController:
-        milestonesNetworkAwareViewController];
+        milestonesNetworkAwareViewController
+         milestoneDataSource:milestoneDataSource];
 }
 
 @end

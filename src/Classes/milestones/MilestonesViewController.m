@@ -60,4 +60,13 @@
     [delegate userDidSelectMilestone:[milestones objectAtIndex:indexPath.row]];
 }
 
+- (void)setMilestones:(NSArray *)someMilestones
+{
+    NSArray * tmp = [someMilestones copy];
+    [milestones release];
+    milestones = tmp;
+
+    [self.tableView reloadData];
+}
+
 @end

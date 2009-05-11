@@ -6,7 +6,8 @@
 #import "BugWatchAppController.h"
 
 @interface BugWatchAppDelegate :
-    NSObject <UIApplicationDelegate, UITabBarControllerDelegate>
+    NSObject
+    <UIApplicationDelegate, UITabBarControllerDelegate>
 {
     UIWindow * window;
     UITabBarController * tabBarController;
