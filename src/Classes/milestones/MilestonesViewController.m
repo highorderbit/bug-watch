@@ -55,7 +55,8 @@ enum Sections
     if (completedMilestones.count == 0)
         --nsections;
 
-    return nsections;
+    // required to return at least 1 section
+    return nsections == 0 ? 1 : nsections;
 }
 
 // Customize the number of rows in the table view.
