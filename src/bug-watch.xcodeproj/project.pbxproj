@@ -118,6 +118,8 @@
 		917DE58C0FB4E23000BF2015 /* TicketDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE58B0FB4E23000BF2015 /* TicketDataSource.m */; };
 		91806D8C0F97E72900F08005 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91806D8B0F97E72900F08005 /* Icon.png */; };
 		918883F20FB749AE009F5861 /* TicketSearchMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 918883F10FB749AE009F5861 /* TicketSearchMgr.m */; };
+		918884B60FB7BBAF009F5861 /* NewMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 918884B40FB7BBAF009F5861 /* NewMessageView.xib */; };
+		918884B90FB7BBE9009F5861 /* NewMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918884B80FB7BBE9009F5861 /* NewMessageViewController.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
@@ -326,6 +328,9 @@
 		918883F00FB749AE009F5861 /* TicketSearchMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSearchMgr.h; path = tickets/TicketSearchMgr.h; sourceTree = "<group>"; };
 		918883F10FB749AE009F5861 /* TicketSearchMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSearchMgr.m; path = tickets/TicketSearchMgr.m; sourceTree = "<group>"; };
 		918883F40FB749D3009F5861 /* TicketSearchMgrDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSearchMgrDelegate.h; path = tickets/TicketSearchMgrDelegate.h; sourceTree = "<group>"; };
+		918884B50FB7BBAF009F5861 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewMessageView.xib; sourceTree = "<group>"; };
+		918884B70FB7BBE9009F5861 /* NewMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewMessageViewController.h; path = messages/NewMessageViewController.h; sourceTree = "<group>"; };
+		918884B80FB7BBE9009F5861 /* NewMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewMessageViewController.m; path = messages/NewMessageViewController.m; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -703,6 +708,7 @@
 				917DE3540FB346B500BF2015 /* ProjectHomeView.xib */,
 				917DE4010FB37B3300BF2015 /* MessagesView.xib */,
 				917DE4200FB38CF900BF2015 /* MessageTableViewCell.xib */,
+				918884B40FB7BBAF009F5861 /* NewMessageView.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -782,6 +788,8 @@
 				917DE49D0FB48C3600BF2015 /* MessageResponse.h */,
 				917DE49E0FB48C3600BF2015 /* MessageResponse.m */,
 				917DE4CD0FB49FD400BF2015 /* MessagesViewControllerDelegate.h */,
+				918884B70FB7BBE9009F5861 /* NewMessageViewController.h */,
+				918884B80FB7BBE9009F5861 /* NewMessageViewController.m */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -934,6 +942,7 @@
 				917DE3E90FB369E000BF2015 /* PagesSelected.png in Resources */,
 				917DE4030FB37B3300BF2015 /* MessagesView.xib in Resources */,
 				917DE4220FB38CF900BF2015 /* MessageTableViewCell.xib in Resources */,
+				918884B60FB7BBAF009F5861 /* NewMessageView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1052,6 +1061,7 @@
 				052C5D840FB4C75F00C7A30C /* TicketNumber.m in Sources */,
 				917DE58C0FB4E23000BF2015 /* TicketDataSource.m in Sources */,
 				918883F20FB749AE009F5861 /* TicketSearchMgr.m in Sources */,
+				918884B90FB7BBE9009F5861 /* NewMessageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1200,6 +1210,14 @@
 				917DE4210FB38CF900BF2015 /* en */,
 			);
 			name = MessageTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		918884B40FB7BBAF009F5861 /* NewMessageView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				918884B50FB7BBAF009F5861 /* en */,
+			);
+			name = NewMessageView.xib;
 			sourceTree = "<group>";
 		};
 		919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */ = {

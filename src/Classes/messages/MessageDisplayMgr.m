@@ -12,7 +12,9 @@
     [navController release];
     [messagesViewController release];
     [wrapperController release];
-    
+
+    [newMessageViewController release];
+
     // TEMPORARY
     [userDict release];
     // TEMPORARY
@@ -80,6 +82,21 @@
 - (void)createNewMessage
 {
     NSLog(@"Presenting 'create message' view");
+    [navController presentModalViewController:self.newMessageViewController
+        animated:YES];
+}
+
+#pragma mark Accessors
+
+- (NewMessageViewController *)newMessageViewController
+{
+    if (!newMessageViewController) {
+        newMessageViewController =
+            [[NewMessageViewController alloc]
+            initWithNibName:@"NewMessageView" bundle:nil];
+    }
+
+    return newMessageViewController;
 }
 
 @end
