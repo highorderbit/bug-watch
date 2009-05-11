@@ -68,6 +68,7 @@
 {
     NSLog(@"Retrieved %u milestones:\n%@.", milestones.count, milestones);
 
+    needsUpdating = NO;
     self.cache = milestones;
 
     [delegate milestonesFetchedForAllProjects:milestones];
@@ -76,6 +77,8 @@
 - (void)failedToFetchMilestonesForAllProjects:(NSError *)error
 {
     NSLog(@"Failed to retrieve milestones for project: %@.", error);
+
+    needsUpdating = NO;
 
     [delegate failedToFetchMilestonesForAllProjects:error];
 }
