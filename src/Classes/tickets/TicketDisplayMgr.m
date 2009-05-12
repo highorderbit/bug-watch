@@ -11,8 +11,9 @@
 - (void)dealloc
 {
     [filterString release];
-
     [ticketCache release];
+    [commentCache release];
+    
     [wrapperController release];
     [ticketsViewController release];
     [dataSource release];
