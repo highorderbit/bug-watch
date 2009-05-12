@@ -37,7 +37,7 @@
     fetchedForAllProjectsWithMetadata:(NSArray *)someMetaData
     ticketNumbers:(NSArray *)ticketNumbers
     milestoneIds:(NSArray *)milestoneIds
-    userIds:(NSArray *)userIds
+    userIds:(NSArray *)userIds assignedToIds:(NSArray *)assignedToIds
 {
     NSLog(@"Received tickets: %@", tickets);
     
