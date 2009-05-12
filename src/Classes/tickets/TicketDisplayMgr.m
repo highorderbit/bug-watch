@@ -44,15 +44,15 @@
         // TEMPORARY
         // this will eventually be read from a user cache of some sort
         userDict = [[NSMutableDictionary dictionary] retain];
-        // [userDict setObject:@"Doug Kurth"
-        //     forKey:[NSNumber numberWithInt:50190]];
+        [userDict setObject:@"Doug Kurth"
+            forKey:[NSNumber numberWithInt:50190]];
         [userDict setObject:@"John A. Debay"
             forKey:[NSNumber numberWithInt:50209]];
 
         // this will eventually be read from a user cache of some sort
         milestoneDict = [[NSMutableDictionary dictionary] retain];
-        // [milestoneDict setObject:@"1.0.0"
-        //     forKey:[NSNumber numberWithInt:37670]];
+        [milestoneDict setObject:@"1.0.0"
+            forKey:[NSNumber numberWithInt:37670]];
         [milestoneDict setObject:@"1.1.0"
             forKey:[NSNumber numberWithInt:38299]];
         [milestoneDict setObject:@"1.3.0"
