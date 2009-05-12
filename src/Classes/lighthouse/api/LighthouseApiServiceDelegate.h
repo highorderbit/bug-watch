@@ -12,7 +12,8 @@
 
 - (void)tickets:(NSArray *)tickets
     fetchedForAllProjectsWithMetadata:(NSArray *)metadata
-    ticketNumbers:(NSArray *)ticketNumbers;
+    ticketNumbers:(NSArray *)ticketNumbers milestoneIds:(NSArray *)milestoneIds
+    userIds:(NSArray *)userIds;
 - (void)failedToFetchTicketsForAllProjects:(NSError *)error;
 
 @optional
