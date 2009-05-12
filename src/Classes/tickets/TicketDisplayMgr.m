@@ -44,13 +44,19 @@
         // TEMPORARY
         // this will eventually be read from a user cache of some sort
         userDict = [[NSMutableDictionary dictionary] retain];
-        [userDict setObject:@"Doug Kurth" forKey:[NSNumber numberWithInt:0]];
-        [userDict setObject:@"John A. Debay" forKey:[NSNumber numberWithInt:1]];
+        [userDict setObject:@"Doug Kurth"
+            forKey:[NSNumber numberWithInt:50190]];
+        [userDict setObject:@"John A. Debay"
+            forKey:[NSNumber numberWithInt:50209]];
 
         // this will eventually be read from a user cache of some sort
         milestoneDict = [[NSMutableDictionary dictionary] retain];
-        [milestoneDict setObject:@"1.1.0" forKey:[NSNumber numberWithInt:0]];
-        [milestoneDict setObject:@"1.2.0" forKey:[NSNumber numberWithInt:1]];
+        [milestoneDict setObject:@"1.0.0"
+            forKey:[NSNumber numberWithInt:37670]];
+        [milestoneDict setObject:@"1.1.0"
+            forKey:[NSNumber numberWithInt:38299]];
+        [milestoneDict setObject:@"1.3.0"
+            forKey:[NSNumber numberWithInt:38302]];
         // TEMPORARY
     }
 
@@ -79,13 +85,13 @@
     NSArray * commentKeys = [ticketCache commentKeysForNumber:number];
     NSMutableDictionary * comments = [NSMutableDictionary dictionary];
     for (id commentKey in commentKeys) {
-        TicketComment * comment = [ticketCache commentForKey:commentKey];
+        TicketComment * comment = [commentCache commentForKey:commentKey];
         [comments setObject:comment forKey:commentKey];
     }
     
     NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
     for (id commentKey in commentKeys) {
-        NSString * userKey = [ticketCache authorKeyForCommentKey:commentKey];
+        NSString * userKey = [commentCache authorKeyForCommentKey:commentKey];
         NSString * commentAuthor = [userDict objectForKey:userKey];
         [commentAuthors setObject:commentAuthor forKey:commentKey];
     }
@@ -111,8 +117,9 @@
         NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
         for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
             id userKey = [allAssignedToKeys objectForKey:ticketNumber];
-            [assignedToDict setObject:[userDict objectForKey:userKey]
-                forKey:ticketNumber];
+            id assignedTo = [userDict objectForKey:userKey];
+            if (assignedTo)
+                [assignedToDict setObject:assignedTo forKey:ticketNumber];
         }
 
         NSDictionary * allMilestoneKeys = [self.ticketCache allMilestoneKeys];
@@ -120,9 +127,10 @@
             [NSMutableDictionary dictionary];
         for (NSNumber * ticketNumber in [allMilestoneKeys allKeys]) {
             id userKey = [allMilestoneKeys objectForKey:ticketNumber];
-            [associatedMilestoneDict
-                setObject:[milestoneDict objectForKey:userKey]
-                forKey:ticketNumber];
+            id milestone = [milestoneDict objectForKey:userKey];
+            if (milestone)
+                [associatedMilestoneDict setObject:milestone
+                    forKey:ticketNumber];
         }
 
         [ticketsViewController setTickets:allTickets

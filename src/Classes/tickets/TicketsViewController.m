@@ -60,8 +60,12 @@
     [cell setState:ticketMetaData.state];
     [cell setDescription:ticket.description];
     [cell setLastUpdatedDate:ticketMetaData.lastModifiedDate];
-    [cell setAssignedToName:[assignedToDict objectForKey:ticketNumber]];
-    [cell setMilestoneName:[milestoneDict objectForKey:ticketNumber]];
+    NSString * assignedToName = [assignedToDict objectForKey:ticketNumber];
+    assignedToName = assignedToName ? assignedToName : @"none";
+    [cell setAssignedToName:assignedToName];
+    NSString * milestoneName = [milestoneDict objectForKey:ticketNumber];
+    milestoneName = milestoneName ? milestoneName : @"none";
+    [cell setMilestoneName:milestoneName];
 
     return cell;
 }
