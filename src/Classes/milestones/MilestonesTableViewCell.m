@@ -39,6 +39,8 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     // cache the num tickets view's background color set in the nib
     numOpenTicketsViewBackgroundColor =
         [numOpenTicketsView.backgroundColor retain];
