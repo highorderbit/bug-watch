@@ -234,34 +234,6 @@
 							</object>
 						</object>
 					</object>
-					<object class="IBUINavigationController" id="535207759">
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="857935159">
-							<string key="IBUITitle">Pages</string>
-							<object class="NSCustomResource" key="IBUIImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">Pages.png</string>
-							</object>
-						</object>
-						<reference key="IBUIParentViewController" ref="1034742383"/>
-						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-						<object class="IBUINavigationBar" key="IBUINavigationBar" id="693548047">
-							<nil key="NSNextResponder"/>
-							<int key="NSvFlags">256</int>
-							<string key="NSFrameSize">{0, 0}</string>
-							<bool key="IBUIOpaque">NO</bool>
-							<bool key="IBUIClipsSubviews">YES</bool>
-							<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						</object>
-						<object class="NSMutableArray" key="IBUIViewControllers">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIViewController" id="53924193">
-								<object class="IBUINavigationItem" key="IBUINavigationItem" id="898263392">
-									<string key="IBUITitle">Pages</string>
-								</object>
-								<reference key="IBUIParentViewController" ref="535207759"/>
-							</object>
-						</object>
-					</object>
 				</object>
 				<object class="IBUITabBar" key="IBUITabBar" id="795333663">
 					<nil key="NSNextResponder"/>
@@ -317,14 +289,6 @@
 						<reference key="destination" ref="416417005"/>
 					</object>
 					<int key="connectionID">190</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">pagesViewController</string>
-						<reference key="source" ref="127522796"/>
-						<reference key="destination" ref="53924193"/>
-					</object>
-					<int key="connectionID">196</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -399,7 +363,6 @@
 							<reference ref="129528834"/>
 							<reference ref="205855552"/>
 							<reference ref="149450542"/>
-							<reference ref="535207759"/>
 							<reference ref="882697621"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
@@ -568,41 +531,6 @@
 						<reference key="parent" ref="149450542"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">144</int>
-						<reference key="object" ref="535207759"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="53924193"/>
-							<reference ref="693548047"/>
-							<reference ref="857935159"/>
-						</object>
-						<reference key="parent" ref="1034742383"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">145</int>
-						<reference key="object" ref="53924193"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="898263392"/>
-						</object>
-						<reference key="parent" ref="535207759"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">146</int>
-						<reference key="object" ref="693548047"/>
-						<reference key="parent" ref="535207759"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">147</int>
-						<reference key="object" ref="898263392"/>
-						<reference key="parent" ref="53924193"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">148</int>
-						<reference key="object" ref="857935159"/>
-						<reference key="parent" ref="535207759"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">149</int>
 						<reference key="object" ref="882697621"/>
 						<object class="NSMutableArray" key="children">
@@ -695,10 +623,6 @@
 					<string>140.IBPluginDependency</string>
 					<string>141.IBPluginDependency</string>
 					<string>142.IBPluginDependency</string>
-					<string>144.IBPluginDependency</string>
-					<string>145.IBPluginDependency</string>
-					<string>146.IBPluginDependency</string>
-					<string>147.IBPluginDependency</string>
 					<string>149.IBEditorWindowLastContentRect</string>
 					<string>149.IBPluginDependency</string>
 					<string>150.CustomClassName</string>
@@ -743,10 +667,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>NetworkAwareViewController</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

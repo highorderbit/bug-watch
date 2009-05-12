@@ -11,8 +11,7 @@ enum ProjectTab
     kHome,
     kTickets,
     kMilestones,
-    kMessages,
-    kPages
+    kMessages
 };
 
 @implementation ProjectHomeViewController
@@ -38,7 +37,7 @@ enum ProjectTab
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -84,13 +83,6 @@ enum ProjectTab
             [cell
                 setHighlightedImage:
                 [UIImage imageNamed:@"ThumbtackSelected.png"]];
-            break;
-        case kPages:
-            [cell setLabelText:@"Pages"];
-            [cell setImage:[UIImage imageNamed:@"Pages.png"]];
-            [cell
-                setHighlightedImage:
-                [UIImage imageNamed:@"PagesSelected.png"]];
             break;
     }
 

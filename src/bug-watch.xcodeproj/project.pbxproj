@@ -132,7 +132,6 @@
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
-		919C99720FA2655F002CF095 /* Pages.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C99710FA2655F002CF095 /* Pages.png */; };
 		91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */; };
 		91A85B180FAF6F350084FBE1 /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */; };
 		91A85B950FAF77BD0084FBE1 /* ItemSelectionTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85B930FAF77BD0084FBE1 /* ItemSelectionTableView.xib */; };
@@ -359,7 +358,6 @@
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
-		919C99710FA2655F002CF095 /* Pages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pages.png; sourceTree = "<group>"; };
 		91A85AB30FAF59A30084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AddCommentView.xib; sourceTree = "<group>"; };
 		91A85B160FAF6F350084FBE1 /* AddCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddCommentViewController.h; path = tickets/AddCommentViewController.h; sourceTree = "<group>"; };
 		91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddCommentViewController.m; path = tickets/AddCommentViewController.m; sourceTree = "<group>"; };
@@ -843,7 +841,6 @@
 				91E1FC850FACBBBE00E86DDE /* TextField.png */,
 				91CC24260FAC15F40023AB06 /* TicketDetailsGradient.png */,
 				05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */,
-				919C99710FA2655F002CF095 /* Pages.png */,
 				919C996B0FA25E55002CF095 /* Thumbtack.png */,
 				919C995E0FA25965002CF095 /* Projects.png */,
 				91D680880F98E4060040A310 /* Calendar.png */,
@@ -945,7 +942,6 @@
 				91D680890F98E4060040A310 /* Calendar.png in Resources */,
 				919C995F0FA25965002CF095 /* Projects.png in Resources */,
 				919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */,
-				919C99720FA2655F002CF095 /* Pages.png in Resources */,
 				9100C0650FA8BF5B003C2ECF /* MainWindow.xib in Resources */,
 				05E636BE0FA8C11C00F736A5 /* NewsFeedView.xib in Resources */,
 				9100C0840FA8C08F003C2ECF /* TicketsView.xib in Resources */,
