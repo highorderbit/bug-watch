@@ -128,6 +128,8 @@
 		918885C30FB8B981009F5861 /* ResponseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918885C20FB8B981009F5861 /* ResponseTableViewCell.m */; };
 		918886030FB8D9F9009F5861 /* MessageResponseCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 918886020FB8D9F9009F5861 /* MessageResponseCache.m */; };
 		918886CF0FB91D11009F5861 /* TicketCommentCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 918886CE0FB91D11009F5861 /* TicketCommentCache.m */; };
+		9188871A0FB9E6E1009F5861 /* PListUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 918887190FB9E6E1009F5861 /* PListUtils.m */; };
+		918887240FB9E730009F5861 /* TicketPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 918887230FB9E730009F5861 /* TicketPersistenceStore.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
@@ -353,6 +355,11 @@
 		918886020FB8D9F9009F5861 /* MessageResponseCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageResponseCache.m; path = messages/MessageResponseCache.m; sourceTree = "<group>"; };
 		918886CD0FB91D11009F5861 /* TicketCommentCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketCommentCache.h; path = tickets/TicketCommentCache.h; sourceTree = "<group>"; };
 		918886CE0FB91D11009F5861 /* TicketCommentCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketCommentCache.m; path = tickets/TicketCommentCache.m; sourceTree = "<group>"; };
+		918887170FB9E6E1009F5861 /* PersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistenceStore.h; sourceTree = "<group>"; };
+		918887180FB9E6E1009F5861 /* PListUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListUtils.h; sourceTree = "<group>"; };
+		918887190FB9E6E1009F5861 /* PListUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListUtils.m; sourceTree = "<group>"; };
+		918887220FB9E730009F5861 /* TicketPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketPersistenceStore.h; path = tickets/TicketPersistenceStore.h; sourceTree = "<group>"; };
+		918887230FB9E730009F5861 /* TicketPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketPersistenceStore.m; path = tickets/TicketPersistenceStore.m; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -641,6 +648,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				918887160FB9E6E1009F5861 /* persistence */,
 				05C870670FA77EDC0069BC72 /* app-controller */,
 				05E636C00FA8C17D00F736A5 /* news-feed */,
 				9100C09E0FA8C87D003C2ECF /* tickets */,
@@ -780,6 +788,8 @@
 				918883F40FB749D3009F5861 /* TicketSearchMgrDelegate.h */,
 				918886CD0FB91D11009F5861 /* TicketCommentCache.h */,
 				918886CE0FB91D11009F5861 /* TicketCommentCache.m */,
+				918887220FB9E730009F5861 /* TicketPersistenceStore.h */,
+				918887230FB9E730009F5861 /* TicketPersistenceStore.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -855,6 +865,16 @@
 				0552172D0FACB75800626049 /* DropShadow.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		918887160FB9E6E1009F5861 /* persistence */ = {
+			isa = PBXGroup;
+			children = (
+				918887170FB9E6E1009F5861 /* PersistenceStore.h */,
+				918887180FB9E6E1009F5861 /* PListUtils.h */,
+				918887190FB9E6E1009F5861 /* PListUtils.m */,
+			);
+			path = persistence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1104,6 +1124,8 @@
 				05F0F2870FB8D8DC00963F6E /* NSArray+IterationAdditions.m in Sources */,
 				918886030FB8D9F9009F5861 /* MessageResponseCache.m in Sources */,
 				918886CF0FB91D11009F5861 /* TicketCommentCache.m in Sources */,
+				9188871A0FB9E6E1009F5861 /* PListUtils.m in Sources */,
+				918887240FB9E730009F5861 /* TicketPersistenceStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
