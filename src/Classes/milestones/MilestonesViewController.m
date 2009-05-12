@@ -21,6 +21,7 @@ enum Sections
 - (NSArray *)extractCompletedMilestones:(NSArray *)milestones;
 
 - (NSInteger)effectiveSectionForSection:(NSInteger)section;
+- (Milestone *)milestoneAtIndexPath:(NSIndexPath *)indexPath;
 
 @property (nonatomic, copy) NSArray * openMilestones;
 @property (nonatomic, copy) NSArray * completedMilestones;
@@ -110,14 +111,7 @@ enum Sections
     if (cell == nil)
         cell = [MilestonesTableViewCell createCustomInstance];
 
-    NSInteger effectiveSection =
-        [self effectiveSectionForSection:indexPath.section];
-    NSArray * milestones =
-        effectiveSection == kOpenMilestonesSection ?
-        openMilestones :
-        completedMilestones;
-
-    cell.milestone = [milestones objectAtIndex:indexPath.row];
+    cell.milestone = [self milestoneAtIndexPath:indexPath];
 
     return cell;
 }
@@ -126,7 +120,7 @@ enum Sections
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [delegate userDidSelectMilestone:
-        [[self milestones] objectAtIndex:indexPath.row]];
+        [self milestoneAtIndexPath:indexPath]];
 }
 
 - (NSArray *)milestones
@@ -164,6 +158,18 @@ enum Sections
         return section + 1;
 
     return section;
+}
+
+- (Milestone *)milestoneAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger effectiveSection =
+        [self effectiveSectionForSection:indexPath.section];
+    NSArray * milestones =
+        effectiveSection == kOpenMilestonesSection ?
+        openMilestones :
+        completedMilestones;
+
+    return [milestones objectAtIndex:indexPath.row];
 }
 
 @end
