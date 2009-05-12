@@ -2,15 +2,15 @@
 //  Copyright High Order Bit, Inc. 2009. All rights reserved.
 //
 
-#import "TicketNumber.h"
+#import "LighthouseApiNumber.h"
 
-@implementation TicketNumber
+@implementation LighthouseApiNumber
 
-@synthesize ticketNumber;
+@synthesize number;
 
 - (void)dealloc
 {
-    [ticketNumber release];
+    [number release];
     [super dealloc];
 }
 

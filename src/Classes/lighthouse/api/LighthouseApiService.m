@@ -5,7 +5,7 @@
 #import "LighthouseApiService.h"
 #import "LighthouseApi.h"
 #import "LighthouseApiParser.h"
-#import "TicketNumber.h"
+#import "LighthouseApiNumber.h"
 
 @interface LighthouseApiService ()
 
@@ -151,21 +151,22 @@
 
 - (NSArray *)parseTicketNumbers:(NSData *)xml
 {
-    parser.className = @"TicketNumber";
+    parser.className = @"LighthouseApiNumber";
     parser.classElementType = @"ticket";
     parser.classElementCollection = @"tickets";
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
-            @"ticketNumber", @"number",
+            @"number", @"number",
             nil];
 
     NSArray * parsedNumbers = [parser parse:xml];
+
     NSMutableArray * numbers =
         [NSMutableArray arrayWithCapacity:parsedNumbers.count];
 
     // extract NSNumbers
-    for (TicketNumber * n in parsedNumbers)
-        [numbers addObject:n.ticketNumber];
+    for (LighthouseApiNumber * n in parsedNumbers)
+        [numbers addObject:n.number];
 
     return numbers;
 }
