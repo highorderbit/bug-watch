@@ -17,7 +17,7 @@
 - (NSArray *)parseTicketNumbers:(NSData *)xml;
 - (NSArray *)parseMilestoneIds:(NSData *)xml;
 - (NSArray *)parseUserIds:(NSData *)xml;
-- (NSArray *)parseAssignedToIds:(NSData *)xml;
+- (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
 
 @end
@@ -72,15 +72,15 @@
     NSArray * metadata = [self parseTicketMetaData:data];
     NSArray * milestoneIds = [self parseMilestoneIds:data];
     NSArray * userIds = [self parseUserIds:data];
-    NSArray * assignedToIds = [self parseAssignedToIds:data];
+    NSArray * creatorIds = [self parseCreatorIds:data];
 
     SEL sel =
         @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
-             milestoneIds:userIds:assignedToIds:);
+             milestoneIds:userIds:creatorIds:);
     if ([delegate respondsToSelector:sel])
         [delegate tickets:tickets fetchedForAllProjectsWithMetadata:metadata
             ticketNumbers:ticketNumbers milestoneIds:milestoneIds
-            userIds:userIds assignedToIds:assignedToIds];
+            userIds:userIds creatorIds:creatorIds];
 }
 
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
@@ -192,14 +192,14 @@
     return [parser parse:xml];
 }
 
-- (NSArray *)parseAssignedToIds:(NSData *)xml
+- (NSArray *)parseCreatorIds:(NSData *)xml
 {
     parser.className = @"NSNumber";
     parser.classElementType = @"ticket";
     parser.classElementCollection = @"tickets";
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"assigned-user-id", nil];
+            @"number", @"creator-id", nil];
 
     return [parser parse:xml];
 }
