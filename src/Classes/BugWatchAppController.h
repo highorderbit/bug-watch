@@ -8,6 +8,7 @@
 #import "ProjectsViewController.h"
 #import "MessageCache.h"
 #import "MessagesViewController.h"
+#import "MessageResponseCache.h"
 
 @class NetworkAwareViewController;
 @class NewsFeedDisplayMgr, MilestoneDisplayMgr;
@@ -23,6 +24,7 @@
 
     TicketCache * ticketCache;
     MessageCache * messageCache;
+    MessageResponseCache * messageResponseCache;
 
     NewsFeedDisplayMgr * newsFeedDisplayMgr;
     MilestoneDisplayMgr * milestoneDisplayMgr;

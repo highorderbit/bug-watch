@@ -14,6 +14,7 @@
     [messages release];
     [postedByDict release];
     [projectDict release];
+    [numResponsesDict release];
     [delegate release];
     [super dealloc];
 }
@@ -55,6 +56,10 @@
     
     NSString * postedByName = [postedByDict objectForKey:messageKey];
     [cell setAuthorName:postedByName];
+    
+    NSUInteger numResponses =
+        [[numResponsesDict objectForKey:messageKey] intValue];
+    [cell setNumResponses:numResponses];
 
     return cell;
 }
@@ -83,6 +88,7 @@
 - (void)setMessages:(NSDictionary *)someMessages
     postedByDict:(NSDictionary *)aPostedByDict
     projectDict:(NSDictionary *)aProjectDict
+    numResponsesDict:(NSDictionary *)aNumResponsesDict
 {
     NSDictionary * tempMessages = [someMessages copy];
     [messages release];
@@ -95,7 +101,11 @@
     NSDictionary * tempProjectDict = [aProjectDict copy];
     [projectDict release];
     projectDict = tempProjectDict;
-    
+
+    NSDictionary * tempNumResponsesDict = [aNumResponsesDict copy];
+    [numResponsesDict release];
+    numResponsesDict = tempNumResponsesDict;
+
     [self.tableView reloadData];
 }
     

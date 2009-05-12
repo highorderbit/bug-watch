@@ -11,13 +11,14 @@
     NSDictionary * messages;
     NSDictionary * postedByDict;
     NSDictionary * projectDict;
-    
+    NSDictionary * numResponsesDict;
     NSObject<MessagesViewControllerDelegate> * delegate;
 }
 
 - (void)setMessages:(NSDictionary *)someMessages
-    postedByDict:(NSDictionary *)postedByDict
-    projectDict:(NSDictionary *)projectDict;
+    postedByDict:(NSDictionary *)aPostedByDict
+    projectDict:(NSDictionary *)aProjectDict
+    numResponsesDict:(NSDictionary *)aNumResponsesDict;
 
 @property (nonatomic, retain)
     NSObject<MessagesViewControllerDelegate> * delegate;

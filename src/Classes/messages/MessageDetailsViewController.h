@@ -15,10 +15,14 @@
     IBOutlet UILabel * projectLabel;
     IBOutlet UILabel * titleLabel;
     IBOutlet UILabel * commentLabel;
+    
+    NSDictionary * responses;
+    NSDictionary * responseAuthors;
 }
 
 - (void)setAuthorName:(NSString *)authorName date:(NSDate *)date
     projectName:(NSString *)projectName title:(NSString *)title
-    comment:(NSString *)comment;
+    comment:(NSString *)comment responses:(NSDictionary *)someResponses
+    responseAuthors:(NSDictionary *)someResponseAuthors;
 
 @end

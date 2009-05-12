@@ -93,7 +93,7 @@
         lineBreakMode:mode];
 
     static const NSUInteger MIN_HEIGHT = 0;
-    NSUInteger height = 67.0 + size.height;
+    NSUInteger height = 50.0 + size.height;
     height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
 
     return height;

@@ -5,6 +5,8 @@
 #import "MessageDetailsViewController.h"
 #import "UILabel+DrawingAdditions.h"
 #import "ResponseTableViewCell.h"
+#import "NSDate+StringHelpers.h"
+#import "MessageResponse.h"
 
 @interface MessageDetailsViewController (Private)
 
@@ -25,6 +27,10 @@
     [projectLabel release];
     [titleLabel release];
     [commentLabel release];
+
+    [responses release];
+    [responseAuthors release];
+
     [super dealloc];
 }
 
@@ -44,7 +50,7 @@
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return [[responses allKeys] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -64,7 +70,14 @@
         cell = [nib objectAtIndex:0];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+
+    id responseKey = [[responses allKeys] objectAtIndex:indexPath.row];
+    MessageResponse * response = [responses objectForKey:responseKey];
+    NSString * author = [responseAuthors objectForKey:responseKey];
+    [cell setDate:response.date];
+    [cell setCommentText:response.text];
+    [cell setAuthorName:author];
+
     return cell;
 }
 
@@ -76,13 +89,17 @@
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section
 {
-    return @"Responses";
+    return [[responses allKeys] count] > 0 ? @"Responses" : nil;
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 124;
+    id responseKey = [[responses allKeys] objectAtIndex:indexPath.row];
+    MessageResponse * response = [responses objectForKey:responseKey];
+    NSString * comment = response.text;
+
+    return [ResponseTableViewCell heightForContent:comment];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView
@@ -95,8 +112,23 @@
 
 - (void)setAuthorName:(NSString *)authorName date:(NSDate *)date
     projectName:(NSString *)projectName title:(NSString *)title
-    comment:(NSString *)comment
+    comment:(NSString *)comment responses:(NSDictionary *)someResponses
+    responseAuthors:(NSDictionary *)someResponseAuthors
 {
+    authorLabel.text = authorName;
+    dateLabel.text = [date shortDescription];
+    projectLabel.text = projectName;
+    titleLabel.text = title;
+    commentLabel.text = comment;
+
+    [someResponses retain];
+    [responses release];
+    responses = someResponses;
+
+    [someResponseAuthors retain];
+    [responseAuthors release];
+    responseAuthors = someResponseAuthors;
+
     [self layoutView];
     [self.tableView reloadData];
 }

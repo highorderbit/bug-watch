@@ -19,7 +19,7 @@
 - (void)setProjectName:(NSString *)projectName;
 - (void)setTitleText:(NSString *)text;
 - (void)setCommentText:(NSString *)text;
-- (void)setNumResponses:(NSUInteger *)numResponses;
+- (void)setNumResponses:(NSUInteger)numResponses;
 
 + (CGFloat)heightForTitle:(NSString *)title comment:(NSString *)comment;
 
