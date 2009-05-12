@@ -3,81 +3,51 @@
 //
 
 #import "MilestoneViewController.h"
+#import "Milestone.h"
+#import "MilestoneProgressView.h"
+#import "NSDate+StringHelpers.h"
+
+@interface MilestoneViewController ()
+
+- (void)updateDisplay;
+
+@end
 
 @implementation MilestoneViewController
 
+@synthesize milestone;
+
 - (void)dealloc
 {
+    [headerView release];
+
+    [nameLabel release];
+    [dueDateLabel release];
+
+    [numOpenTicketsView release];
+    [numOpenTicketsLabel release];
+    [numOpenTicketsTitleLabel release];
+    [numOpenTicketsViewBackgroundColor release];
+
+    [progressView release];
+
+    [milestone release];
+
     [super dealloc];
 }
 
-/*
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    // Override initWithStyle: if you create the controller programmatically and
-    // want to perform customization that is not appropriate for viewDidLoad.
-    if (self = [super initWithStyle:style]) {
-    }
-
-    return self;
-}
-*/
-
-/*
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to display an Edit button in the navigation
-    // bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.tableHeaderView = headerView;
 }
-*/
 
-/*
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-}
-*/
 
-/*
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-*/
-
-/*
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-*/
-
-/*
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
-*/
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:
-    (UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];  // Releases the view if it doesn't have a
-                                      // superview
-
-    // Release anything that's not essential, such as cached data
+    [self updateDisplay];
 }
 
 #pragma mark Table view methods
@@ -94,6 +64,12 @@
     return 0;
 }
 
+- (NSString *)tableView:(UITableView *)tableView
+    titleForHeaderInSection:(NSInteger)section
+{
+    return NSLocalizedString(@"milestone.tickets.section.title", @"");
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tv
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -103,14 +79,11 @@
     UITableViewCell * cell =
         [tv dequeueReusableCellWithIdentifier:CellIdentifier];
 
-    if (cell == nil) {
+    if (cell == nil)
         cell =
             [[[UITableViewCell alloc]
               initWithFrame:CGRectZero reuseIdentifier:CellIdentifier]
              autorelease];
-    }
-
-    // Set up the cell...
 
     return cell;
 }
@@ -124,6 +97,47 @@
     //      initWithNibName:@"AnotherView" bundle:nil];
     // [self.navigationController pushViewController:anotherViewController];
     // [anotherViewController release];
+}
+
+- (void)updateDisplay
+{
+    nameLabel.text = milestone.name;
+    if (milestone.dueDate)
+        dueDateLabel.text =
+            [NSString stringWithFormat:
+            NSLocalizedString(@"milestones.due.future.formatstring", @""),
+            [milestone.dueDate shortDateDescription]];
+    else
+        dueDateLabel.text =
+            NSLocalizedString(@"milestones.due.never.formatstring", @"");
+
+    numOpenTicketsLabel.text =
+        [NSString stringWithFormat:@"%u", milestone.numOpenTickets];
+    numOpenTicketsTitleLabel.text =
+        milestone.numOpenTickets == 1 ?
+        NSLocalizedString(@"milestones.tickets.open.count.label.singular",
+        @"") :
+        NSLocalizedString(@"milestones.tickets.open.count.label.plural", @"");
+
+    if (milestone.numTickets == 0)
+        progressView.progress = 0.0;
+    else
+        progressView.progress =
+            ((float) milestone.numTickets - milestone.numOpenTickets) /
+            (float) milestone.numTickets;
+
+    [self.tableView reloadData];
+}
+
+#pragma mark Accessors
+
+- (void)setMilestone:(Milestone *)aMilestone
+{
+    Milestone * tmp = [aMilestone copy];
+    [milestone release];
+    milestone = tmp;
+
+    [self updateDisplay];
 }
 
 @end

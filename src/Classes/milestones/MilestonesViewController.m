@@ -6,6 +6,7 @@
 #import "MilestonesTableViewCell.h"
 #import "Milestone.h"
 #import "NSArray+IterationAdditions.h"
+#import "UITableViewCell+InstantiationAdditions.h"
 
 static const NSInteger NUM_SECTIONS = 2;
 enum Sections

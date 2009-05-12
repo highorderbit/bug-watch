@@ -92,6 +92,7 @@
     NSLog(@"User selected milestone: '%@'.", milestone);
 
     [self milestoneViewController].navigationItem.title = milestone.name;
+    [self milestoneViewController].milestone = milestone;
     [navigationController
         pushViewController:[self milestoneViewController] animated:YES];
 }
