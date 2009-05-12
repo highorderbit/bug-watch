@@ -39,6 +39,8 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     // cache the num tickets view's background color set in the nib
     numOpenTicketsViewBackgroundColor =
         [numOpenTicketsView.backgroundColor retain];
@@ -111,10 +113,7 @@
 
     progressView.outlineColor = [UIColor blackColor];
 
-    BOOL late =
-        milestone.dueDate &&
-        [milestone.dueDate compare:[NSDate date]] == NSOrderedAscending;
-    if (late) {
+    if ([milestone isLate]) {
         dueDateLabel.textColor = [UIColor lateMilestoneProgressColor];
         progressView.progressColor = [UIColor lateMilestoneProgressColor];
     } else {

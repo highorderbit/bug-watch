@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ticket>
+  <assigned-user-id type="integer">50209</assigned-user-id>
+  <attachments-count type="integer">0</attachments-count>
+  <closed type="boolean">true</closed>
+  <created-at type="datetime">2009-04-22T10:05:25-06:00</created-at>
+  <creator-id type="integer">50190</creator-id>
+  <milestone-due-on type="datetime">2009-04-23T00:00:00-06:00</milestone-due-on>
+  <milestone-id type="integer">37670</milestone-id>
+  <number type="integer">205</number>
+  <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+  <priority type="integer">1</priority>
+  <project-id type="integer">27400</project-id>
+  <state>resolved</state>
+  <tag>bug</tag>
+  <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+  <updated-at type="datetime">2009-05-01T18:19:55-06:00</updated-at>
+  <user-id type="integer">50190</user-id>
+  <user-name>Doug Kurth</user-name>
+  <creator-name>Doug Kurth</creator-name>
+  <assigned-user-name>John A. Debay</assigned-user-name>
+  <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+  <milestone-title>1.1.0</milestone-title>
+  <versions type="array">
+    <version type="Ticket::Version">
+      <assigned-user-id type="integer" nil="true"></assigned-user-id>
+      <attachments-count type="integer">0</attachments-count>
+      <body>The &quot;Next&quot; button is enabled even when a username hasn't been supplied.  Should it be?  Is it important?  The &quot;Done&quot; button sends the request when both fields are blank and the second field is selected even though &quot;Add&quot; is disabled.
+
+One difference between the repo favorites add view and the log in view is that the log in view sends the request while the repo view just hides the keyboard in the above scenario.  Not sure which is better or what the solution should be yet.</body>
+      <body-html>&lt;div&gt;&lt;p&gt;The &quot;Next&quot; button is enabled even when a username hasn't been
+supplied. Should it be? Is it important? The &quot;Done&quot; button sends
+the request when both fields are blank and the second field is
+selected even though &quot;Add&quot; is disabled.&lt;/p&gt;
+&lt;p&gt;One difference between the repo favorites add view and the log
+in view is that the log in view sends the request while the repo
+view just hides the keyboard in the above scenario. Not sure which
+is better or what the solution should be yet.&lt;/p&gt;&lt;/div&gt;</body-html>
+      <closed type="boolean">false</closed>
+      <created-at type="datetime">2009-04-22T10:05:25-06:00</created-at>
+      <creator-id type="integer">50190</creator-id>
+      <diffable-attributes type="yaml">--- {}
+
+</diffable-attributes>
+      <milestone-id type="integer">37670</milestone-id>
+      <number type="integer">205</number>
+      <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+      <project-id type="integer">27400</project-id>
+      <state>new</state>
+      <tag nil="true"></tag>
+      <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+      <updated-at type="datetime">2009-04-22T10:05:30-06:00</updated-at>
+      <user-id type="integer">50190</user-id>
+      <user-name>Doug Kurth</user-name>
+      <creator-name>Doug Kurth</creator-name>
+      <assigned-user-name nil="true"></assigned-user-name>
+      <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+      <milestone-title>1.1.0</milestone-title>
+    </version>
+    <version type="Ticket::Version">
+      <assigned-user-id type="integer" nil="true"></assigned-user-id>
+      <attachments-count type="integer">0</attachments-count>
+      <body></body>
+      <body-html></body-html>
+      <closed type="boolean">false</closed>
+      <created-at type="datetime">2009-04-22T10:48:03-06:00</created-at>
+      <creator-id type="integer">50190</creator-id>
+      <diffable-attributes type="yaml">--- 
+:tag: 
+</diffable-attributes>
+      <milestone-id type="integer">37670</milestone-id>
+      <number type="integer">205</number>
+      <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+      <project-id type="integer">27400</project-id>
+      <state>new</state>
+      <tag>bug</tag>
+      <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+      <updated-at type="datetime">2009-04-22T10:48:08-06:00</updated-at>
+      <user-id type="integer">50190</user-id>
+      <user-name>Doug Kurth</user-name>
+      <creator-name>Doug Kurth</creator-name>
+      <assigned-user-name nil="true"></assigned-user-name>
+      <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+      <milestone-title>1.1.0</milestone-title>
+    </version>
+    <version type="Ticket::Version">
+      <assigned-user-id type="integer">50209</assigned-user-id>
+      <attachments-count type="integer">0</attachments-count>
+      <body></body>
+      <body-html></body-html>
+      <closed type="boolean">false</closed>
+      <created-at type="datetime">2009-04-22T11:04:40-06:00</created-at>
+      <creator-id type="integer">50190</creator-id>
+      <diffable-attributes type="yaml">--- 
+:assigned_user: 
+</diffable-attributes>
+      <milestone-id type="integer">37670</milestone-id>
+      <number type="integer">205</number>
+      <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+      <project-id type="integer">27400</project-id>
+      <state>new</state>
+      <tag>bug</tag>
+      <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+      <updated-at type="datetime">2009-04-22T11:04:42-06:00</updated-at>
+      <user-id type="integer">50209</user-id>
+      <user-name>John A. Debay</user-name>
+      <creator-name>Doug Kurth</creator-name>
+      <assigned-user-name>John A. Debay</assigned-user-name>
+      <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+      <milestone-title>1.1.0</milestone-title>
+    </version>
+    <version type="Ticket::Version">
+      <assigned-user-id type="integer">50209</assigned-user-id>
+      <attachments-count type="integer">0</attachments-count>
+      <body>I'll at least modify the log in view's keyboard to do nothing if nothing is supplied.</body>
+      <body-html>&lt;div&gt;&lt;p&gt;I'll at least modify the log in view's keyboard to do nothing if
+nothing is supplied.&lt;/p&gt;&lt;/div&gt;</body-html>
+      <closed type="boolean">false</closed>
+      <created-at type="datetime">2009-04-22T11:05:03-06:00</created-at>
+      <creator-id type="integer">50190</creator-id>
+      <diffable-attributes type="yaml">--- {}
+
+</diffable-attributes>
+      <milestone-id type="integer">37670</milestone-id>
+      <number type="integer">205</number>
+      <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+      <project-id type="integer">27400</project-id>
+      <state>new</state>
+      <tag>bug</tag>
+      <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+      <updated-at type="datetime">2009-04-22T11:05:04-06:00</updated-at>
+      <user-id type="integer">50209</user-id>
+      <user-name>John A. Debay</user-name>
+      <creator-name>Doug Kurth</creator-name>
+      <assigned-user-name>John A. Debay</assigned-user-name>
+      <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+      <milestone-title>1.1.0</milestone-title>
+    </version>
+    <version type="Ticket::Version">
+      <assigned-user-id type="integer">50209</assigned-user-id>
+      <attachments-count type="integer">0</attachments-count>
+      <body>Changed the log in view and the repo view to behave the same way: if valid input has not been provided, hitting the return key on the second text field does nothing.</body>
+      <body-html>&lt;div&gt;&lt;p&gt;Changed the log in view and the repo view to behave the same
+way: if valid input has not been provided, hitting the return key
+on the second text field does nothing.&lt;/p&gt;&lt;/div&gt;</body-html>
+      <closed type="boolean">true</closed>
+      <created-at type="datetime">2009-04-22T11:11:55-06:00</created-at>
+      <creator-id type="integer">50190</creator-id>
+      <diffable-attributes type="yaml">--- 
+:state: new
+</diffable-attributes>
+      <milestone-id type="integer">37670</milestone-id>
+      <number type="integer">205</number>
+      <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+      <project-id type="integer">27400</project-id>
+      <state>resolved</state>
+      <tag>bug</tag>
+      <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+      <updated-at type="datetime">2009-04-22T11:11:59-06:00</updated-at>
+      <user-id type="integer">50209</user-id>
+      <user-name>John A. Debay</user-name>
+      <creator-name>Doug Kurth</creator-name>
+      <assigned-user-name>John A. Debay</assigned-user-name>
+      <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+      <milestone-title>1.1.0</milestone-title>
+    </version>
+    <version type="Ticket::Version">
+      <assigned-user-id type="integer">50209</assigned-user-id>
+      <attachments-count type="integer">0</attachments-count>
+      <body></body>
+      <body-html></body-html>
+      <closed type="boolean">false</closed>
+      <created-at type="datetime">2009-04-29T19:13:32-06:00</created-at>
+      <creator-id type="integer">50190</creator-id>
+      <diffable-attributes type="yaml">--- 
+:state: resolved
+</diffable-attributes>
+      <milestone-id type="integer">37670</milestone-id>
+      <number type="integer">205</number>
+      <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+      <project-id type="integer">27400</project-id>
+      <state>new</state>
+      <tag>bug</tag>
+      <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+      <updated-at type="datetime">2009-04-29T19:13:34-06:00</updated-at>
+      <user-id type="integer">50190</user-id>
+      <user-name>Doug Kurth</user-name>
+      <creator-name>Doug Kurth</creator-name>
+      <assigned-user-name>John A. Debay</assigned-user-name>
+      <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+      <milestone-title>1.1.0</milestone-title>
+    </version>
+    <version type="Ticket::Version">
+      <assigned-user-id type="integer">50209</assigned-user-id>
+      <attachments-count type="integer">0</attachments-count>
+      <body></body>
+      <body-html></body-html>
+      <closed type="boolean">true</closed>
+      <created-at type="datetime">2009-04-29T19:13:55-06:00</created-at>
+      <creator-id type="integer">50190</creator-id>
+      <diffable-attributes type="yaml">--- 
+:state: new
+</diffable-attributes>
+      <milestone-id type="integer">37670</milestone-id>
+      <number type="integer">205</number>
+      <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+      <project-id type="integer">27400</project-id>
+      <state>resolved</state>
+      <tag>bug</tag>
+      <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+      <updated-at type="datetime">2009-04-29T19:13:56-06:00</updated-at>
+      <user-id type="integer">50190</user-id>
+      <user-name>Doug Kurth</user-name>
+      <creator-name>Doug Kurth</creator-name>
+      <assigned-user-name>John A. Debay</assigned-user-name>
+      <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+      <milestone-title>1.1.0</milestone-title>
+    </version>
+    <version type="Ticket::Version">
+      <assigned-user-id type="integer">50209</assigned-user-id>
+      <attachments-count type="integer">0</attachments-count>
+      <body>Sample comment</body>
+      <body-html>&lt;div&gt;&lt;p&gt;Sample comment&lt;/p&gt;&lt;/div&gt;</body-html>
+      <closed type="boolean">true</closed>
+      <created-at type="datetime">2009-05-01T18:19:52-06:00</created-at>
+      <creator-id type="integer">50190</creator-id>
+      <diffable-attributes type="yaml">--- {}
+
+</diffable-attributes>
+      <milestone-id type="integer">37670</milestone-id>
+      <number type="integer">205</number>
+      <permalink>keypad-done-button-incorrectly-enabled-on-log-in-and-favorites</permalink>
+      <project-id type="integer">27400</project-id>
+      <state>resolved</state>
+      <tag>bug</tag>
+      <title>Keypad &quot;done&quot; button incorrectly enabled on log in and favorites</title>
+      <updated-at type="datetime">2009-05-01T18:19:55-06:00</updated-at>
+      <user-id type="integer">50190</user-id>
+      <user-name>Doug Kurth</user-name>
+      <creator-name>Doug Kurth</creator-name>
+      <assigned-user-name>John A. Debay</assigned-user-name>
+      <url>http://highorderbit.lighthouseapp.com/projects/27400/tickets/205</url>
+      <milestone-title>1.1.0</milestone-title>
+    </version>
+  </versions>
+</ticket>

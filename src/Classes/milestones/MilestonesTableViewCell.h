@@ -3,7 +3,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UITableViewCell+InstantiationAdditions.h"
 
 @class Milestone;
 @class RoundedRectView;

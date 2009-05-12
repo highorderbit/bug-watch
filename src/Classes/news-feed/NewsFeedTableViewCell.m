@@ -67,8 +67,9 @@
     [pubDateLabel sizeToFit:UILabelSizeToFitAlignmentRight];
 
     authorLabel.text = newsFeedItem.author;
-    [authorLabel
-        sizeToFitWithinWidth:220.0 - pubDateLabel.frame.size.width - 5.0];
+    CGRect authorLabelFrame = authorLabel.frame;
+    authorLabelFrame.size.width = 220.0 - pubDateLabel.frame.size.width - 5.0;
+    authorLabel.frame = authorLabelFrame;
 
     NSString * body = newsFeedItem.title;
 

@@ -14,6 +14,6 @@ typedef enum UILabelSizeToFitAlignment {
 - (CGFloat)heightForString:(NSString *)s;
 
 - (void)sizeToFit:(UILabelSizeToFitAlignment)alignment;
-- (void)sizeToFitWithinWidth:(CGFloat)maxWidth;
+- (CGFloat)sizeVerticallyToFit;
 
 @end

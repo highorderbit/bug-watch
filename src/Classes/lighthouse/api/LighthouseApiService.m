@@ -181,6 +181,7 @@
             @"dueDate", @"due-on",
             @"numOpenTickets", @"open-tickets-count",
             @"numTickets", @"tickets-count",
+            @"goals", @"goals",
             nil];
 
     return [parser parse:xml];

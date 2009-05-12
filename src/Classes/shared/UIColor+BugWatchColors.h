@@ -26,6 +26,7 @@
 + (UIColor *)changesetEntityColor;
 + (UIColor *)messageEntityColor;
 + (UIColor *)pageEntityColor;
++ (UIColor *)replyEntityColor;
 + (UIColor *)unknownEntityColor;
 
 + (UIColor *)colorForEntity:(NSString *)entity;

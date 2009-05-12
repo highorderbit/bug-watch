@@ -37,11 +37,17 @@
     }
 }
 
-- (void)sizeToFitWithinWidth:(CGFloat)maxWidth
+- (CGFloat)sizeVerticallyToFit
 {
+    CGFloat height = [self heightForString:self.text];
     CGRect frame = self.frame;
-    frame.size.width = maxWidth;
+    CGFloat oldHeight = frame.size.height;
+
+    frame.size.height = height;
+
     self.frame = frame;
+
+    return height - oldHeight;
 }
 
 @end

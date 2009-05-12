@@ -50,9 +50,24 @@
 
         milestoneDataSource = [dataSource retain];
         milestoneDataSource.delegate = self;
+
+        UIBarButtonItem * refreshButton =
+            [[UIBarButtonItem alloc]
+            initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+            target:self
+            action:@selector(userDidRequestRefresh)];
+        networkAwareViewController.navigationItem.rightBarButtonItem =
+            refreshButton;
+        [refreshButton release];
     }
 
     return self;
+}
+
+- (void)userDidRequestRefresh
+{
+    [milestoneDataSource refreshMilestones];
+    [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
 }
 
 #pragma mark NetworkAwareViewControllerDelegate implementation
@@ -77,6 +92,7 @@
     NSLog(@"User selected milestone: '%@'.", milestone);
 
     [self milestoneViewController].navigationItem.title = milestone.name;
+    [self milestoneViewController].milestone = milestone;
     [navigationController
         pushViewController:[self milestoneViewController] animated:YES];
 }
