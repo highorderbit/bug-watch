@@ -116,7 +116,7 @@
     NSString * key = [attributeMappings objectForKey:path];
     if (key) {
         id val = [self convert:value toType:self.elementType];
-        [obj setValue:val forKey:key];
+        [object setValue:val forKey:key];
     }
 }
 
