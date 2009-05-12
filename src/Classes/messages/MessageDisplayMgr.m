@@ -9,6 +9,7 @@
 - (void)dealloc
 {
     [messageCache release];
+    [responseCache release];
     [messagesViewController release];
     [wrapperController release];
 
@@ -17,17 +18,20 @@
 
     // TEMPORARY
     [userDict release];
+    [projectDict release];
     // TEMPORARY
     
     [super dealloc];
 }
 
 - (id)initWithMessageCache:(MessageCache *)aMessageCache
+    messageResponseCache:(MessageResponseCache *)aMessageResponseCache
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
     messagesViewController:(MessagesViewController *)aMessagesViewController
 {
     if (self = [super init]) {
         messageCache = [aMessageCache retain];
+        responseCache = [aMessageResponseCache retain];
         wrapperController = [aWrapperController retain];
         messagesViewController = [aMessagesViewController retain];
         
@@ -36,6 +40,10 @@
         userDict = [[NSMutableDictionary dictionary] retain];
         [userDict setObject:@"Doug Kurth" forKey:[NSNumber numberWithInt:0]];
         [userDict setObject:@"John A. Debay" forKey:[NSNumber numberWithInt:1]];
+        
+        projectDict = [[NSMutableDictionary dictionary] retain];
+        [projectDict setObject:@"Code Watch" forKey:[NSNumber numberWithInt:0]];
+        [projectDict setObject:@"Bug Watch" forKey:[NSNumber numberWithInt:1]];
         // TEMPORARY
     }
 
@@ -58,11 +66,20 @@
         NSString * postedByName = [userDict objectForKey:postedByKey];
         [postedByDict setObject:postedByName forKey:key];
     }
+
+    NSMutableDictionary * msgProjectDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary * numResponsesDict = [NSMutableDictionary dictionary];
     
-    NSMutableDictionary * projectDict = [NSMutableDictionary dictionary];
+    NSArray * allMessageKeys = [[messageCache allMessages] allKeys];
+    for (id key in allMessageKeys) {
+        NSUInteger respCount = [[messageCache responseKeysForKey:key] count];
+        NSNumber * respCountAsNum = [NSNumber numberWithInt:respCount];
+        [numResponsesDict setObject:respCountAsNum forKey:key];
+    }
 
     [messagesViewController setMessages:[messageCache allMessages]
-        postedByDict:postedByDict projectDict:projectDict];
+        postedByDict:postedByDict projectDict:msgProjectDict
+        numResponsesDict:numResponsesDict];
 }
 
 - (void)selectedMessageKey:(id)key
@@ -71,8 +88,25 @@
     [self.navController
         pushViewController:self.detailsViewController animated:YES];
 
-    [self.detailsViewController setAuthorName:nil date:nil projectName:nil
-        title:nil comment:nil];
+    Message * message = [messageCache messageForKey:key];
+    NSString * postedBy =
+        [userDict objectForKey:[messageCache postedByKeyForKey:key]];
+    NSString * project =
+        [projectDict objectForKey:[messageCache projectKeyForKey:key]];
+    NSArray * responseKeys = [messageCache responseKeysForKey:key];
+    NSMutableDictionary * responses = [NSMutableDictionary dictionary];
+    NSMutableDictionary * responseAuthors = [NSMutableDictionary dictionary];
+    for (id key in responseKeys) {
+        MessageResponse * response = [responseCache responseForKey:key];
+        [responses setObject:response forKey:key];
+        id authorKey = [responseCache authorKeyForKey:key];
+        NSString * authorName = [userDict objectForKey:authorKey];
+        [responseAuthors setObject:authorName forKey:key];
+    }
+
+    [self.detailsViewController setAuthorName:postedBy date:message.postedDate
+        projectName:project title:message.title comment:message.message
+        responses:responses responseAuthors:responseAuthors];
 }
 
 #pragma mark NetworkAwareViewControllerDelegate

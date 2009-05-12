@@ -39,7 +39,7 @@
 {
     [super setSelected:selected animated:animated];
     
-    if (selected) {
+    if (selected && self.selectionStyle != UITableViewCellSelectionStyleNone) {
         authorLabel.textColor = [UIColor whiteColor];
         dateLabel.textColor = [UIColor whiteColor];
         stateChangeLabel.textColor = [UIColor whiteColor];
@@ -92,7 +92,7 @@
 
 + (CGFloat)heightForContent:(NSString *)comment
 {
-    CGSize maxSize = CGSizeMake(283, 72.0);
+    CGSize maxSize = CGSizeMake(292, 72.0);
     UIFont * font = [UIFont systemFontOfSize:14.0];
     UILineBreakMode mode = UILineBreakModeWordWrap;
 

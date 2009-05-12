@@ -106,10 +106,12 @@
     commentLabel.text = text;
 }
 
-- (void)setNumResponses:(NSUInteger *)numResponses
-{
+- (void)setNumResponses:(NSUInteger)numResponses
+{   
+    NSString * formatString =
+        numResponses == 1 ? @"%d comment" : @"%d comments";
     numResponsesLabel.text =
-        [NSString stringWithFormat:@"%d comments", numResponses];
+        [NSString stringWithFormat:formatString, numResponses];
 }
 
 + (CGFloat)heightForTitle:(NSString *)title comment:(NSString *)comment

@@ -126,6 +126,7 @@
 		9188852F0FB88249009F5861 /* MessageDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9188852E0FB88249009F5861 /* MessageDetailsViewController.m */; };
 		918885BE0FB8B8DD009F5861 /* ResponseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 918885BC0FB8B8DD009F5861 /* ResponseTableViewCell.xib */; };
 		918885C30FB8B981009F5861 /* ResponseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918885C20FB8B981009F5861 /* ResponseTableViewCell.m */; };
+		918886030FB8D9F9009F5861 /* MessageResponseCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 918886020FB8D9F9009F5861 /* MessageResponseCache.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
@@ -348,6 +349,8 @@
 		918885BD0FB8B8DD009F5861 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ResponseTableViewCell.xib; sourceTree = "<group>"; };
 		918885C10FB8B981009F5861 /* ResponseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResponseTableViewCell.h; path = messages/ResponseTableViewCell.h; sourceTree = "<group>"; };
 		918885C20FB8B981009F5861 /* ResponseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResponseTableViewCell.m; path = messages/ResponseTableViewCell.m; sourceTree = "<group>"; };
+		918886010FB8D9F9009F5861 /* MessageResponseCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageResponseCache.h; path = messages/MessageResponseCache.h; sourceTree = "<group>"; };
+		918886020FB8D9F9009F5861 /* MessageResponseCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageResponseCache.m; path = messages/MessageResponseCache.m; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -818,6 +821,8 @@
 				9188852E0FB88249009F5861 /* MessageDetailsViewController.m */,
 				918885C10FB8B981009F5861 /* ResponseTableViewCell.h */,
 				918885C20FB8B981009F5861 /* ResponseTableViewCell.m */,
+				918886010FB8D9F9009F5861 /* MessageResponseCache.h */,
+				918886020FB8D9F9009F5861 /* MessageResponseCache.m */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -1096,6 +1101,7 @@
 				9188852F0FB88249009F5861 /* MessageDetailsViewController.m in Sources */,
 				918885C30FB8B981009F5861 /* ResponseTableViewCell.m in Sources */,
 				05F0F2870FB8D8DC00963F6E /* NSArray+IterationAdditions.m in Sources */,
+				918886030FB8D9F9009F5861 /* MessageResponseCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

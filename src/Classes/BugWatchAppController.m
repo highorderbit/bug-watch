@@ -19,6 +19,7 @@
 #import "TicketsViewController.h"
 #import "TicketDataSource.h"
 #import "TicketSearchMgr.h"
+#import "MessageResponseCache.h"
 
 @interface BugWatchAppController (Private)
 
@@ -41,6 +42,7 @@
 
     [ticketCache release];
     [messageCache release];
+    [messageResponseCache release];
 
     [newsFeedDisplayMgr release];
     [milestoneDisplayMgr release];
@@ -52,6 +54,7 @@
 {
     ticketCache = [[TicketCache alloc] init];
     messageCache = [[MessageCache alloc] init];
+    messageResponseCache = [[MessageResponseCache alloc] init];
 
     // TEMPORARY: populate ticket cache
     NSString * description1 =
@@ -144,6 +147,35 @@
         forKey:[NSNumber numberWithInt:1]];
     [messageCache setPostedByKey:[NSNumber numberWithInt:1]
         forKey:[NSNumber numberWithInt:0]];
+
+    [messageCache setResponseKeys:[NSArray array]
+        forKey:[NSNumber numberWithInt:0]];
+    NSMutableArray * responseKeys = [NSMutableArray array];
+    [responseKeys addObject:[NSNumber numberWithInt:0]];
+    [responseKeys addObject:[NSNumber numberWithInt:1]];
+    [messageCache setResponseKeys:responseKeys
+        forKey:[NSNumber numberWithInt:0]];
+        
+    [messageCache setProjectKey:[NSNumber numberWithInt:0]
+        forKey:[NSNumber numberWithInt:1]];
+    [messageCache setProjectKey:[NSNumber numberWithInt:1]
+        forKey:[NSNumber numberWithInt:0]];
+
+    MessageResponse * msgResp1 =
+        [[[MessageResponse alloc]
+        initWithText:@"My response 1" date:[NSDate date]] autorelease];
+    MessageResponse * msgResp2 =
+        [[[MessageResponse alloc]
+        initWithText:@"My response 2 My response 2 My response 2 My response 2"
+        date:[NSDate date]] autorelease];
+    [messageResponseCache setResponse:msgResp1
+        forKey:[NSNumber numberWithInt:0]];
+    [messageResponseCache setResponse:msgResp2
+        forKey:[NSNumber numberWithInt:1]];
+    [messageResponseCache setAuthorKey:[NSNumber numberWithInt:0]
+        forKey:[NSNumber numberWithInt:0]];
+    [messageResponseCache setAuthorKey:[NSNumber numberWithInt:1]
+        forKey:[NSNumber numberWithInt:1]];
     // TEMPORARY
 
     [self initTicketsTab];
@@ -239,6 +271,7 @@
 
     MessageDisplayMgr * messageDisplayMgr =
         [[[MessageDisplayMgr alloc] initWithMessageCache:messageCache
+        messageResponseCache:messageResponseCache
         networkAwareViewController:messagesNetAwareViewController
         messagesViewController:messagesViewController] autorelease];
     messagesViewController.delegate = messageDisplayMgr;

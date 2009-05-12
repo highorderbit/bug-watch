@@ -89,6 +89,7 @@
             owner:self options:nil];
 
         cell = [nib objectAtIndex:0];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
     id commentKey = [[comments allKeys] objectAtIndex:indexPath.row];
@@ -116,6 +117,16 @@
 
     return [CommentTableViewCell heightForContent:comment.text];
 }
+
+#pragma mark UITableViewDelegate implementation
+
+- (NSIndexPath *)tableView:(UITableView *)tableView
+    willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
+#pragma mark TicketDetailsViewController implementation
 
 - (void)setTicketNumber:(NSUInteger)aNumber
     ticket:(Ticket *)aTicket metaData:(TicketMetaData *)someMetaData

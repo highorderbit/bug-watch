@@ -12,9 +12,6 @@
     NSMutableDictionary * projectDict;
     NSMutableDictionary * postedByDict;
     NSMutableDictionary * responseDict;
-    
-    NSMutableDictionary * responses;
-    NSMutableDictionary * responseAuthors;
 }
 
 - (void)setMessage:(Message *)message forKey:(id)key;
@@ -31,11 +28,5 @@
 
 - (void)setResponseKeys:(NSArray *)responseKeys forKey:(id)key;
 - (NSArray *)responseKeysForKey:(id)key;
-
-- (void)setResponse:(MessageResponse *)response forKey:(id)key;
-- (MessageResponse *)responseForKey:(id)key;
-
-- (void)setAuthorKey:(id)authorKey forResponseKey:(id)responseKey;
-- (id)authorKeyForResponseKey:(id)responseKey;
 
 @end

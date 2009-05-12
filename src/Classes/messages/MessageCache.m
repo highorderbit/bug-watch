@@ -13,9 +13,6 @@
     [postedByDict release];
     [responseDict release];
     
-    [responses release];
-    [responseAuthors release];
-    
     [super dealloc];
 }
 
@@ -26,8 +23,6 @@
         projectDict = [[NSMutableDictionary dictionary] retain];
         postedByDict = [[NSMutableDictionary dictionary] retain];
         responseDict = [[NSMutableDictionary dictionary] retain];
-        responses = [[NSMutableDictionary dictionary] retain];
-        responseAuthors = [[NSMutableDictionary dictionary] retain];
     }
 
     return self;
@@ -86,26 +81,6 @@
 - (NSArray *)responseKeysForKey:(id)key
 {
     return [responseDict objectForKey:key];    
-}
-
-- (void)setResponse:(MessageResponse *)response forKey:(id)key
-{
-    [responses setObject:response forKey:key];
-}
-
-- (MessageResponse *)responseForKey:(id)key
-{
-    return [responses objectForKey:key];
-}
-
-- (void)setAuthorKey:(id)authorKey forResponseKey:(id)responseKey
-{
-    [responseAuthors setObject:authorKey forKey:responseKey];
-}
-
-- (id)authorKeyForResponseKey:(id)responseKey
-{
-    return [responseAuthors objectForKey:responseKey];
 }
 
 @end
