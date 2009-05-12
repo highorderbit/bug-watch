@@ -50,12 +50,15 @@
         TicketMetaData * metaData = [someMetaData objectAtIndex:i];
         id milestoneId = [milestoneIds objectAtIndex:i];
         id userId = [userIds objectAtIndex:i];
+        id creatorId = [creatorIds objectAtIndex:i];
         [ticketCache setTicket:ticket forNumber:numberAsInt];
         [ticketCache setMetaData:metaData forNumber:numberAsInt];
         if (userId)
             [ticketCache setAssignedToKey:userId forNumber:numberAsInt];
         if (milestoneId)
             [ticketCache setMilestoneKey:milestoneId forNumber:numberAsInt];
+        if (creatorId)
+            [ticketCache setCreatedByKey:creatorId forNumber:numberAsInt];
     }
 
     [delegate receivedTicketsFromDataSource:ticketCache];
