@@ -127,11 +127,11 @@
 		918885BE0FB8B8DD009F5861 /* ResponseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 918885BC0FB8B8DD009F5861 /* ResponseTableViewCell.xib */; };
 		918885C30FB8B981009F5861 /* ResponseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 918885C20FB8B981009F5861 /* ResponseTableViewCell.m */; };
 		918886030FB8D9F9009F5861 /* MessageResponseCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 918886020FB8D9F9009F5861 /* MessageResponseCache.m */; };
+		918886CF0FB91D11009F5861 /* TicketCommentCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 918886CE0FB91D11009F5861 /* TicketCommentCache.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
-		919C99720FA2655F002CF095 /* Pages.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C99710FA2655F002CF095 /* Pages.png */; };
 		91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */; };
 		91A85B180FAF6F350084FBE1 /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */; };
 		91A85B950FAF77BD0084FBE1 /* ItemSelectionTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85B930FAF77BD0084FBE1 /* ItemSelectionTableView.xib */; };
@@ -350,12 +350,13 @@
 		918885C20FB8B981009F5861 /* ResponseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResponseTableViewCell.m; path = messages/ResponseTableViewCell.m; sourceTree = "<group>"; };
 		918886010FB8D9F9009F5861 /* MessageResponseCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageResponseCache.h; path = messages/MessageResponseCache.h; sourceTree = "<group>"; };
 		918886020FB8D9F9009F5861 /* MessageResponseCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageResponseCache.m; path = messages/MessageResponseCache.m; sourceTree = "<group>"; };
+		918886CD0FB91D11009F5861 /* TicketCommentCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketCommentCache.h; path = tickets/TicketCommentCache.h; sourceTree = "<group>"; };
+		918886CE0FB91D11009F5861 /* TicketCommentCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketCommentCache.m; path = tickets/TicketCommentCache.m; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
-		919C99710FA2655F002CF095 /* Pages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pages.png; sourceTree = "<group>"; };
 		91A85AB30FAF59A30084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AddCommentView.xib; sourceTree = "<group>"; };
 		91A85B160FAF6F350084FBE1 /* AddCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddCommentViewController.h; path = tickets/AddCommentViewController.h; sourceTree = "<group>"; };
 		91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddCommentViewController.m; path = tickets/AddCommentViewController.m; sourceTree = "<group>"; };
@@ -775,6 +776,8 @@
 				918883F00FB749AE009F5861 /* TicketSearchMgr.h */,
 				918883F10FB749AE009F5861 /* TicketSearchMgr.m */,
 				918883F40FB749D3009F5861 /* TicketSearchMgrDelegate.h */,
+				918886CD0FB91D11009F5861 /* TicketCommentCache.h */,
+				918886CE0FB91D11009F5861 /* TicketCommentCache.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -836,7 +839,6 @@
 				91E1FC850FACBBBE00E86DDE /* TextField.png */,
 				91CC24260FAC15F40023AB06 /* TicketDetailsGradient.png */,
 				05EFD7530FA91F07001DFCFB /* TableViewCellGradient.png */,
-				919C99710FA2655F002CF095 /* Pages.png */,
 				919C996B0FA25E55002CF095 /* Thumbtack.png */,
 				919C995E0FA25965002CF095 /* Projects.png */,
 				91D680880F98E4060040A310 /* Calendar.png */,
@@ -939,7 +941,6 @@
 				91D680890F98E4060040A310 /* Calendar.png in Resources */,
 				919C995F0FA25965002CF095 /* Projects.png in Resources */,
 				919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */,
-				919C99720FA2655F002CF095 /* Pages.png in Resources */,
 				9100C0650FA8BF5B003C2ECF /* MainWindow.xib in Resources */,
 				05E636BE0FA8C11C00F736A5 /* NewsFeedView.xib in Resources */,
 				9100C0840FA8C08F003C2ECF /* TicketsView.xib in Resources */,
@@ -1100,6 +1101,7 @@
 				918885C30FB8B981009F5861 /* ResponseTableViewCell.m in Sources */,
 				05F0F2870FB8D8DC00963F6E /* NSArray+IterationAdditions.m in Sources */,
 				918886030FB8D9F9009F5861 /* MessageResponseCache.m in Sources */,
+				918886CF0FB91D11009F5861 /* TicketCommentCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

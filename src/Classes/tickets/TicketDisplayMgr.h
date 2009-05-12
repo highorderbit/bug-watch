@@ -14,6 +14,7 @@
 #import "TicketDataSource.h"
 #import "TicketDataSourceDelegate.h"
 #import "TicketSearchMgrDelegate.h"
+#import "TicketCommentCache.h"
 
 @interface TicketDisplayMgr :
     NSObject <TicketsViewControllerDelegate,
@@ -24,6 +25,8 @@
     NSUInteger selectedTicketNumber;
 
     TicketCache * ticketCache;
+    TicketCommentCache * commentCache;
+    
     NetworkAwareViewController * wrapperController;
     TicketsViewController * ticketsViewController;
     TicketDataSource * dataSource;

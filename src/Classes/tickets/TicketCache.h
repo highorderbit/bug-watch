@@ -16,9 +16,6 @@
     NSMutableDictionary * assignedToDict;
     NSMutableDictionary * milestoneDict;
     NSMutableDictionary * commentDict;
-    
-    NSMutableDictionary * comments;
-    NSMutableDictionary * commentAuthors;
 }
 
 - (void)setTicket:(Ticket *)ticket forNumber:(NSUInteger)number;
@@ -43,11 +40,5 @@
 
 - (void)setCommentKeys:(NSArray *)keys forNumber:(NSUInteger)number;
 - (NSArray *)commentKeysForNumber:(NSUInteger)number;
-
-- (void)setComment:(TicketComment *)comment forKey:(id)key;
-- (TicketComment *)commentForKey:(id)key;
-
-- (void)setAuthorKey:(id)authorKey forCommentKey:(id)commentKey;
-- (id)authorKeyForCommentKey:(id)commentKey;
 
 @end

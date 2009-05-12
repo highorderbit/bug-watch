@@ -15,9 +15,6 @@
     [milestoneDict release];
     [commentDict release];
 
-    [comments release];
-    [commentAuthors release];
-
     [super dealloc];
 }
 
@@ -30,9 +27,6 @@
         assignedToDict = [[NSMutableDictionary dictionary] retain];
         milestoneDict = [[NSMutableDictionary dictionary] retain];
         commentDict = [[NSMutableDictionary dictionary] retain];
-
-        comments = [[NSMutableDictionary dictionary] retain];
-        commentAuthors = [[NSMutableDictionary dictionary] retain];
     }
     
     return self;
@@ -121,26 +115,6 @@
 - (NSArray *)commentKeysForNumber:(NSUInteger)number
 {
     return [commentDict objectForKey:[NSNumber numberWithInt:number]];
-}
-
-- (void)setComment:(TicketComment *)comment forKey:(id)key
-{
-    [comments setObject:comment forKey:key];
-}
-
-- (TicketComment *)commentForKey:(id)key
-{
-    return [comments objectForKey:key];
-}
-
-- (void)setAuthorKey:(id)authorKey forCommentKey:(id)commentKey
-{
-    [commentAuthors setObject:authorKey forKey:commentKey];
-}
-
-- (id)authorKeyForCommentKey:(id)commentKey
-{
-    return [commentAuthors objectForKey:commentKey];
 }
 
 @end

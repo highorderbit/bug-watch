@@ -62,18 +62,6 @@
     NSString * message1 =
         @"The 'Next' button is enabled even when a username hasn't been supplied. Should it be? Is it important? The 'Done' button sends the request when both fields are blank and the second field is selected even though 'Add' is disabled.\n\nOne difference between the repo favorites add view and the log in view is that the log in view sends the request while the repo view just hides the keyboard in the above scenario. Not sure which is better or what the solution should be yet.";
 
-    TicketComment * comment1 =
-        [[[TicketComment alloc]
-        initWithStateChangeDescription:@"State changed from 'new' to 'resolved'"
-        text:@"Changed the log in view and the repo view to behave the same way: if valid input has not been provided, hitting the return key on the second text field does nothing."
-        date:[NSDate date]] autorelease];
-    TicketComment * comment2 =
-        [[[TicketComment alloc]
-        initWithStateChangeDescription:@"State changed from 'new' to 'hold'"
-        text:@"blah blah blah" date:[NSDate date]] autorelease];
-    [ticketCache setComment:comment1 forKey:[NSNumber numberWithInt:0]];
-    [ticketCache setComment:comment2 forKey:[NSNumber numberWithInt:1]];
-
     NSMutableArray * comments = [NSMutableArray array];
     [comments addObject:[NSNumber numberWithInt:0]];
     [comments addObject:[NSNumber numberWithInt:1]];
@@ -125,11 +113,6 @@
     [ticketCache setCommentKeys:comments forNumber:213];
     [ticketCache setCommentKeys:[NSArray array] forNumber:56];
     [ticketCache setCommentKeys:[NSArray array] forNumber:217];
-    
-    [ticketCache setAuthorKey:[NSNumber numberWithInt:1]
-        forCommentKey:[NSNumber numberWithInt:0]];
-    [ticketCache setAuthorKey:[NSNumber numberWithInt:0]
-        forCommentKey:[NSNumber numberWithInt:1]];
     // TEMPORARY
     
     // TEMPORARY: populate message cache
