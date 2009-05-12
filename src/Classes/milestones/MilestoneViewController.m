@@ -6,6 +6,7 @@
 #import "Milestone.h"
 #import "MilestoneProgressView.h"
 #import "NSDate+StringHelpers.h"
+#import "UILabel+DrawingAdditions.h"
 
 @interface MilestoneViewController ()
 
@@ -23,6 +24,7 @@
 
     [nameLabel release];
     [dueDateLabel release];
+    [goalsLabel release];
 
     [numOpenTicketsView release];
     [numOpenTicketsLabel release];
@@ -125,6 +127,14 @@
         progressView.progress =
             ((float) milestone.numTickets - milestone.numOpenTickets) /
             (float) milestone.numTickets;
+
+    goalsLabel.text = milestone.goals;
+    CGFloat amountToGrow = [goalsLabel sizeVerticallyToFit];
+
+    CGRect headerViewFrame = headerView.frame;
+    headerViewFrame.size.height = headerViewFrame.size.height + amountToGrow;
+    headerView.frame = headerViewFrame;
+    self.tableView.tableHeaderView = headerView;
 
     [self.tableView reloadData];
 }

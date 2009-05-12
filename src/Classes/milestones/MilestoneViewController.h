@@ -14,6 +14,7 @@
 
     IBOutlet UILabel * nameLabel;
     IBOutlet UILabel * dueDateLabel;
+    IBOutlet UILabel * goalsLabel;
 
     IBOutlet RoundedRectView * numOpenTicketsView;
     IBOutlet UILabel * numOpenTicketsLabel;
