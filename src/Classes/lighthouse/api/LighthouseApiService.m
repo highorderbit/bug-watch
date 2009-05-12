@@ -5,7 +5,6 @@
 #import "LighthouseApiService.h"
 #import "LighthouseApi.h"
 #import "LighthouseApiParser.h"
-#import "TicketNumber.h"
 
 @interface LighthouseApiService ()
 
@@ -16,6 +15,8 @@
 - (NSArray *)parseTickets:(NSData *)xml;
 - (NSArray *)parseTicketMetaData:(NSData *)xml;
 - (NSArray *)parseTicketNumbers:(NSData *)xml;
+- (NSArray *)parseMilestoneIds:(NSData *)xml;
+- (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
 
 @end
@@ -68,12 +69,16 @@
     NSArray * ticketNumbers = [self parseTicketNumbers:data];
     NSArray * tickets = [self parseTickets:data];
     NSArray * metadata = [self parseTicketMetaData:data];
+    NSArray * milestoneIds = [self parseMilestoneIds:data];
+    NSArray * userIds = [self parseUserIds:data];
 
     SEL sel =
-        @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:);
+        @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
+             milestoneIds:userIds:);
     if ([delegate respondsToSelector:sel])
         [delegate tickets:tickets fetchedForAllProjectsWithMetadata:metadata
-            ticketNumbers:ticketNumbers];
+            ticketNumbers:ticketNumbers milestoneIds:milestoneIds
+            userIds:userIds];
 }
 
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
@@ -151,23 +156,38 @@
 
 - (NSArray *)parseTicketNumbers:(NSData *)xml
 {
-    parser.className = @"TicketNumber";
+    parser.className = @"NSNumber";
     parser.classElementType = @"ticket";
     parser.classElementCollection = @"tickets";
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
-            @"ticketNumber", @"number",
-            nil];
+            @"number", @"number", nil];
 
-    NSArray * parsedNumbers = [parser parse:xml];
-    NSMutableArray * numbers =
-        [NSMutableArray arrayWithCapacity:parsedNumbers.count];
+    return [parser parse:xml];
+}
 
-    // extract NSNumbers
-    for (TicketNumber * n in parsedNumbers)
-        [numbers addObject:n.ticketNumber];
+- (NSArray *)parseMilestoneIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"milestone-id", nil];
 
-    return numbers;
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseUserIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"user-id", nil];
+
+    return [parser parse:xml];
 }
 
 - (NSArray *)parseMilestones:(NSData *)xml

@@ -15,7 +15,6 @@
     LighthouseApiParser * parser;
 }
 
-+ (NSString *)milestoneXml;
 + (NSData *)loadXmlFileNamed:(NSString *)fileName;
 
 + (NSDictionary *)milestoneMappings;
@@ -117,29 +116,30 @@
         @"Parsed incorrect number of elements.");
 }
 
-+ (NSString *)milestoneXml
+- (void)testNSNumberParsing
 {
-    return
-        @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-         "<milestone>\n"
-         "<created-at type=\"datetime\">2009-04-15T13:48:39-06:00"
-         "</created-at>\n"
-         "<due-on type=\"datetime\">2009-04-19T00:00:00-06:00</due-on>\n"
-         "<goals>First version released to the App Store.</goals>\n"
-         "<goals-html>&lt;div&gt;&lt;p&gt;First version released to the App "
-         "Store.&lt;/p&gt;&lt;/div&gt;</goals-html>\n"
-         "<id type=\"integer\">37266</id>\n"
-         "<open-tickets-count type=\"integer\">3</open-tickets-count>\n"
-         "<permalink>100</permalink>\n"
-         "<project-id type=\"integer\">27400</project-id>\n"
-         "<tickets-count type=\"integer\">26</tickets-count>\n"
-         "<title>1.0.0</title>\n"
-         "<updated-at type=\"datetime\">2009-04-27T12:12:12-06:00"
-         "</updated-at>\n"
-         "<url>http://highorderbit.lighthouseapp.com/projects/27400/milestones"
-         "/37266</url>\n"
-         "<user-name nil=\"true\"></user-name>\n"
-         "</milestone>";
+    NSData * xml = [[self class] loadXmlFileNamed:@"milestones"];
+
+    parser.className = @"NSNumber";
+    parser.classElementType = @"milestone";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:@"number", @"id", nil];
+    parser.classElementCollection = @"milestones";
+
+    NSArray * numbers = [parser parse:xml];
+
+    NSArray * expected =
+        [NSArray arrayWithObjects:
+        [NSNumber numberWithInteger:37266],
+        [NSNumber numberWithInteger:37670],
+        [NSNumber numberWithInteger:38302],
+        [NSNumber numberWithInteger:38299],
+        [NSNumber numberWithInteger:38804],
+        nil];
+
+    STAssertTrue(
+        [numbers isEqualToArray:expected] == YES,
+        @"Parsed numbers incorrectly.");
 }
 
 + (NSData *)ticketXml

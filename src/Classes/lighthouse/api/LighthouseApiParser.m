@@ -18,6 +18,7 @@
 
 + (LighthouseApiTypeConverter *)standardTypeConverter;
 + (NSDictionary *)typeConverters;
++ (NSSet *)primitiveTypes;
 
 @property (nonatomic, retain) id obj;
 @property (nonatomic, retain) NSMutableString * elementPath;
@@ -116,7 +117,11 @@
     NSString * key = [attributeMappings objectForKey:path];
     if (key) {
         id val = [self convert:value toType:self.elementType];
-        [obj setValue:val forKey:key];
+
+        if ([[[self class] primitiveTypes] containsObject:self.className])
+            self.obj = val;
+
+        [object setValue:val forKey:key];
     }
 }
 
@@ -151,6 +156,17 @@
              nil];
 
     return converters;
+}
+
++ (NSSet *)primitiveTypes
+{
+    static NSSet * primitiveTypes = nil;
+
+    if (!primitiveTypes)
+        primitiveTypes =
+            [[NSSet alloc] initWithObjects:@"NSNumber", @"NSString", nil];
+
+    return primitiveTypes;
 }
 
 @end
