@@ -22,11 +22,13 @@
 
 - (id)initWithBaseUrlString:(NSString *)aBaseUrlString;
 
-#pragma mark Fetching tickets
+#pragma mark Tickets
 
 - (void)fetchTicketsForAllProjects:(NSString *)token;
+- (void)searchTicketsForAllProjects:(NSString *)searchString
+                              token:(NSString *)token;
 
-#pragma mark Fetching milestones
+#pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token;
     

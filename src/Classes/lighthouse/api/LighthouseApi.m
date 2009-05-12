@@ -31,7 +31,7 @@
     return self;
 }
 
-#pragma mark Fetching tickets
+#pragma mark Tickets
 
 - (void)fetchTicketsForAllProjects:(NSString *)token
 {
@@ -49,6 +49,33 @@
 
     [api sendRequest:req];
 }
+
+- (void)searchTicketsForAllProjects:(NSString *)searchString
+                              token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@tickets.xml?q=%@&_token=%@",
+        baseUrlString,
+        [searchString
+            stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+        token];
+    NSURLRequest * req =
+        [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token", searchString, @"searchString", nil];
+
+    SEL sel =
+        @selector(handleTicketSearchResultsForAllProjectsResponse:toRequest:\
+            object:);
+
+    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+
+    [api sendRequest:req];
+}
+
+#pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token
 {
@@ -90,6 +117,22 @@
         [delegate failedToFetchMilestonesForAllProjects:token error:response];
     else
         [delegate milestones:response fetchedForAllProjectsWithToken:token];
+}
+
+- (void)handleTicketSearchResultsForAllProjectsResponse:(id)response
+                                              toRequest:(NSURLRequest *)request
+                                                 object:(id)object
+{
+    NSString * token = [object objectForKey:@"token"];
+    NSString * searchString = [object objectForKey:@"searchString"];
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToSearchTicketsForAllProjects:searchString
+                                                token:token
+                                                error:response];
+    else
+        [delegate searchResults:response
+            fetchedForAllProjectsWithSearchString:searchString token:token];
 }
 
 #pragma mark WebSericeApiDelegate implementation

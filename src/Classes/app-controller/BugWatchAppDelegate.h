@@ -4,10 +4,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BugWatchAppController.h"
+#import "LighthouseApiServiceDelegate.h"
 
 @interface BugWatchAppDelegate :
     NSObject
-    <UIApplicationDelegate, UITabBarControllerDelegate>
+    <UIApplicationDelegate, UITabBarControllerDelegate,
+    LighthouseApiServiceDelegate>
 {
     UIWindow * window;
     UITabBarController * tabBarController;

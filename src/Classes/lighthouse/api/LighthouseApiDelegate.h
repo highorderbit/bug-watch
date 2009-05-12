@@ -6,13 +6,19 @@
 
 @protocol LighthouseApiDelegate
 
-#pragma mark Retrieving tickets
+#pragma mark Tickets
 
 - (void)tickets:(NSData *)xml fetchedForAllProjectsWithToken:(NSString *)token;
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
                                      error:(NSError *)error;
 
-#pragma mark Retrieving milestones
+- (void)searchResults:(NSData *)xml
+    fetchedForAllProjectsWithSearchString:(NSString *)searchString
+    token:(NSString *)token;
+- (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
+    token:(NSString *)token error:(NSError *)error;
+
+#pragma mark Milestones
 
 - (void)milestones:(NSData *)xml
     fetchedForAllProjectsWithToken:(NSString *)token;

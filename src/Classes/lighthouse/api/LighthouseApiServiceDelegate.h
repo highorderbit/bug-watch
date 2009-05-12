@@ -16,6 +16,14 @@
     userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds;
 - (void)failedToFetchTicketsForAllProjects:(NSError *)error;
 
+- (void)tickets:(NSArray *)tickets
+    fetchedForSearchString:(NSString *)searchString
+    metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers
+    milestoneIds:(NSArray *)milestoneIds userIds:(NSArray *)userIds
+    creatorIds:(NSArray *)creatorIds;
+- (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
+    error:(NSError *)error;
+
 @optional
 
 #pragma mark Fetching milestones

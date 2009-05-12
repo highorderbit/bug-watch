@@ -20,6 +20,8 @@
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
 
+- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target args:(NSArray *)args;
+
 @end
 
 @implementation LighthouseApiService
@@ -48,14 +50,20 @@
     return self;
 }
 
-#pragma mark Fetching tickets
+#pragma mark Tickets
 
 - (void)fetchTicketsForAllProjects:(NSString *)token
 {
     [api fetchTicketsForAllProjects:token];
 }
 
-#pragma mark Fetching milestones
+- (void)searchTicketsForAllProjects:(NSString *)searchString
+                              token:(NSString *)token
+{
+    [api searchTicketsForAllProjects:searchString token:token];
+}
+
+#pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token
 {
@@ -89,6 +97,33 @@
     SEL sel = @selector(failedToFetchTicketsForAllProjects:);
     if ([delegate respondsToSelector:sel])
         [delegate failedToFetchTicketsForAllProjects:error];
+}
+
+- (void)searchResults:(NSData *)data
+    fetchedForAllProjectsWithSearchString:(NSString *)searchString
+    token:(NSString *)token
+{
+    NSArray * ticketNumbers = [self parseTicketNumbers:data];
+    NSArray * tickets = [self parseTickets:data];
+    NSArray * metadata = [self parseTicketMetaData:data];
+    NSArray * milestoneIds = [self parseMilestoneIds:data];
+    NSArray * userIds = [self parseUserIds:data];
+    NSArray * creatorIds = [self parseCreatorIds:data];
+
+    SEL sel = @selector(tickets:fetchedForSearchString:metadata:ticketNumbers:\
+        milestoneIds:userIds:creatorIds:);
+
+    [self invokeSelector:sel withTarget:delegate
+        args:[NSArray arrayWithObjects:tickets, searchString, metadata,
+        ticketNumbers, milestoneIds, userIds, creatorIds, nil]];
+}
+
+- (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
+    token:(NSString *)token error:(NSError *)error
+{
+    SEL sel = @selector(failedToSearchTicketsForAllProjects:error:);
+    [self invokeSelector:sel withTarget:delegate
+        args:[NSArray arrayWithObjects:searchString, error, nil]];
 }
 
 - (void)milestones:(NSData *)data
@@ -219,6 +254,27 @@
             nil];
 
     return [parser parse:xml];
+}
+
+- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target args:(NSArray *)args
+{
+    if ([target respondsToSelector:selector]) {
+        NSMethodSignature * sig = [target methodSignatureForSelector:selector];
+        NSInvocation * inv = [NSInvocation invocationWithMethodSignature:sig];
+        [inv setTarget:target];
+        [inv setSelector:selector];
+
+        for (NSInteger i = 0, count = args.count; i < count; ++i) {
+            id arg = [args objectAtIndex:i];
+            [inv setArgument:&arg atIndex:i + 2];
+        }
+
+        [inv invoke];
+
+        return YES;
+    }
+
+    return NO;
 }
 
 @end
