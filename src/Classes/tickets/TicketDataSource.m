@@ -48,8 +48,14 @@
         NSUInteger numberAsInt = [((NSNumber *)number) intValue];
         Ticket * ticket = [tickets objectAtIndex:i];
         TicketMetaData * metaData = [someMetaData objectAtIndex:i];
+        id milestoneId = [milestoneIds objectAtIndex:i];
+        id userId = [userIds objectAtIndex:i];
         [ticketCache setTicket:ticket forNumber:numberAsInt];
         [ticketCache setMetaData:metaData forNumber:numberAsInt];
+        if (userId)
+            [ticketCache setAssignedToKey:userId forNumber:numberAsInt];
+        if (milestoneId)
+            [ticketCache setMilestoneKey:milestoneId forNumber:numberAsInt];
     }
 
     [delegate receivedTicketsFromDataSource:ticketCache];

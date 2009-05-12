@@ -142,12 +142,15 @@
     dateLabel.text = [aTicket.creationDate shortDescription];
     descriptionLabel.text = aTicket.description;
     messageLabel.text = aTicket.message;
+    NSString * reportedByText = reportedBy ? reportedBy : @"none";
     reportedByLabel.text =
-        [NSString stringWithFormat:@"Reported by: %@", reportedBy];
+        [NSString stringWithFormat:@"Reported by: %@", reportedByText];
+    NSString * assignedToText = assignedTo ? assignedTo : @"none";
     assignedToLabel.text =
-        [NSString stringWithFormat:@"Assigned to: %@", assignedTo];
+        [NSString stringWithFormat:@"Assigned to: %@", assignedToText];
+    NSString * milestoneText = milestone ? milestone : @"none";
     milestoneLabel.text =
-        [NSString stringWithFormat:@"Milestone: %@", milestone];
+        [NSString stringWithFormat:@"Milestone: %@", milestoneText];
 
     NSDictionary * tempComments = [someComments copy];
     [comments release];
