@@ -8,6 +8,7 @@
 
 - (void)cancelSelected;
 - (void)updateNavigationBarForNotSearching:(BOOL)animated;
+- (void)initDarkTransparentView;
 
 @end
 
@@ -23,6 +24,10 @@
     [addButton release];
     [cancelButton release];
     [navigationItem release];
+    [binViewController release];
+    [parentView release];
+    
+    [darkTransparentView release];
 
     [super dealloc];
 }
@@ -31,12 +36,16 @@
     addButton:(UIBarButtonItem *)anAddButton
     cancelButton:(UIBarButtonItem *)aCancelButton
     navigationItem:(UINavigationItem *)aNavigationItem
+    ticketBinViewController:(TicketBinViewController *)aBinViewController
+    parentView:(UIView *)aParentView
 {
     if (self = [super init]) {
         searchField = [aSearchField retain];
         addButton = [anAddButton retain];
         cancelButton = [aCancelButton retain];
         navigationItem = [aNavigationItem retain];
+        binViewController = [aBinViewController retain];
+        parentView = [aParentView retain];
 
         searchField.delegate = self;
         // Can't be set in IB, so setting it here
@@ -44,21 +53,57 @@
         frame.size.height = 28;
         searchField.frame = frame;
         searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        
+
         cancelButton.target = self;
         cancelButton.action = @selector(cancelSelected);
-        
+
         [navigationItem setLeftBarButtonItem:nil];
         [self updateNavigationBarForNotSearching:NO];
+        
+        [self initDarkTransparentView];
     }
 
     return self;
+}
+
+- (void)initDarkTransparentView
+{
+    CGRect darkTransparentViewFrame = CGRectMake(0, 44, 320, 480);
+    darkTransparentView =
+        [[UIView alloc] initWithFrame:darkTransparentViewFrame];
+    
+    CGRect transparentViewFrame = CGRectMake(0, 0, 320, 480);
+    UIView * transparentView =
+        [[[UIView alloc] initWithFrame:transparentViewFrame] autorelease];
+    transparentView.backgroundColor = [UIColor blackColor];
+    transparentView.alpha = 0.8;
+    [darkTransparentView addSubview:transparentView];
+    
+    CGRect activityIndicatorFrame = CGRectMake(142, 45, 37, 37);
+    UIActivityIndicatorView * activityIndicator =
+        [[UIActivityIndicatorView alloc] initWithFrame:activityIndicatorFrame];
+    activityIndicator.activityIndicatorViewStyle =
+        UIActivityIndicatorViewStyleWhiteLarge;
+    [activityIndicator startAnimating];
+    [darkTransparentView addSubview:activityIndicator];
+    
+    CGRect loadingLabelFrame = CGRectMake(21, 80, 280, 65);
+    UILabel * loadingLabel =
+        [[[UILabel alloc] initWithFrame:loadingLabelFrame] autorelease];
+    loadingLabel.text = @"Loading ticket bins...";
+    loadingLabel.textAlignment = UITextAlignmentCenter;
+    loadingLabel.font = [UIFont boldSystemFontOfSize:20];
+    loadingLabel.textColor = [UIColor whiteColor];
+    loadingLabel.backgroundColor = [UIColor clearColor];
+    [darkTransparentView addSubview:loadingLabel];
 }
 
 - (void)cancelSelected
 {
     [searchField resignFirstResponder];
     [self updateNavigationBarForNotSearching:YES];
+    [darkTransparentView removeFromSuperview];
+    [binViewController.view removeFromSuperview];
 }
 
 - (void)updateNavigationBarForNotSearching:(BOOL)animated
@@ -88,12 +133,26 @@
         forView:searchField cache:YES];
 
     CGRect frame = searchField.frame;
-    frame.size.width = 245;
+    frame.size.width = 252;
     searchField.frame = frame;
 
     [UIView commitAnimations];
 
     [navigationItem setRightBarButtonItem:cancelButton animated:YES];
+
+    NSLog(@"parent view: %@", parentView);
+
+    [parentView addSubview:darkTransparentView];
+//    [parentView addSubview:binViewController.view];
 }
-    
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSLog(@"Ticket search text field returning...");
+    [delegate ticketsFilteredByFilterString:searchField.text];
+    [self cancelSelected];
+
+    return YES;
+}
+
 @end

@@ -2,20 +2,26 @@
 //  Copyright 2009 High Order Bit, Inc. All rights reserved.
 //
 
-#import "ProjectsViewController.h"
+#import "TicketBinViewController.h"
 #import "TextWithCountTableViewCell.h"
 
-@implementation ProjectsViewController
-
-@synthesize delegate;
+@implementation TicketBinViewController
 
 - (void)dealloc
 {
-    [delegate release];
     [super dealloc];
 }
 
-#pragma mark UITableViewDataSource implementationp
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y = 44;
+    self.view.frame = viewFrame;
+}
+
+#pragma mark UITableViewDataSource implementation
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -25,7 +31,7 @@
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 1; // TEMPORARY
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -42,10 +48,10 @@
             owner:self options:nil];
 
         cell = [nib objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
-
-    [cell setText:@"Code Watch"];
-    [cell setCount:14];
+    
+    // Set up the cell...
 
     return cell;
 }
@@ -53,7 +59,7 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [delegate selectedProjectKey:nil];
 }
 
 @end
+

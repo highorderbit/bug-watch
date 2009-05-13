@@ -104,8 +104,8 @@
 		913E45060FAA2C85000EB184 /* TicketDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45040FAA2C85000EB184 /* TicketDetailsView.xib */; };
 		913E45A20FAA753C000EB184 /* ProjectsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45A00FAA753C000EB184 /* ProjectsView.xib */; };
 		913E45A50FAA7579000EB184 /* ProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45A40FAA7579000EB184 /* ProjectsViewController.m */; };
-		913E45A90FAA7779000EB184 /* ProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45A70FAA7779000EB184 /* ProjectTableViewCell.xib */; };
-		913E45AC0FAA7795000EB184 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */; };
+		913E45A90FAA7779000EB184 /* TextWithCountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45A70FAA7779000EB184 /* TextWithCountTableViewCell.xib */; };
+		913E45AC0FAA7795000EB184 /* TextWithCountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45AB0FAA7795000EB184 /* TextWithCountTableViewCell.m */; };
 		913E45D60FAA8027000EB184 /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45D50FAA8027000EB184 /* RoundedRectLabel.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
@@ -138,6 +138,8 @@
 		918886CF0FB91D11009F5861 /* TicketCommentCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 918886CE0FB91D11009F5861 /* TicketCommentCache.m */; };
 		9188871A0FB9E6E1009F5861 /* PListUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 918887190FB9E6E1009F5861 /* PListUtils.m */; };
 		918887240FB9E730009F5861 /* TicketPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 918887230FB9E730009F5861 /* TicketPersistenceStore.m */; };
+		918887EF0FBA1B14009F5861 /* TicketBinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 918887ED0FBA1B14009F5861 /* TicketBinView.xib */; };
+		918887F30FBA1BBF009F5861 /* TicketBinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918887F20FBA1BBF009F5861 /* TicketBinViewController.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
@@ -311,9 +313,9 @@
 		913E45A10FAA753C000EB184 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectsView.xib; sourceTree = "<group>"; };
 		913E45A30FAA7579000EB184 /* ProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectsViewController.h; path = projects/ProjectsViewController.h; sourceTree = "<group>"; };
 		913E45A40FAA7579000EB184 /* ProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectsViewController.m; path = projects/ProjectsViewController.m; sourceTree = "<group>"; };
-		913E45A80FAA7779000EB184 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectTableViewCell.xib; sourceTree = "<group>"; };
-		913E45AA0FAA7795000EB184 /* ProjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectTableViewCell.h; path = projects/ProjectTableViewCell.h; sourceTree = "<group>"; };
-		913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectTableViewCell.m; path = projects/ProjectTableViewCell.m; sourceTree = "<group>"; };
+		913E45A80FAA7779000EB184 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextWithCountTableViewCell.xib; sourceTree = "<group>"; };
+		913E45AA0FAA7795000EB184 /* TextWithCountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextWithCountTableViewCell.h; path = projects/TextWithCountTableViewCell.h; sourceTree = "<group>"; };
+		913E45AB0FAA7795000EB184 /* TextWithCountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextWithCountTableViewCell.m; path = projects/TextWithCountTableViewCell.m; sourceTree = "<group>"; };
 		913E45D40FAA8027000EB184 /* RoundedRectLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedRectLabel.h; path = shared/RoundedRectLabel.h; sourceTree = "<group>"; };
 		913E45D50FAA8027000EB184 /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectLabel.m; path = shared/RoundedRectLabel.m; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
@@ -370,6 +372,9 @@
 		918887190FB9E6E1009F5861 /* PListUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListUtils.m; sourceTree = "<group>"; };
 		918887220FB9E730009F5861 /* TicketPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketPersistenceStore.h; path = tickets/TicketPersistenceStore.h; sourceTree = "<group>"; };
 		918887230FB9E730009F5861 /* TicketPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketPersistenceStore.m; path = tickets/TicketPersistenceStore.m; sourceTree = "<group>"; };
+		918887EE0FBA1B14009F5861 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TicketBinView.xib; sourceTree = "<group>"; };
+		918887F10FBA1BBF009F5861 /* TicketBinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBinViewController.h; path = tickets/TicketBinViewController.h; sourceTree = "<group>"; };
+		918887F20FBA1BBF009F5861 /* TicketBinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketBinViewController.m; path = tickets/TicketBinViewController.m; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -739,7 +744,7 @@
 				913E45040FAA2C85000EB184 /* TicketDetailsView.xib */,
 				055213FF0FAB707D00626049 /* NoDataView.xib */,
 				913E45A00FAA753C000EB184 /* ProjectsView.xib */,
-				913E45A70FAA7779000EB184 /* ProjectTableViewCell.xib */,
+				913E45A70FAA7779000EB184 /* TextWithCountTableViewCell.xib */,
 				919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */,
 				91E1FC7E0FACB6F100E86DDE /* EditTicketView.xib */,
 				91E1FC870FACC39300E86DDE /* EditTicketTableViewCell.xib */,
@@ -755,6 +760,7 @@
 				918884B40FB7BBAF009F5861 /* NewMessageView.xib */,
 				9188852A0FB8822F009F5861 /* MessageDetailsView.xib */,
 				918885BC0FB8B8DD009F5861 /* ResponseTableViewCell.xib */,
+				918887ED0FBA1B14009F5861 /* TicketBinView.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -800,6 +806,8 @@
 				918886CE0FB91D11009F5861 /* TicketCommentCache.m */,
 				918887220FB9E730009F5861 /* TicketPersistenceStore.h */,
 				918887230FB9E730009F5861 /* TicketPersistenceStore.m */,
+				918887F10FBA1BBF009F5861 /* TicketBinViewController.h */,
+				918887F20FBA1BBF009F5861 /* TicketBinViewController.m */,
 				05F63EBB0FBA37E400BF4300 /* TicketBin.h */,
 				05F63EBC0FBA37E400BF4300 /* TicketBin.m */,
 			);
@@ -813,8 +821,8 @@
 				917DE35C0FB34B6300BF2015 /* ProjectHomeViewController.m */,
 				913E45A30FAA7579000EB184 /* ProjectsViewController.h */,
 				913E45A40FAA7579000EB184 /* ProjectsViewController.m */,
-				913E45AA0FAA7795000EB184 /* ProjectTableViewCell.h */,
-				913E45AB0FAA7795000EB184 /* ProjectTableViewCell.m */,
+				913E45AA0FAA7795000EB184 /* TextWithCountTableViewCell.h */,
+				913E45AB0FAA7795000EB184 /* TextWithCountTableViewCell.m */,
 				917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */,
 				917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */,
 				917DE3600FB34ED400BF2015 /* ProjectDisplayMgr.h */,
@@ -985,7 +993,7 @@
 				913E45060FAA2C85000EB184 /* TicketDetailsView.xib in Resources */,
 				055212970FAA59B800626049 /* NewsFeedItemView.xib in Resources */,
 				913E45A20FAA753C000EB184 /* ProjectsView.xib in Resources */,
-				913E45A90FAA7779000EB184 /* ProjectTableViewCell.xib in Resources */,
+				913E45A90FAA7779000EB184 /* TextWithCountTableViewCell.xib in Resources */,
 				055213910FAB57CB00626049 /* Localizable.strings in Resources */,
 				919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */,
 				055214010FAB707D00626049 /* NoDataView.xib in Resources */,
@@ -1013,6 +1021,7 @@
 				918884B60FB7BBAF009F5861 /* NewMessageView.xib in Resources */,
 				9188852C0FB8822F009F5861 /* MessageDetailsView.xib in Resources */,
 				918885BE0FB8B8DD009F5861 /* ResponseTableViewCell.xib in Resources */,
+				918887EF0FBA1B14009F5861 /* TicketBinView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1091,7 +1100,7 @@
 				0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */,
 				055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */,
 				913E45A50FAA7579000EB184 /* ProjectsViewController.m in Sources */,
-				913E45AC0FAA7795000EB184 /* ProjectTableViewCell.m in Sources */,
+				913E45AC0FAA7795000EB184 /* TextWithCountTableViewCell.m in Sources */,
 				913E45D60FAA8027000EB184 /* RoundedRectLabel.m in Sources */,
 				0552130D0FAA757300626049 /* NewsFeedDataSource.m in Sources */,
 				055213760FAB55A900626049 /* RegexKitLite.m in Sources */,
@@ -1145,6 +1154,7 @@
 				918886CF0FB91D11009F5861 /* TicketCommentCache.m in Sources */,
 				9188871A0FB9E6E1009F5861 /* PListUtils.m in Sources */,
 				918887240FB9E730009F5861 /* TicketPersistenceStore.m in Sources */,
+				918887F30FBA1BBF009F5861 /* TicketBinViewController.m in Sources */,
 				05F63EBD0FBA37E400BF4300 /* TicketBin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1256,12 +1266,12 @@
 			name = ProjectsView.xib;
 			sourceTree = "<group>";
 		};
-		913E45A70FAA7779000EB184 /* ProjectTableViewCell.xib */ = {
+		913E45A70FAA7779000EB184 /* TextWithCountTableViewCell.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				913E45A80FAA7779000EB184 /* en */,
 			);
-			name = ProjectTableViewCell.xib;
+			name = TextWithCountTableViewCell.xib;
 			sourceTree = "<group>";
 		};
 		917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */ = {
@@ -1318,6 +1328,14 @@
 				918885BD0FB8B8DD009F5861 /* en */,
 			);
 			name = ResponseTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		918887ED0FBA1B14009F5861 /* TicketBinView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				918887EE0FBA1B14009F5861 /* en */,
+			);
+			name = TicketBinView.xib;
 			sourceTree = "<group>";
 		};
 		919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */ = {
