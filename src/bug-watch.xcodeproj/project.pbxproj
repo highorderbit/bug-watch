@@ -373,6 +373,7 @@
 		918887EE0FBA1B14009F5861 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TicketBinView.xib; sourceTree = "<group>"; };
 		918887F10FBA1BBF009F5861 /* TicketBinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBinViewController.h; path = tickets/TicketBinViewController.h; sourceTree = "<group>"; };
 		918887F20FBA1BBF009F5861 /* TicketBinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketBinViewController.m; path = tickets/TicketBinViewController.m; sourceTree = "<group>"; };
+		918889AC0FBA541A009F5861 /* TicketBinViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBinViewControllerDelegate.h; path = tickets/TicketBinViewControllerDelegate.h; sourceTree = "<group>"; };
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
@@ -807,6 +808,7 @@
 				918887F20FBA1BBF009F5861 /* TicketBinViewController.m */,
 				05F63EBB0FBA37E400BF4300 /* TicketBin.h */,
 				05F63EBC0FBA37E400BF4300 /* TicketBin.m */,
+				918889AC0FBA541A009F5861 /* TicketBinViewControllerDelegate.h */,
 			);
 			name = tickets;
 			sourceTree = "<group>";

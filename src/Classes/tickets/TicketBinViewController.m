@@ -4,11 +4,15 @@
 
 #import "TicketBinViewController.h"
 #import "TextWithCountTableViewCell.h"
+#import "TicketBin.h"
 
 @implementation TicketBinViewController
 
+@synthesize delegate;
+
 - (void)dealloc
 {
+    [ticketBins release];
     [super dealloc];
 }
 
@@ -31,14 +35,14 @@
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [[ticketBins allKeys] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * cellIdentifier = @"TextWithCountTableViewCell";
-    
+
     TextWithCountTableViewCell * cell =
         (TextWithCountTableViewCell *)
         [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -50,8 +54,12 @@
         cell = [nib objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    
-    // Set up the cell...
+
+    id ticketBinId = [[ticketBins allKeys] objectAtIndex:indexPath.row];
+    TicketBin * ticketBin = [ticketBins objectForKey:ticketBinId];
+
+    [cell setText:ticketBin.name];
+    [cell setCount:ticketBin.ticketCount];
 
     return cell;
 }
@@ -59,7 +67,19 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    id ticketBinId = [[ticketBins allKeys] objectAtIndex:indexPath.row];
+    [delegate ticketBinSelectedWithId:ticketBinId];
+}
+
+#pragma mark TicketBinViewController implementation
+
+- (void)setTicketBins:(NSDictionary *)someTicketBins
+{
+    [someTicketBins retain];
+    [ticketBins release];
+    ticketBins = someTicketBins;
+    
+    [self.tableView reloadData];
 }
 
 @end
-
