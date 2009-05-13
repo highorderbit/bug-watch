@@ -8,10 +8,6 @@
 
 @interface LighthouseApiService ()
 
-- (void)notifyDelegate:(SEL)selector;
-- (void)notifyDelegate:(SEL)selector withObject:(id)obj;
-- (void)notifyDelegate:(SEL)selector withObject:(id)obj1 withObject:(id)obj2;
-
 - (NSArray *)parseTickets:(NSData *)xml;
 - (NSArray *)parseTicketMetaData:(NSData *)xml;
 - (NSArray *)parseTicketNumbers:(NSData *)xml;
@@ -21,7 +17,8 @@
 - (NSArray *)parseMilestones:(NSData *)xml;
 - (NSArray *)parseTicketBins:(NSData *)xml;
 
-- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target args:(NSArray *)args;
+- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
+    args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end
 
@@ -93,18 +90,16 @@
     SEL sel =
         @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
              milestoneIds:userIds:creatorIds:);
-    if ([delegate respondsToSelector:sel])
-        [delegate tickets:tickets fetchedForAllProjectsWithMetadata:metadata
-            ticketNumbers:ticketNumbers milestoneIds:milestoneIds
-            userIds:userIds creatorIds:creatorIds];
+
+    [self invokeSelector:sel withTarget:delegate args:tickets, metadata,
+        ticketNumbers, milestoneIds, userIds, creatorIds, nil];
 }
 
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
                                      error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchTicketsForAllProjects:);
-    if ([delegate respondsToSelector:sel])
-        [delegate failedToFetchTicketsForAllProjects:error];
+    [self invokeSelector:sel withTarget:delegate args:error, nil];
 }
 
 - (void)searchResults:(NSData *)data
@@ -122,16 +117,15 @@
         milestoneIds:userIds:creatorIds:);
 
     [self invokeSelector:sel withTarget:delegate
-        args:[NSArray arrayWithObjects:tickets, searchString, metadata,
-        ticketNumbers, milestoneIds, userIds, creatorIds, nil]];
+        args:tickets, searchString, metadata, ticketNumbers, milestoneIds,
+        userIds, creatorIds, nil];
 }
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     token:(NSString *)token error:(NSError *)error
 {
     SEL sel = @selector(failedToSearchTicketsForAllProjects:error:);
-    [self invokeSelector:sel withTarget:delegate
-        args:[NSArray arrayWithObjects:searchString, error, nil]];
+    [self invokeSelector:sel withTarget:delegate args:searchString, error, nil];
 }
 
 #pragma mark -- Ticket bins
@@ -142,16 +136,14 @@
     NSArray * ticketBins = [self parseTicketBins:xml];
 
     SEL sel = @selector(fetchedTicketBins:token:);
-    [self invokeSelector:sel withTarget:delegate
-        args:[NSArray arrayWithObjects:ticketBins, token, nil]];
+    [self invokeSelector:sel withTarget:delegate args:ticketBins, token, nil];
 }
 
 - (void)failedToFetchTicketBinsForProject:(NSUInteger)projectId
     token:(NSString *)token error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchTicketBins:error:);
-    [self invokeSelector:sel withTarget:delegate
-        args:[NSArray arrayWithObjects:token, error, nil]];
+    [self invokeSelector:sel withTarget:delegate args:token, error, nil];
 }
 
 #pragma mark -- Milestones
@@ -162,34 +154,14 @@
     NSArray * milestones = [self parseMilestones:data];
 
     SEL sel = @selector(milestonesFetchedForAllProjects:);
-    if ([delegate respondsToSelector:sel])
-        [delegate milestonesFetchedForAllProjects:milestones];
+    [self invokeSelector:sel withTarget:delegate args:milestones, nil];
 }
 
 - (void)failedToFetchMilestonesForAllProjects:(NSString *)token
                                         error:(NSError *)error
 {
-    [delegate failedToFetchMilestonesForAllProjects:error];
-}
-
-#pragma mark Helper functions for invoking delegate methods
-
-- (void)notifyDelegate:(SEL)selector
-{
-    if ([delegate respondsToSelector:selector])
-        [delegate performSelector:selector];
-}
-
-- (void)notifyDelegate:(SEL)selector withObject:(id)obj
-{
-    if ([delegate respondsToSelector:selector])
-        [delegate performSelector:selector withObject:obj];
-}
-
-- (void)notifyDelegate:(SEL)selector withObject:(id)obj1 withObject:(id)obj2
-{
-    if ([delegate respondsToSelector:selector])
-        [delegate performSelector:selector withObject:obj1 withObject:obj2];
+    SEL sel = @selector(failedToFetchMilestonesForAllProjects:);
+    [self invokeSelector:sel withTarget:delegate args:error, nil];
 }
 
 #pragma mark Parsing XML
@@ -303,7 +275,8 @@
 
 #pragma mark Delegate helpers
 
-- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target args:(NSArray *)args
+- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
+    args:(id)firstArg, ...
 {
     if ([target respondsToSelector:selector]) {
         NSMethodSignature * sig = [target methodSignatureForSelector:selector];
@@ -311,10 +284,12 @@
         [inv setTarget:target];
         [inv setSelector:selector];
 
-        for (NSInteger i = 0, count = args.count; i < count; ++i) {
-            id arg = [args objectAtIndex:i];
-            [inv setArgument:&arg atIndex:i + 2];
-        }
+        va_list args;
+        va_start(args, firstArg);
+        NSInteger argIdx = 2;
+
+        for (id arg = firstArg; arg != nil; arg = va_arg(args, id), ++argIdx)
+            [inv setArgument:&arg atIndex:argIdx];
 
         [inv invoke];
 

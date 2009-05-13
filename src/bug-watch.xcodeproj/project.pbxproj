@@ -85,6 +85,7 @@
 		05F63D9C0FBA2AF300BF4300 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05F63D9D0FBA2AF800BF4300 /* NSDictionary+NonRetainedKeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */; };
 		05F63EBD0FBA37E400BF4300 /* TicketBin.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F63EBC0FBA37E400BF4300 /* TicketBin.m */; };
+		05F63F410FBA514F00BF4300 /* empty-search-result.xml in Resources */ = {isa = PBXBuildFile; fileRef = 05F63F400FBA514F00BF4300 /* empty-search-result.xml */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -280,6 +281,7 @@
 		05F0F4D40FB9FA3500963F6E /* milestones.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = milestones.xml; path = "test/xml-samples/milestones.xml"; sourceTree = "<group>"; };
 		05F63EBB0FBA37E400BF4300 /* TicketBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBin.h; path = tickets/TicketBin.h; sourceTree = "<group>"; };
 		05F63EBC0FBA37E400BF4300 /* TicketBin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketBin.m; path = tickets/TicketBin.m; sourceTree = "<group>"; };
+		05F63F400FBA514F00BF4300 /* empty-search-result.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "empty-search-result.xml"; path = "test/xml-samples/empty-search-result.xml"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -442,6 +444,7 @@
 				052C5B8F0FB3AD6600C7A30C /* tickets.xml */,
 				052C5C1A0FB490F100C7A30C /* milestone.xml */,
 				05F0F4D40FB9FA3500963F6E /* milestones.xml */,
+				05F63F400FBA514F00BF4300 /* empty-search-result.xml */,
 			);
 			name = "xml-samples";
 			sourceTree = "<group>";
@@ -968,6 +971,7 @@
 				052C5B900FB3AD6600C7A30C /* tickets.xml in Resources */,
 				052C5C1B0FB490F100C7A30C /* milestone.xml in Resources */,
 				05F0F4D50FB9FA3500963F6E /* milestones.xml in Resources */,
+				05F63F410FBA514F00BF4300 /* empty-search-result.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

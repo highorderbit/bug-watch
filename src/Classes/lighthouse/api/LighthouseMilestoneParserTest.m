@@ -142,6 +142,23 @@
         @"Parsed numbers incorrectly.");
 }
 
+- (void)testEmptySearchResults
+{
+    NSData * xml = [[self class] loadXmlFileNamed:@"empty-search-result"];
+
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:@"number", @"number", nil];
+    parser.classElementCollection = @"tickets";
+
+    NSArray * tickets = [parser parse:xml];
+
+    STAssertNotNil(tickets, @"Tickets are nil.");
+    STAssertTrue(tickets.count == 0, @"Ticket count is %d; should be 0.",
+        tickets.count);
+}
+
 + (NSData *)ticketXml
 {
     return [[self class] loadXmlFileNamed:@"ticket"];
