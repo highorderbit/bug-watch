@@ -20,6 +20,7 @@
 #import "TicketDataSource.h"
 #import "TicketSearchMgr.h"
 #import "MessageResponseCache.h"
+#import "TicketBinViewController.h"
 
 @interface BugWatchAppController (Private)
 
@@ -200,17 +201,24 @@
         ticketsNetAwareViewController.navigationItem.rightBarButtonItem;
     UITextField * searchField =
         (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
-    TicketSearchMgr * ticketSearchMgr =
-        [[[TicketSearchMgr alloc]
-        initWithSearchField:searchField addButton:addButton
-        cancelButton:cancelButton
-        navigationItem:ticketsNetAwareViewController.navigationItem]
-        autorelease];
-    
+    TicketBinViewController * binViewController =
+        [[[TicketBinViewController alloc]
+        initWithNibName:@"TicketBinView" bundle:nil] autorelease];
+
     TicketsViewController * ticketsViewController =
         [[[TicketsViewController alloc]
         initWithNibName:@"TicketsView" bundle:nil] autorelease];
     ticketsNetAwareViewController.targetViewController = ticketsViewController;
+
+    TicketSearchMgr * ticketSearchMgr =
+        [[TicketSearchMgr alloc]
+        initWithSearchField:searchField addButton:addButton
+        cancelButton:cancelButton
+        navigationItem:ticketsNetAwareViewController.navigationItem
+        ticketBinViewController:binViewController
+        parentView:ticketsNetAwareViewController.navigationController.view];
+        // this won't get dealloced, but fine since it exists for the runtime
+        // lifetime
     
     LighthouseApiService * lighthouseApiService =
         [[[LighthouseApiService alloc]

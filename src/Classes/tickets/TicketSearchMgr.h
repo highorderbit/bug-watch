@@ -4,6 +4,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TicketSearchMgrDelegate.h"
+#import "TicketBinViewController.h"
 
 @interface TicketSearchMgr : NSObject <UITextFieldDelegate>
 {
@@ -13,6 +14,10 @@
     UIBarButtonItem * addButton;
     UIBarButtonItem * cancelButton;
     UINavigationItem * navigationItem;
+    TicketBinViewController * binViewController;
+    UIView * parentView;
+    
+    UIView * darkTransparentView;
 }
 
 @property (nonatomic, retain) NSObject<TicketSearchMgrDelegate> * delegate;
@@ -20,6 +25,8 @@
 - (id)initWithSearchField:(UITextField *)aSearchField
     addButton:(UIBarButtonItem *)anAddButton
     cancelButton:(UIBarButtonItem *)aCancelButton
-    navigationItem:(UINavigationItem *)aNavigationItem;
+    navigationItem:(UINavigationItem *)aNavigationItem
+    ticketBinViewController:(TicketBinViewController *)aBinViewController
+    parentView:(UIView *)parentView;
 
 @end
