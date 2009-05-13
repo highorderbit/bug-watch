@@ -53,6 +53,9 @@
 
 - (id)parse:(NSData *)xml
 {
+    [self resetContext];
+    [self resetCollection];
+
     NSXMLParser * parser = [[NSXMLParser alloc] initWithData:xml];
     parser.delegate = self;
     [parser parse];
