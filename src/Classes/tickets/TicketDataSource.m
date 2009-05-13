@@ -28,16 +28,16 @@
 {
     // TEMPORARY
     static NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
-    [service fetchTicketsForAllProjects:token];
+    [service searchTicketsForAllProjects:aFilterString token:token];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
 
 - (void)tickets:(NSArray *)tickets
-    fetchedForAllProjectsWithMetadata:(NSArray *)someMetaData
-    ticketNumbers:(NSArray *)ticketNumbers
-    milestoneIds:(NSArray *)milestoneIds
-    userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds
+    fetchedForSearchString:(NSString *)searchString
+    metadata:(NSArray *)someMetaData ticketNumbers:(NSArray *)ticketNumbers
+    milestoneIds:(NSArray *)milestoneIds userIds:(NSArray *)userIds
+    creatorIds:(NSArray *)creatorIds
 {
     NSLog(@"Received tickets: %@", tickets);
     

@@ -139,7 +139,8 @@
     } else {
         [wrapperController setUpdatingState:kConnectedAndUpdating];
         wrapperController.cachedDataAvailable = NO;
-        [dataSource fetchTicketsWithQuery:aFilterString];
+        NSString * searchString = aFilterString ? aFilterString : @"";
+        [dataSource fetchTicketsWithQuery:searchString];
     }
 
     self.filterString = aFilterString;

@@ -133,7 +133,7 @@
         forView:searchField cache:YES];
 
     CGRect frame = searchField.frame;
-    frame.size.width = 245;
+    frame.size.width = 252;
     searchField.frame = frame;
 
     [UIView commitAnimations];
@@ -141,9 +141,18 @@
     [navigationItem setRightBarButtonItem:cancelButton animated:YES];
 
     NSLog(@"parent view: %@", parentView);
-    
+
     [parentView addSubview:darkTransparentView];
 //    [parentView addSubview:binViewController.view];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSLog(@"Ticket search text field returning...");
+    [delegate ticketsFilteredByFilterString:searchField.text];
+    [self cancelSelected];
+
+    return YES;
 }
 
 @end
