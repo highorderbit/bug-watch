@@ -3,6 +3,7 @@
 //
 
 #import "BugWatchAppDelegate.h"
+#import "LighthouseApiService.h"
 
 @implementation BugWatchAppDelegate
 

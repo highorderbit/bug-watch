@@ -19,6 +19,9 @@
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
+- (NSArray *)parseTicketBins:(NSData *)xml;
+
+- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target args:(NSArray *)args;
 
 @end
 
@@ -48,14 +51,27 @@
     return self;
 }
 
-#pragma mark Fetching tickets
+#pragma mark Tickets
 
 - (void)fetchTicketsForAllProjects:(NSString *)token
 {
     [api fetchTicketsForAllProjects:token];
 }
 
-#pragma mark Fetching milestones
+- (void)searchTicketsForAllProjects:(NSString *)searchString
+                              token:(NSString *)token
+{
+    [api searchTicketsForAllProjects:searchString token:token];
+}
+
+#pragma mark Ticket bins
+
+- (void)fetchTicketBins:(NSString *)token
+{
+    [api fetchTicketBinsForProject:27400 token:token];
+}
+
+#pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token
 {
@@ -90,6 +106,55 @@
     if ([delegate respondsToSelector:sel])
         [delegate failedToFetchTicketsForAllProjects:error];
 }
+
+- (void)searchResults:(NSData *)data
+    fetchedForAllProjectsWithSearchString:(NSString *)searchString
+    token:(NSString *)token
+{
+    NSArray * ticketNumbers = [self parseTicketNumbers:data];
+    NSArray * tickets = [self parseTickets:data];
+    NSArray * metadata = [self parseTicketMetaData:data];
+    NSArray * milestoneIds = [self parseMilestoneIds:data];
+    NSArray * userIds = [self parseUserIds:data];
+    NSArray * creatorIds = [self parseCreatorIds:data];
+
+    SEL sel = @selector(tickets:fetchedForSearchString:metadata:ticketNumbers:\
+        milestoneIds:userIds:creatorIds:);
+
+    [self invokeSelector:sel withTarget:delegate
+        args:[NSArray arrayWithObjects:tickets, searchString, metadata,
+        ticketNumbers, milestoneIds, userIds, creatorIds, nil]];
+}
+
+- (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
+    token:(NSString *)token error:(NSError *)error
+{
+    SEL sel = @selector(failedToSearchTicketsForAllProjects:error:);
+    [self invokeSelector:sel withTarget:delegate
+        args:[NSArray arrayWithObjects:searchString, error, nil]];
+}
+
+#pragma mark -- Ticket bins
+
+- (void)ticketBins:(NSData *)xml
+    fetchedForProject:(NSUInteger)projectId token:(NSString *)token
+{
+    NSArray * ticketBins = [self parseTicketBins:xml];
+
+    SEL sel = @selector(fetchedTicketBins:token:);
+    [self invokeSelector:sel withTarget:delegate
+        args:[NSArray arrayWithObjects:ticketBins, token, nil]];
+}
+
+- (void)failedToFetchTicketBinsForProject:(NSUInteger)projectId
+    token:(NSString *)token error:(NSError *)error
+{
+    SEL sel = @selector(failedToFetchTicketBins:error:);
+    [self invokeSelector:sel withTarget:delegate
+        args:[NSArray arrayWithObjects:token, error, nil]];
+}
+
+#pragma mark -- Milestones
 
 - (void)milestones:(NSData *)data
     fetchedForAllProjectsWithToken:(NSString *)token
@@ -219,6 +284,44 @@
             nil];
 
     return [parser parse:xml];
+}
+
+- (NSArray *)parseTicketBins:(NSData *)xml
+{
+    parser.className = @"TicketBin";
+    parser.classElementType = @"ticket-bin";
+    parser.classElementCollection = @"ticket-bins";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"name",
+            @"searchString", @"query",
+            @"ticketCount", @"tickets-count",
+            nil];
+
+    return [parser parse:xml];
+}
+
+#pragma mark Delegate helpers
+
+- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target args:(NSArray *)args
+{
+    if ([target respondsToSelector:selector]) {
+        NSMethodSignature * sig = [target methodSignatureForSelector:selector];
+        NSInvocation * inv = [NSInvocation invocationWithMethodSignature:sig];
+        [inv setTarget:target];
+        [inv setSelector:selector];
+
+        for (NSInteger i = 0, count = args.count; i < count; ++i) {
+            id arg = [args objectAtIndex:i];
+            [inv setArgument:&arg atIndex:i + 2];
+        }
+
+        [inv invoke];
+
+        return YES;
+    }
+
+    return NO;
 }
 
 @end

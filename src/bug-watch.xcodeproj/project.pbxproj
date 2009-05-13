@@ -78,6 +78,13 @@
 		05EFD88D0FA9405C001DFCFB /* NewsFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD88C0FA9405C001DFCFB /* NewsFeedItem.m */; };
 		05F0F2870FB8D8DC00963F6E /* NSArray+IterationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */; };
 		05F0F4D50FB9FA3500963F6E /* milestones.xml in Resources */ = {isa = PBXBuildFile; fileRef = 05F0F4D40FB9FA3500963F6E /* milestones.xml */; };
+		05F63D910FBA2A8900BF4300 /* LighthouseApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */; };
+		05F63D920FBA2A8E00BF4300 /* LighthouseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C610FB49D6E00C7A30C /* LighthouseApi.m */; };
+		05F63D9A0FBA2AE700BF4300 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
+		05F63D9B0FBA2AED00BF4300 /* WebServiceResponseDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7C30FA924F6001DFCFB /* WebServiceResponseDispatcher.m */; };
+		05F63D9C0FBA2AF300BF4300 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
+		05F63D9D0FBA2AF800BF4300 /* NSDictionary+NonRetainedKeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EFD7E20FA928B7001DFCFB /* NSDictionary+NonRetainedKeyAdditions.m */; };
+		05F63EBD0FBA37E400BF4300 /* TicketBin.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F63EBC0FBA37E400BF4300 /* TicketBin.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -271,6 +278,8 @@
 		05F0F2850FB8D8DC00963F6E /* NSArray+IterationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+IterationAdditions.h"; path = "shared/NSArray+IterationAdditions.h"; sourceTree = "<group>"; };
 		05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+IterationAdditions.m"; path = "shared/NSArray+IterationAdditions.m"; sourceTree = "<group>"; };
 		05F0F4D40FB9FA3500963F6E /* milestones.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = milestones.xml; path = "test/xml-samples/milestones.xml"; sourceTree = "<group>"; };
+		05F63EBB0FBA37E400BF4300 /* TicketBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBin.h; path = tickets/TicketBin.h; sourceTree = "<group>"; };
+		05F63EBC0FBA37E400BF4300 /* TicketBin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketBin.m; path = tickets/TicketBin.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Bug Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -796,6 +805,8 @@
 				918887230FB9E730009F5861 /* TicketPersistenceStore.m */,
 				918887F10FBA1BBF009F5861 /* TicketBinViewController.h */,
 				918887F20FBA1BBF009F5861 /* TicketBinViewController.m */,
+				05F63EBB0FBA37E400BF4300 /* TicketBin.h */,
+				05F63EBC0FBA37E400BF4300 /* TicketBin.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1048,6 +1059,12 @@
 				052C5A660FB398A400C7A30C /* Ticket.m in Sources */,
 				052C5A7D0FB39CBC00C7A30C /* TicketMetaData.m in Sources */,
 				052C5ACE0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m in Sources */,
+				05F63D910FBA2A8900BF4300 /* LighthouseApiService.m in Sources */,
+				05F63D920FBA2A8E00BF4300 /* LighthouseApi.m in Sources */,
+				05F63D9A0FBA2AE700BF4300 /* WebServiceApi.m in Sources */,
+				05F63D9B0FBA2AED00BF4300 /* WebServiceResponseDispatcher.m in Sources */,
+				05F63D9C0FBA2AF300BF4300 /* NSURLRequest+WebServiceApiAdditions.m in Sources */,
+				05F63D9D0FBA2AF800BF4300 /* NSDictionary+NonRetainedKeyAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1134,6 +1151,7 @@
 				9188871A0FB9E6E1009F5861 /* PListUtils.m in Sources */,
 				918887240FB9E730009F5861 /* TicketPersistenceStore.m in Sources */,
 				918887F30FBA1BBF009F5861 /* TicketBinViewController.m in Sources */,
+				05F63EBD0FBA37E400BF4300 /* TicketBin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
