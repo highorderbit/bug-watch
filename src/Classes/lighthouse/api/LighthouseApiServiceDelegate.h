@@ -24,9 +24,16 @@
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     error:(NSError *)error;
 
+#pragma mark Ticket bins
+
 @optional
 
+- (void)fetchedTicketBins:(NSArray *)ticketBins token:(NSString *)token;
+- (void)failedToFetchTicketBins:(NSString *)token error:(NSError *)error;
+
 #pragma mark Fetching milestones
+
+@optional
 
 - (void)milestonesFetchedForAllProjects:(NSArray *)milestones;
 - (void)failedToFetchMilestonesForAllProjects:(NSError *)error;

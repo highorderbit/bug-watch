@@ -19,6 +19,7 @@
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
+- (NSArray *)parseTicketBins:(NSData *)xml;
 
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target args:(NSArray *)args;
 
@@ -61,6 +62,13 @@
                               token:(NSString *)token
 {
     [api searchTicketsForAllProjects:searchString token:token];
+}
+
+#pragma mark Ticket bins
+
+- (void)fetchTicketBins:(NSString *)token
+{
+    [api fetchTicketBinsForProject:27400 token:token];
 }
 
 #pragma mark Milestones
@@ -125,6 +133,28 @@
     [self invokeSelector:sel withTarget:delegate
         args:[NSArray arrayWithObjects:searchString, error, nil]];
 }
+
+#pragma mark -- Ticket bins
+
+- (void)ticketBins:(NSData *)xml
+    fetchedForProject:(NSUInteger)projectId token:(NSString *)token
+{
+    NSArray * ticketBins = [self parseTicketBins:xml];
+
+    SEL sel = @selector(fetchedTicketBins:token:);
+    [self invokeSelector:sel withTarget:delegate
+        args:[NSArray arrayWithObjects:ticketBins, token, nil]];
+}
+
+- (void)failedToFetchTicketBinsForProject:(NSUInteger)projectId
+    token:(NSString *)token error:(NSError *)error
+{
+    SEL sel = @selector(failedToFetchTicketBins:error:);
+    [self invokeSelector:sel withTarget:delegate
+        args:[NSArray arrayWithObjects:token, error, nil]];
+}
+
+#pragma mark -- Milestones
 
 - (void)milestones:(NSData *)data
     fetchedForAllProjectsWithToken:(NSString *)token
@@ -255,6 +285,23 @@
 
     return [parser parse:xml];
 }
+
+- (NSArray *)parseTicketBins:(NSData *)xml
+{
+    parser.className = @"TicketBin";
+    parser.classElementType = @"ticket-bin";
+    parser.classElementCollection = @"ticket-bins";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"name",
+            @"searchString", @"query",
+            @"ticketCount", @"tickets-count",
+            nil];
+
+    return [parser parse:xml];
+}
+
+#pragma mark Delegate helpers
 
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target args:(NSArray *)args
 {

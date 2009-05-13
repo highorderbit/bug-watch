@@ -28,6 +28,10 @@
 - (void)searchTicketsForAllProjects:(NSString *)searchString
                               token:(NSString *)token;
 
+#pragma mark Ticket bins
+
+- (void)fetchTicketBins:(NSString *)token;
+
 #pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token;

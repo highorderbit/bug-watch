@@ -18,6 +18,13 @@
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     token:(NSString *)token error:(NSError *)error;
 
+#pragma mark Ticket bins
+
+- (void)ticketBins:(NSData *)xml
+    fetchedForProject:(NSUInteger)projectId token:(NSString *)token;
+- (void)failedToFetchTicketBinsForProject:(NSUInteger)projectId
+    token:(NSString *)token error:(NSError *)error;
+
 #pragma mark Milestones
 
 - (void)milestones:(NSData *)xml

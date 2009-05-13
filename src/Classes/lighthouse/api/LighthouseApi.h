@@ -31,6 +31,10 @@
 - (void)searchTicketsForAllProjects:(NSString *)searchString
                               token:(NSString *)token;
 
+#pragma mark Ticket bins
+
+- (void)fetchTicketBinsForProject:(NSUInteger)projectId token:(NSString *)token;
+
 #pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token;
