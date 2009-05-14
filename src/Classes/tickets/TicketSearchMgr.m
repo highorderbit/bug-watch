@@ -172,15 +172,16 @@
 {
     [binViewController setTicketBins:someTicketBins];
     [parentView addSubview:binViewController.view];
-    [binViewController viewWillAppear:YES];
+    [binViewController viewWillAppear:NO];
 }
 
 #pragma mark TicketBinViewControllerDelegate implementation
 
 - (void)ticketBinSelectedWithQuery:(NSString *)query
 {
+    [delegate ticketsFilteredByFilterString:query];
+    [self cancelSelected];
     searchField.text = query;
-    [self searchCurrentText];
 }
 
 #pragma mark Private helper methods

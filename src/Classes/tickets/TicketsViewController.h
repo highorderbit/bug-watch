@@ -13,6 +13,8 @@
     NSDictionary * metaData;
     NSDictionary * assignedToDict;
     NSDictionary * milestoneDict;
+    
+    IBOutlet UIView * footerView;
 }
 
 @property (nonatomic, retain)

@@ -73,7 +73,7 @@
 - (NSString *)tableView:(UITableView *)aTableView
     titleForHeaderInSection:(NSInteger)section
 {
-    return @"Ticket Bins";
+    return [ticketBins count] > 0 ? @"Ticket Bins" : nil;
 }
 
 #pragma mark TicketBinViewController implementation

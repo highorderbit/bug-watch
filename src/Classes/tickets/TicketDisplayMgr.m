@@ -105,7 +105,7 @@
 {
     NSDictionary * allTickets = [ticketCache allTickets];
 
-    if (allTickets &&
+    if (ticketCache &&
         (aFilterString == self.filterString ||
         [aFilterString isEqual:self.filterString])) {
 
@@ -182,7 +182,7 @@
 
 - (void)networkAwareViewWillAppear
 {
-    [self ticketsFilteredByFilterString:nil];
+    [self ticketsFilteredByFilterString:filterString];
 }
 
 #pragma mark TicketDataSourceDelegate implementation
