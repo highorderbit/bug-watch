@@ -9,6 +9,7 @@
 - (void)cancelSelected;
 - (void)updateNavigationBarForNotSearching:(BOOL)animated;
 - (void)initDarkTransparentView;
+- (void)searchCurrentText;
 
 @end
 
@@ -38,6 +39,7 @@
     navigationItem:(UINavigationItem *)aNavigationItem
     ticketBinViewController:(TicketBinViewController *)aBinViewController
     parentView:(UIView *)aParentView
+    dataSource:(TicketBinDataSource *)aDataSource
 {
     if (self = [super init]) {
         searchField = [aSearchField retain];
@@ -46,6 +48,7 @@
         navigationItem = [aNavigationItem retain];
         binViewController = [aBinViewController retain];
         parentView = [aParentView retain];
+        dataSource = [aDataSource retain];
 
         searchField.delegate = self;
         // Can't be set in IB, so setting it here
@@ -143,16 +146,39 @@
     NSLog(@"parent view: %@", parentView);
 
     [parentView addSubview:darkTransparentView];
-//    [parentView addSubview:binViewController.view];
+    [dataSource fetchAllTicketBins];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     NSLog(@"Ticket search text field returning...");
-    [delegate ticketsFilteredByFilterString:searchField.text];
-    [self cancelSelected];
+    [self searchCurrentText];
 
     return YES;
+}
+
+#pragma mark TicketBinDataSourceDelegate implementation
+
+- (void)receivedTicketBinsFromDataSource:(NSArray *)someTicketBins
+{
+    [binViewController setTicketBins:someTicketBins];
+    [parentView addSubview:binViewController.view];
+}
+
+#pragma mark TicketBinViewControllerDelegate implementation
+
+- (void)ticketBinSelectedWithQuery:(NSString *)query
+{
+    searchField.text = query;
+    [self searchCurrentText];
+}
+
+#pragma mark Private helper methods
+
+- (void)searchCurrentText
+{
+    [delegate ticketsFilteredByFilterString:searchField.text];
+    [self cancelSelected];
 }
 
 @end

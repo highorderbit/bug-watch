@@ -21,6 +21,7 @@
 #import "TicketSearchMgr.h"
 #import "MessageResponseCache.h"
 #import "TicketBinViewController.h"
+#import "TicketBinDataSource.h"
 
 @interface BugWatchAppController (Private)
 
@@ -210,25 +211,38 @@
         initWithNibName:@"TicketsView" bundle:nil] autorelease];
     ticketsNetAwareViewController.targetViewController = ticketsViewController;
 
+    LighthouseApiService * ticketBinLighthouseApiService =
+        [[[LighthouseApiService alloc]
+        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
+        autorelease];
+    TicketBinDataSource * ticketBinDataSource =
+        [[[TicketBinDataSource alloc]
+        initWithService:ticketBinLighthouseApiService]
+        autorelease];
+    ticketBinLighthouseApiService.delegate = ticketBinDataSource;
+
     TicketSearchMgr * ticketSearchMgr =
         [[TicketSearchMgr alloc]
         initWithSearchField:searchField addButton:addButton
         cancelButton:cancelButton
         navigationItem:ticketsNetAwareViewController.navigationItem
         ticketBinViewController:binViewController
-        parentView:ticketsNetAwareViewController.navigationController.view];
+        parentView:ticketsNetAwareViewController.navigationController.view
+        dataSource:ticketBinDataSource];
+    ticketBinDataSource.delegate = ticketSearchMgr;
+    binViewController.delegate = ticketSearchMgr;
         // this won't get dealloced, but fine since it exists for the runtime
         // lifetime
     
-    LighthouseApiService * lighthouseApiService =
+    LighthouseApiService * ticketLighthouseApiService =
         [[[LighthouseApiService alloc]
         initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
         autorelease];
 
     TicketDataSource * ticketDataSource =
-        [[[TicketDataSource alloc] initWithService:lighthouseApiService]
+        [[[TicketDataSource alloc] initWithService:ticketLighthouseApiService]
         autorelease];
-    lighthouseApiService.delegate = ticketDataSource;
+    ticketLighthouseApiService.delegate = ticketDataSource;
     
     TicketDisplayMgr * ticketDisplayMgr =
         [[[TicketDisplayMgr alloc] initWithTicketCache:nil

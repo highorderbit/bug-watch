@@ -35,7 +35,7 @@
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return [[ticketBins allKeys] count];
+    return [ticketBins count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -55,8 +55,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
-    id ticketBinId = [[ticketBins allKeys] objectAtIndex:indexPath.row];
-    TicketBin * ticketBin = [ticketBins objectForKey:ticketBinId];
+    TicketBin * ticketBin = [ticketBins objectAtIndex:indexPath.row];
 
     [cell setText:ticketBin.name];
     [cell setCount:ticketBin.ticketCount];
@@ -67,13 +66,13 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id ticketBinId = [[ticketBins allKeys] objectAtIndex:indexPath.row];
-    [delegate ticketBinSelectedWithId:ticketBinId];
+    TicketBin * ticketBin = [ticketBins objectAtIndex:indexPath.row];
+    [delegate ticketBinSelectedWithQuery:ticketBin.searchString];
 }
 
 #pragma mark TicketBinViewController implementation
 
-- (void)setTicketBins:(NSDictionary *)someTicketBins
+- (void)setTicketBins:(NSArray *)someTicketBins
 {
     [someTicketBins retain];
     [ticketBins release];

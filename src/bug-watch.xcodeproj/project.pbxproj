@@ -148,6 +148,7 @@
 		91A85B180FAF6F350084FBE1 /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A85B170FAF6F350084FBE1 /* AddCommentViewController.m */; };
 		91A85B950FAF77BD0084FBE1 /* ItemSelectionTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85B930FAF77BD0084FBE1 /* ItemSelectionTableView.xib */; };
 		91A85B990FAF77E20084FBE1 /* ItemSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A85B980FAF77E20084FBE1 /* ItemSelectionTableViewController.m */; };
+		91B15A2C0FBBC00A00C7412C /* TicketBinDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B15A2B0FBBC00A00C7412C /* TicketBinDataSource.m */; };
 		91C5D8840FAFA49100943292 /* HOTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C5D8830FAFA49100943292 /* HOTableViewCell.m */; };
 		91C5D9120FAFB88000943292 /* TicketComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C5D9110FAFB88000943292 /* TicketComment.m */; };
 		91C5D9830FAFF8A400943292 /* TicketMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C5D9820FAFF8A400943292 /* TicketMetaData.m */; };
@@ -387,6 +388,9 @@
 		91A85B940FAF77BD0084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ItemSelectionTableView.xib; sourceTree = "<group>"; };
 		91A85B970FAF77E20084FBE1 /* ItemSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemSelectionTableViewController.h; path = tickets/ItemSelectionTableViewController.h; sourceTree = "<group>"; };
 		91A85B980FAF77E20084FBE1 /* ItemSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemSelectionTableViewController.m; path = tickets/ItemSelectionTableViewController.m; sourceTree = "<group>"; };
+		91B15A2A0FBBC00A00C7412C /* TicketBinDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBinDataSource.h; path = tickets/TicketBinDataSource.h; sourceTree = "<group>"; };
+		91B15A2B0FBBC00A00C7412C /* TicketBinDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketBinDataSource.m; path = tickets/TicketBinDataSource.m; sourceTree = "<group>"; };
+		91B15A2E0FBBC99400C7412C /* TicketBinDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBinDataSourceDelegate.h; path = tickets/TicketBinDataSourceDelegate.h; sourceTree = "<group>"; };
 		91C5D8820FAFA49100943292 /* HOTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HOTableViewCell.h; path = shared/HOTableViewCell.h; sourceTree = "<group>"; };
 		91C5D8830FAFA49100943292 /* HOTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HOTableViewCell.m; path = shared/HOTableViewCell.m; sourceTree = "<group>"; };
 		91C5D9100FAFB88000943292 /* TicketComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketComment.h; path = tickets/TicketComment.h; sourceTree = "<group>"; };
@@ -812,6 +816,9 @@
 				05F63EBB0FBA37E400BF4300 /* TicketBin.h */,
 				05F63EBC0FBA37E400BF4300 /* TicketBin.m */,
 				918889AC0FBA541A009F5861 /* TicketBinViewControllerDelegate.h */,
+				91B15A2A0FBBC00A00C7412C /* TicketBinDataSource.h */,
+				91B15A2B0FBBC00A00C7412C /* TicketBinDataSource.m */,
+				91B15A2E0FBBC99400C7412C /* TicketBinDataSourceDelegate.h */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1158,6 +1165,7 @@
 				918887240FB9E730009F5861 /* TicketPersistenceStore.m in Sources */,
 				918887F30FBA1BBF009F5861 /* TicketBinViewController.m in Sources */,
 				05F63EBD0FBA37E400BF4300 /* TicketBin.m in Sources */,
+				91B15A2C0FBBC00A00C7412C /* TicketBinDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

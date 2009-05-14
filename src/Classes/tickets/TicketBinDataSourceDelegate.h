@@ -4,8 +4,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TicketBinViewControllerDelegate
+@protocol TicketBinDataSourceDelegate
 
-- (void)ticketBinSelectedWithQuery:(NSString *)query;
+- (void)receivedTicketBinsFromDataSource:(NSArray *)someTicketBins;
 
 @end

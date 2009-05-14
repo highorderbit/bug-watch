@@ -8,12 +8,12 @@
 @interface TicketBinViewController : UITableViewController
 {
     NSObject<TicketBinViewControllerDelegate> * delegate;
-    NSDictionary * ticketBins;
+    NSArray * ticketBins;
 }
 
 @property (nonatomic, assign)
     NSObject<TicketBinViewControllerDelegate> * delegate;
 
-- (void)setTicketBins:(NSDictionary *)ticketBins;
+- (void)setTicketBins:(NSArray *)ticketBins;
 
 @end

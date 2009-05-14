@@ -5,8 +5,13 @@
 #import <Foundation/Foundation.h>
 #import "TicketSearchMgrDelegate.h"
 #import "TicketBinViewController.h"
+#import "TicketBinDataSourceDelegate.h"
+#import "TicketBinDataSource.h"
 
-@interface TicketSearchMgr : NSObject <UITextFieldDelegate>
+@interface TicketSearchMgr :
+    NSObject
+    <UITextFieldDelegate, TicketBinDataSourceDelegate,
+    TicketBinViewControllerDelegate>
 {
     NSObject<TicketSearchMgrDelegate> * delegate;
 
@@ -16,6 +21,7 @@
     UINavigationItem * navigationItem;
     TicketBinViewController * binViewController;
     UIView * parentView;
+    TicketBinDataSource * dataSource;
     
     UIView * darkTransparentView;
 }
@@ -27,6 +33,7 @@
     cancelButton:(UIBarButtonItem *)aCancelButton
     navigationItem:(UINavigationItem *)aNavigationItem
     ticketBinViewController:(TicketBinViewController *)aBinViewController
-    parentView:(UIView *)parentView;
+    parentView:(UIView *)parentView
+    dataSource:(TicketBinDataSource *)dataSource;
 
 @end
