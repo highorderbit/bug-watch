@@ -70,6 +70,12 @@
     [delegate ticketBinSelectedWithQuery:ticketBin.searchString];
 }
 
+- (NSString *)tableView:(UITableView *)aTableView
+    titleForHeaderInSection:(NSInteger)section
+{
+    return @"Ticket Bins";
+}
+
 #pragma mark TicketBinViewController implementation
 
 - (void)setTicketBins:(NSArray *)someTicketBins

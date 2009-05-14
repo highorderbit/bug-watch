@@ -145,8 +145,17 @@
 
     NSLog(@"parent view: %@", parentView);
 
+    darkTransparentView.alpha = 0;
     [parentView addSubview:darkTransparentView];
-    [dataSource fetchAllTicketBins];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone
+        forView:darkTransparentView cache:YES];
+    darkTransparentView.alpha = 1;
+    [UIView commitAnimations];
+    
+    [dataSource performSelector:@selector(fetchAllTicketBins) withObject:nil
+        afterDelay:0.6];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -163,6 +172,7 @@
 {
     [binViewController setTicketBins:someTicketBins];
     [parentView addSubview:binViewController.view];
+    [binViewController viewWillAppear:YES];
 }
 
 #pragma mark TicketBinViewControllerDelegate implementation
