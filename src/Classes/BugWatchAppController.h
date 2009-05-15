@@ -22,7 +22,7 @@
     IBOutlet NetworkAwareViewController * messagesNetAwareViewController;
     IBOutlet UIViewController * pagesViewController;
 
-    TicketCache * ticketCache;
+    TicketDisplayMgr * ticketDisplayMgr;
     MessageCache * messageCache;
     MessageResponseCache * messageResponseCache;
 
@@ -31,5 +31,6 @@
 }
 
 - (void)start;
+- (void)persistState;
 
 @end

@@ -22,12 +22,15 @@
 #import "MessageResponseCache.h"
 #import "TicketBinViewController.h"
 #import "TicketBinDataSource.h"
+#import "TicketPersistenceStore.h"
 
 @interface BugWatchAppController (Private)
 
 - (void)initTicketsTab;
 - (void)initProjectsTab;
 - (void)initMessagesTab;
+
++ (NSString *)ticketCachePlist;
 
 @end
 
@@ -42,7 +45,7 @@
     [messagesNetAwareViewController release];
     [pagesViewController release];
 
-    [ticketCache release];
+    [ticketDisplayMgr release];
     [messageCache release];
     [messageResponseCache release];
 
@@ -54,71 +57,11 @@
 
 - (void)start
 {
-    ticketCache = [[TicketCache alloc] init];
     messageCache = [[MessageCache alloc] init];
     messageResponseCache = [[MessageResponseCache alloc] init];
-
-    // TEMPORARY: populate ticket cache
-    NSString * description1 =
-        @"If timing is just right, updating view can be added to wrong view controller when backing out of drill-down";
-    NSString * message1 =
-        @"The 'Next' button is enabled even when a username hasn't been supplied. Should it be? Is it important? The 'Done' button sends the request when both fields are blank and the second field is selected even though 'Add' is disabled.\n\nOne difference between the repo favorites add view and the log in view is that the log in view sends the request while the repo view just hides the keyboard in the above scenario. Not sure which is better or what the solution should be yet.";
-
-    NSMutableArray * comments = [NSMutableArray array];
-    [comments addObject:[NSNumber numberWithInt:0]];
-    [comments addObject:[NSNumber numberWithInt:1]];
-
-    Ticket * ticket1 =
-        [[[Ticket alloc] initWithDescription:description1 message:message1
-        creationDate:[NSDate date]] autorelease];
-    TicketMetaData * metaData1 =
-        [[TicketMetaData alloc] initWithTags:@"bug ui" state:kNew
-        lastModifiedDate:[NSDate date]];
-        
-    NSString * description2 = @"Really short description";
-    Ticket * ticket2 =
-        [[[Ticket alloc] initWithDescription:description2 message:@""
-        creationDate:[NSDate date]] autorelease];
-    TicketMetaData * metaData2 =
-        [[TicketMetaData alloc] initWithTags:@"" state:kResolved
-        lastModifiedDate:[NSDate date]];
-
-    NSString * description3 = @"Support followed users in GitHub service";
-    NSString * message3 = @"Steps to reproduce:\nFrom a user's page, tap one of their repositories that is not cached.\nQuickly return to the user page.\nTap a different repo.\nIt's possible that the first repo will load.";
-    Ticket * ticket3 =
-        [[[Ticket alloc] initWithDescription:description3 message:message3
-        creationDate:[NSDate date]] autorelease];
-    TicketMetaData * metaData3 =
-        [[TicketMetaData alloc] initWithTags:@"bug" state:kHold
-        lastModifiedDate:[NSDate date]];
-
-    [ticketCache setTicket:ticket1 forNumber:213];
-    [ticketCache setTicket:ticket2 forNumber:56];
-    [ticketCache setTicket:ticket3 forNumber:217];
-    
-    [ticketCache setMetaData:metaData1 forNumber:213];
-    [ticketCache setMetaData:metaData2 forNumber:56];
-    [ticketCache setMetaData:metaData3 forNumber:217];
-    
-    [ticketCache setAssignedToKey:[NSNumber numberWithInt:0] forNumber:213];
-    [ticketCache setAssignedToKey:[NSNumber numberWithInt:1] forNumber:56];
-    [ticketCache setAssignedToKey:[NSNumber numberWithInt:0] forNumber:217];
-
-    [ticketCache setCreatedByKey:[NSNumber numberWithInt:0] forNumber:213];
-    [ticketCache setCreatedByKey:[NSNumber numberWithInt:0] forNumber:56];
-    [ticketCache setCreatedByKey:[NSNumber numberWithInt:1] forNumber:217];
-
-    [ticketCache setMilestoneKey:[NSNumber numberWithInt:0] forNumber:213];
-    [ticketCache setMilestoneKey:[NSNumber numberWithInt:1] forNumber:56];
-    [ticketCache setMilestoneKey:[NSNumber numberWithInt:1] forNumber:217];
-    
-    [ticketCache setCommentKeys:comments forNumber:213];
-    [ticketCache setCommentKeys:[NSArray array] forNumber:56];
-    [ticketCache setCommentKeys:[NSArray array] forNumber:217];
-    // TEMPORARY
     
     // TEMPORARY: populate message cache
-   Message * msg1 =
+    Message * msg1 =
        [[Message alloc] initWithPostedDate:[NSDate date]
        title:@"App Store Description"
        message:@"Code Watch is the best way to get GitHub on your iPhone.\nKeep track of what's going on with all of your GitHub repositories, including your private ones."];
@@ -194,8 +137,25 @@
          milestoneDataSource:milestoneDataSource];
 }
 
+- (void)persistState
+{
+    NSLog(@"Persisting state...");
+    TicketCache * ticketCache = ticketDisplayMgr.ticketCache;
+    TicketPersistenceStore * ticketPersistenceStore =
+        [[[TicketPersistenceStore alloc] init] autorelease];
+    [ticketPersistenceStore saveTicketCache:ticketCache
+        toPlist:[[self class] ticketCachePlist]];
+}
+
 - (void)initTicketsTab
 {
+    NSLog(@"Loading ticket cache from persistence...");
+    TicketPersistenceStore * ticketPersistenceStore =
+        [[[TicketPersistenceStore alloc] init] autorelease];
+    TicketCache * ticketCache =
+        [ticketPersistenceStore loadWithPlist:[[self class] ticketCachePlist]];
+    NSLog(@"Loaded ticket cache from persistence.");
+
     UIBarButtonItem * cancelButton =
         ticketsNetAwareViewController.navigationItem.leftBarButtonItem;
     UIBarButtonItem * addButton =
@@ -231,8 +191,8 @@
         dataSource:ticketBinDataSource];
     ticketBinDataSource.delegate = ticketSearchMgr;
     binViewController.delegate = ticketSearchMgr;
-        // this won't get dealloced, but fine since it exists for the runtime
-        // lifetime
+    // this won't get dealloced, but fine since it exists for the runtime
+    // lifetime
     
     LighthouseApiService * ticketLighthouseApiService =
         [[[LighthouseApiService alloc]
@@ -244,8 +204,8 @@
         autorelease];
     ticketLighthouseApiService.delegate = ticketDataSource;
     
-    TicketDisplayMgr * ticketDisplayMgr =
-        [[[TicketDisplayMgr alloc] initWithTicketCache:nil
+    ticketDisplayMgr =
+        [[[TicketDisplayMgr alloc] initWithTicketCache:ticketCache
         initialFilterString:nil
         networkAwareViewController:ticketsNetAwareViewController
         ticketsViewController:ticketsViewController
@@ -286,6 +246,11 @@
         messagesNetAwareViewController.navigationItem.rightBarButtonItem;
     addButton.target = messageDisplayMgr;
     addButton.action = @selector(createNewMessage);
+}
+
++ (NSString *)ticketCachePlist
+{
+    return @"TicketCache";
 }
 
 @end

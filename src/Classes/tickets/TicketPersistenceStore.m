@@ -17,6 +17,9 @@
 
 + (NSString *)ticketDictKey;
 + (NSString *)metaDataDictKey;
++ (NSString *)createdByDictKey;
++ (NSString *)assignedToDictKey;
++ (NSString *)milestoneDictKey;
 
 + (NSString *)descriptionKey;
 + (NSString *)messageKey;
@@ -30,60 +33,64 @@
 
 @implementation TicketPersistenceStore
 
-- (void)dealloc
+- (TicketCache *)loadWithPlist:(NSString *)plist
 {
-    [ticketCache release];
-    [plistName release];
-    [super dealloc];
-}
+    TicketCache * ticketCache = [[[TicketCache alloc] init] autorelease];
 
-- (id)initWithTicketCache:(TicketCache *)aTicketCache
-    plistName:(NSString *)aPlistName
-{
-    if (self = [super init]) {
-        ticketCache = [aTicketCache retain];
-        plistName = [aPlistName copy];
-    }
-
-    return self;
-}
-
-#pragma mark PersistenceStore implementation
-
-- (void)load
-{
-    NSDictionary * dict = [PlistUtils getDictionaryFromPlist:plistName];
+    NSDictionary * dict = [PlistUtils getDictionaryFromPlist:plist];
 
     NSDictionary * ticketDict =
         [dict objectForKey:[[self class] ticketDictKey]];
     NSDictionary * metaDataDict =
         [dict objectForKey:[[self class] metaDataDictKey]];
+    NSDictionary * createdByDict =
+        [dict objectForKey:[[self class] createdByDictKey]];
+    NSDictionary * assignedToDict =
+        [dict objectForKey:[[self class] assignedToDictKey]];
+    NSDictionary * milestoneDict =
+        [dict objectForKey:[[self class] milestoneDictKey]];
 
-    for (NSNumber * number in [ticketDict allKeys]) {
-        NSDictionary * ticketFieldsDict = [ticketDict objectForKey:number];
+    for (NSString * numberAsString in [ticketDict allKeys]) {
+        NSUInteger number = [numberAsString integerValue];
+        NSDictionary * ticketFieldsDict =
+            [ticketDict objectForKey:numberAsString];
         Ticket * ticket = [[self class] ticketFromDictionary:ticketFieldsDict];
-        [ticketCache setTicket:ticket forNumber:[number intValue]];
+        [ticketCache setTicket:ticket forNumber:number];
         
         NSDictionary * metaDataFieldsDict =
-            [metaDataDict objectForKey:number];
+            [metaDataDict objectForKey:numberAsString];
         TicketMetaData * metaData =
             [[self class] metaDataFromDictionary:metaDataFieldsDict];
-        [ticketCache setMetaData:metaData forNumber:[number intValue]];
+        [ticketCache setMetaData:metaData forNumber:number];
+        
+        id createdByKey = [createdByDict objectForKey:numberAsString];
+        [ticketCache setCreatedByKey:createdByKey forNumber:number];
+
+        id assignedToKey = [assignedToDict objectForKey:numberAsString];
+        [ticketCache setAssignedToKey:assignedToKey forNumber:number];
+
+        id milestoneKey = [milestoneDict objectForKey:numberAsString];
+        [ticketCache setMilestoneKey:milestoneKey forNumber:number];
     }
+    
+    return ticketCache;
 }
 
-- (void)save
+- (void)saveTicketCache:(TicketCache *)ticketCache toPlist:(NSString *)plist
 {
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
     NSMutableDictionary * ticketDict = [NSMutableDictionary dictionary];
     NSMutableDictionary * metaDataDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary * createdByDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary * milestoneDict = [NSMutableDictionary dictionary];
     
     NSDictionary * allTickets = [ticketCache allTickets];
     for (NSNumber * number in [allTickets allKeys]) {
         Ticket * ticket = [allTickets objectForKey:number];
         NSDictionary * ticketFieldDict =
             [[self class] dictionaryFromTicket:ticket];
-        [ticketDict setObject:ticketFieldDict forKey:number];
+        [ticketDict setObject:ticketFieldDict forKey:[number description]];
     }
     
     NSDictionary * allMetaData = [ticketCache allMetaData];
@@ -91,13 +98,35 @@
         TicketMetaData * metaData = [allMetaData objectForKey:number];
         NSDictionary * metaDataFieldDict =
             [[self class] dictionaryFromMetaData:metaData];
-        [metaDataDict setObject:metaDataFieldDict forKey:number];
+        [metaDataDict setObject:metaDataFieldDict forKey:[number description]];
+    }
+    
+    NSDictionary * allCreatedByKeys = [ticketCache allCreatedByKeys];
+    for (NSNumber * number in [allCreatedByKeys allKeys]) {
+        id createdByKey = [allCreatedByKeys objectForKey:number];
+        [createdByDict setObject:createdByKey forKey:[number description]];
+    }
+    
+    NSDictionary * allAssignedToKeys = [ticketCache allAssignedToKeys];
+    for (NSNumber * number in [allAssignedToKeys allKeys]) {
+        id assignedToKey = [allAssignedToKeys objectForKey:number];
+        [assignedToDict setObject:assignedToKey forKey:[number description]];
+    }
+
+    NSDictionary * allMilestoneKeys = [ticketCache allMilestoneKeys];
+    for (NSNumber * number in [allMilestoneKeys allKeys]) {
+        id milestoneKey = [allMilestoneKeys objectForKey:number];
+        [milestoneDict setObject:milestoneKey forKey:[number description]];
     }
 
     [dict setObject:ticketDict forKey:[[self class] ticketDictKey]];
     [dict setObject:metaDataDict forKey:[[self class] metaDataDictKey]];
+    [dict setObject:createdByDict forKey:[[self class] createdByDictKey]];
+    [dict setObject:assignedToDict forKey:[[self class] assignedToDictKey]];
+    [dict setObject:milestoneDict forKey:[[self class] milestoneDictKey]];
 
-    [PlistUtils saveDictionary:dict toPlist:plistName];
+    NSLog(@"Ticket cache: %@", dict);
+    [PlistUtils saveDictionary:dict toPlist:plist];
 }
 
 #pragma mark Data conversion methods
@@ -194,6 +223,21 @@
 + (NSString *)metaDataDictKey
 {
     return @"metaDataDict";
+}
+
++ (NSString *)createdByDictKey
+{
+    return @"createdByDict";
+}
+
++ (NSString *)assignedToDictKey
+{
+    return @"assignedToDict";
+}
+
++ (NSString *)milestoneDictKey
+{
+    return @"milestoneDict";
 }
 
 + (NSString *)descriptionKey
