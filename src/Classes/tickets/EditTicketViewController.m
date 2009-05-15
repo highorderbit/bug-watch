@@ -30,9 +30,14 @@ enum EditTicketCell
 @interface EditTicketViewController (Private)
 
 + (UITableViewCell *)createCellForSection:(NSUInteger)section;
++ (NSString *)unsetText;
 - (UITableViewCell *)dequeueCellForSection:(NSUInteger)section;
+- (NSDictionary *)milestonesPlusNone;
+- (NSDictionary *)membersPlusNone;
 
 @end
+
+static const NSInteger UNSET_KEY = 0;
 
 @implementation EditTicketViewController
 
@@ -133,13 +138,13 @@ enum EditTicketCell
             case kAssignedTo:
                 [editTicketCell setKeyText:@"assigned to"];
                 NSString * memberName =
-                    [self.members objectForKey:self.member];
+                    [self.membersPlusNone objectForKey:self.member];
                 [editTicketCell setValueText:memberName];
                 break;
             case kMilestone:
                 [editTicketCell setKeyText:@"milestone"];
                 NSString * milestoneName =
-                    [self.milestones objectForKey:self.milestone];
+                    [self.milestonesPlusNone objectForKey:self.milestone];
                 [editTicketCell setValueText:milestoneName];
                 break;
             case kState:
@@ -186,9 +191,10 @@ enum EditTicketCell
                     @"Set Responsible";
                 [self.itemSelectionTableViewController
                     setLabelText:@"Who's responsible?"];
+                [self.itemSelectionTableViewController
+                    setItems:self.membersPlusNone];
                 self.itemSelectionTableViewController.selectedItem =
                     self.member;
-                [self.itemSelectionTableViewController setItems:self.members];
                 [self.navigationController
                     pushViewController:self.itemSelectionTableViewController
                     animated:YES];
@@ -198,10 +204,10 @@ enum EditTicketCell
                     @"Set Milestone";
                 [self.itemSelectionTableViewController
                     setLabelText:@"Milestone"];
+                [self.itemSelectionTableViewController
+                    setItems:self.milestonesPlusNone];
                 self.itemSelectionTableViewController.selectedItem =
                     self.milestone;
-                [self.itemSelectionTableViewController
-                    setItems:self.milestones];
                 [self.navigationController
                     pushViewController:self.itemSelectionTableViewController
                     animated:YES];
@@ -306,6 +312,11 @@ enum EditTicketCell
 
 #pragma mark Accessors
 
++ (NSString *)unsetText
+{
+    return @"-- none --";
+}
+
 - (AddCommentViewController *)addCommentViewController
 {
     if (!addCommentViewController)
@@ -331,6 +342,27 @@ enum EditTicketCell
     edit = editVal;
     self.navigationItem.title = edit ? @"Edit Ticket" : @"Add Ticket";
     [self.tableView reloadData];
+}
+
+- (NSDictionary *)milestonesPlusNone
+{
+    NSMutableDictionary * milestonesPlusNone =
+        [NSMutableDictionary
+        dictionaryWithDictionary:self.milestones];
+    [milestonesPlusNone setObject:[[self class] unsetText]
+        forKey:[NSNumber numberWithInt:UNSET_KEY]];
+
+    return milestonesPlusNone;
+}
+
+- (NSDictionary *)membersPlusNone
+{
+    NSMutableDictionary * membersPlusNone =
+        [NSMutableDictionary dictionaryWithDictionary:self.members];
+    [membersPlusNone setObject:[[self class] unsetText]
+        forKey:[NSNumber numberWithInt:UNSET_KEY]];
+
+    return membersPlusNone;
 }
 
 @end
