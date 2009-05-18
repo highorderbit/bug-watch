@@ -7,17 +7,16 @@
 #import "MilestoneDetailsDataSourceDelegate.h"
 
 @class MilestoneDetailsDataSource, Milestone;
-@class NetworkAwareViewController, MilestoneViewController;
-@class TicketsViewController;
+@class NetworkAwareViewController, TicketsViewController;
+@class MilestoneHeaderView;
 
 @interface MilestoneDetailsDisplayMgr :
     NSObject
     <NetworkAwareViewControllerDelegate, MilestoneDetailsDataSourceDelegate>
 {
     NetworkAwareViewController * networkAwareViewController;
-    MilestoneViewController * milestoneViewController;
     TicketsViewController * ticketsViewController;
-    UIView * milestoneHeaderView;
+    MilestoneHeaderView * milestoneHeaderView;
 
     MilestoneDetailsDataSource * detailsDataSource;
 

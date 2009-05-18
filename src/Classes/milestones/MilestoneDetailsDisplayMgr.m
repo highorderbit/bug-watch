@@ -6,6 +6,7 @@
 #import "MilestoneDetailsDataSource.h"
 #import "NetworkAwareViewController.h"
 #import "TicketsViewController.h"
+#import "MilestoneHeaderView.h"
 #import "Milestone.h"
 
 @interface MilestoneDetailsDisplayMgr ()
@@ -17,7 +18,7 @@
 @property (nonatomic, retain) NetworkAwareViewController *
     networkAwareViewController;
 @property (nonatomic, retain) TicketsViewController * ticketsViewController;
-@property (nonatomic, retain) UIView * milestoneHeaderView;
+@property (nonatomic, retain) MilestoneHeaderView * milestoneHeaderView;
 
 @end
 
@@ -60,6 +61,9 @@
     self.milestone = aMilestone;
     self.milestoneKey = aMilestoneKey;
     self.projectKey = aProjectKey;
+
+    self.milestoneHeaderView.milestone = self.milestone;
+    self.ticketsViewController.headerView = self.milestoneHeaderView;
 
     [networkAwareViewController setCachedDataAvailable:NO];
     [navController
@@ -131,13 +135,12 @@
         ticketsViewController =
             [[TicketsViewController alloc]
             initWithNibName:@"TicketsView" bundle:nil];
-        ticketsViewController.headerView = self.milestoneHeaderView;
     }
 
     return ticketsViewController;
 }
 
-- (UIView *)milestoneHeaderView
+- (MilestoneHeaderView *)milestoneHeaderView
 {
     if (!milestoneHeaderView) {
         NSArray * nib =

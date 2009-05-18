@@ -8,10 +8,8 @@
 @class RoundedRectView;
 @class MilestoneProgressView;
 
-@interface MilestoneViewController : UITableViewController
+@interface MilestoneHeaderView : UIView
 {
-    IBOutlet UIView * headerView;
-
     IBOutlet UILabel * nameLabel;
     IBOutlet UILabel * dueDateLabel;
     IBOutlet UILabel * goalsLabel;

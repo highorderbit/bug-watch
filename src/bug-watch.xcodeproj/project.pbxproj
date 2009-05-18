@@ -58,7 +58,7 @@
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
 		05D6A0050FB357C10081AE18 /* NSObject+RuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */; };
 		05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */; };
-		05DEB1D90FB106470052888E /* MilestoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1D80FB106470052888E /* MilestoneViewController.m */; };
+		05DEB1D90FB106470052888E /* MilestoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1D80FB106470052888E /* MilestoneHeaderView.m */; };
 		05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2200FB217090052888E /* LighthouseNewsFeed.m */; };
 		05DEB2280FB217090052888E /* LighthouseNewsFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2230FB217090052888E /* LighthouseNewsFeedParser.m */; };
 		05DEB2290FB217090052888E /* LighthouseNewsFeedService.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2250FB217090052888E /* LighthouseNewsFeedService.m */; };
@@ -248,8 +248,8 @@
 		05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDisplayMgr.h; path = Classes/milestones/MilestoneDisplayMgr.h; sourceTree = "<group>"; };
 		05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDisplayMgr.m; path = Classes/milestones/MilestoneDisplayMgr.m; sourceTree = "<group>"; };
 		05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewControllerDelegate.h; path = Classes/milestones/MilestonesViewControllerDelegate.h; sourceTree = "<group>"; };
-		05DEB1D70FB106470052888E /* MilestoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneViewController.h; path = Classes/milestones/MilestoneViewController.h; sourceTree = "<group>"; };
-		05DEB1D80FB106470052888E /* MilestoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneViewController.m; path = Classes/milestones/MilestoneViewController.m; sourceTree = "<group>"; };
+		05DEB1D70FB106470052888E /* MilestoneHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneHeaderView.h; path = Classes/milestones/MilestoneHeaderView.h; sourceTree = "<group>"; };
+		05DEB1D80FB106470052888E /* MilestoneHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneHeaderView.m; path = Classes/milestones/MilestoneHeaderView.m; sourceTree = "<group>"; };
 		05DEB21F0FB217090052888E /* LighthouseNewsFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeed.h; path = "lighthouse/news-feed/LighthouseNewsFeed.h"; sourceTree = "<group>"; };
 		05DEB2200FB217090052888E /* LighthouseNewsFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseNewsFeed.m; path = "lighthouse/news-feed/LighthouseNewsFeed.m"; sourceTree = "<group>"; };
 		05DEB2210FB217090052888E /* LighthouseNewsFeedDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseNewsFeedDelegate.h; path = "lighthouse/news-feed/LighthouseNewsFeedDelegate.h"; sourceTree = "<group>"; };
@@ -513,8 +513,8 @@
 				05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */,
 				059736750FAFB75000059D20 /* MilestonesTableViewCell.h */,
 				059736760FAFB75000059D20 /* MilestonesTableViewCell.m */,
-				05DEB1D70FB106470052888E /* MilestoneViewController.h */,
-				05DEB1D80FB106470052888E /* MilestoneViewController.m */,
+				05DEB1D70FB106470052888E /* MilestoneHeaderView.h */,
+				05DEB1D80FB106470052888E /* MilestoneHeaderView.m */,
 				052C5DA30FB4E25900C7A30C /* MilestoneDataSource.h */,
 				052C5DA40FB4E25900C7A30C /* MilestoneDataSource.m */,
 				052C5DE10FB664A200C7A30C /* MilestoneDataSourceDelegate.h */,
@@ -1154,7 +1154,7 @@
 				059737240FAFD05200059D20 /* RoundedRectView.m in Sources */,
 				0597386A0FB0C26A00059D20 /* MilestoneProgressView.m in Sources */,
 				05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */,
-				05DEB1D90FB106470052888E /* MilestoneViewController.m in Sources */,
+				05DEB1D90FB106470052888E /* MilestoneHeaderView.m in Sources */,
 				05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */,
 				05DEB2280FB217090052888E /* LighthouseNewsFeedParser.m in Sources */,
 				05DEB2290FB217090052888E /* LighthouseNewsFeedService.m in Sources */,

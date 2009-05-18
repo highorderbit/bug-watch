@@ -4,7 +4,6 @@
 
 #import "MilestoneDisplayMgr.h"
 #import "MilestonesViewController.h"
-#import "MilestoneViewController.h"
 #import "MilestoneDataSource.h"
 #import "MilestoneDetailsDisplayMgr.h"
 #import "Milestone.h"
