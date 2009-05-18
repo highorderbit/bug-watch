@@ -61,13 +61,15 @@
     self.milestoneKey = aMilestoneKey;
     self.projectKey = aProjectKey;
 
+    [networkAwareViewController setCachedDataAvailable:NO];
     [navController
         pushViewController:self.networkAwareViewController animated:YES];
-    [networkAwareViewController setCachedDataAvailable:NO];
 }
 
 - (void)networkAwareViewWillAppear
 {
+    networkAwareViewController.navigationItem.title =
+        NSLocalizedString(@"milestonedetails.view.title", @"");
     NSString * searchString =
         [NSString stringWithFormat:@"milestone:'%@'", milestone.name];
     [detailsDataSource fetchIfNecessary:searchString

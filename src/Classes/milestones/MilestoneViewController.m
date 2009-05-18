@@ -69,7 +69,7 @@
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section
 {
-    return NSLocalizedString(@"milestone.tickets.section.title", @"");
+    return NSLocalizedString(@"milestonedetails.tickets.section.title", @"");
 }
 
 // Customize the appearance of table view cells.
