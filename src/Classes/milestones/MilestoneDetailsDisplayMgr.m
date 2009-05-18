@@ -90,16 +90,14 @@
         self.milestone, self.milestoneKey, nil];
 
     NSMutableDictionary * filteredTickets = [tickets mutableCopy];
+    NSUInteger filter = self.ticketFilterControl.selectedSegmentIndex == 0 ?
+        (kNew | kOpen) :
+        (kResolved | kHold | kInvalid);
 
     for (id ticketKey in tickets) {
         TicketMetaData * md = [metadata objectForKey:ticketKey];
 
-        NSUInteger mask =
-            self.ticketFilterControl.selectedSegmentIndex == 0 ?
-            (kNew | kOpen) :
-            (kResolved | kHold | kInvalid);
-
-        if (!(md.state & mask))
+        if (!(md.state & filter))
             [filteredTickets removeObjectForKey:ticketKey];
     }
 
@@ -164,7 +162,6 @@
 {
     [self updateDisplay];
 }
-
 
 #pragma mark Accessors
 

@@ -16,6 +16,11 @@
     TicketCache * ticketCache;
     MilestoneCache * milestoneCache;
 
+    id projectKey;
+    id milestoneKey;
+
+    NSMutableDictionary * cachedQueries;
+
     LighthouseApiService * service;
 }
 
