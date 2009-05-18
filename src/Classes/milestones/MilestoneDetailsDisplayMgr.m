@@ -55,15 +55,12 @@
 
 - (void)displayDetailsForMilestone:(Milestone *)aMilestone
                   withMilestoneKey:(id)aMilestoneKey
-                      projectKey:(id)aProjectKey
-            navigationController:(UINavigationController *)navController
+                        projectKey:(id)aProjectKey
+              navigationController:(UINavigationController *)navController
 {
     self.milestone = aMilestone;
     self.milestoneKey = aMilestoneKey;
     self.projectKey = aProjectKey;
-
-    self.milestoneHeaderView.milestone = self.milestone;
-    self.ticketsViewController.headerView = self.milestoneHeaderView;
 
     [networkAwareViewController setCachedDataAvailable:NO];
     [navController
@@ -106,6 +103,9 @@
     [self.ticketsViewController
         setTickets:tickets metaData:metadata assignedToDict:userIds
         milestoneDict:milestones];
+
+    self.milestoneHeaderView.milestone = self.milestone;
+    self.ticketsViewController.headerView = self.milestoneHeaderView;
 
     [networkAwareViewController setCachedDataAvailable:YES];
 }

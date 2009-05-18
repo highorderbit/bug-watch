@@ -127,6 +127,7 @@
     headerView = view;
 
     self.tableView.tableHeaderView = headerView;
+    [self.tableView reloadData];  // force the header view to resize
 }
 
 @end

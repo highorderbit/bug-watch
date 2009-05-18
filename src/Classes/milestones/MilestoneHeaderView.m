@@ -86,7 +86,7 @@
     [milestone release];
     milestone = tmp;
 
-    [self setNeedsLayout];
+    [self updateDisplay];
 }
 
 @end
