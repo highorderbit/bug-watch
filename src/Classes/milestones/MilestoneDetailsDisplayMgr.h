@@ -17,12 +17,18 @@
     NetworkAwareViewController * networkAwareViewController;
     TicketsViewController * ticketsViewController;
     MilestoneHeaderView * milestoneHeaderView;
+    UISegmentedControl * ticketFilterControl;
 
     MilestoneDetailsDataSource * detailsDataSource;
 
     Milestone * milestone;
     id milestoneKey;
     id projectKey;
+
+    NSDictionary * tickets;
+    NSDictionary * metadata;
+    NSDictionary * userIds;
+    NSDictionary * creatorIds;
 }
 
 #pragma mark Initialization

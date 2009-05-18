@@ -8,37 +8,53 @@
 #import "TicketsViewController.h"
 #import "MilestoneHeaderView.h"
 #import "Milestone.h"
+#import "TicketMetaData.h"
 
 @interface MilestoneDetailsDisplayMgr ()
 
-@property (nonatomic, copy) Milestone * milestone;
-@property (nonatomic, copy) id milestoneKey;
-@property (nonatomic, copy) id projectKey;
+- (void)updateDisplay;
 
 @property (nonatomic, retain) NetworkAwareViewController *
     networkAwareViewController;
 @property (nonatomic, retain) TicketsViewController * ticketsViewController;
 @property (nonatomic, retain) MilestoneHeaderView * milestoneHeaderView;
+@property (nonatomic, retain) UISegmentedControl * ticketFilterControl;
+
+@property (nonatomic, copy) Milestone * milestone;
+@property (nonatomic, copy) id milestoneKey;
+@property (nonatomic, copy) id projectKey;
+
+@property (nonatomic, copy) NSDictionary * tickets;
+@property (nonatomic, copy) NSDictionary * metadata;
+@property (nonatomic, copy) NSDictionary * userIds;
+@property (nonatomic, copy) NSDictionary * creatorIds;
 
 @end
 
 @implementation MilestoneDetailsDisplayMgr
 
-@synthesize milestone, milestoneKey, projectKey;
 @synthesize networkAwareViewController, ticketsViewController;
-@synthesize milestoneHeaderView;
+@synthesize milestoneHeaderView, ticketFilterControl;
+@synthesize milestone, milestoneKey, projectKey;
+@synthesize tickets, metadata, userIds, creatorIds;
 
 - (void)dealloc
 {
     [networkAwareViewController release];
     [ticketsViewController release];
     [milestoneHeaderView release];
+    [ticketFilterControl release];
 
     [detailsDataSource release];
 
     [milestone release];
     [milestoneKey release];
     [projectKey release];
+
+    [tickets release];
+    [metadata release];
+    [userIds release];
+    [creatorIds release];
 
     [super dealloc];
 }
@@ -67,10 +83,44 @@
         pushViewController:self.networkAwareViewController animated:YES];
 }
 
+- (void)updateDisplay
+{
+    NSDictionary * milestones =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        self.milestone, self.milestoneKey, nil];
+
+    NSMutableDictionary * filteredTickets = [tickets mutableCopy];
+
+    for (id ticketKey in tickets) {
+        TicketMetaData * md = [metadata objectForKey:ticketKey];
+
+        NSUInteger mask =
+            self.ticketFilterControl.selectedSegmentIndex == 0 ?
+            (kNew | kOpen) :
+            (kResolved | kHold | kInvalid);
+
+        if (!(md.state & mask))
+            [filteredTickets removeObjectForKey:ticketKey];
+    }
+
+    [self.ticketsViewController
+        setTickets:filteredTickets metaData:metadata assignedToDict:userIds
+        milestoneDict:milestones];
+
+    self.milestoneHeaderView.milestone = self.milestone;
+    self.ticketsViewController.headerView = self.milestoneHeaderView;
+
+    [networkAwareViewController setCachedDataAvailable:YES];
+}
+
+#pragma mark NetworkAwareViewControllerDelegate implementation
+
 - (void)networkAwareViewWillAppear
 {
-    networkAwareViewController.navigationItem.title =
-        NSLocalizedString(@"milestonedetails.view.title", @"");
+    networkAwareViewController.navigationItem.titleView =
+        self.ticketFilterControl;
+    ticketFilterControl.selectedSegmentIndex = 0;
+
     NSString * searchString =
         [NSString stringWithFormat:@"milestone:'%@'", milestone.name];
     [detailsDataSource fetchIfNecessary:searchString
@@ -89,31 +139,32 @@
     [self.networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
 }
 
-- (void)tickets:(NSDictionary *)tickets fetchedForProject:(id)projectKey
-    searchString:(NSString *)searchString metadata:(NSDictionary *)metadata
-    milestone:(Milestone *)aMilestone userIds:(NSDictionary *)userIds
-    creatorIds:(NSDictionary *)creatorIds
+- (void)tickets:(NSDictionary *)someTickets fetchedForProject:(id)projectKey
+    searchString:(NSString *)searchString metadata:(NSDictionary *)someMetadata
+    milestone:(Milestone *)aMilestone userIds:(NSDictionary *)someUserIds
+    creatorIds:(NSDictionary *)someCreatorIds
 {
     self.milestone = aMilestone;
+    self.tickets = someTickets;
+    self.metadata = someMetadata;
+    self.userIds = someUserIds;
+    self.creatorIds = someCreatorIds;
 
-    NSDictionary * milestones =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-        self.milestone, self.milestoneKey, nil];
-
-    [self.ticketsViewController
-        setTickets:tickets metaData:metadata assignedToDict:userIds
-        milestoneDict:milestones];
-
-    self.milestoneHeaderView.milestone = self.milestone;
-    self.ticketsViewController.headerView = self.milestoneHeaderView;
-
-    [networkAwareViewController setCachedDataAvailable:YES];
+    [self updateDisplay];
 }
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString error:(NSError *)error
 {
 }
+
+#pragma mark UISegmentedControl actions
+
+- (void)ticketFilterDidChange:(id)sender
+{
+    [self updateDisplay];
+}
+
 
 #pragma mark Accessors
 
@@ -152,7 +203,29 @@
         milestoneHeaderView = [[nib objectAtIndex:0] retain];
     }
 
-    return milestoneHeaderView;
+    //return milestoneHeaderView;
+    return nil;
+}
+
+- (UISegmentedControl *)ticketFilterControl
+{
+    if (!ticketFilterControl) {
+        NSArray * items =
+            [NSArray arrayWithObjects:
+            NSLocalizedString(@"milestonedetails.tickets.filter.active", @""),
+            NSLocalizedString(@"milestonedetails.tickets.filter.inactive", @""),
+            nil];
+            
+        ticketFilterControl =
+            [[UISegmentedControl alloc] initWithItems:items];
+        ticketFilterControl.segmentedControlStyle = UISegmentedControlStyleBar;
+
+        [ticketFilterControl addTarget:self
+                                action:@selector(ticketFilterDidChange:)
+                      forControlEvents:UIControlEventValueChanged];
+    }
+
+    return ticketFilterControl;
 }
 
 @end
