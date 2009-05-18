@@ -24,6 +24,15 @@
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     error:(NSError *)error;
 
+- (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
+    searchString:(NSString *)searchString object:(id)object
+    metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers
+    milestoneIds:(NSArray *)milestoneIds userIds:(NSArray *)userIds
+    creatorIds:(NSArray *)creatorIds;
+- (void)failedToSearchTicketsForProject:(id)projectKey
+    searchString:(NSString *)searchString object:(id)object
+    error:(NSError *)error;
+
 #pragma mark Ticket bins
 
 @optional

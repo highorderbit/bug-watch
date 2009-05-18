@@ -12,6 +12,7 @@
 
 @class NetworkAwareViewController;
 @class NewsFeedDisplayMgr, MilestoneDisplayMgr;
+@class MilestoneCache;
 
 @interface BugWatchAppController : NSObject
 {
@@ -25,6 +26,7 @@
     TicketCache * ticketCache;
     MessageCache * messageCache;
     MessageResponseCache * messageResponseCache;
+    MilestoneCache * milestoneCache;
 
     NewsFeedDisplayMgr * newsFeedDisplayMgr;
     MilestoneDisplayMgr * milestoneDisplayMgr;

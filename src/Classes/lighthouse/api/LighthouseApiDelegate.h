@@ -18,6 +18,13 @@
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     token:(NSString *)token error:(NSError *)error;
 
+- (void)searchResults:(NSData *)data fetchedForProject:(id)projectKey
+    searchString:(NSString *)searchString object:(id)object
+    token:(NSString *)token;
+- (void)failedToSearchTicketsForProject:(id)projectKey
+    searchString:(NSString *)searchString object:(id)object
+    token:(NSString *)token error:(NSError *)error;
+
 #pragma mark Ticket bins
 
 - (void)ticketBins:(NSData *)xml

@@ -83,6 +83,34 @@
     [api sendRequest:req];
 }
 
+- (void)searchTicketsForProject:(id)projectKey
+    withSearchString:(NSString *)searchString object:(id)object
+    token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/tickets.xml?q=%@&_token=%@",
+        baseUrlString,
+        projectKey,
+        [searchString
+            stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+        token];
+    NSURLRequest * req =
+        [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token",
+        searchString, @"searchString",
+        projectKey, @"projectKey",
+        object ? object : [NSNull null], @"object",
+        nil];
+
+    SEL sel = @selector(handleTicketSearchResultsResponse:toRequest:object:);
+    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+
+    [api sendRequest:req];
+}
+
 #pragma mark Ticket Bins
 
 - (void)fetchTicketBinsForProject:(NSUInteger)projectId token:(NSString *)token
@@ -157,6 +185,24 @@
     else
         [delegate searchResults:response
             fetchedForAllProjectsWithSearchString:searchString token:token];
+}
+
+- (void)handleTicketSearchResultsResponse:(id)response
+                                toRequest:(NSURLRequest *)request
+                                   object:(id)object
+{
+    NSString * token = [object objectForKey:@"token"];
+    NSString * searchString = [object objectForKey:@"searchString"];
+    id projectKey = [object objectForKey:@"projectKey"];
+    id obj = [object objectForKey:@"object"];
+    obj = [obj isEqual:[NSNull null]] ? nil : obj;
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToSearchTicketsForProject:projectKey
+            searchString:searchString object:obj token:token error:response];
+    else
+        [delegate searchResults:response fetchedForProject:projectKey
+            searchString:searchString object:obj token:token];
 }
 
 - (void)handleTicketBinResponse:(id)response

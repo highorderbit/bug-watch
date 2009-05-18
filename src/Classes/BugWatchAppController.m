@@ -11,7 +11,10 @@
 #import "LighthouseNewsFeedService.h"
 #import "NetworkAwareViewController.h"
 #import "TicketComment.h"
+#import "MilestoneCache.h"
 #import "MilestoneDisplayMgr.h"
+#import "MilestoneDetailsDataSource.h"
+#import "MilestoneDetailsDisplayMgr.h"
 #import "ProjectDisplayMgr.h"
 #import "LighthouseApiService.h"
 #import "MilestoneDataSource.h"
@@ -28,6 +31,7 @@
 - (void)initTicketsTab;
 - (void)initProjectsTab;
 - (void)initMessagesTab;
+- (void)initMilestonesTab;
 
 @end
 
@@ -45,6 +49,7 @@
     [ticketCache release];
     [messageCache release];
     [messageResponseCache release];
+    [milestoneCache release];
 
     [newsFeedDisplayMgr release];
     [milestoneDisplayMgr release];
@@ -180,18 +185,7 @@
         initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
                         newsFeedDataSource:newsFeedDataSource];
 
-    LighthouseApiService * service =
-        [[[LighthouseApiService alloc]
-        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
-        autorelease];
-    MilestoneDataSource * milestoneDataSource =
-        [[[MilestoneDataSource alloc]
-        initWithLighthouseApiService:service] autorelease];
-    milestoneDisplayMgr =
-        [[MilestoneDisplayMgr alloc]
-        initWithNetworkAwareViewController:
-        milestonesNetworkAwareViewController
-         milestoneDataSource:milestoneDataSource];
+    [self initMilestonesTab];
 }
 
 - (void)initTicketsTab
@@ -286,6 +280,39 @@
         messagesNetAwareViewController.navigationItem.rightBarButtonItem;
     addButton.target = messageDisplayMgr;
     addButton.action = @selector(createNewMessage);
+}
+
+- (void)initMilestonesTab
+{
+    milestoneCache = [[MilestoneCache alloc] init];
+
+    LighthouseApiService * milestoneDetailsService =
+        [[[LighthouseApiService alloc]
+        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
+        autorelease];
+    MilestoneDetailsDataSource * milestoneDetailsDataSource =
+        [[[MilestoneDetailsDataSource alloc]
+        initWithLighthouseApiService:milestoneDetailsService
+                         ticketCache:ticketCache
+                      milestoneCache:milestoneCache] autorelease];
+    MilestoneDetailsDisplayMgr * milestoneDetailsDisplayMgr =
+        [[[MilestoneDetailsDisplayMgr alloc]
+        initWithMilestoneDetailsDataSource:milestoneDetailsDataSource]
+        autorelease];
+
+    LighthouseApiService * milestoneService =
+        [[[LighthouseApiService alloc]
+        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
+        autorelease];
+    MilestoneDataSource * milestoneDataSource =
+        [[[MilestoneDataSource alloc]
+        initWithLighthouseApiService:milestoneService
+                      milestoneCache:milestoneCache] autorelease];
+    milestoneDisplayMgr =
+        [[MilestoneDisplayMgr alloc]
+        initWithNetworkAwareViewController:milestonesNetworkAwareViewController
+        milestoneDataSource:milestoneDataSource
+        milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
 }
 
 @end

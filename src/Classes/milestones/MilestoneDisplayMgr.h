@@ -7,8 +7,8 @@
 #import "MilestonesViewControllerDelegate.h"
 #import "MilestoneDataSourceDelegate.h"
 
-@class MilestoneDataSource;
-@class MilestonesViewController, MilestoneViewController;
+@class MilestoneDataSource, MilestonesViewController;
+@class MilestoneDetailsDisplayMgr;
 
 @interface MilestoneDisplayMgr :
     NSObject
@@ -19,14 +19,19 @@
     NetworkAwareViewController * networkAwareViewController;
     MilestonesViewController * milestonesViewController;
 
-    MilestoneViewController * milestoneViewController;
-
     MilestoneDataSource * milestoneDataSource;
+
+    MilestoneDetailsDisplayMgr * milestoneDetailsDisplayMgr;
+
+    NSArray * milestones;
+    NSArray * milestoneKeys;
+    NSArray * projectKeys;
 }
 
 #pragma mark Initialization
 
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
-                     milestoneDataSource:(MilestoneDataSource *)dataSource;
+                     milestoneDataSource:(MilestoneDataSource *)dataSource
+              milestoneDetailsDisplayMgr:(MilestoneDetailsDisplayMgr *)mddm;
 
 @end

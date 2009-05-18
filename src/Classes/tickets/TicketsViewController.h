@@ -13,10 +13,13 @@
     NSDictionary * metaData;
     NSDictionary * assignedToDict;
     NSDictionary * milestoneDict;
+
+    UIView * headerView;
 }
 
 @property (nonatomic, retain)
     NSObject<TicketsViewControllerDelegate> * delegate;
+@property (nonatomic, retain) UIView * headerView;
 
 - (void)setTickets:(NSDictionary *)someTickets
     metaData:(NSDictionary *)someMetaData

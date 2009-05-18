@@ -25,8 +25,12 @@
 #pragma mark Tickets
 
 - (void)fetchTicketsForAllProjects:(NSString *)token;
+
 - (void)searchTicketsForAllProjects:(NSString *)searchString
                               token:(NSString *)token;
+- (void)searchTicketsForProject:(id)projectKey
+    withSearchString:(NSString *)searchString object:(id)object
+    token:(NSString *)token;
 
 #pragma mark Ticket bins
 

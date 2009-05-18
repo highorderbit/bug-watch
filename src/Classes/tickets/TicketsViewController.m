@@ -9,7 +9,7 @@
 
 @implementation TicketsViewController
 
-@synthesize delegate;
+@synthesize delegate, headerView;
 
 - (void)dealloc
 {
@@ -19,6 +19,8 @@
     [metaData release];
     [assignedToDict release];
     [milestoneDict release];
+
+    [headerView release];
     
     [super dealloc];
 }
@@ -113,6 +115,15 @@
     milestoneDict = tempMilestoneDict;
     
     [self.tableView reloadData];
+}
+
+- (void)setHeaderView:(UIView *)view
+{
+    [view retain];
+    [headerView release];
+    headerView = view;
+
+    self.tableView.tableHeaderView = headerView;
 }
 
 @end

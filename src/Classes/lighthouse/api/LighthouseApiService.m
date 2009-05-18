@@ -11,10 +11,12 @@
 - (NSArray *)parseTickets:(NSData *)xml;
 - (NSArray *)parseTicketMetaData:(NSData *)xml;
 - (NSArray *)parseTicketNumbers:(NSData *)xml;
-- (NSArray *)parseMilestoneIds:(NSData *)xml;
+- (NSArray *)parseTicketMilestoneIds:(NSData *)xml;
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
+- (NSArray *)parseMilestoneIds:(NSData *)xml;
+- (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
 - (NSArray *)parseTicketBins:(NSData *)xml;
 
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
@@ -61,6 +63,14 @@
     [api searchTicketsForAllProjects:searchString token:token];
 }
 
+- (void)searchTicketsForProject:(id)projectKey
+    withSearchString:(NSString *)searchString object:(id)object
+    token:(NSString *)token
+{
+    [api searchTicketsForProject:projectKey withSearchString:searchString
+        object:object token:token];
+}
+
 #pragma mark Ticket bins
 
 - (void)fetchTicketBins:(NSString *)token
@@ -83,7 +93,7 @@
     NSArray * ticketNumbers = [self parseTicketNumbers:data];
     NSArray * tickets = [self parseTickets:data];
     NSArray * metadata = [self parseTicketMetaData:data];
-    NSArray * milestoneIds = [self parseMilestoneIds:data];
+    NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
     NSArray * userIds = [self parseUserIds:data];
     NSArray * creatorIds = [self parseCreatorIds:data];
 
@@ -109,7 +119,7 @@
     NSArray * ticketNumbers = [self parseTicketNumbers:data];
     NSArray * tickets = [self parseTickets:data];
     NSArray * metadata = [self parseTicketMetaData:data];
-    NSArray * milestoneIds = [self parseMilestoneIds:data];
+    NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
     NSArray * userIds = [self parseUserIds:data];
     NSArray * creatorIds = [self parseCreatorIds:data];
 
@@ -126,6 +136,38 @@
 {
     SEL sel = @selector(failedToSearchTicketsForAllProjects:error:);
     [self invokeSelector:sel withTarget:delegate args:searchString, error, nil];
+}
+
+- (void)searchResults:(NSData *)data fetchedForProject:(id)projectKey
+    searchString:(NSString *)searchString object:(id)object
+    token:(NSString *)token
+{
+    NSArray * ticketNumbers = [self parseTicketNumbers:data];
+    NSArray * tickets = [self parseTickets:data];
+    NSArray * metadata = [self parseTicketMetaData:data];
+    NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
+    NSArray * userIds = [self parseUserIds:data];
+    NSArray * creatorIds = [self parseCreatorIds:data];
+
+    // call delegate method manually since object might be nil
+    SEL sel = @selector(tickets:fetchedForProject:searchString:object:\
+        metadata:ticketNumbers:milestoneIds:userIds:creatorIds:);
+    if ([delegate respondsToSelector:sel])
+        [delegate tickets:tickets fetchedForProject:projectKey
+            searchString:searchString object:object metadata:metadata
+            ticketNumbers:ticketNumbers milestoneIds:milestoneIds
+            userIds:userIds creatorIds:creatorIds];
+}
+
+- (void)failedToSearchTicketsForProject:(id)projectKey
+    searchString:(NSString *)searchString object:(id)object
+    token:(NSString *)token error:(NSError *)error
+{
+    SEL sel =
+        @selector(failedToSearchTicketsForProject:searchString:object:error:);
+    if ([delegate respondsToSelector:sel])
+        [delegate failedToSearchTicketsForProject:projectKey
+            searchString:searchString object:object error:error];
 }
 
 #pragma mark -- Ticket bins
@@ -152,9 +194,13 @@
     fetchedForAllProjectsWithToken:(NSString *)token
 {
     NSArray * milestones = [self parseMilestones:data];
+    NSArray * milestoneIds = [self parseMilestoneIds:data];
+    NSArray * projectIds = [self parseMilestoneProjectIds:data];
 
-    SEL sel = @selector(milestonesFetchedForAllProjects:);
-    [self invokeSelector:sel withTarget:delegate args:milestones, nil];
+    SEL sel =
+        @selector(milestonesFetchedForAllProjects:milestoneIds:projectIds:);
+    [self invokeSelector:sel withTarget:delegate args:milestones, milestoneIds,
+       projectIds, nil];
 }
 
 - (void)failedToFetchMilestonesForAllProjects:(NSString *)token
@@ -205,7 +251,7 @@
     return [parser parse:xml];
 }
 
-- (NSArray *)parseMilestoneIds:(NSData *)xml
+- (NSArray *)parseTicketMilestoneIds:(NSData *)xml
 {
     parser.className = @"NSNumber";
     parser.classElementType = @"ticket";
@@ -254,6 +300,30 @@
             @"numTickets", @"tickets-count",
             @"goals", @"goals",
             nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMilestoneIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"milestone";
+    parser.classElementCollection = @"milestones";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMilestoneProjectIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"milestone";
+    parser.classElementCollection = @"milestones";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"project-id", nil];
 
     return [parser parse:xml];
 }

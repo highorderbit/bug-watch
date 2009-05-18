@@ -6,6 +6,7 @@
 #import "LighthouseApiServiceDelegate.h"
 #import "MilestoneDataSourceDelegate.h"
 
+@class MilestoneCache;
 @class LighthouseApiService;
 
 @interface MilestoneDataSource : NSObject <LighthouseApiServiceDelegate>
@@ -13,8 +14,7 @@
     id<MilestoneDataSourceDelegate> delegate;
 
     LighthouseApiService * service;
-
-    NSArray * cache;  // temporary implementation
+    MilestoneCache * cache;
 
     BOOL needsUpdating;
 }
@@ -23,11 +23,14 @@
 
 #pragma mark Initialization
 
-- (id)initWithLighthouseApiService:(LighthouseApiService *)service;
+- (id)initWithLighthouseApiService:(LighthouseApiService *)aService
+                    milestoneCache:(MilestoneCache *)aMilsetoneCache;
 
+/*
 #pragma mark Retrieve current milestones
 
 - (NSArray *)currentMilestones;
+*/
 
 #pragma mark Refreshing the list of milestones
 

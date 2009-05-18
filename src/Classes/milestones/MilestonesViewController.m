@@ -130,8 +130,31 @@ enum Sections
 
 - (void)setMilestones:(NSArray *)someMilestones
 {
-    self.openMilestones = [self extractOpenMilestones:someMilestones];
-    self.completedMilestones = [self extractCompletedMilestones:someMilestones];
+    /*
+    NSSortDescriptor * nilSorter =
+        [[[NSSortDescriptor alloc]
+        initWithKey:nil ascending:NO selector:@selector(isDue)]
+        autorelease];
+    NSSortDescriptor * dueDateSorter =
+        [[[NSSortDescriptor alloc]
+        initWithKey:@"dueDate" ascending:YES] autorelease];
+    NSArray * descriptors =
+        [NSArray arrayWithObjects:nilSorter, dueDateSorter, nil];
+
+    self.openMilestones =
+        [[self extractOpenMilestones:someMilestones]
+        sortedArrayUsingDescriptors:descriptors];
+    self.completedMilestones =
+        [[self extractCompletedMilestones:someMilestones]
+        sortedArrayUsingDescriptors:descriptors];
+    */
+
+    self.openMilestones =
+        [[self extractOpenMilestones:someMilestones]
+        sortedArrayUsingSelector:@selector(dueDateCompare:)];
+    self.completedMilestones =
+        [[self extractCompletedMilestones:someMilestones]
+        sortedArrayUsingSelector:@selector(dueDateCompare:)];
 
     [self.tableView reloadData];
 }

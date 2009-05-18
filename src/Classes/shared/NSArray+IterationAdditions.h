@@ -7,5 +7,8 @@
 @interface NSArray (IterationAdditions)
 
 - (NSArray *)arrayByFilteringObjectsUsingSelector:(SEL)sel;
+- (NSArray *)arrayByFilteringObjectsUsingSelector:(SEL)sel withObject:(id)obj;
+
+- (NSArray *)arrayByReversingContents;
 
 @end
