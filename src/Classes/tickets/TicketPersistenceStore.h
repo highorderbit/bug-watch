@@ -3,16 +3,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PersistenceStore.h"
 #import "TicketCache.h"
 
-@interface TicketPersistenceStore : NSObject <PersistenceStore>
-{
-    TicketCache * ticketCache;
-    NSString * plistName;
-}
+@interface TicketPersistenceStore : NSObject
 
-- (id)initWithTicketCache:(TicketCache *)aTicketCache
-    plistName:(NSString *)plistName;
+- (TicketCache *)loadWithPlist:(NSString *)plist;
+- (void)saveTicketCache:(TicketCache *)ticketCache toPlist:(NSString *)plist;
 
 @end

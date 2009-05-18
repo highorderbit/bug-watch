@@ -58,6 +58,14 @@
     label.frame = labelFrame;
 }
 
+- (void)sizeToFit
+{
+    [label sizeToFit];
+    CGRect newFrame = self.frame;
+    newFrame.size.width = label.frame.size.width + 18;
+    self.frame = newFrame;
+}
+
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];

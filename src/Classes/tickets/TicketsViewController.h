@@ -15,6 +15,8 @@
     NSDictionary * milestoneDict;
 
     UIView * headerView;
+
+    IBOutlet UIView * footerView;
 }
 
 @property (nonatomic, retain)

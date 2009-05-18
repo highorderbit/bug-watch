@@ -17,17 +17,11 @@
     [appController start];
 }
 
-/*
-// Optional UITabBarControllerDelegate method
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    NSLog(@"Application terminating...");
+    [appController persistState];
 }
-*/
-
-/*
-// Optional UITabBarControllerDelegate method
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed {
-}
-*/
 
 - (void)dealloc
 {

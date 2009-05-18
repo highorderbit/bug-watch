@@ -199,13 +199,6 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 				<reference key="IBUIBackgroundColor" ref="344506307"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 			</object>
-			<object class="IBUINavigationItem" id="920630684">
-				<string key="IBUITitle">Message Info</string>
-				<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="191868443">
-					<string key="IBUITitle">Respond</string>
-					<int key="IBUIStyle">1</int>
-				</object>
-			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -241,14 +234,6 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">19</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">navigationItem</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="920630684"/>
-					</object>
-					<int key="connectionID">21</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -388,20 +373,6 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 						<reference key="object" ref="285570994"/>
 						<reference key="parent" ref="446690964"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">20</int>
-						<reference key="object" ref="920630684"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="191868443"/>
-						</object>
-						<reference key="parent" ref="957960031"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">22</int>
-						<reference key="object" ref="191868443"/>
-						<reference key="parent" ref="920630684"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -416,9 +387,6 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 					<string>16.IBPluginDependency</string>
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBPluginDependency</string>
-					<string>20.IBEditorWindowLastContentRect</string>
-					<string>20.IBPluginDependency</string>
-					<string>22.IBPluginDependency</string>
 					<string>4.IBEditorWindowLastContentRect</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
@@ -434,9 +402,6 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{0, 598}, {320, 247}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{0, 706}, {128, 128}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{430, 76}, {320, 703}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -522,5 +487,6 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../../bug-watch.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>
 </archive>

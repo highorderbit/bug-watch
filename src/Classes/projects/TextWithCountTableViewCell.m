@@ -18,14 +18,24 @@
     titleLabel.highlightedTextColor = [UIColor whiteColor];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (void)layoutSubviews
 {
-    [super setSelected:selected animated:animated];
-    // 
-    // if (selected)
-    //     textLabel.textColor = [UIColor whiteColor];
-    // else
-    //     textLabel.textColor = [UIColor blackColor];
+    [super layoutSubviews];
+    
+    [countLabel sizeToFit];
+    
+    NSInteger padding =
+        self.accessoryType == UITableViewCellAccessoryNone ? 15 : 8;
+    CGRect countFrame = countLabel.frame;
+    countFrame.origin.x =
+        self.contentView.frame.size.width - countFrame.size.width - padding;
+    countLabel.frame = countFrame;
+    
+    CGRect textFrame = titleLabel.frame;
+    textFrame.size.width =
+        self.contentView.frame.size.width - textFrame.origin.x -
+        countFrame.size.width - 20;
+    titleLabel.frame = textFrame;
 }
 
 - (void)setText:(NSString *)text

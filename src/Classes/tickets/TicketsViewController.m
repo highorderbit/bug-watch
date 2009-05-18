@@ -21,7 +21,8 @@
     [milestoneDict release];
 
     [headerView release];
-    
+    [footerView release];
+
     [super dealloc];
 }
 
@@ -114,6 +115,8 @@
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
     
+    self.tableView.tableFooterView = [someTickets count] > 0 ? nil : footerView;
+        
     [self.tableView reloadData];
 }
 
