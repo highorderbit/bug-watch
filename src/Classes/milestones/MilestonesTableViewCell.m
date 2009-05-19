@@ -100,6 +100,7 @@
         [UIColor selectedTableViewCellBackgroundColor];
 
     progressView.outlineColor = [UIColor whiteColor];
+    progressView.remainingColor = [UIColor whiteColor];
     progressView.progressColor = [UIColor selectedTableViewCellBackgroundColor];
 }
 
@@ -112,6 +113,7 @@
     numOpenTicketsTitleLabel.textColor = [UIColor whiteColor];
 
     progressView.outlineColor = [UIColor blackColor];
+    progressView.remainingColor = [UIColor whiteColor];
 
     if ([milestone isLate]) {
         dueDateLabel.textColor = [UIColor lateMilestoneProgressColor];
