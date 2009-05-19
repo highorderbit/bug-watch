@@ -26,6 +26,9 @@
 
 - (void)fetchTicketsForAllProjects:(NSString *)token;
 
+- (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
+    token:(NSString *)token;
+
 - (void)searchTicketsForAllProjects:(NSString *)searchString
                               token:(NSString *)token;
 - (void)searchTicketsForProject:(id)projectKey

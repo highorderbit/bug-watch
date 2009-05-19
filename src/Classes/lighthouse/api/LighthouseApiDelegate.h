@@ -12,6 +12,11 @@
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
                                      error:(NSError *)error;
 
+- (void)details:(NSData *)xml fetchedForTicket:(id)ticketKey
+    inProject:(id)projectKey token:(NSString *)token;
+- (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
+    inProject:(id)projectKey token:(NSString *)token error:(NSError *)error;
+
 - (void)searchResults:(NSData *)xml
     fetchedForAllProjectsWithSearchString:(NSString *)searchString
     token:(NSString *)token;
