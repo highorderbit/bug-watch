@@ -34,6 +34,7 @@ enum EditTicketCell
 - (UITableViewCell *)dequeueCellForSection:(NSUInteger)section;
 - (NSDictionary *)milestonesPlusNone;
 - (NSDictionary *)membersPlusNone;
+- (NSDictionary *)statesPlusNone;
 
 @end
 
@@ -149,8 +150,12 @@ static const NSInteger UNSET_KEY = 0;
                 break;
             case kState:
                 [editTicketCell setKeyText:@"state"];
+                NSString * descriptionText =
+                    state >= kNew ?
+                    [TicketMetaData descriptionForState:state] :
+                    [[self class] unsetText];
                 [editTicketCell
-                    setValueText:[TicketMetaData descriptionForState:state]];
+                    setValueText:descriptionText];
                 break;
         }
     }
@@ -217,14 +222,10 @@ static const NSInteger UNSET_KEY = 0;
                     @"Set State";
                 [self.itemSelectionTableViewController
                     setLabelText:@"State"];
-                NSMutableDictionary * states = [NSMutableDictionary dictionary];
-                for (int i = 0; i < 5; i++)
-                    [states setObject:[TicketMetaData descriptionForState:i]
-                        forKey:[NSNumber numberWithInt:i]];
+                [self.itemSelectionTableViewController
+                    setItems:self.statesPlusNone];
                 self.itemSelectionTableViewController.selectedItem =
                     [NSNumber numberWithInt:state];
-                [self.itemSelectionTableViewController
-                    setItems:states];
                 [self.navigationController
                     pushViewController:self.itemSelectionTableViewController
                     animated:YES];
@@ -363,6 +364,18 @@ static const NSInteger UNSET_KEY = 0;
         forKey:[NSNumber numberWithInt:UNSET_KEY]];
 
     return membersPlusNone;
+}
+
+- (NSDictionary *)statesPlusNone
+{
+    NSMutableDictionary * states = [NSMutableDictionary dictionary];
+    for (int i = kNew; i <= kInvalid; i = i << 1)
+        [states setObject:[TicketMetaData descriptionForState:i]
+            forKey:[NSNumber numberWithInt:i]];
+    [states setObject:[[self class] unsetText]
+        forKey:[NSNumber numberWithInt:UNSET_KEY]];
+
+    return states;
 }
 
 @end
