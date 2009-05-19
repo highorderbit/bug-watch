@@ -61,7 +61,7 @@
 							<object class="IBUILabel" id="301851860">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{251, 5}, {44, 21}}</string>
+								<string key="NSFrame">{{251, 4}, {44, 21}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -84,7 +84,7 @@
 							<object class="IBUILabel" id="217099946">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 9}, {232, 67}}</string>
+								<string key="NSFrame">{{9, 7}, {234, 67}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -107,7 +107,7 @@
 							<object class="IBUILabel" id="1037791963">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 80}, {209, 21}}</string>
+								<string key="NSFrame">{{9, 80}, {211, 21}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -125,7 +125,7 @@
 							<object class="IBUILabel" id="957748072">
 								<reference key="NSNextResponder" ref="177222545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 98}, {209, 21}}</string>
+								<string key="NSFrame">{{9, 98}, {211, 21}}</string>
 								<reference key="NSSuperview" ref="177222545"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -164,7 +164,7 @@
 								<int key="IBUITextAlignment">2</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{297, 128}</string>
+						<string key="NSFrameSize">{300, 128}</string>
 						<reference key="NSSuperview" ref="539312505"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -335,7 +335,7 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>TicketTableViewCell</string>
-					<string>{{446, 489}, {320, 128}}</string>
+					<string>{{261, 494}, {320, 128}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -424,5 +424,6 @@
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../../bug-watch.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>
 </archive>

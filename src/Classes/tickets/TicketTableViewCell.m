@@ -125,7 +125,7 @@
 
 + (CGFloat)heightForContent:(NSString *)description
 {
-    CGSize maxSize = CGSizeMake(207, 999999.0);
+    CGSize maxSize = CGSizeMake(234, 999999.0);
     UIFont * font = [UIFont boldSystemFontOfSize:14.0];
     UILineBreakMode mode = UILineBreakModeWordWrap;
 
@@ -133,8 +133,8 @@
         [description sizeWithFont:font constrainedToSize:maxSize
         lineBreakMode:mode];
 
-    static const NSUInteger MIN_HEIGHT = 75;
-    NSUInteger height = 57.0 + size.height;
+    static const NSUInteger MIN_HEIGHT = 73;
+    NSUInteger height = 55.0 + size.height;
     height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
 
     return height;

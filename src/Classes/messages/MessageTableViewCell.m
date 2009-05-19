@@ -67,7 +67,7 @@
         commentHeight > MAX_COMMENT_HEIGHT ? MAX_COMMENT_HEIGHT : commentHeight;
     CGRect commentLabelFrame = commentLabel.frame;
     commentLabelFrame.size.height = commentHeight;
-    commentLabelFrame.origin.y = titleHeight + 57;
+    commentLabelFrame.origin.y = titleHeight + 52;
     commentLabel.frame = commentLabelFrame;
 }
 
@@ -118,20 +118,20 @@
 {
     UILineBreakMode mode = UILineBreakModeWordWrap;
  
-    CGSize titleMaxSize = CGSizeMake(283, 999999.0);
+    CGSize titleMaxSize = CGSizeMake(288, 999999.0);
     UIFont * titleFont = [UIFont boldSystemFontOfSize:14.0];
     CGSize titleSize =
         [title sizeWithFont:titleFont constrainedToSize:titleMaxSize
         lineBreakMode:mode];
 
-    CGSize commentMaxSize = CGSizeMake(283, 54.0);
+    CGSize commentMaxSize = CGSizeMake(288, 54.0);
     UIFont * commentFont = [UIFont systemFontOfSize:14.0];
     CGSize commentSize =
         [comment sizeWithFont:commentFont constrainedToSize:commentMaxSize
         lineBreakMode:mode];
 
     static const NSUInteger MIN_HEIGHT = 0;
-    NSUInteger height = 67.0 + commentSize.height + titleSize.height;
+    NSUInteger height = 60.0 + commentSize.height + titleSize.height;
     height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
 
     return height;
