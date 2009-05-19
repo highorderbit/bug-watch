@@ -38,7 +38,7 @@
 							<object class="IBUILabel" id="62170931">
 								<reference key="NSNextResponder" ref="117272869"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 9}, {184, 21}}</string>
+								<string key="NSFrame">{{9, 4}, {209, 21}}</string>
 								<reference key="NSSuperview" ref="117272869"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -60,7 +60,7 @@
 							<object class="IBUILabel" id="55832875">
 								<reference key="NSNextResponder" ref="117272869"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{206, 9}, {100, 21}}</string>
+								<string key="NSFrame">{{226, 4}, {85, 21}}</string>
 								<reference key="NSSuperview" ref="117272869"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -83,7 +83,7 @@
 							<object class="IBUILabel" id="435525138">
 								<reference key="NSNextResponder" ref="117272869"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 38}, {292, 76}}</string>
+								<string key="NSFrame">{{9, 30}, {302, 76}}</string>
 								<reference key="NSSuperview" ref="117272869"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -301,5 +301,6 @@
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../../bug-watch.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>
 </archive>

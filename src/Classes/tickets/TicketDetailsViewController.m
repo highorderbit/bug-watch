@@ -173,32 +173,34 @@
     descriptionLabel.frame = descriptionLabelFrame;
     
     const static CGFloat MIN_BASE_LABEL_Y = 0;
+    const static CGFloat LABEL_OFFSET = 19;
     CGFloat baseLabelY = 300 +
         (descriptionHeight > MIN_BASE_LABEL_Y ?
         descriptionHeight : MIN_BASE_LABEL_Y);
 
     CGRect reportedByLabelFrame = reportedByLabel.frame;
-    reportedByLabelFrame.origin.y = baseLabelY + 17;
+    reportedByLabelFrame.origin.y = baseLabelY + 14;
     reportedByLabel.frame = reportedByLabelFrame;
     
     CGRect assignedToLabelFrame = assignedToLabel.frame;
-    assignedToLabelFrame.origin.y = baseLabelY + 36;
+    assignedToLabelFrame.origin.y =
+        reportedByLabelFrame.origin.y + LABEL_OFFSET;
     assignedToLabel.frame = assignedToLabelFrame;
-    
+
+    CGRect milestoneLabelFrame = milestoneLabel.frame;
+    milestoneLabelFrame.origin.y = assignedToLabelFrame.origin.y + LABEL_OFFSET;
+    milestoneLabel.frame = milestoneLabelFrame;
+
     CGRect dateLabelFrame = dateLabel.frame;
-    dateLabelFrame.origin.y = baseLabelY + 17;
+    dateLabelFrame.origin.y = reportedByLabelFrame.origin.y;
     dateLabel.frame = dateLabelFrame;
     
-    CGRect milestoneLabelFrame = milestoneLabel.frame;
-    milestoneLabelFrame.origin.y = baseLabelY + 55;
-    milestoneLabel.frame = milestoneLabelFrame;
-    
     CGRect stateLabelFrame = stateLabel.frame;
-    stateLabelFrame.origin.y = baseLabelY + 35;
+    stateLabelFrame.origin.y = assignedToLabelFrame.origin.y - 1;
     stateLabel.frame = stateLabelFrame;
     
     CGRect metaDataViewFrame = metaDataView.frame;
-    metaDataViewFrame.size.height = baseLabelY + 86;
+    metaDataViewFrame.size.height = milestoneLabelFrame.origin.y + 30;
     metaDataView.frame = metaDataViewFrame;
     
     CGRect gradientImageFrame = gradientImage.frame;
@@ -206,8 +208,11 @@
         metaDataViewFrame.size.height - gradientImageFrame.size.height;
     gradientImage.frame = gradientImageFrame;
     
+    const static CGFloat COMMENT_PADDING = 10;
+    
     CGRect messageLabelFrame = messageLabel.frame;
-    messageLabelFrame.origin.y = metaDataViewFrame.size.height + 12;
+    messageLabelFrame.origin.y =
+        metaDataViewFrame.size.height + COMMENT_PADDING;
     messageLabel.frame = messageLabelFrame;
 
     CGFloat messageHeight =
@@ -216,7 +221,8 @@
     messageLabel.frame = messageLabelFrame;
 
     CGRect headerViewFrame = headerView.frame;
-    NSInteger headerViewOffset = messageLabel.text != @"" ? 12 : -12;
+    NSInteger headerViewOffset =
+        messageLabel.text != @"" ? COMMENT_PADDING : -1 * COMMENT_PADDING;
     headerViewFrame.size.height =
         messageLabelFrame.origin.y + messageLabelFrame.size.height +
         headerViewOffset;

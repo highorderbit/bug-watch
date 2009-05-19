@@ -38,7 +38,7 @@
 							<object class="IBUILabel" id="621084409">
 								<reference key="NSNextResponder" ref="174174663"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 9}, {184, 21}}</string>
+								<string key="NSFrame">{{9, 4}, {209, 21}}</string>
 								<reference key="NSSuperview" ref="174174663"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -60,7 +60,7 @@
 							<object class="IBUILabel" id="360618250">
 								<reference key="NSNextResponder" ref="174174663"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{206, 9}, {100, 21}}</string>
+								<string key="NSFrame">{{226, 4}, {85, 21}}</string>
 								<reference key="NSSuperview" ref="174174663"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -83,7 +83,7 @@
 							<object class="IBUILabel" id="904038907">
 								<reference key="NSNextResponder" ref="174174663"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 32}, {283, 21}}</string>
+								<string key="NSFrame">{{9, 27}, {302, 21}}</string>
 								<reference key="NSSuperview" ref="174174663"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -103,7 +103,7 @@
 							<object class="IBUILabel" id="698763466">
 								<reference key="NSNextResponder" ref="174174663"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{14, 56}, {292, 76}}</string>
+								<string key="NSFrame">{{9, 51}, {302, 76}}</string>
 								<reference key="NSSuperview" ref="174174663"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -256,7 +256,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
 					<string>CommentTableViewCell</string>
-					<string>{{246, 573}, {320, 136}}</string>
+					<string>{{341, 427}, {320, 136}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -340,5 +340,6 @@
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../../bug-watch.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>
 </archive>

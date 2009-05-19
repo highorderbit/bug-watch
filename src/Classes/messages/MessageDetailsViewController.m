@@ -154,7 +154,7 @@
         titleHeight : MIN_BASE_LABEL_Y);
         
     CGRect metaDataViewFrame = metaDataView.frame;
-    metaDataViewFrame.size.height = baseLabelY + 68;
+    metaDataViewFrame.size.height = baseLabelY + 60;
     metaDataView.frame = metaDataViewFrame;
 
     CGRect gradientImageFrame = gradientImage.frame;
@@ -162,8 +162,11 @@
         metaDataViewFrame.size.height - gradientImageFrame.size.height;
     gradientImage.frame = gradientImageFrame;
 
+    const static CGFloat COMMENT_PADDING = 10;
+
     CGRect commentLabelFrame = commentLabel.frame;
-    commentLabelFrame.origin.y = metaDataViewFrame.size.height + 12;
+    commentLabelFrame.origin.y =
+        metaDataViewFrame.size.height + COMMENT_PADDING;
     commentLabel.frame = commentLabelFrame;
 
     CGFloat commentHeight =
@@ -172,7 +175,8 @@
     commentLabel.frame = commentLabelFrame;
 
     CGRect headerViewFrame = headerView.frame;
-    NSInteger headerViewOffset = commentLabel.text != @"" ? 12 : -12;
+    NSInteger headerViewOffset =
+        commentLabel.text != @"" ? COMMENT_PADDING : -1 * COMMENT_PADDING;
     headerViewFrame.size.height =
         commentLabelFrame.origin.y + commentLabelFrame.size.height +
         headerViewOffset;
