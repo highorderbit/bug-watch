@@ -13,7 +13,8 @@
 - (void)tickets:(NSArray *)tickets
     fetchedForAllProjectsWithMetadata:(NSArray *)metadata
     ticketNumbers:(NSArray *)ticketNumbers milestoneIds:(NSArray *)milestoneIds
-    userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds;
+    projectIds:(NSArray *)projectIds userIds:(NSArray *)userIds
+    creatorIds:(NSArray *)creatorIds;
 - (void)failedToFetchTicketsForAllProjects:(NSError *)error;
 
 - (void)details:(NSArray *)detais fetchedForTicket:(id)ticketKey
@@ -24,16 +25,16 @@
 - (void)tickets:(NSArray *)tickets
     fetchedForSearchString:(NSString *)searchString
     metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers
-    milestoneIds:(NSArray *)milestoneIds userIds:(NSArray *)userIds
-    creatorIds:(NSArray *)creatorIds;
+    milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
+    userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds;
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     error:(NSError *)error;
 
 - (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
     searchString:(NSString *)searchString object:(id)object
     metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers
-    milestoneIds:(NSArray *)milestoneIds userIds:(NSArray *)userIds
-    creatorIds:(NSArray *)creatorIds;
+    milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
+    userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds;
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString object:(id)object
     error:(NSError *)error;
