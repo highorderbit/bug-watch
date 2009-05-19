@@ -72,11 +72,10 @@
                                                 projectKey:projectKey];
     NSArray * ticketNumbers = [cachedQueries objectForKey:queryKey];
 
-    if (ticketNumbers) {
+    if (ticketNumbers)
         [self provideDelegateCachedDataForTicketNumbers:ticketNumbers
                                            searchString:searchString];
-        return NO;
-    } else {
+    else {
         [delegate fetchDidBegin];
         [service
             searchTicketsForProject:self.projectKey
@@ -84,8 +83,9 @@
             object:milestoneKey
             token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3"];
 
-        return YES;
     }
+
+    return !!ticketNumbers;
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
