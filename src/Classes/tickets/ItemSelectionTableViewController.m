@@ -6,6 +6,12 @@
 #import "UIColor+BugWatchColors.h"
 #import "HOTableViewCell.h"
 
+@interface ItemSelectionTableViewController (Private)
+
+- (NSArray *)sortedKeys;
+
+@end
+
 @implementation ItemSelectionTableViewController
 
 @synthesize selectedItem;
@@ -26,7 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     [self.tableView reloadData];
 }
 
@@ -58,7 +64,8 @@
             autorelease];
     }
     
-    id itemAtIndexPath = [[items allKeys] objectAtIndex:indexPath.row];
+
+    id itemAtIndexPath = [[self sortedKeys] objectAtIndex:indexPath.row];
     cell.text = [items objectForKey:itemAtIndexPath];
     cell.textColor =
         [itemAtIndexPath isEqual:selectedItem] ?
@@ -71,7 +78,7 @@
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [aTableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.selectedItem = [[items allKeys] objectAtIndex:indexPath.row];
+    self.selectedItem = [[self sortedKeys] objectAtIndex:indexPath.row];
     [aTableView reloadData];
 }
 
@@ -86,7 +93,7 @@
 - (UITableViewCellAccessoryType)tableView:(UITableView *)aTableView
     accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    id itemAtIndexPath = [[items allKeys] objectAtIndex:indexPath.row];
+    id itemAtIndexPath = [[self sortedKeys] objectAtIndex:indexPath.row];
     return [itemAtIndexPath isEqual:selectedItem] ?
         UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
@@ -103,6 +110,13 @@
     NSString * tempText = [text copy];
     [labelText release];
     labelText = tempText;
+}
+
+#pragma mark ItemSelectionTableViewController implementation
+
+- (NSArray *)sortedKeys
+{
+    return [[items allKeys] sortedArrayUsingSelector:@selector(compare:)];
 }
 
 @end
