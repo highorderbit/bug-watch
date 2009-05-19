@@ -13,6 +13,8 @@
 - (NSArray *)parseTicketNumbers:(NSData *)xml;
 - (NSArray *)parseTicketMilestoneIds:(NSData *)xml;
 - (NSArray *)parseTicketProjectIds:(NSData *)xml;
+- (NSArray *)parseUsers:(NSData *)xml;
+- (NSArray *)parseUserKeys:(NSData *)xml;
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseTicketComments:(NSData *)xml;
@@ -86,6 +88,13 @@
 - (void)fetchTicketBins:(NSString *)token
 {
     [api fetchTicketBinsForProject:27400 token:token];
+}
+
+#pragma mark Users
+
+- (void)fetchAllUsersForProject:(id)projectKey token:(NSString *)token
+{
+    [api fetchAllUsersForProject:projectKey token:token];
 }
 
 #pragma mark Milestones
@@ -220,6 +229,30 @@
     [self invokeSelector:sel withTarget:delegate args:token, error, nil];
 }
 
+#pragma mark -- Useres
+
+- (void)allUsers:(NSData *)xml fetchedForProject:(id)projectKey
+    token:(NSString *)token
+{
+    NSArray * users = [self parseUsers:xml];
+    NSArray * userKeys = [self parseUserKeys:xml];
+
+    NSDictionary * allUsers =
+        [NSDictionary dictionaryWithObjects:users forKeys:userKeys];
+
+    SEL sel = @selector(allUsers:fetchedForProject:);
+    [self
+        invokeSelector:sel withTarget:delegate args:allUsers, projectKey, nil];
+}
+
+- (void)failedToFetchAllUsersForProject:(id)projectKey token:(NSString *)token
+    error:(NSError *)error
+{
+    SEL sel = @selector(failedToFetchAllUsersForProject:error:);
+    [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
+}
+
+
 #pragma mark -- Milestones
 
 - (void)milestones:(NSData *)data
@@ -342,6 +375,34 @@
             @"text", @"body",
             @"stateChangeDescription", @"diffable-attributes",
             nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseUsers:(NSData *)xml
+{
+    parser.className = @"User";
+    parser.classElementType = @"user";
+    parser.classElementCollection = @"memberships";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"name",
+            @"job", @"job",
+            @"websiteLink", @"website",
+            @"avatarLink", @"avatar-url",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseUserKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"membership";
+    parser.classElementCollection = @"memberships";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"user-id", nil];
 
     return [parser parse:xml];
 }

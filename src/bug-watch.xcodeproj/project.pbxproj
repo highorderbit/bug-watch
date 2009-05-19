@@ -57,6 +57,7 @@
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
 		05D6A0050FB357C10081AE18 /* NSObject+RuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */; };
+		05DB80CB0FC33E7E0095AF32 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB80CA0FC33E7E0095AF32 /* User.m */; };
 		05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */; };
 		05DEB1D90FB106470052888E /* MilestoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1D80FB106470052888E /* MilestoneHeaderView.m */; };
 		05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2200FB217090052888E /* LighthouseNewsFeed.m */; };
@@ -245,6 +246,8 @@
 		05C870760FA77FD80069BC72 /* WebServiceApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApi.h; path = "web-service/WebServiceApi.h"; sourceTree = "<group>"; };
 		05C870770FA77FD80069BC72 /* WebServiceApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebServiceApi.m; path = "web-service/WebServiceApi.m"; sourceTree = "<group>"; };
 		05C870780FA77FD80069BC72 /* WebServiceApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApiDelegate.h; path = "web-service/WebServiceApiDelegate.h"; sourceTree = "<group>"; };
+		05DB80C90FC33E7E0095AF32 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = users/User.h; sourceTree = "<group>"; };
+		05DB80CA0FC33E7E0095AF32 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = users/User.m; sourceTree = "<group>"; };
 		05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDisplayMgr.h; path = Classes/milestones/MilestoneDisplayMgr.h; sourceTree = "<group>"; };
 		05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDisplayMgr.m; path = Classes/milestones/MilestoneDisplayMgr.m; sourceTree = "<group>"; };
 		05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewControllerDelegate.h; path = Classes/milestones/MilestonesViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -559,6 +562,15 @@
 			name = "web-service";
 			sourceTree = "<group>";
 		};
+		05DB80C80FC33E5C0095AF32 /* users */ = {
+			isa = PBXGroup;
+			children = (
+				05DB80C90FC33E7E0095AF32 /* User.h */,
+				05DB80CA0FC33E7E0095AF32 /* User.m */,
+			);
+			name = users;
+			sourceTree = "<group>";
+		};
 		05DEB2160FB216CA0052888E /* news-feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -695,12 +707,13 @@
 				05E636C00FA8C17D00F736A5 /* news-feed */,
 				9100C09E0FA8C87D003C2ECF /* tickets */,
 				913E45A60FAA7757000EB184 /* projects */,
+				05DB80C80FC33E5C0095AF32 /* users */,
 				0597365F0FAFB44600059D20 /* milestones */,
+				917DE3FA0FB37A3F00BF2015 /* messages */,
 				05EFD7C10FA924D8001DFCFB /* lighthouse */,
 				05C870720FA77FCC0069BC72 /* web-service */,
 				05E637760FA8D35100F736A5 /* shared */,
 				0552136E0FAB555900626049 /* vendor */,
-				917DE3FA0FB37A3F00BF2015 /* messages */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1192,6 +1205,7 @@
 				05852BC20FBCF48F0025FCAE /* Milestone+SortAdditions.m in Sources */,
 				05A961820FBE13DB00CBDC68 /* MilestoneDetailsDisplayMgr.m in Sources */,
 				05A961850FBE142C00CBDC68 /* MilestoneDetailsDataSource.m in Sources */,
+				05DB80CB0FC33E7E0095AF32 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
