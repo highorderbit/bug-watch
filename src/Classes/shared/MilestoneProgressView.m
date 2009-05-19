@@ -3,6 +3,7 @@
 //
 
 #import "MilestoneProgressView.h"
+#import "UIColor+BugWatchColors.h"
 
 @implementation MilestoneProgressView
 
@@ -19,6 +20,8 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     CGRect remainingFrame =
         CGRectMake(
             1.0,
@@ -36,8 +39,7 @@
     [self insertSubview:progressView aboveSubview:remainingView];
 
     self.outlineColor = [UIColor blackColor];
-    self.progressColor =
-        [UIColor colorWithRed:0 green:.518 blue:.251 alpha:1.0];
+    self.progressColor = [UIColor milestoneProgressColor];
     self.remainingColor = [UIColor whiteColor];
 
     self.progress = 0;

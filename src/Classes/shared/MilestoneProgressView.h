@@ -9,12 +9,6 @@
     UIView * progressView;
     UIView * remainingView;
 
-    /*
-    UIColor * outlineColor;
-    UIColor * progressColor;
-    UIColor * remainingColor;
-    */
-
     float progress;
 }
 
