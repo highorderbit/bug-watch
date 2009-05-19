@@ -16,6 +16,11 @@
     userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds;
 - (void)failedToFetchTicketsForAllProjects:(NSError *)error;
 
+- (void)details:(NSArray *)detais fetchedForTicket:(id)ticketKey
+    inProject:(id)projectKey;
+- (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
+    inProject:(id)projectKey error:(NSError *)error;
+
 - (void)tickets:(NSArray *)tickets
     fetchedForSearchString:(NSString *)searchString
     metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers

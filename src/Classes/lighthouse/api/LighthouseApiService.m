@@ -14,6 +14,7 @@
 - (NSArray *)parseTicketMilestoneIds:(NSData *)xml;
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;
+- (NSArray *)parseTicketComments:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
 - (NSArray *)parseMilestoneIds:(NSData *)xml;
 - (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
@@ -55,6 +56,14 @@
 - (void)fetchTicketsForAllProjects:(NSString *)token
 {
     [api fetchTicketsForAllProjects:token];
+}
+
+- (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
+    token:(NSString *)token
+{
+    [api fetchDetailsForTicket:ticketKey
+                     inProject:(id)projectKey
+                         token:token];
 }
 
 - (void)searchTicketsForAllProjects:(NSString *)searchString
@@ -110,6 +119,25 @@
 {
     SEL sel = @selector(failedToFetchTicketsForAllProjects:);
     [self invokeSelector:sel withTarget:delegate args:error, nil];
+}
+
+- (void)details:(NSData *)xml fetchedForTicket:(id)ticketKey
+    inProject:(id)projectKey token:(NSString *)token
+{
+    NSArray * ticketComments = [self parseTicketComments:xml];
+
+    SEL sel = @selector(details:fetchedForTicket:inProject:);
+    [self invokeSelector:sel withTarget:delegate args:ticketComments,
+        ticketKey, projectKey, nil];
+}
+
+- (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
+    inProject:(id)projectKey token:(NSString *)token error:(NSError *)error
+{
+    SEL sel =
+        @selector(failedToFetchTicketDetailsForTicket:inProject:token:error:);
+    [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
+        error, nil];
 }
 
 - (void)searchResults:(NSData *)data
@@ -283,6 +311,21 @@
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"number", @"creator-id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseTicketComments:(NSData *)xml
+{
+    parser.className = @"TicketComment";
+    parser.classElementType = @"version";
+    parser.classElementCollection = @"versions";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"date", @"created-at",
+            @"text", @"body",
+            @"stateChangeDescription", @"diffable-attributes",
+            nil];
 
     return [parser parse:xml];
 }

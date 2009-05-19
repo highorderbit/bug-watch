@@ -58,6 +58,22 @@
     [api sendRequest:req];
 }
 
+- (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
+    token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/tickets/%@.xml?_token=%@",
+        baseUrlString, projectKey, ticketKey, token];
+
+    SEL sel = @selector(handleTicketDetailsResponse:toRequest:object:);
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token", projectKey, @"projectKey", ticketKey, @"ticketKey",
+        nil];
+
+    [self sendRequestToUrl:urlString callback:sel arguments:args];
+}
+
 - (void)searchTicketsForAllProjects:(NSString *)searchString
                               token:(NSString *)token
 {
@@ -158,6 +174,22 @@
         [delegate failedToFetchTicketsForAllProjects:token error:response];
     else
         [delegate tickets:response fetchedForAllProjectsWithToken:token];
+}
+
+- (void)handleTicketDetailsResponse:(id)response
+                          toRequest:(NSURLRequest *)request
+                             object:(id)object
+{
+    NSString * token = [object objectForKey:@"token"];
+    id projectKey = [object objectForKey:@"projectKey"];
+    id ticketKey = [object objectForKey:@"ticketKey"];
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToFetchTicketDetailsForTicket:ticketKey
+            inProject:projectKey token:token error:response];
+    else
+        [delegate details:response fetchedForTicket:ticketKey
+            inProject:projectKey token:token];
 }
 
 - (void)handleMilestonesForAllProjectsResponse:(id)response
