@@ -92,7 +92,7 @@
 
 + (CGFloat)heightForContent:(NSString *)comment
 {
-    CGSize maxSize = CGSizeMake(292, 72.0);
+    CGSize maxSize = CGSizeMake(302, 72.0);
     UIFont * font = [UIFont systemFontOfSize:14.0];
     UILineBreakMode mode = UILineBreakModeWordWrap;
 
@@ -101,7 +101,7 @@
         lineBreakMode:mode];
 
     static const NSUInteger MIN_HEIGHT = 0;
-    NSUInteger height = 67.0 + size.height;
+    NSUInteger height = 58.0 + size.height;
     height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
 
     return height;

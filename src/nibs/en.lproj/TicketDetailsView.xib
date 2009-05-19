@@ -62,7 +62,7 @@
 					<object class="IBUILabel" id="682077284">
 						<reference key="NSNextResponder" ref="930204579"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 458}, {285, 230}}</string>
+						<string key="NSFrame">{{9, 458}, {302, 230}}</string>
 						<reference key="NSSuperview" ref="930204579"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -111,7 +111,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="739293765">
 								<reference key="NSNextResponder" ref="865007852"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{15, 371}, {192, 21}}</string>
+								<string key="NSFrame">{{9, 366}, {209, 21}}</string>
 								<reference key="NSSuperview" ref="865007852"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -133,7 +133,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="845166699">
 								<reference key="NSNextResponder" ref="865007852"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{218, 371}, {85, 21}}</string>
+								<string key="NSFrame">{{226, 366}, {85, 21}}</string>
 								<reference key="NSSuperview" ref="865007852"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -152,7 +152,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="948409352">
 								<reference key="NSNextResponder" ref="865007852"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{15, 407}, {195, 21}}</string>
+								<string key="NSFrame">{{9, 402}, {302, 21}}</string>
 								<reference key="NSSuperview" ref="865007852"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -170,7 +170,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="802865181">
 								<reference key="NSNextResponder" ref="865007852"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{15, 389}, {195, 21}}</string>
+								<string key="NSFrame">{{9, 384}, {209, 21}}</string>
 								<reference key="NSSuperview" ref="865007852"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -188,7 +188,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="265395951">
 								<reference key="NSNextResponder" ref="865007852"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{15, 313}, {236, 51}}</string>
+								<string key="NSFrame">{{9, 308}, {250, 51}}</string>
 								<reference key="NSSuperview" ref="865007852"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -205,7 +205,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 							<object class="IBUILabel" id="624071159">
 								<reference key="NSNextResponder" ref="865007852"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{259, 309}, {44, 21}}</string>
+								<string key="NSFrame">{{267, 304}, {44, 21}}</string>
 								<reference key="NSSuperview" ref="865007852"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -228,7 +228,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 							<object class="IBUILabel" id="231431713">
 								<reference key="NSNextResponder" ref="865007852"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{218, 388}, {85, 21}}</string>
+								<string key="NSFrame">{{226, 383}, {85, 21}}</string>
 								<reference key="NSSuperview" ref="865007852"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -415,11 +415,11 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 							<reference ref="265395951"/>
 							<reference ref="739293765"/>
 							<reference ref="624071159"/>
-							<reference ref="845166699"/>
 							<reference ref="948409352"/>
 							<reference ref="703364788"/>
 							<reference ref="802865181"/>
 							<reference ref="231431713"/>
+							<reference ref="845166699"/>
 						</object>
 						<reference key="parent" ref="930204579"/>
 					</object>
@@ -501,7 +501,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{452, 87}, {320, 703}}</string>
+					<string>{{381, 80}, {320, 703}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -589,5 +589,6 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../../bug-watch.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>
 </archive>

@@ -62,7 +62,7 @@
 					<object class="IBUILabel" id="910026150">
 						<reference key="NSNextResponder" ref="503321277"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 458}, {285, 230}}</string>
+						<string key="NSFrame">{{9, 458}, {302, 230}}</string>
 						<reference key="NSSuperview" ref="503321277"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -111,7 +111,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="840629113">
 								<reference key="NSNextResponder" ref="446690964"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{15, 330}, {192, 21}}</string>
+								<string key="NSFrame">{{9, 325}, {198, 21}}</string>
 								<reference key="NSSuperview" ref="446690964"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -133,7 +133,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="531003588">
 								<reference key="NSNextResponder" ref="446690964"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{215, 309}, {85, 21}}</string>
+								<string key="NSFrame">{{226, 304}, {85, 21}}</string>
 								<reference key="NSSuperview" ref="446690964"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -152,7 +152,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="496384959">
 								<reference key="NSNextResponder" ref="446690964"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{15, 309}, {192, 21}}</string>
+								<string key="NSFrame">{{9, 304}, {192, 21}}</string>
 								<reference key="NSSuperview" ref="446690964"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -171,7 +171,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 							<object class="IBUILabel" id="285570994">
 								<reference key="NSNextResponder" ref="446690964"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{15, 356}, {285, 65}}</string>
+								<string key="NSFrame">{{9, 350}, {302, 65}}</string>
 								<reference key="NSSuperview" ref="446690964"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -403,7 +403,7 @@ d2hpY2ggaXMgYmV0dGVyIG9yIHdoYXQgdGhlIHNvbHV0aW9uIHNob3VsZCBiZSB5ZXQuA</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{0, 598}, {320, 247}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{430, 76}, {320, 703}}</string>
+					<string>{{347, 96}, {320, 703}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
