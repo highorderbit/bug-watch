@@ -143,6 +143,23 @@
     [self sendRequestToUrl:urlString callback:sel arguments:args];
 }
 
+#pragma mark Users
+
+- (void)fetchAllUsersForProject:(id)projectKey token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/memberships.xml?_token=%@",
+        baseUrlString, projectKey, token];
+
+    SEL callback =
+        @selector(handleAllUsersForProjectResponse:toRequest:object:);
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token", projectKey, @"projectKey", nil];
+
+    [self sendRequestToUrl:urlString callback:callback arguments:args];
+}
+
 #pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token
@@ -250,6 +267,21 @@
                                               error:response];
     else
         [delegate ticketBins:response fetchedForProject:projectId token:token];
+}
+
+- (void)handleAllUsersForProjectResponse:(id)response
+                               toRequest:(NSURLRequest *)request
+                                  object:(id)object
+{
+    NSString * token = [object objectForKey:@"token"];
+    id projectKey = [object objectForKey:@"projectKey"];
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToFetchAllUsersForProject:projectKey
+                                            token:token
+                                            error:response];
+    else
+        [delegate allUsers:response fetchedForProject:projectKey token:token];
 }
 
 #pragma mark WebSericeApiDelegate implementation

@@ -12,6 +12,9 @@
 - (NSArray *)parseTicketMetaData:(NSData *)xml;
 - (NSArray *)parseTicketNumbers:(NSData *)xml;
 - (NSArray *)parseTicketMilestoneIds:(NSData *)xml;
+- (NSArray *)parseTicketProjectIds:(NSData *)xml;
+- (NSArray *)parseUsers:(NSData *)xml;
+- (NSArray *)parseUserKeys:(NSData *)xml;
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseTicketComments:(NSData *)xml;
@@ -87,6 +90,13 @@
     [api fetchTicketBinsForProject:27400 token:token];
 }
 
+#pragma mark Users
+
+- (void)fetchAllUsersForProject:(id)projectKey token:(NSString *)token
+{
+    [api fetchAllUsersForProject:projectKey token:token];
+}
+
 #pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token
@@ -103,15 +113,16 @@
     NSArray * tickets = [self parseTickets:data];
     NSArray * metadata = [self parseTicketMetaData:data];
     NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
+    NSArray * projectIds = [self parseTicketProjectIds:data];
     NSArray * userIds = [self parseUserIds:data];
     NSArray * creatorIds = [self parseCreatorIds:data];
 
     SEL sel =
         @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
-             milestoneIds:userIds:creatorIds:);
+             milestoneIds:projectIds:userIds:creatorIds:);
 
     [self invokeSelector:sel withTarget:delegate args:tickets, metadata,
-        ticketNumbers, milestoneIds, userIds, creatorIds, nil];
+        ticketNumbers, milestoneIds, projectIds, userIds, creatorIds, nil];
 }
 
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
@@ -148,15 +159,16 @@
     NSArray * tickets = [self parseTickets:data];
     NSArray * metadata = [self parseTicketMetaData:data];
     NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
+    NSArray * projectIds = [self parseTicketProjectIds:data];
     NSArray * userIds = [self parseUserIds:data];
     NSArray * creatorIds = [self parseCreatorIds:data];
 
     SEL sel = @selector(tickets:fetchedForSearchString:metadata:ticketNumbers:\
-        milestoneIds:userIds:creatorIds:);
+        milestoneIds:projectIds:userIds:creatorIds:);
 
     [self invokeSelector:sel withTarget:delegate
         args:tickets, searchString, metadata, ticketNumbers, milestoneIds,
-        userIds, creatorIds, nil];
+        projectIds, userIds, creatorIds, nil];
 }
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
@@ -174,17 +186,18 @@
     NSArray * tickets = [self parseTickets:data];
     NSArray * metadata = [self parseTicketMetaData:data];
     NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
+    NSArray * projectIds = [self parseTicketProjectIds:data];
     NSArray * userIds = [self parseUserIds:data];
     NSArray * creatorIds = [self parseCreatorIds:data];
 
     // call delegate method manually since object might be nil
     SEL sel = @selector(tickets:fetchedForProject:searchString:object:\
-        metadata:ticketNumbers:milestoneIds:userIds:creatorIds:);
+        metadata:ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
     if ([delegate respondsToSelector:sel])
         [delegate tickets:tickets fetchedForProject:projectKey
             searchString:searchString object:object metadata:metadata
             ticketNumbers:ticketNumbers milestoneIds:milestoneIds
-            userIds:userIds creatorIds:creatorIds];
+            projectIds:projectIds userIds:userIds creatorIds:creatorIds];
 }
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
@@ -215,6 +228,30 @@
     SEL sel = @selector(failedToFetchTicketBins:error:);
     [self invokeSelector:sel withTarget:delegate args:token, error, nil];
 }
+
+#pragma mark -- Useres
+
+- (void)allUsers:(NSData *)xml fetchedForProject:(id)projectKey
+    token:(NSString *)token
+{
+    NSArray * users = [self parseUsers:xml];
+    NSArray * userKeys = [self parseUserKeys:xml];
+
+    NSDictionary * allUsers =
+        [NSDictionary dictionaryWithObjects:users forKeys:userKeys];
+
+    SEL sel = @selector(allUsers:fetchedForProject:);
+    [self
+        invokeSelector:sel withTarget:delegate args:allUsers, projectKey, nil];
+}
+
+- (void)failedToFetchAllUsersForProject:(id)projectKey token:(NSString *)token
+    error:(NSError *)error
+{
+    SEL sel = @selector(failedToFetchAllUsersForProject:error:);
+    [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
+}
+
 
 #pragma mark -- Milestones
 
@@ -291,6 +328,18 @@
     return [parser parse:xml];
 }
 
+- (NSArray *)parseTicketProjectIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"project-id", nil];
+
+    return [parser parse:xml];
+}
+
 - (NSArray *)parseUserIds:(NSData *)xml
 {
     parser.className = @"NSNumber";
@@ -326,6 +375,34 @@
             @"text", @"body",
             @"stateChangeDescription", @"diffable-attributes",
             nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseUsers:(NSData *)xml
+{
+    parser.className = @"User";
+    parser.classElementType = @"user";
+    parser.classElementCollection = @"memberships";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"name",
+            @"job", @"job",
+            @"websiteLink", @"website",
+            @"avatarLink", @"avatar-url",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseUserKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"membership";
+    parser.classElementCollection = @"memberships";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"user-id", nil];
 
     return [parser parse:xml];
 }

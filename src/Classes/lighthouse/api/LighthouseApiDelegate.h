@@ -37,6 +37,13 @@
 - (void)failedToFetchTicketBinsForProject:(NSUInteger)projectId
     token:(NSString *)token error:(NSError *)error;
 
+#pragma mark Users
+
+- (void)allUsers:(NSData *)xml fetchedForProject:(id)projectKey
+    token:(NSString *)token;
+- (void)failedToFetchAllUsersForProject:(id)projectKey token:(NSString *)token
+    error:(NSError *)error;
+
 #pragma mark Milestones
 
 - (void)milestones:(NSData *)xml

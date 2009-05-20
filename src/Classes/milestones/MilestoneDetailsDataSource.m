@@ -94,8 +94,8 @@
 - (void)tickets:(NSArray *)tickets fetchedForProject:(id)aProjectKey
     searchString:(NSString *)searchString object:(id)object
     metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers
-    milestoneIds:(NSArray *)milestoneIds userIds:(NSArray *)userIds
-    creatorIds:(NSArray *)creatorIds
+    milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
+    userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds
 {
     // TEMPORARY
     // this will eventually be read from a user cache of some sort
