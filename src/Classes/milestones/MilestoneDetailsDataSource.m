@@ -7,6 +7,7 @@
 #import "TicketCache.h"
 #import "MilestoneCache.h"
 #import "Milestone.h"
+#import "TicketKey.h"
 
 @interface MilestoneDetailsDataSource ()
 
@@ -116,21 +117,24 @@
     for (NSInteger i = 0, count = ticketNumbers.count; i < count; ++i) {
         NSNumber * number = [ticketNumbers objectAtIndex:i];
         NSUInteger numberAsInt = [number integerValue];
+        TicketKey * ticketKey =
+            [[[TicketKey alloc]
+            initWithProjectKey:nil ticketNumber:numberAsInt] autorelease];
         Ticket * ticket = [tickets objectAtIndex:i];
         TicketMetaData * metaData = [metadata objectAtIndex:i];
         id milestoneId = [milestoneIds objectAtIndex:i];
         id userId = [userIds objectAtIndex:i];
         id creatorId = [creatorIds objectAtIndex:i];
 
-        [ticketCache setTicket:ticket forNumber:numberAsInt];
-        [ticketCache setMetaData:metaData forNumber:numberAsInt];
+        [ticketCache setTicket:ticket forKey:ticketKey];
+        [ticketCache setMetaData:metaData forKey:ticketKey];
 
         if (userId)
-            [ticketCache setAssignedToKey:userId forNumber:numberAsInt];
+            [ticketCache setAssignedToKey:userId forKey:ticketKey];
         if (milestoneId)
-            [ticketCache setMilestoneKey:milestoneId forNumber:numberAsInt];
+            [ticketCache setMilestoneKey:milestoneId forKey:ticketKey];
         if (creatorId)
-            [ticketCache setCreatedByKey:creatorId forNumber:numberAsInt];
+            [ticketCache setCreatedByKey:creatorId forKey:ticketKey];
 
         if ([object isEqual:milestoneId]) {
             [matchingTickets setObject:ticket forKey:number];
@@ -191,11 +195,14 @@
 
     for (NSNumber * ticketNumber in ticketNumbers) {
         NSUInteger number = [ticketNumber integerValue];
+        TicketKey * ticketKey =
+            [[[TicketKey alloc]
+            initWithProjectKey:nil ticketNumber:number] autorelease];
 
-        Ticket * ticket = [ticketCache ticketForNumber:number];
-        TicketMetaData * metadata = [ticketCache metaDataForNumber:number];
-        id creatorKey = [ticketCache createdByKeyForNumber:number];
-        id userKey = [ticketCache assignedToKeyForNumber:number];
+        Ticket * ticket = [ticketCache ticketForKey:ticketKey];
+        TicketMetaData * metadata = [ticketCache metaDataForKey:ticketKey];
+        id creatorKey = [ticketCache createdByKeyForKey:ticketKey];
+        id userKey = [ticketCache assignedToKeyForKey:ticketKey];
 
         [tickets setObject:ticket forKey:ticketNumber];
         [metadatas setObject:metadata forKey:ticketNumber];

@@ -32,14 +32,14 @@
     return self;
 }
 
-- (void)setTicket:(Ticket *)ticket forNumber:(NSUInteger)number
+- (void)setTicket:(Ticket *)ticket forKey:(id)key
 {
-    [tickets setObject:ticket forKey:[NSNumber numberWithInt:number]];
+    [tickets setObject:ticket forKey:key];
 }
 
-- (Ticket *)ticketForNumber:(NSUInteger)number
+- (Ticket *)ticketForKey:(id)key
 {
-    return [[tickets objectForKey:[NSNumber numberWithInt:number]] copy];
+    return [[tickets objectForKey:key] copy];
 }
 
 - (NSDictionary *)allTickets
@@ -47,14 +47,14 @@
     return [[tickets copy] autorelease];
 }
 
-- (void)setMetaData:(TicketMetaData *)someMetaData forNumber:(NSUInteger)number
+- (void)setMetaData:(TicketMetaData *)someMetaData forKey:(id)key
 {
-    [metaData setObject:someMetaData forKey:[NSNumber numberWithInt:number]];
+    [metaData setObject:someMetaData forKey:key];
 }
 
-- (TicketMetaData *)metaDataForNumber:(NSUInteger)number
+- (TicketMetaData *)metaDataForKey:(id)key
 {
-    return [[metaData objectForKey:[NSNumber numberWithInt:number]] copy];
+    return [[metaData objectForKey:key] copy];
 }
 
 - (NSDictionary *)allMetaData
@@ -62,14 +62,14 @@
     return [[metaData copy] autorelease];
 }
 
-- (void)setCreatedByKey:(id)key forNumber:(NSUInteger)number
+- (void)setCreatedByKey:(id)createdByKey forKey:(id)key
 {
-    [createdByDict setObject:key forKey:[NSNumber numberWithInt:number]];
+    [createdByDict setObject:createdByKey forKey:key];
 }
 
-- (id)createdByKeyForNumber:(NSUInteger)number
+- (id)createdByKeyForKey:(id)key
 {
-    return [createdByDict objectForKey:[NSNumber numberWithInt:number]];
+    return [createdByDict objectForKey:key];
 }
 
 - (NSDictionary *)allCreatedByKeys
@@ -77,14 +77,14 @@
     return [[createdByDict copy] autorelease];
 }
 
-- (void)setAssignedToKey:(id)key forNumber:(NSUInteger)number
+- (void)setAssignedToKey:(id)assignedToKey forKey:(id)key
 {
-    [assignedToDict setObject:key forKey:[NSNumber numberWithInt:number]];
+    [assignedToDict setObject:assignedToKey forKey:key];
 }
 
-- (id)assignedToKeyForNumber:(NSUInteger)number
+- (id)assignedToKeyForKey:(id)key
 {
-    return [assignedToDict objectForKey:[NSNumber numberWithInt:number]];
+    return [assignedToDict objectForKey:key];
 }
 
 - (NSDictionary *)allAssignedToKeys
@@ -92,14 +92,14 @@
     return [[assignedToDict copy] autorelease];
 }
 
-- (void)setMilestoneKey:(id)key forNumber:(NSUInteger)number
+- (void)setMilestoneKey:(id)milestoneKey forKey:(id)key
 {
-    [milestoneDict setObject:key forKey:[NSNumber numberWithInt:number]];
+    [milestoneDict setObject:milestoneKey forKey:key];
 }
 
-- (id)milestoneKeyForNumber:(NSUInteger)number
+- (id)milestoneKeyForKey:(id)key
 {
-    return [milestoneDict objectForKey:[NSNumber numberWithInt:number]];
+    return [milestoneDict objectForKey:key];
 }
 
 - (NSDictionary *)allMilestoneKeys
@@ -107,14 +107,14 @@
     return [[milestoneDict copy] autorelease];
 }
 
-- (void)setCommentKeys:(NSArray *)keys forNumber:(NSUInteger)number
+- (void)setCommentKeys:(NSArray *)keys forKey:(id)key
 {
-    [commentDict setObject:keys forKey:[NSNumber numberWithInt:number]];
+    [commentDict setObject:keys forKey:key];
 }
 
-- (NSArray *)commentKeysForNumber:(NSUInteger)number
+- (NSArray *)commentKeysForKey:(id)key
 {
-    return [commentDict objectForKey:[NSNumber numberWithInt:number]];
+    return [commentDict objectForKey:key];
 }
 
 @end

@@ -6,8 +6,13 @@
 #import "Ticket.h"
 #import "PListUtils.h"
 #import "TicketMetaData.h"
+#import "TicketKey.h"
 
 @interface TicketPersistenceStore (Private)
+
++ (NSString *)stringFromTicketKey:(TicketKey *)ticketKey;
++ (TicketKey *)ticketKeyFromString:(NSString *)string;
++ (NSString *)ticketKeySplitSequence;
 
 + (NSDictionary *)dictionaryFromTicket:(Ticket *)ticket;
 + (Ticket *)ticketFromDictionary:(NSDictionary *)dict;
@@ -15,6 +20,8 @@
 + (NSDictionary *)dictionaryFromMetaData:(TicketMetaData *)metaData;
 + (TicketMetaData *)metaDataFromDictionary:(NSDictionary *)dict;
 
++ (NSString *)projectKeyKey;
++ (NSString *)ticketNumberKey;
 + (NSString *)ticketDictKey;
 + (NSString *)metaDataDictKey;
 + (NSString *)createdByDictKey;
@@ -50,27 +57,27 @@
     NSDictionary * milestoneDict =
         [dict objectForKey:[[self class] milestoneDictKey]];
 
-    for (NSString * numberAsString in [ticketDict allKeys]) {
-        NSUInteger number = [numberAsString integerValue];
+    for (NSString * keyAsString in [ticketDict allKeys]) {
+        TicketKey * key = [[self class] ticketKeyFromString:keyAsString];
         NSDictionary * ticketFieldsDict =
-            [ticketDict objectForKey:numberAsString];
+            [ticketDict objectForKey:keyAsString];
         Ticket * ticket = [[self class] ticketFromDictionary:ticketFieldsDict];
-        [ticketCache setTicket:ticket forNumber:number];
+        [ticketCache setTicket:ticket forKey:key];
         
         NSDictionary * metaDataFieldsDict =
-            [metaDataDict objectForKey:numberAsString];
+            [metaDataDict objectForKey:keyAsString];
         TicketMetaData * metaData =
             [[self class] metaDataFromDictionary:metaDataFieldsDict];
-        [ticketCache setMetaData:metaData forNumber:number];
+        [ticketCache setMetaData:metaData forKey:key];
         
-        id createdByKey = [createdByDict objectForKey:numberAsString];
-        [ticketCache setCreatedByKey:createdByKey forNumber:number];
+        id createdByKey = [createdByDict objectForKey:keyAsString];
+        [ticketCache setCreatedByKey:createdByKey forKey:key];
 
-        id assignedToKey = [assignedToDict objectForKey:numberAsString];
-        [ticketCache setAssignedToKey:assignedToKey forNumber:number];
+        id assignedToKey = [assignedToDict objectForKey:keyAsString];
+        [ticketCache setAssignedToKey:assignedToKey forKey:key];
 
-        id milestoneKey = [milestoneDict objectForKey:numberAsString];
-        [ticketCache setMilestoneKey:milestoneKey forNumber:number];
+        id milestoneKey = [milestoneDict objectForKey:keyAsString];
+        [ticketCache setMilestoneKey:milestoneKey forKey:key];
     }
     
     return ticketCache;
@@ -86,37 +93,42 @@
     NSMutableDictionary * milestoneDict = [NSMutableDictionary dictionary];
     
     NSDictionary * allTickets = [ticketCache allTickets];
-    for (NSNumber * number in [allTickets allKeys]) {
-        Ticket * ticket = [allTickets objectForKey:number];
+    for (TicketKey * key in [allTickets allKeys]) {
+        Ticket * ticket = [allTickets objectForKey:key];
         NSDictionary * ticketFieldDict =
             [[self class] dictionaryFromTicket:ticket];
-        [ticketDict setObject:ticketFieldDict forKey:[number description]];
+        [ticketDict setObject:ticketFieldDict
+            forKey:[[self class] stringFromTicketKey:key]];
     }
     
     NSDictionary * allMetaData = [ticketCache allMetaData];
-    for (NSNumber * number in [allMetaData allKeys]) {
-        TicketMetaData * metaData = [allMetaData objectForKey:number];
+    for (TicketKey * key in [allMetaData allKeys]) {
+        TicketMetaData * metaData = [allMetaData objectForKey:key];
         NSDictionary * metaDataFieldDict =
             [[self class] dictionaryFromMetaData:metaData];
-        [metaDataDict setObject:metaDataFieldDict forKey:[number description]];
+        [metaDataDict setObject:metaDataFieldDict
+            forKey:[[self class] stringFromTicketKey:key]];
     }
     
     NSDictionary * allCreatedByKeys = [ticketCache allCreatedByKeys];
-    for (NSNumber * number in [allCreatedByKeys allKeys]) {
-        id createdByKey = [allCreatedByKeys objectForKey:number];
-        [createdByDict setObject:createdByKey forKey:[number description]];
+    for (TicketKey * key in [allCreatedByKeys allKeys]) {
+        id createdByKey = [allCreatedByKeys objectForKey:key];
+        [createdByDict setObject:createdByKey
+            forKey:[[self class] stringFromTicketKey:key]];
     }
     
     NSDictionary * allAssignedToKeys = [ticketCache allAssignedToKeys];
-    for (NSNumber * number in [allAssignedToKeys allKeys]) {
-        id assignedToKey = [allAssignedToKeys objectForKey:number];
-        [assignedToDict setObject:assignedToKey forKey:[number description]];
+    for (TicketKey * key in [allAssignedToKeys allKeys]) {
+        id assignedToKey = [allAssignedToKeys objectForKey:key];
+        [assignedToDict setObject:assignedToKey
+            forKey:[[self class] stringFromTicketKey:key]];
     }
 
     NSDictionary * allMilestoneKeys = [ticketCache allMilestoneKeys];
-    for (NSNumber * number in [allMilestoneKeys allKeys]) {
-        id milestoneKey = [allMilestoneKeys objectForKey:number];
-        [milestoneDict setObject:milestoneKey forKey:[number description]];
+    for (TicketKey * key in [allMilestoneKeys allKeys]) {
+        id milestoneKey = [allMilestoneKeys objectForKey:key];
+        [milestoneDict setObject:milestoneKey
+            forKey:[[self class] stringFromTicketKey:key]];
     }
 
     [dict setObject:ticketDict forKey:[[self class] ticketDictKey]];
@@ -130,6 +142,44 @@
 }
 
 #pragma mark Data conversion methods
+
++ (NSString *)stringFromTicketKey:(TicketKey *)ticketKey
+{   
+    return ticketKey ?
+        [NSString stringWithFormat:@"%@%@%d",
+        ticketKey.projectKey,
+        [[self class] ticketKeySplitSequence], 
+        ticketKey.ticketNumber] :
+        nil;
+}
+
++ (TicketKey *)ticketKeyFromString:(NSString *)string
+{
+    TicketKey * ticketKey;
+    if (string) {
+        NSArray * components =
+            [string componentsSeparatedByString:
+            [[self class] ticketKeySplitSequence]];
+
+        NSString * projectKeyString = [components objectAtIndex:0];
+        id projectKey = projectKeyString == @"(null)" ? nil :
+            [NSNumber numberWithInt:[projectKeyString integerValue]];
+        NSUInteger ticketNumber = [[components objectAtIndex:1] integerValue];
+
+        ticketKey =
+            [[[TicketKey alloc]
+            initWithProjectKey:projectKey ticketNumber:ticketNumber]
+            autorelease];
+    } else
+        ticketKey = nil;
+    
+    return ticketKey;
+}
+
++ (NSString *)ticketKeySplitSequence
+{
+    return @"|";
+}
 
 + (NSDictionary *)dictionaryFromTicket:(Ticket *)ticket
 {
@@ -214,6 +264,16 @@
 }
 
 #pragma mark Dictionary keys
+
++ (NSString *)projectKeyKey
+{
+    return @"projectKey";
+}
+
++ (NSString *)ticketNumberKey
+{
+    return @"ticketNumber";
+}
 
 + (NSString *)ticketDictKey
 {

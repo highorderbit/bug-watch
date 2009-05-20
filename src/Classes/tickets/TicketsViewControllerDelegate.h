@@ -3,9 +3,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TicketKey.h"
 
 @protocol TicketsViewControllerDelegate
 
-- (void)selectedTicketNumber:(NSUInteger)number;
+- (void)selectedTicketKey:(TicketKey *)key;
 
 @end

@@ -30,10 +30,15 @@
 @interface BugWatchAppController (Private)
 
 - (void)initTicketsTab;
+- (TicketCache *)loadTicketsFromPersistence;
+- (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton;
+- (TicketBinDataSource *)initTicketBinDataSource;
+
 - (void)initProjectsTab;
 - (void)initMessagesTab;
 - (void)initMilestonesTab;
 
++ (LighthouseApiService *)createLighthouseApiService;
 + (NSString *)ticketCachePlist;
 
 @end
@@ -59,6 +64,8 @@
 
     [super dealloc];
 }
+
+#pragma mark Public interface implementation
 
 - (void)start
 {
@@ -141,57 +148,24 @@
         toPlist:[[self class] ticketCachePlist]];
 }
 
+#pragma mark Ticket tab initialization
+
 - (void)initTicketsTab
 {
-    NSLog(@"Loading ticket cache from persistence...");
-    TicketPersistenceStore * ticketPersistenceStore =
-        [[[TicketPersistenceStore alloc] init] autorelease];
-    TicketCache * ticketCache =
-        [ticketPersistenceStore loadWithPlist:[[self class] ticketCachePlist]];
-    NSLog(@"Loaded ticket cache from persistence.");
+    TicketCache * ticketCache = [self loadTicketsFromPersistence];
 
-    UIBarButtonItem * cancelButton =
-        ticketsNetAwareViewController.navigationItem.leftBarButtonItem;
     UIBarButtonItem * addButton =
         ticketsNetAwareViewController.navigationItem.rightBarButtonItem;
-    UITextField * searchField =
-        (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
-    TicketBinViewController * binViewController =
-        [[[TicketBinViewController alloc]
-        initWithNibName:@"TicketBinView" bundle:nil] autorelease];
-
+    TicketSearchMgr * ticketSearchMgr =
+        [self initTicketSearchMgrWithButton:addButton];
+    
     TicketsViewController * ticketsViewController =
         [[[TicketsViewController alloc]
         initWithNibName:@"TicketsView" bundle:nil] autorelease];
     ticketsNetAwareViewController.targetViewController = ticketsViewController;
-
-    LighthouseApiService * ticketBinLighthouseApiService =
-        [[[LighthouseApiService alloc]
-        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
-        autorelease];
-    TicketBinDataSource * ticketBinDataSource =
-        [[[TicketBinDataSource alloc]
-        initWithService:ticketBinLighthouseApiService]
-        autorelease];
-    ticketBinLighthouseApiService.delegate = ticketBinDataSource;
-
-    TicketSearchMgr * ticketSearchMgr =
-        [[TicketSearchMgr alloc]
-        initWithSearchField:searchField addButton:addButton
-        cancelButton:cancelButton
-        navigationItem:ticketsNetAwareViewController.navigationItem
-        ticketBinViewController:binViewController
-        parentView:ticketsNetAwareViewController.navigationController.view
-        dataSource:ticketBinDataSource];
-    ticketBinDataSource.delegate = ticketSearchMgr;
-    binViewController.delegate = ticketSearchMgr;
-    // this won't get dealloced, but fine since it exists for the runtime
-    // lifetime
     
     LighthouseApiService * ticketLighthouseApiService =
-        [[[LighthouseApiService alloc]
-        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
-        autorelease];
+        [[self class] createLighthouseApiService];
 
     TicketDataSource * ticketDataSource =
         [[[TicketDataSource alloc] initWithService:ticketLighthouseApiService]
@@ -212,6 +186,61 @@
     addButton.action = @selector(addSelected);
 }
 
+- (TicketCache *)loadTicketsFromPersistence
+{
+    NSLog(@"Loading ticket cache from persistence...");
+    TicketPersistenceStore * ticketPersistenceStore =
+        [[[TicketPersistenceStore alloc] init] autorelease];
+    TicketCache * ticketCache =
+        [ticketPersistenceStore loadWithPlist:[[self class] ticketCachePlist]];
+    NSLog(@"Loaded ticket cache from persistence.");
+    
+    return ticketCache;
+}
+
+- (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
+{
+    UIBarButtonItem * cancelButton =
+        ticketsNetAwareViewController.navigationItem.leftBarButtonItem;
+    UITextField * searchField =
+        (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
+
+    TicketBinViewController * binViewController =
+        [[[TicketBinViewController alloc]
+        initWithNibName:@"TicketBinView" bundle:nil] autorelease];
+    TicketBinDataSource * ticketBinDataSource = [self initTicketBinDataSource];
+
+    TicketSearchMgr * ticketSearchMgr =
+        [[TicketSearchMgr alloc]
+        initWithSearchField:searchField addButton:addButton
+        cancelButton:cancelButton
+        navigationItem:ticketsNetAwareViewController.navigationItem
+        ticketBinViewController:binViewController
+        parentView:ticketsNetAwareViewController.navigationController.view
+        dataSource:ticketBinDataSource];
+    ticketBinDataSource.delegate = ticketSearchMgr;
+    binViewController.delegate = ticketSearchMgr;
+    // this won't get dealloced, but fine since it exists for the runtime
+    // lifetime
+
+    return ticketSearchMgr;
+}
+
+- (TicketBinDataSource *)initTicketBinDataSource
+{
+    LighthouseApiService * ticketBinLighthouseApiService =
+        [[self class] createLighthouseApiService];
+    TicketBinDataSource * ticketBinDataSource =
+        [[[TicketBinDataSource alloc]
+        initWithService:ticketBinLighthouseApiService]
+        autorelease];
+    ticketBinLighthouseApiService.delegate = ticketBinDataSource;
+
+    return ticketBinDataSource;
+}
+
+#pragma mark Project tab initialization
+
 - (void)initProjectsTab
 {
     ProjectDisplayMgr * projectDisplayMgr =
@@ -219,6 +248,8 @@
         projectsViewController:projectsViewController] autorelease];
     projectsViewController.delegate = projectDisplayMgr;
 }
+
+#pragma mark Message tab initialization
 
 - (void)initMessagesTab
 {
@@ -242,14 +273,15 @@
     addButton.action = @selector(createNewMessage);
 }
 
+#pragma mark Message tab initialization
+
 - (void)initMilestonesTab
 {
     milestoneCache = [[MilestoneCache alloc] init];
 
     LighthouseApiService * milestoneDetailsService =
-        [[[LighthouseApiService alloc]
-        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
-        autorelease];
+        [[self class] createLighthouseApiService];
+
     MilestoneDetailsDataSource * milestoneDetailsDataSource =
         [[[MilestoneDetailsDataSource alloc]
         initWithLighthouseApiService:milestoneDetailsService
@@ -261,9 +293,7 @@
         autorelease];
 
     LighthouseApiService * milestoneService =
-        [[[LighthouseApiService alloc]
-        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
-        autorelease];
+        [[self class] createLighthouseApiService];
     MilestoneDataSource * milestoneDataSource =
         [[[MilestoneDataSource alloc]
         initWithLighthouseApiService:milestoneService
@@ -274,6 +304,17 @@
         milestoneDataSource:milestoneDataSource
         milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
 }
+
+#pragma mark Static factory methods
+
++ (LighthouseApiService *)createLighthouseApiService
+{
+    return [[[LighthouseApiService alloc]
+        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
+        autorelease];
+}
+
+#pragma mark String constants
 
 + (NSString *)ticketCachePlist
 {

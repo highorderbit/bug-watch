@@ -6,6 +6,7 @@
 #import "Ticket.h"
 #import "TicketMetaData.h"
 #import "TicketTableViewCell.h"
+#import "TicketKey.h"
 
 @implementation TicketsViewController
 
@@ -55,18 +56,18 @@
         cell = [nib objectAtIndex:0];
     }
 
-    NSNumber * ticketNumber = [[tickets allKeys] objectAtIndex:indexPath.row];
-    Ticket * ticket = [tickets objectForKey:ticketNumber];
+    TicketKey * ticketKey = [[tickets allKeys] objectAtIndex:indexPath.row];
+    Ticket * ticket = [tickets objectForKey:ticketKey];
     TicketMetaData * ticketMetaData =
-        [metaData objectForKey:ticketNumber];
-    [cell setNumber:[ticketNumber intValue]];
+        [metaData objectForKey:ticketKey];
+    [cell setNumber:ticketKey.ticketNumber];
     [cell setState:ticketMetaData.state];
     [cell setDescription:ticket.description];
     [cell setLastUpdatedDate:ticketMetaData.lastModifiedDate];
-    NSString * assignedToName = [assignedToDict objectForKey:ticketNumber];
+    NSString * assignedToName = [assignedToDict objectForKey:ticketKey];
     assignedToName = assignedToName ? assignedToName : @"none";
     [cell setAssignedToName:assignedToName];
-    NSString * milestoneName = [milestoneDict objectForKey:ticketNumber];
+    NSString * milestoneName = [milestoneDict objectForKey:ticketKey];
     milestoneName = milestoneName ? milestoneName : @"none";
     [cell setMilestoneName:milestoneName];
 
@@ -76,9 +77,8 @@
 - (void)tableView:(UITableView *)aTableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger number =
-        [[[tickets allKeys] objectAtIndex:indexPath.row] intValue];
-    [delegate selectedTicketNumber:number];
+    TicketKey * key = [[tickets allKeys] objectAtIndex:indexPath.row];
+    [delegate selectedTicketKey:key];
 }
 
 #pragma mark UITableViewDelegate implementation
