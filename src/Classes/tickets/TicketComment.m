@@ -27,4 +27,11 @@
     return [self retain]; // safe because immutable
 }
 
+- (NSString *)description
+{
+    return [NSString
+        stringWithFormat:@"{stateChangeDescription:%@,text:%@,date:%@}",
+        stateChangeDescription, text, [date description]];
+}
+
 @end
