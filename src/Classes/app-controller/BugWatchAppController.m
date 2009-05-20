@@ -26,6 +26,8 @@
 #import "TicketBinViewController.h"
 #import "TicketBinDataSource.h"
 #import "TicketPersistenceStore.h"
+#import "MilestoneUpdatePublisher.h"
+#import "TicketDispMgrMilestoneSetter.h"
 
 @interface BugWatchAppController (Private)
 
@@ -184,6 +186,18 @@
     ticketSearchMgr.delegate = ticketDisplayMgr;
     addButton.target = ticketDisplayMgr;
     addButton.action = @selector(addSelected);
+    
+    // intentionally not autoreleasing either of the following objects
+    MilestoneUpdatePublisher * milestoneUpdatePublisher =
+        [[MilestoneUpdatePublisher alloc] init];
+    TicketDispMgrMilestoneSetter * milestoneSetter =
+        [[TicketDispMgrMilestoneSetter alloc]
+        initWithTicketDisplayMgr:ticketDisplayMgr];
+    [milestoneUpdatePublisher
+        subscribeForMilestoneUpdatesForAllProjects:
+        milestoneSetter
+        action:
+        @selector(milestonesReceivedForAllProjects:milestoneKeys:projectKeys:)];
 }
 
 - (TicketCache *)loadTicketsFromPersistence

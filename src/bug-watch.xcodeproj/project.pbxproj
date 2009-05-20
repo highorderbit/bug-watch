@@ -114,6 +114,7 @@
 		913E45AC0FAA7795000EB184 /* TextWithCountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45AB0FAA7795000EB184 /* TextWithCountTableViewCell.m */; };
 		913E45D60FAA8027000EB184 /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45D50FAA8027000EB184 /* RoundedRectLabel.m */; };
 		914828800FC3554B002D10E8 /* TicketKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 9148287F0FC3554B002D10E8 /* TicketKey.m */; };
+		91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -341,6 +342,8 @@
 		913E45D50FAA8027000EB184 /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectLabel.m; path = shared/RoundedRectLabel.m; sourceTree = "<group>"; };
 		9148287E0FC3554B002D10E8 /* TicketKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketKey.h; path = tickets/TicketKey.h; sourceTree = "<group>"; };
 		9148287F0FC3554B002D10E8 /* TicketKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketKey.m; path = tickets/TicketKey.m; sourceTree = "<group>"; };
+		91482A5C0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDispMgrMilestoneSetter.h; path = tickets/TicketDispMgrMilestoneSetter.h; sourceTree = "<group>"; };
+		91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrMilestoneSetter.m; path = tickets/TicketDispMgrMilestoneSetter.m; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -864,6 +867,8 @@
 				91B15A2E0FBBC99400C7412C /* TicketBinDataSourceDelegate.h */,
 				9148287E0FC3554B002D10E8 /* TicketKey.h */,
 				9148287F0FC3554B002D10E8 /* TicketKey.m */,
+				91482A5C0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.h */,
+				91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1218,6 +1223,7 @@
 				05DB80CB0FC33E7E0095AF32 /* User.m in Sources */,
 				05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */,
 				05DB811F0FC360230095AF32 /* MilestoneUpdatePublisher.m in Sources */,
+				91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
