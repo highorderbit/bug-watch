@@ -17,6 +17,7 @@
     NSMutableString * elementValue;
     NSMutableString * elementType;
     NSMutableArray * elements;
+    BOOL buildingObject;  // a bit hackey until support is added for paths
 }
 
 @property (nonatomic, copy) NSString * className;

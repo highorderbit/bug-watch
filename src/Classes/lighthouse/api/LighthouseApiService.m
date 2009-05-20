@@ -18,6 +18,7 @@
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseTicketComments:(NSData *)xml;
+- (NSArray *)parseTicketCommentAuthors:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
 - (NSArray *)parseMilestoneIds:(NSData *)xml;
 - (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
@@ -136,10 +137,11 @@
     inProject:(id)projectKey token:(NSString *)token
 {
     NSArray * ticketComments = [self parseTicketComments:xml];
+    NSArray * authors = [self parseTicketCommentAuthors:xml];
 
-    SEL sel = @selector(details:fetchedForTicket:inProject:);
+    SEL sel = @selector(details:authors:fetchedForTicket:inProject:);
     [self invokeSelector:sel withTarget:delegate args:ticketComments,
-        ticketKey, projectKey, nil];
+        authors, ticketKey, projectKey, nil];
 }
 
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
@@ -389,6 +391,18 @@
             @"text", @"body",
             @"stateChangeDescription", @"diffable-attributes",
             nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseTicketCommentAuthors:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"version";
+    parser.classElementCollection = @"versions";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"creator-id", nil];
 
     return [parser parse:xml];
 }
