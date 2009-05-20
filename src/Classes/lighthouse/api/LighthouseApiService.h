@@ -46,5 +46,9 @@
 #pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token;
+
+#pragma mark Notification names posted to the application as data is received
+
++ (NSString *)milestonesReceivedForAllProjectsNotificationName;
     
 @end
