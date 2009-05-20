@@ -22,6 +22,7 @@
     IBOutlet NetworkAwareViewController * milestonesNetworkAwareViewController;
     IBOutlet NetworkAwareViewController * messagesNetAwareViewController;
     IBOutlet UIViewController * pagesViewController;
+    IBOutlet UITabBarController * tabBarController;
 
     TicketDisplayMgr * ticketDisplayMgr;
     MessageCache * messageCache;

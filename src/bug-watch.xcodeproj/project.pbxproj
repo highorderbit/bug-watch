@@ -115,6 +115,8 @@
 		913E45D60FAA8027000EB184 /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45D50FAA8027000EB184 /* RoundedRectLabel.m */; };
 		914828800FC3554B002D10E8 /* TicketKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 9148287F0FC3554B002D10E8 /* TicketKey.m */; };
 		91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */; };
+		91482A770FC4C6A2002D10E8 /* UIState.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A740FC4C6A2002D10E8 /* UIState.m */; };
+		91482A780FC4C6A2002D10E8 /* UIStatePersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A760FC4C6A2002D10E8 /* UIStatePersistenceStore.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -344,6 +346,10 @@
 		9148287F0FC3554B002D10E8 /* TicketKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketKey.m; path = tickets/TicketKey.m; sourceTree = "<group>"; };
 		91482A5C0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDispMgrMilestoneSetter.h; path = tickets/TicketDispMgrMilestoneSetter.h; sourceTree = "<group>"; };
 		91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrMilestoneSetter.m; path = tickets/TicketDispMgrMilestoneSetter.m; sourceTree = "<group>"; };
+		91482A730FC4C6A2002D10E8 /* UIState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIState.h; path = "app-controller/UIState.h"; sourceTree = "<group>"; };
+		91482A740FC4C6A2002D10E8 /* UIState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIState.m; path = "app-controller/UIState.m"; sourceTree = "<group>"; };
+		91482A750FC4C6A2002D10E8 /* UIStatePersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIStatePersistenceStore.h; path = "app-controller/UIStatePersistenceStore.h"; sourceTree = "<group>"; };
+		91482A760FC4C6A2002D10E8 /* UIStatePersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIStatePersistenceStore.m; path = "app-controller/UIStatePersistenceStore.m"; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -549,6 +555,10 @@
 		05C870670FA77EDC0069BC72 /* app-controller */ = {
 			isa = PBXGroup;
 			children = (
+				91482A730FC4C6A2002D10E8 /* UIState.h */,
+				91482A740FC4C6A2002D10E8 /* UIState.m */,
+				91482A750FC4C6A2002D10E8 /* UIStatePersistenceStore.h */,
+				91482A760FC4C6A2002D10E8 /* UIStatePersistenceStore.m */,
 				05DB80FF0FC343CD0095AF32 /* BugWatchAppController.h */,
 				05DB81000FC343CD0095AF32 /* BugWatchAppController.m */,
 				05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */,
@@ -1224,6 +1234,8 @@
 				05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */,
 				05DB811F0FC360230095AF32 /* MilestoneUpdatePublisher.m in Sources */,
 				91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */,
+				91482A770FC4C6A2002D10E8 /* UIState.m in Sources */,
+				91482A780FC4C6A2002D10E8 /* UIStatePersistenceStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
