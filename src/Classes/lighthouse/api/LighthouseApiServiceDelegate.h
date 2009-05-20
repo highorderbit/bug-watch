@@ -17,8 +17,8 @@
     creatorIds:(NSArray *)creatorIds;
 - (void)failedToFetchTicketsForAllProjects:(NSError *)error;
 
-- (void)details:(NSArray *)detais fetchedForTicket:(id)ticketKey
-    inProject:(id)projectKey;
+- (void)details:(NSArray *)detais authors:(NSArray *)authors
+    fetchedForTicket:(id)ticketKey inProject:(id)projectKey;
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
     inProject:(id)projectKey error:(NSError *)error;
 

@@ -83,8 +83,8 @@
 - (void)failedToFetchTicketsForAllProjects:(NSError *)response
 {}
 
-- (void)details:(NSArray *)details fetchedForTicket:(id)ticketKey
-    inProject:(id)projectKey
+- (void)details:(NSArray *)details authors:(NSArray *)authors
+    fetchedForTicket:(id)ticketKey inProject:(id)projectKey
 {
     NSLog(@"Received ticket details: %@", details);
     
