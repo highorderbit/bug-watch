@@ -35,4 +35,9 @@
     return [self retain]; // safe because immutable
 }
 
+- (NSComparisonResult)compare:(Ticket *)anotherTicket
+{
+    return [self.creationDate compare:anotherTicket.creationDate];
+}
+
 @end
