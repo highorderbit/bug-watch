@@ -55,6 +55,7 @@
 {
     [self resetContext];
     [self resetCollection];
+    buildingObject = NO;
 
     NSXMLParser * parser = [[NSXMLParser alloc] initWithData:xml];
     parser.delegate = self;
@@ -75,9 +76,10 @@
 {
     [self resetContext];
 
-    if ([elementName isEqualToString:self.classElementType])
+    if ([elementName isEqualToString:self.classElementType]) {
         self.obj = [[[[NSObject classNamed:className] alloc] init] autorelease];
-    else if ([elementName isEqualToString:self.classElementCollection]) {
+        buildingObject = YES;
+    } else if ([elementName isEqualToString:self.classElementCollection]) {
         if ([[attributes objectForKey:@"type"] isEqualToString:@"array"])
             [self resetCollection];
     } else {
@@ -92,10 +94,14 @@
     namespaceURI:(NSString *)namespaceURI
     qualifiedName:(NSString *)qualifiedName
 {
-    if ([elementName isEqualToString:self.classElementType])
-        [self.elements addObject:self.obj];
-    else
-        [self setValue:self.elementValue forPath:self.elementPath object:obj];
+    if (buildingObject)
+        if ([elementName isEqualToString:self.classElementType]) {
+            [self.elements addObject:self.obj];
+            buildingObject = NO;
+        } else
+            [self setValue:self.elementValue
+                   forPath:self.elementPath
+                    object:self.obj];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)chars
