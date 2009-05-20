@@ -102,12 +102,12 @@
         }
 
         NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
-        // for (id commentKey in commentKeys) {
-        //     NSString * userKey =
-        //         [commentCache authorKeyForCommentKey:commentKey];
-        //     NSString * commentAuthor = [userDict objectForKey:userKey];
-        //     [commentAuthors setObject:commentAuthor forKey:commentKey];
-        // }
+        for (id commentKey in commentKeys) {
+            NSString * userKey =
+                [commentCache authorKeyForCommentKey:commentKey];
+            NSString * commentAuthor = [userDict objectForKey:userKey];
+            [commentAuthors setObject:commentAuthor forKey:commentKey];
+        }
 
         [self.detailsViewController setTicketNumber:key.ticketNumber
             ticket:ticket metaData:metaData reportedBy:reportedBy

@@ -108,8 +108,10 @@
             initWithStateChangeDescription:stateChangeDescription
             text:comment.text date:comment.date]
             autorelease];
-        [commentCache setComment:commentWithDiffText
-            forKey:[NSNumber numberWithInt:i]];
+        id commentKey = [NSNumber numberWithInt:i];
+        [commentCache setComment:commentWithDiffText forKey:commentKey];
+        id authorKey = [authors objectAtIndex:i];
+        [commentCache setAuthorKey:authorKey forCommentKey:commentKey];
     }
 
     [delegate receivedTicketDetailsFromDataSource:commentCache];
