@@ -59,6 +59,7 @@
 		05D6A0050FB357C10081AE18 /* NSObject+RuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */; };
 		05DB80CB0FC33E7E0095AF32 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB80CA0FC33E7E0095AF32 /* User.m */; };
 		05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB81000FC343CD0095AF32 /* BugWatchAppController.m */; };
+		05DB811F0FC360230095AF32 /* MilestoneUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB811E0FC360230095AF32 /* MilestoneUpdatePublisher.m */; };
 		05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */; };
 		05DEB1D90FB106470052888E /* MilestoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1D80FB106470052888E /* MilestoneHeaderView.m */; };
 		05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2200FB217090052888E /* LighthouseNewsFeed.m */; };
@@ -250,6 +251,8 @@
 		05DB80CA0FC33E7E0095AF32 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = users/User.m; sourceTree = "<group>"; };
 		05DB80FF0FC343CD0095AF32 /* BugWatchAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppController.h; path = "app-controller/BugWatchAppController.h"; sourceTree = "<group>"; };
 		05DB81000FC343CD0095AF32 /* BugWatchAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppController.m; path = "app-controller/BugWatchAppController.m"; sourceTree = "<group>"; };
+		05DB811D0FC360230095AF32 /* MilestoneUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneUpdatePublisher.h; path = Classes/milestones/MilestoneUpdatePublisher.h; sourceTree = "<group>"; };
+		05DB811E0FC360230095AF32 /* MilestoneUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneUpdatePublisher.m; path = Classes/milestones/MilestoneUpdatePublisher.m; sourceTree = "<group>"; };
 		05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDisplayMgr.h; path = Classes/milestones/MilestoneDisplayMgr.h; sourceTree = "<group>"; };
 		05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDisplayMgr.m; path = Classes/milestones/MilestoneDisplayMgr.m; sourceTree = "<group>"; };
 		05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewControllerDelegate.h; path = Classes/milestones/MilestonesViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -530,6 +533,8 @@
 				05A961830FBE142C00CBDC68 /* MilestoneDetailsDataSource.h */,
 				05A961840FBE142C00CBDC68 /* MilestoneDetailsDataSource.m */,
 				05A961860FBE282E00CBDC68 /* MilestoneDetailsDataSourceDelegate.h */,
+				05DB811D0FC360230095AF32 /* MilestoneUpdatePublisher.h */,
+				05DB811E0FC360230095AF32 /* MilestoneUpdatePublisher.m */,
 			);
 			name = milestones;
 			path = ..;
@@ -1206,6 +1211,7 @@
 				05A961850FBE142C00CBDC68 /* MilestoneDetailsDataSource.m in Sources */,
 				05DB80CB0FC33E7E0095AF32 /* User.m in Sources */,
 				05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */,
+				05DB811F0FC360230095AF32 /* MilestoneUpdatePublisher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1651,6 +1657,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John Debay";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;

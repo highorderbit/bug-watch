@@ -229,7 +229,7 @@
     [self invokeSelector:sel withTarget:delegate args:token, error, nil];
 }
 
-#pragma mark -- Useres
+#pragma mark -- Users
 
 - (void)allUsers:(NSData *)xml fetchedForProject:(id)projectKey
     token:(NSString *)token
@@ -266,6 +266,20 @@
         @selector(milestonesFetchedForAllProjects:milestoneIds:projectIds:);
     [self invokeSelector:sel withTarget:delegate args:milestones, milestoneIds,
        projectIds, nil];
+
+    // post general notification
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        milestones, @"milestones",
+        milestoneIds, @"milestoneKeys",
+        projectIds, @"projectKeys",
+        nil];
+    NSString * notificationName =
+        [[self class] milestonesReceivedForAllProjectsNotificationName];
+    [nc postNotificationName:notificationName
+                      object:self
+                    userInfo:userInfo];
 }
 
 - (void)failedToFetchMilestonesForAllProjects:(NSString *)token
@@ -487,6 +501,13 @@
     }
 
     return NO;
+}
+
+#pragma mark Notification names
+
++ (NSString *)milestonesReceivedForAllProjectsNotificationName
+{
+    return @"BugWatchMilestonesReceivedNotification";
 }
 
 @end
