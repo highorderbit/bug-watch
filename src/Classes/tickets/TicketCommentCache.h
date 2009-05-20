@@ -13,6 +13,7 @@
 
 - (void)setComment:(TicketComment *)comment forKey:(id)key;
 - (TicketComment *)commentForKey:(id)key;
+- (NSDictionary *)allComments;
 
 - (void)setAuthorKey:(id)authorKey forCommentKey:(id)commentKey;
 - (id)authorKeyForCommentKey:(id)commentKey;

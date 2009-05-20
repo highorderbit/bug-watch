@@ -33,6 +33,11 @@
     return [comments objectForKey:key];
 }
 
+- (NSDictionary *)allComments
+{
+    return [comments copy];
+}
+
 - (void)setAuthorKey:(id)authorKey forCommentKey:(id)commentKey
 {
     [commentAuthors setObject:authorKey forKey:commentKey];

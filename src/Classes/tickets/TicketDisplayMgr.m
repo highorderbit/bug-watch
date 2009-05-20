@@ -94,7 +94,7 @@
         id milestoneKey = [self.ticketCache milestoneKeyForKey:key];
         NSString * milestone = [milestoneDict objectForKey:milestoneKey];
 
-        NSArray * commentKeys = [ticketCache commentKeysForKey:key];
+        NSArray * commentKeys = [[commentCache allComments] allKeys];
         NSMutableDictionary * comments = [NSMutableDictionary dictionary];
         for (id commentKey in commentKeys) {
             TicketComment * comment = [commentCache commentForKey:commentKey];
@@ -102,12 +102,12 @@
         }
 
         NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
-        for (id commentKey in commentKeys) {
-            NSString * userKey =
-                [commentCache authorKeyForCommentKey:commentKey];
-            NSString * commentAuthor = [userDict objectForKey:userKey];
-            [commentAuthors setObject:commentAuthor forKey:commentKey];
-        }
+        // for (id commentKey in commentKeys) {
+        //     NSString * userKey =
+        //         [commentCache authorKeyForCommentKey:commentKey];
+        //     NSString * commentAuthor = [userDict objectForKey:userKey];
+        //     [commentAuthors setObject:commentAuthor forKey:commentKey];
+        // }
 
         [self.detailsViewController setTicketNumber:key.ticketNumber
             ticket:ticket metaData:metaData reportedBy:reportedBy
