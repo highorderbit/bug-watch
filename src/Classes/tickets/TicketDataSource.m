@@ -133,8 +133,14 @@
         NSLog(@"Line: %@", line);
         if ([lineComps count] > 1) {
             NSInteger count = [lineComps count];
-            NSString * key = [lineComps objectAtIndex:count - 2];
-            NSString * value = [lineComps objectAtIndex:count - 1];
+            NSCharacterSet * charSet = [NSCharacterSet whitespaceCharacterSet];
+            NSString * key =
+                [[lineComps objectAtIndex:count - 2]
+                stringByTrimmingCharactersInSet:charSet];
+            NSString * value =
+                [[lineComps objectAtIndex:count - 1]
+                stringByTrimmingCharactersInSet:charSet];
+            value = [value isEqual:@""] ? @"none" : value;
             [diff setObject:value forKey:key];
         }
     }

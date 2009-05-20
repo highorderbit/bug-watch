@@ -115,7 +115,8 @@
     id commentKey = [[comments allKeys] objectAtIndex:indexPath.row];
     TicketComment * comment = [comments objectForKey:commentKey];
 
-    return [CommentTableViewCell heightForContent:comment.text];
+    return [CommentTableViewCell heightForContent:comment.text
+        stateChangeText:comment.stateChangeDescription];
 }
 
 #pragma mark UITableViewDelegate implementation

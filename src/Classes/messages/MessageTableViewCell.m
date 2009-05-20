@@ -114,15 +114,12 @@
         [NSString stringWithFormat:formatString, numResponses];
 }
 
-+ (CGFloat)heightForTitle:(NSString *)title comment:(NSString *)comment
-{
-    UILineBreakMode mode = UILineBreakModeWordWrap;
- 
-    CGSize titleMaxSize = CGSizeMake(288, 999999.0);
-    UIFont * titleFont = [UIFont boldSystemFontOfSize:14.0];
-    CGSize titleSize =
-        [title sizeWithFont:titleFont constrainedToSize:titleMaxSize
-        lineBreakMode:mode];
++  (CGFloat)heightForTitle:(NSString   *)title  comment:(NSString   *)comment  {
+UILineBreakMode            mode            =            UILineBreakModeWordWrap;
+
+ CGSize titleMaxSize  = CGSizeMake(288, 999999.0); UIFont *  titleFont = [UIFont
+boldSystemFontOfSize:14.0];  CGSize  titleSize =  [title  sizeWithFont:titleFont
+constrainedToSize:titleMaxSize                              lineBreakMode:mode];
 
     CGSize commentMaxSize = CGSizeMake(288, 54.0);
     UIFont * commentFont = [UIFont systemFontOfSize:14.0];
