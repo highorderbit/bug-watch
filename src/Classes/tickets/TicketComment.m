@@ -34,4 +34,9 @@
         stateChangeDescription, text, [date description]];
 }
 
+- (NSComparisonResult)compare:(TicketComment *)anotherTicketComment
+{
+    return [self.date compare:anotherTicketComment.date];
+}
+
 @end

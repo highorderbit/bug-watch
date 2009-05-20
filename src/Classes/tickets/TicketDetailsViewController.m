@@ -12,6 +12,7 @@
 @interface TicketDetailsViewController (Private)
 
 - (void)layoutView;
+- (NSArray *)sortedKeys;
 
 @end
 
@@ -92,27 +93,22 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
-    id commentKey = [[comments allKeys] objectAtIndex:indexPath.row];
+    id commentKey = [[self sortedKeys] objectAtIndex:indexPath.row];
     TicketComment * comment = [comments objectForKey:commentKey];
     [cell setDate:comment.date];
     [cell setStateChangeText:comment.stateChangeDescription];
     [cell setCommentText:comment.text];
-    
+
     NSString * authorName = [commentAuthors objectForKey:commentKey];
     [cell setAuthorName:authorName];
 
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView
-    didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
 - (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id commentKey = [[comments allKeys] objectAtIndex:indexPath.row];
+    id commentKey = [[self sortedKeys] objectAtIndex:indexPath.row];
     TicketComment * comment = [comments objectForKey:commentKey];
 
     return [CommentTableViewCell heightForContent:comment.text
@@ -231,6 +227,11 @@
 
     // necessary to reset header height allocation for table view
     self.tableView.tableHeaderView = headerView;
+}
+
+- (NSArray *)sortedKeys
+{
+    return [[comments allKeys] sortedArrayUsingSelector:@selector(compare:)];
 }
 
 @end
