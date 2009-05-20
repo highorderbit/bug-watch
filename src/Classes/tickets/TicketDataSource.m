@@ -7,6 +7,13 @@
 #import "TicketCommentCache.h"
 #import "TicketComment.h"
 
+@interface TicketDataSource (Private)
+
++ (NSDictionary *)parseYaml:(NSString *)yaml;
++ (NSString *)readableTextFromDiff:(NSDictionary *)diff;
+
+@end
+
 @implementation TicketDataSource
 
 @synthesize delegate;
@@ -92,7 +99,17 @@
         [[[TicketCommentCache alloc] init] autorelease];
     for (int i = 0; i < [details count]; i++) {
         TicketComment * comment = [details objectAtIndex:i];
-        [commentCache setComment:comment forKey:[NSNumber numberWithInt:i]];
+        NSDictionary * diff =
+            [[self class] parseYaml:comment.stateChangeDescription];
+        NSString * stateChangeDescription =
+            [[self class] readableTextFromDiff:diff];
+        TicketComment * commentWithDiffText =
+            [[[TicketComment alloc]
+            initWithStateChangeDescription:stateChangeDescription
+            text:comment.text date:comment.date]
+            autorelease];
+        [commentCache setComment:commentWithDiffText
+            forKey:[NSNumber numberWithInt:i]];
     }
 
     [delegate receivedTicketDetailsFromDataSource:commentCache];
@@ -101,5 +118,37 @@
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
     inProject:(id)projectKey error:(NSError *)error
 {}
+
+#pragma mark Readable strings from yaml helpers
+
++ (NSDictionary *)parseYaml:(NSString *)yaml
+{
+    NSMutableDictionary * diff = [NSMutableDictionary dictionary];
+    NSArray * lines = [yaml componentsSeparatedByString:@"\n"];
+
+    for (NSString * line in lines) {
+        NSArray * lineComps = [line componentsSeparatedByString:@":"];
+        NSLog(@"Line: %@", line);
+        if ([lineComps count] > 1) {
+            NSInteger count = [lineComps count];
+            NSString * key = [lineComps objectAtIndex:count - 2];
+            NSString * value = [lineComps objectAtIndex:count - 1];
+            [diff setObject:value forKey:key];
+        }
+    }
+
+    return diff;
+}
+
++ (NSString *)readableTextFromDiff:(NSDictionary *)diff
+{
+    NSMutableString * text = [NSMutableString stringWithCapacity:0];
+    for (NSString * key in [diff allKeys]) {
+        NSString * value = [diff objectForKey:key];
+        [text appendFormat:@"→ %@ changed to '%@'\n", key, value];
+    }
+
+    return text;
+}
 
 @end
