@@ -4,9 +4,11 @@
 
 #import <Foundation/Foundation.h>
 #import "TicketCache.h"
+#import "TicketCommentCache.h"
 
 @protocol TicketDataSourceDelegate
 
 - (void)receivedTicketsFromDataSource:(TicketCache *)aTicketCache;
+- (void)receivedTicketDetailsFromDataSource:(TicketCommentCache *)commentCache;
 
 @end

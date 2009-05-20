@@ -46,6 +46,7 @@
 @property (readonly) UINavigationController * navController;
 
 @property (nonatomic, retain) TicketCache * ticketCache;
+@property (nonatomic, retain) TicketCommentCache * commentCache;
 @property (nonatomic, copy) NSString * filterString;
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache

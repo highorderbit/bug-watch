@@ -4,7 +4,8 @@
 
 #import "TicketDataSource.h"
 #import "TicketCache.h"
-#import "TicketKey.h"
+#import "TicketCommentCache.h"
+#import "TicketComment.h"
 
 @implementation TicketDataSource
 
@@ -14,22 +15,31 @@
 {
     [delegate release];
     [service release];
+    [token release];
     [super dealloc];
 }
 
 -(id)initWithService:(LighthouseApiService *)aService
 {
-    if (self = [super init])
+    if (self = [super init]) {
         service = [aService retain];
+        // TEMPORARY
+        token = [@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" retain];
+    }
 
     return self;
 }
 
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString
 {
-    // TEMPORARY
-    static NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
     [service searchTicketsForAllProjects:aFilterString token:token];
+}
+
+- (void)fetchTicketWithKey:(TicketKey *)aTicketKey
+{
+    [service
+        fetchDetailsForTicket:[NSNumber numberWithInt:aTicketKey.ticketNumber]
+        inProject:aTicketKey.projectKey token:token];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
@@ -47,7 +57,7 @@
     for (int i = 0; i < [ticketNumbers count]; i++) {
         NSNumber * number = [ticketNumbers objectAtIndex:i];
         NSUInteger numberAsInt = [((NSNumber *)number) intValue];
-        id projectId = nil;
+        id projectId = [projectIds objectAtIndex:i];
         id ticketKey =
             [[[TicketKey alloc]
             initWithProjectKey:projectId ticketNumber:numberAsInt] autorelease];
@@ -71,6 +81,25 @@
 }
 
 - (void)failedToFetchTicketsForAllProjects:(NSError *)response
+{}
+
+- (void)details:(NSArray *)details fetchedForTicket:(id)ticketKey
+    inProject:(id)projectKey
+{
+    NSLog(@"Received ticket details: %@", details);
+    
+    TicketCommentCache * commentCache =
+        [[[TicketCommentCache alloc] init] autorelease];
+    for (int i = 0; i < [details count]; i++) {
+        TicketComment * comment = [details objectAtIndex:i];
+        [commentCache setComment:comment forKey:[NSNumber numberWithInt:i]];
+    }
+
+    [delegate receivedTicketDetailsFromDataSource:commentCache];
+}
+
+- (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
+    inProject:(id)projectKey error:(NSError *)error
 {}
 
 @end

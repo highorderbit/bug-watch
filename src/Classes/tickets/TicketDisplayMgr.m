@@ -6,7 +6,7 @@
 
 @implementation TicketDisplayMgr
 
-@synthesize ticketCache, filterString;
+@synthesize ticketCache, commentCache, filterString;
 
 - (void)dealloc
 {
@@ -117,7 +117,7 @@
         [self.detailsNetAwareViewController
             setUpdatingState:kConnectedAndUpdating];        
         self.detailsNetAwareViewController.cachedDataAvailable = NO;
-        //[dataSource fetchTicketsWithQuery:searchString];
+        [dataSource fetchTicketWithKey:key];
     }
 
     selectedTicketKey = key;
@@ -213,6 +213,12 @@
 {
     self.ticketCache = aTicketCache;
     [self ticketsFilteredByFilterString:self.filterString];
+}
+
+- (void)receivedTicketDetailsFromDataSource:(TicketCommentCache *)aCommentCache
+{
+    self.commentCache = aCommentCache;
+    [self selectedTicketKey:selectedTicketKey];
 }
 
 #pragma mark TicketDisplayMgr implementation
