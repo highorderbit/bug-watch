@@ -22,7 +22,7 @@
     TicketDataSourceDelegate, TicketSearchMgrDelegate>
 {
     NSString * filterString;
-    NSUInteger selectedTicketNumber;
+    id selectedTicketKey;
 
     TicketCache * ticketCache;
     TicketCommentCache * commentCache;
@@ -31,6 +31,7 @@
     TicketsViewController * ticketsViewController;
     TicketDataSource * dataSource;
     TicketDetailsViewController * detailsViewController;
+    NetworkAwareViewController * detailsNetAwareViewController;
     EditTicketViewController * editTicketViewController;
 
     // TEMPORARY
@@ -40,6 +41,7 @@
 }
 
 @property (readonly) TicketDetailsViewController * detailsViewController;
+@property (readonly) NetworkAwareViewController * detailsNetAwareViewController;
 @property (readonly) EditTicketViewController * editTicketViewController;
 @property (readonly) UINavigationController * navController;
 

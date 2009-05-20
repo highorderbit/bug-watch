@@ -11,6 +11,7 @@
 - (void)dealloc
 {
     [filterString release];
+    [selectedTicketKey release];
     [ticketCache release];
     [commentCache release];
 
@@ -18,6 +19,7 @@
     [ticketsViewController release];
     [dataSource release];
     [detailsViewController release];
+    [detailsNetAwareViewController release];
     [editTicketViewController release];
 
     // TEMPORARY
@@ -65,40 +67,60 @@
 
 #pragma mark TicketsViewControllerDelegate implementation
 
-- (void)selectedTicketNumber:(NSUInteger)number
+- (void)selectedTicketKey:(TicketKey *)key
 {
-    NSLog(@"Ticket %d selected", number);
-    selectedTicketNumber = number;
+    NSLog(@"Ticket %@ selected", key);
 
-    [self.navController pushViewController:self.detailsViewController
-        animated:YES];
-    
-    Ticket * ticket = [self.ticketCache ticketForNumber:number];
-    TicketMetaData * metaData = [self.ticketCache metaDataForNumber:number];
-    id reportedByKey = [self.ticketCache createdByKeyForNumber:number];
-    NSString * reportedBy = [userDict objectForKey:reportedByKey];
-    id assignedToKey = [self.ticketCache assignedToKeyForNumber:number];
-    NSString * assignedTo = [userDict objectForKey:assignedToKey];
-    id milestoneKey = [self.ticketCache milestoneKeyForNumber:number];
-    NSString * milestone = [milestoneDict objectForKey:milestoneKey];
-    
-    NSArray * commentKeys = [ticketCache commentKeysForNumber:number];
-    NSMutableDictionary * comments = [NSMutableDictionary dictionary];
-    for (id commentKey in commentKeys) {
-        TicketComment * comment = [commentCache commentForKey:commentKey];
-        [comments setObject:comment forKey:commentKey];
+    if (self.navController.topViewController !=
+        self.detailsNetAwareViewController) {
+
+        self.detailsNetAwareViewController.title =
+            [NSString stringWithFormat:@"Ticket %d", key.ticketNumber];
+        [self.navController
+            pushViewController:self.detailsNetAwareViewController animated:YES];
     }
-    
-    NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
-    for (id commentKey in commentKeys) {
-        NSString * userKey = [commentCache authorKeyForCommentKey:commentKey];
-        NSString * commentAuthor = [userDict objectForKey:userKey];
-        [commentAuthors setObject:commentAuthor forKey:commentKey];
+
+    if (commentCache && [selectedTicketKey isEqual:key]) {
+        [self.detailsNetAwareViewController
+            setUpdatingState:kConnectedAndNotUpdating];        
+        self.detailsNetAwareViewController.cachedDataAvailable = YES;
+        
+        Ticket * ticket = [self.ticketCache ticketForKey:key];
+        TicketMetaData * metaData = [self.ticketCache metaDataForKey:key];
+        id reportedByKey = [self.ticketCache createdByKeyForKey:key];
+        NSString * reportedBy = [userDict objectForKey:reportedByKey];
+        id assignedToKey = [self.ticketCache assignedToKeyForKey:key];
+        NSString * assignedTo = [userDict objectForKey:assignedToKey];
+        id milestoneKey = [self.ticketCache milestoneKeyForKey:key];
+        NSString * milestone = [milestoneDict objectForKey:milestoneKey];
+
+        NSArray * commentKeys = [ticketCache commentKeysForKey:key];
+        NSMutableDictionary * comments = [NSMutableDictionary dictionary];
+        for (id commentKey in commentKeys) {
+            TicketComment * comment = [commentCache commentForKey:commentKey];
+            [comments setObject:comment forKey:commentKey];
+        }
+
+        NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
+        for (id commentKey in commentKeys) {
+            NSString * userKey =
+                [commentCache authorKeyForCommentKey:commentKey];
+            NSString * commentAuthor = [userDict objectForKey:userKey];
+            [commentAuthors setObject:commentAuthor forKey:commentKey];
+        }
+
+        [self.detailsViewController setTicketNumber:key.ticketNumber
+            ticket:ticket metaData:metaData reportedBy:reportedBy
+            assignedTo:assignedTo milestone:milestone comments:comments
+            commentAuthors:commentAuthors];
+    } else {
+        [self.detailsNetAwareViewController
+            setUpdatingState:kConnectedAndUpdating];        
+        self.detailsNetAwareViewController.cachedDataAvailable = NO;
+        //[dataSource fetchTicketsWithQuery:searchString];
     }
-    
-    [self.detailsViewController setTicketNumber:number ticket:ticket
-        metaData:metaData reportedBy:reportedBy assignedTo:assignedTo
-        milestone:milestone comments:comments commentAuthors:commentAuthors];
+
+    selectedTicketKey = key;
 }
 
 - (void)ticketsFilteredByFilterString:(NSString *)aFilterString
@@ -150,20 +172,20 @@
 
 - (void)editTicket
 {
-    Ticket * ticket = [self.ticketCache ticketForNumber:selectedTicketNumber];
+    Ticket * ticket = [self.ticketCache ticketForKey:selectedTicketKey];
     TicketMetaData * metaData =
-        [ticketCache metaDataForNumber:selectedTicketNumber];
+        [ticketCache metaDataForKey:selectedTicketKey];
     self.editTicketViewController.ticketDescription = ticket.description;
     self.editTicketViewController.message = ticket.message;
     self.editTicketViewController.tags = metaData.tags;
     self.editTicketViewController.state = metaData.state;
 
     self.editTicketViewController.member =
-        [ticketCache assignedToKeyForNumber:selectedTicketNumber];
+        [ticketCache assignedToKeyForKey:selectedTicketKey];
     self.editTicketViewController.members = [[userDict copy] autorelease];
     
     self.editTicketViewController.milestone =
-        [ticketCache milestoneKeyForNumber:selectedTicketNumber];
+        [ticketCache milestoneKeyForKey:selectedTicketKey];
     self.editTicketViewController.milestones =
         [[milestoneDict copy] autorelease];
     
@@ -236,6 +258,17 @@
     }
         
     return detailsViewController;
+}
+
+- (NetworkAwareViewController *)detailsNetAwareViewController
+{
+    if (!detailsNetAwareViewController) {
+        detailsNetAwareViewController =
+            [[NetworkAwareViewController alloc]
+            initWithTargetViewController:self.detailsViewController];
+    }
+
+    return detailsNetAwareViewController;
 }
 
 - (EditTicketViewController *)editTicketViewController

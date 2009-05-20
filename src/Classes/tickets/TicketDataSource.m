@@ -4,6 +4,7 @@
 
 #import "TicketDataSource.h"
 #import "TicketCache.h"
+#import "TicketKey.h"
 
 @implementation TicketDataSource
 
@@ -46,19 +47,24 @@
     for (int i = 0; i < [ticketNumbers count]; i++) {
         NSNumber * number = [ticketNumbers objectAtIndex:i];
         NSUInteger numberAsInt = [((NSNumber *)number) intValue];
+        id projectId = nil;
+        id ticketKey =
+            [[[TicketKey alloc]
+            initWithProjectKey:projectId ticketNumber:numberAsInt] autorelease];
+
         Ticket * ticket = [tickets objectAtIndex:i];
         TicketMetaData * metaData = [someMetaData objectAtIndex:i];
         id milestoneId = [milestoneIds objectAtIndex:i];
         id userId = [userIds objectAtIndex:i];
         id creatorId = [creatorIds objectAtIndex:i];
-        [ticketCache setTicket:ticket forNumber:numberAsInt];
-        [ticketCache setMetaData:metaData forNumber:numberAsInt];
+        [ticketCache setTicket:ticket forKey:ticketKey];
+        [ticketCache setMetaData:metaData forKey:ticketKey];
         if (userId)
-            [ticketCache setAssignedToKey:userId forNumber:numberAsInt];
+            [ticketCache setAssignedToKey:userId forKey:ticketKey];
         if (milestoneId)
-            [ticketCache setMilestoneKey:milestoneId forNumber:numberAsInt];
+            [ticketCache setMilestoneKey:milestoneId forKey:ticketKey];
         if (creatorId)
-            [ticketCache setCreatedByKey:creatorId forNumber:numberAsInt];
+            [ticketCache setCreatedByKey:creatorId forKey:ticketKey];
     }
 
     [delegate receivedTicketsFromDataSource:ticketCache];

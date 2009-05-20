@@ -18,27 +18,27 @@
     NSMutableDictionary * commentDict;
 }
 
-- (void)setTicket:(Ticket *)ticket forNumber:(NSUInteger)number;
-- (Ticket *)ticketForNumber:(NSUInteger)number;
+- (void)setTicket:(Ticket *)ticket forKey:(id)key;
+- (Ticket *)ticketForKey:(id)key;
 - (NSDictionary *)allTickets;
 
-- (void)setMetaData:(TicketMetaData *)someMetaData forNumber:(NSUInteger)number;
-- (TicketMetaData *)metaDataForNumber:(NSUInteger)number;
+- (void)setMetaData:(TicketMetaData *)someMetaData forKey:(id)key;
+- (TicketMetaData *)metaDataForKey:(id)key;
 - (NSDictionary *)allMetaData;
 
-- (void)setCreatedByKey:(id)key forNumber:(NSUInteger)number;
-- (id)createdByKeyForNumber:(NSUInteger)number;
+- (void)setCreatedByKey:(id)key forKey:(id)key;
+- (id)createdByKeyForKey:(id)key;
 - (NSDictionary *)allCreatedByKeys;
 
-- (void)setAssignedToKey:(id)key forNumber:(NSUInteger)number;
-- (id)assignedToKeyForNumber:(NSUInteger)number;
+- (void)setAssignedToKey:(id)key forKey:(id)key;
+- (id)assignedToKeyForKey:(id)key;
 - (NSDictionary *)allAssignedToKeys;
 
-- (void)setMilestoneKey:(id)key forNumber:(NSUInteger)number;
-- (id)milestoneKeyForNumber:(NSUInteger)number;
+- (void)setMilestoneKey:(id)key forKey:(id)key;
+- (id)milestoneKeyForKey:(id)key;
 - (NSDictionary *)allMilestoneKeys;
 
-- (void)setCommentKeys:(NSArray *)keys forNumber:(NSUInteger)number;
-- (NSArray *)commentKeysForNumber:(NSUInteger)number;
+- (void)setCommentKeys:(NSArray *)keys forKey:(id)key;
+- (NSArray *)commentKeysForKey:(id)key;
 
 @end
