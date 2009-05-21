@@ -11,15 +11,21 @@
 
 @interface MilestoneDisplayMgr ()
 
+- (void)updateDisplay;
+
+@property (nonatomic, retain) UISegmentedControl * milestoneFilterControl;
+
 @property (nonatomic, copy) NSArray * milestones;
 @property (nonatomic, copy) NSArray * milestoneKeys;
-@property (nonatomic, copy) NSArray * projectKeys;
+@property (nonatomic, copy) NSArray * milestoneProjectKeys;
+@property (nonatomic, copy) NSDictionary * allProjects;
 
 @end
 
 @implementation MilestoneDisplayMgr
 
-@synthesize milestones, milestoneKeys, projectKeys;
+@synthesize milestoneFilterControl;
+@synthesize milestones, milestoneKeys, allProjects, milestoneProjectKeys;
 
 - (void)dealloc
 {
@@ -27,13 +33,16 @@
     [networkAwareViewController release];
     [milestonesViewController release];
 
+    [milestoneFilterControl release];
+
     [milestoneDataSource release];
 
     [milestoneDetailsDisplayMgr release];
 
     self.milestones = nil;
     self.milestoneKeys = nil;
-    self.projectKeys = nil;
+    self.milestoneProjectKeys = nil;
+    self.allProjects = nil;
 
     [super dealloc];
 }
@@ -74,6 +83,10 @@
         networkAwareViewController.navigationItem.rightBarButtonItem =
             refreshButton;
         [refreshButton release];
+
+        self.milestoneFilterControl.selectedSegmentIndex = 0;
+        networkAwareViewController.navigationItem.titleView =
+            self.milestoneFilterControl;
     }
 
     return self;
@@ -102,52 +115,92 @@
         "know about these milestones: '%@'.", self.milestones, milestone);
 
     id milestoneKey = [self.milestoneKeys objectAtIndex:idx];
-    id projectKey = [self.projectKeys objectAtIndex:idx];
+    id projectKey = [self.milestoneProjectKeys objectAtIndex:idx];
 
     [milestoneDetailsDisplayMgr
         displayDetailsForMilestone:milestone withMilestoneKey:milestoneKey
         projectKey:projectKey navigationController:navigationController];
 }
 
+#pragma mark UISegmentedControl actions
+
+- (void)milestoneFilterDidChange:(id)sender
+{
+    [self updateDisplay];
+}
+
+#pragma mark Updating the display
+
+- (void)updateDisplay
+{
+    BOOL dataAvailable = self.milestones && self.allProjects;
+
+    if (dataAvailable)
+        [milestonesViewController updateDisplayWithMilestones:self.milestones
+                                                     projects:self.allProjects];
+
+    [networkAwareViewController setCachedDataAvailable:dataAvailable];
+}
+
 #pragma mark MilestoneDataSourceDelegate implementation
+
+- (void)fetchDidBegin
+{
+    [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
+}
+
+- (void)fetchDidEnd
+{
+    [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
+}
+
+- (void)fetchFailedWithError:(NSError *)error
+{
+    NSLog(@"Failed to fetch milestiones: '%@'.", error);
+}
 
 - (void)currentMilestonesForAllProjects:(NSArray *)someMilestones
                           milestoneKeys:(NSArray *)someMilestoneKeys
                             projectKeys:(NSArray *)someProjectKeys
 {
-    [self milestonesFetchedForAllProjects:someMilestones
-                            milestoneKeys:someMilestoneKeys
-                              projectKeys:someProjectKeys];
-}
-
-- (void)milestoneFetchDidBegin
-{
-    [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
-}
-
-- (void)milestoneFetchDidEnd
-{
-    [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
-}
-
-- (void)milestonesFetchedForAllProjects:(NSArray *)someMilestones
-                          milestoneKeys:(NSArray *)someMilestoneKeys
-                            projectKeys:(NSArray *)someProjectKeys
-{
     self.milestones = someMilestones;
     self.milestoneKeys = someMilestoneKeys;
-    self.projectKeys = someProjectKeys;
+    self.milestoneProjectKeys = someProjectKeys;
 
-    milestonesViewController.milestones = self.milestones;
-
-    [networkAwareViewController setCachedDataAvailable:
-        !!milestones && milestones.count > 0];
+    [self updateDisplay];
 }
 
-- (void)failedToFetchMilestonesForAllProjects:(NSError *)error
+- (void)currentProjects:(NSArray *)someProjects
+            projectKeys:(NSArray *)someProjectKeys
 {
-    NSLog(@"Failed to fetch milestiones: '%@'.", error);
-    [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
+    self.allProjects = [NSDictionary dictionaryWithObjects:someProjects
+                                                   forKeys:someProjectKeys];
+
+    [self updateDisplay];
+}
+
+#pragma mark Accessors
+
+- (UISegmentedControl *)milestoneFilterControl
+{
+    if (!milestoneFilterControl) {
+        NSArray * items =
+            [NSArray arrayWithObjects:
+            NSLocalizedString(@"milestones.filter.active", @""),
+            NSLocalizedString(@"milestones.filter.inactive", @""),
+            nil];
+
+        milestoneFilterControl =
+            [[UISegmentedControl alloc] initWithItems:items];
+        milestoneFilterControl.segmentedControlStyle =
+            UISegmentedControlStyleBar;
+
+        [milestoneFilterControl addTarget:self
+                                action:@selector(milestoneFilterDidChange:)
+                      forControlEvents:UIControlEventValueChanged];
+    }
+
+    return milestoneFilterControl;
 }
 
 @end

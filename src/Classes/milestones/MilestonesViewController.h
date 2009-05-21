@@ -11,11 +11,16 @@
 
     NSArray * openMilestones;
     NSArray * completedMilestones;
+
+    NSDictionary * projects;
 }
 
 @property (nonatomic, assign) id<MilestonesViewControllerDelegate> delegate;
+@property (nonatomic, copy, readonly) NSDictionary * projects;
 
-- (void)setMilestones:(NSArray *)milestones;
 - (NSArray *)milestones;
+
+- (void)updateDisplayWithMilestones:(NSArray *)someMilestones
+                           projects:(NSDictionary *)someProjects;
 
 @end

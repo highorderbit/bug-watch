@@ -16,7 +16,14 @@
     LighthouseApiService * service;
     MilestoneCache * cache;
 
-    BOOL needsUpdating;
+    // temporary project cache
+    NSArray * projectKeys;
+    NSArray * projects;
+
+    BOOL projectsNeedUpdating;
+    BOOL milestonesNeedUpdating;
+
+    NSUInteger pendingFetches;
 }
 
 @property (nonatomic, assign) id<MilestoneDataSourceDelegate> delegate;

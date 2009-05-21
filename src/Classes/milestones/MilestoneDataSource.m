@@ -12,16 +12,23 @@
 
 @property (nonatomic, retain) MilestoneCache * cache;
 
+@property (nonatomic, copy) NSArray * projectKeys;
+@property (nonatomic, copy) NSArray * projects;
+
 @end
 
 @implementation MilestoneDataSource
 
 @synthesize delegate, cache;
+@synthesize projectKeys, projects;
 
 - (void)dealloc
 {
     [service release];
     [cache release];
+
+    [projects release];
+    [projectKeys release];
 
     [super dealloc];
 }
@@ -37,7 +44,10 @@
 
         self.cache = aMilestoneCache;
 
-        needsUpdating = YES;
+        projectsNeedUpdating = YES;
+        milestonesNeedUpdating = YES;
+
+        pendingFetches = 0;
     }
 
     return self;
@@ -47,23 +57,33 @@
 
 - (BOOL)fetchMilestonesIfNecessary
 {
+    // temporary
+    static NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
+
     SEL sel =
         @selector(currentMilestonesForAllProjects:milestoneKeys:projectKeys:);
     [self updateDelegateWithCacheUsingSelector:sel];
 
-    if (needsUpdating) {
-        [delegate milestoneFetchDidBegin];
-        [service
-            fetchMilestonesForAllProjects:
-            @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"];
+    if (projectsNeedUpdating || milestonesNeedUpdating) {
+        [delegate fetchDidBegin];
+
+        if (projectsNeedUpdating) {
+            [service fetchAllProjects:token];
+            ++pendingFetches;
+        }
+
+        if (milestonesNeedUpdating) {
+            [service fetchMilestonesForAllProjects:token];
+            ++pendingFetches;
+        }
     }
 
-    return needsUpdating;
+    return projectsNeedUpdating || milestonesNeedUpdating;
 }
 
 - (void)refreshMilestones
 {
-    needsUpdating = YES;
+    projectsNeedUpdating = milestonesNeedUpdating = YES;
     [self fetchMilestonesIfNecessary];
 }
 
@@ -88,23 +108,53 @@
         [cache setProjectKey:projectId forKey:milestoneId];
     }
 
-    needsUpdating = NO;
+    milestonesNeedUpdating = NO;
 
     SEL sel =
-        @selector(milestonesFetchedForAllProjects:milestoneKeys:projectKeys:);
+        @selector(currentMilestonesForAllProjects:milestoneKeys:projectKeys:);
     [self updateDelegateWithCacheUsingSelector:sel];
 
-    [delegate milestoneFetchDidEnd];
+    if (--pendingFetches == 0)
+        [delegate fetchDidEnd];
 }
 
 - (void)failedToFetchMilestonesForAllProjects:(NSError *)error
 {
     NSLog(@"Failed to retrieve milestones for project: %@.", error);
 
-    needsUpdating = NO;
+    milestonesNeedUpdating = NO;  // should this be set to YES?
 
-    [delegate failedToFetchMilestonesForAllProjects:error];
-    [delegate milestoneFetchDidEnd];
+    [delegate fetchFailedWithError:error];
+
+    if (--pendingFetches == 0)
+        [delegate fetchDidEnd];
+}
+
+- (void)fetchedAllProjects:(NSArray *)someProjects
+               projectKeys:(NSArray *)someProjectKeys
+{
+    // TODO: replace with a real cache
+    self.projects = someProjects;
+    self.projectKeys = someProjectKeys;
+
+    [delegate currentProjects:self.projects projectKeys:self.projectKeys];
+
+    projectsNeedUpdating = NO;
+
+    if (--pendingFetches == 0)
+        [delegate fetchDidEnd];
+}
+
+- (void)failedToFetchAllProjects:(NSError *)error
+{
+    NSLog(@"Failed to retrieve milestones for project: %@.", error);
+
+    projectsNeedUpdating = NO;  // should this be set to YES?
+
+    [delegate fetchFailedWithError:error];
+
+    if (--pendingFetches == 0)
+        [delegate fetchDidEnd];
 }
 
 #pragma mark Helper methods
@@ -116,13 +166,13 @@
         [NSMutableArray arrayWithCapacity:allMilestones.count];
     NSMutableArray * milestoneKeys =
         [NSMutableArray arrayWithCapacity:allMilestones.count];
-    NSMutableArray * projectKeys =
+    NSMutableArray * projKeys =
         [NSMutableArray arrayWithCapacity:allMilestones.count];
 
     for (id milestoneKey in allMilestones) {
         [milestoneKeys addObject:milestoneKey];
         [milestones addObject:[cache milestoneForKey:milestoneKey]];
-        [projectKeys addObject:[cache projectKeyForKey:milestoneKey]];
+        [projKeys addObject:[cache projectKeyForKey:milestoneKey]];
     }
 
     // HACK: casting the delegate as an NSObject so we can use NSInvocation
@@ -133,7 +183,7 @@
     [inv setSelector:sel];
     [inv setArgument:&milestones atIndex:2];
     [inv setArgument:&milestoneKeys atIndex:3];
-    [inv setArgument:&projectKeys atIndex:4];
+    [inv setArgument:&projKeys atIndex:4];
 
     [inv invoke];
 }

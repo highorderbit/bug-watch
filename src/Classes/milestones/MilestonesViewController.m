@@ -23,19 +23,25 @@ enum Sections
 - (NSInteger)effectiveSectionForSection:(NSInteger)section;
 - (Milestone *)milestoneAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)setMilestones:(NSArray *)someMilestones;
+
 @property (nonatomic, copy) NSArray * openMilestones;
 @property (nonatomic, copy) NSArray * completedMilestones;
+
+@property (nonatomic, copy) NSDictionary * projects;
 
 @end
 
 @implementation MilestonesViewController
 
-@synthesize delegate, openMilestones, completedMilestones;
+@synthesize delegate, openMilestones, completedMilestones, projects;
 
 - (void)dealloc
 {
     [openMilestones release];
     [completedMilestones release];
+    [projects release];
+
     [super dealloc];
 }
 
@@ -130,31 +136,19 @@ enum Sections
 
 - (void)setMilestones:(NSArray *)someMilestones
 {
-    /*
-    NSSortDescriptor * nilSorter =
-        [[[NSSortDescriptor alloc]
-        initWithKey:nil ascending:NO selector:@selector(isDue)]
-        autorelease];
-    NSSortDescriptor * dueDateSorter =
-        [[[NSSortDescriptor alloc]
-        initWithKey:@"dueDate" ascending:YES] autorelease];
-    NSArray * descriptors =
-        [NSArray arrayWithObjects:nilSorter, dueDateSorter, nil];
-
-    self.openMilestones =
-        [[self extractOpenMilestones:someMilestones]
-        sortedArrayUsingDescriptors:descriptors];
-    self.completedMilestones =
-        [[self extractCompletedMilestones:someMilestones]
-        sortedArrayUsingDescriptors:descriptors];
-    */
-
     self.openMilestones =
         [[self extractOpenMilestones:someMilestones]
         sortedArrayUsingSelector:@selector(dueDateCompare:)];
     self.completedMilestones =
         [[self extractCompletedMilestones:someMilestones]
         sortedArrayUsingSelector:@selector(dueDateCompare:)];
+}
+
+- (void)updateDisplayWithMilestones:(NSArray *)someMilestones
+                           projects:(NSDictionary *)someProjects
+{
+    self.milestones = someMilestones;
+    self.projects = someProjects;
 
     [self.tableView reloadData];
 }

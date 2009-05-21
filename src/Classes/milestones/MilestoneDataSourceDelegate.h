@@ -6,16 +6,14 @@
 
 @protocol MilestoneDataSourceDelegate
 
+- (void)fetchDidBegin;
+- (void)fetchDidEnd;
+- (void)fetchFailedWithError:(NSError *)error;
+
 - (void)currentMilestonesForAllProjects:(NSArray *)milestones
                           milestoneKeys:(NSArray *)milestoneKeys
                             projectKeys:(NSArray *)projectKeys;
 
-- (void)milestoneFetchDidBegin;
-- (void)milestoneFetchDidEnd;
-
-- (void)milestonesFetchedForAllProjects:(NSArray *)milestones
-                          milestoneKeys:(NSArray *)milestoneKeys
-                            projectKeys:(NSArray *)projectKeys;
-- (void)failedToFetchMilestonesForAllProjects:(NSError *)error;
+- (void)currentProjects:(NSArray *)projects projectKeys:(NSArray *)projectKeys;
 
 @end
