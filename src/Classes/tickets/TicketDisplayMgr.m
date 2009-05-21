@@ -3,6 +3,15 @@
 //
 
 #import "TicketDisplayMgr.h"
+#import "NewTicketDescription.h"
+
+@interface TicketDisplayMgr (Private)
+
+- (void)addTicketOnServer:(EditTicketViewController *)sender;
+- (void)initDarkTransparentView;
+- (void)forceQueryRefresh;
+
+@end
 
 @implementation TicketDisplayMgr
 
@@ -24,6 +33,8 @@
 
     [userDict release];
     [milestoneDict release];
+    
+    [darkTransparentView release];
 
     [super dealloc];
 }
@@ -41,6 +52,8 @@
         ticketsViewController = [aTicketsViewController retain];
         dataSource = [aDataSource retain];
 
+        [self initDarkTransparentView];
+
         // TEMPORARY
         // this will eventually be read from a user cache of some sort
         userDict = [[NSMutableDictionary dictionary] retain];
@@ -48,19 +61,42 @@
             forKey:[NSNumber numberWithInt:50190]];
         [userDict setObject:@"John A. Debay"
             forKey:[NSNumber numberWithInt:50209]];
-        // 
-        // // this will eventually be read from a user cache of some sort
-        // milestoneDict = [[NSMutableDictionary dictionary] retain];
-        // [milestoneDict setObject:@"1.0.0"
-        //     forKey:[NSNumber numberWithInt:37670]];
-        // [milestoneDict setObject:@"1.1.0"
-        //     forKey:[NSNumber numberWithInt:38299]];
-        // [milestoneDict setObject:@"1.3.0"
-        //     forKey:[NSNumber numberWithInt:38302]];
         // TEMPORARY
     }
 
     return self;
+}
+
+- (void)initDarkTransparentView
+{
+    CGRect darkTransparentViewFrame = CGRectMake(0, 0, 320, 480);
+    darkTransparentView =
+        [[UIView alloc] initWithFrame:darkTransparentViewFrame];
+    
+    CGRect transparentViewFrame = CGRectMake(0, 0, 320, 480);
+    UIView * transparentView =
+        [[[UIView alloc] initWithFrame:transparentViewFrame] autorelease];
+    transparentView.backgroundColor = [UIColor blackColor];
+    transparentView.alpha = 0.8;
+    [darkTransparentView addSubview:transparentView];
+    
+    CGRect activityIndicatorFrame = CGRectMake(142, 85, 37, 37);
+    UIActivityIndicatorView * activityIndicator =
+        [[UIActivityIndicatorView alloc] initWithFrame:activityIndicatorFrame];
+    activityIndicator.activityIndicatorViewStyle =
+        UIActivityIndicatorViewStyleWhiteLarge;
+    [activityIndicator startAnimating];
+    [darkTransparentView addSubview:activityIndicator];
+    
+    CGRect loadingLabelFrame = CGRectMake(21, 120, 280, 65);
+    UILabel * loadingLabel =
+        [[[UILabel alloc] initWithFrame:loadingLabelFrame] autorelease];
+    loadingLabel.text = @"Creating ticket...";
+    loadingLabel.textAlignment = UITextAlignmentCenter;
+    loadingLabel.font = [UIFont boldSystemFontOfSize:20];
+    loadingLabel.textColor = [UIColor whiteColor];
+    loadingLabel.backgroundColor = [UIColor clearColor];
+    [darkTransparentView addSubview:loadingLabel];
 }
 
 #pragma mark TicketsViewControllerDelegate implementation
@@ -219,6 +255,15 @@
     [self selectedTicketKey:selectedTicketKey];
 }
 
+- (void)createdTicketWithKey:(id)ticketKey
+{
+    [darkTransparentView removeFromSuperview];
+    [self.editTicketViewController dismissModalViewControllerAnimated:YES];
+    self.editTicketViewController.cancelButton.enabled = YES;
+    self.editTicketViewController.updateButton.enabled = YES;
+    [self forceQueryRefresh];
+}
+
 #pragma mark TicketDisplayMgr implementation
 
 - (void)addSelected
@@ -244,8 +289,41 @@
 
     [self.navController presentModalViewController:tempNavController
         animated:YES];
-        
+
     self.editTicketViewController.edit = NO;
+    self.editTicketViewController.action = @selector(addTicketOnServer:);
+}
+
+- (void)addTicketOnServer:(EditTicketViewController *)sender
+{
+    NSLog(@"Sending new ticket definition to server...");
+
+    NewTicketDescription * desc = [NewTicketDescription description];
+    desc.title = sender.ticketDescription;
+    desc.body = sender.message;
+    if (sender.state != 0)
+        desc.state = sender.state;
+    if (sender.member && ![sender.member isEqual:[NSNumber numberWithInt:0]])
+        desc.assignedUserKey = sender.member;
+    if (sender.milestone &&
+        ![sender.milestone isEqual:[NSNumber numberWithInt:0]])
+            desc.milestoneKey = sender.milestone;
+    desc.tags = sender.tags;
+
+    NSNumber * projectKey = [NSNumber numberWithInt:30772]; // TEMPORARY
+
+    [dataSource createTicketWithDescription:desc forProject:projectKey];
+    
+    [self.editTicketViewController.view addSubview:darkTransparentView];
+    self.editTicketViewController.cancelButton.enabled = NO;
+    self.editTicketViewController.updateButton.enabled = NO;
+}
+
+- (void)forceQueryRefresh
+{
+    NSString * tempFilterString = self.filterString;
+    self.filterString = nil;
+    [self ticketsFilteredByFilterString:tempFilterString];
 }
 
 #pragma mark Accessors
@@ -284,10 +362,12 @@
 
 - (EditTicketViewController *)editTicketViewController
 {
-    if (!editTicketViewController)
+    if (!editTicketViewController) {
         editTicketViewController =
             [[EditTicketViewController alloc]
             initWithNibName:@"EditTicketView" bundle:nil];
+        editTicketViewController.target = self;
+    }
 
     return editTicketViewController;
 }

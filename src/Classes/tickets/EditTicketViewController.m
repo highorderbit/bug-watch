@@ -44,6 +44,7 @@ static const NSInteger UNSET_KEY = 0;
 
 @implementation EditTicketViewController
 
+@synthesize cancelButton, updateButton;
 @synthesize ticketDescription, message, comment, tags;
 @synthesize members, member;
 @synthesize milestones, milestone;
@@ -94,6 +95,8 @@ static const NSInteger UNSET_KEY = 0;
     tagsTextField.text = self.tags;
     
     [self.tableView reloadData];
+    updateButton.enabled =
+        ticketDescription && ![ticketDescription isEqual:@""];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -438,6 +441,9 @@ static const NSInteger UNSET_KEY = 0;
     [ticketDescription release];
     ticketDescription = tempTicketDescription;
 
+    updateButton.enabled =
+        aTicketDescription && ![aTicketDescription isEqual:@""];
+
     [self.tableView reloadData];
 }
 
@@ -448,7 +454,7 @@ static const NSInteger UNSET_KEY = 0;
     NSString * tempMessage = [aMessage copy];
     [message release];
     message = tempMessage;
-
+    
     [self.tableView reloadData];
 }
 

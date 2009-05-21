@@ -36,6 +36,8 @@
 
     NSMutableDictionary * userDict;
     NSDictionary * milestoneDict;
+
+    UIView * darkTransparentView;
 }
 
 @property (readonly) TicketDetailsViewController * detailsViewController;

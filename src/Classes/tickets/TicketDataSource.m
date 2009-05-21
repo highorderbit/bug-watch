@@ -6,6 +6,7 @@
 #import "TicketCache.h"
 #import "TicketCommentCache.h"
 #import "TicketComment.h"
+#import "NewTicketDescription.h"
 
 @interface TicketDataSource (Private)
 
@@ -47,6 +48,12 @@
     [service
         fetchDetailsForTicket:[NSNumber numberWithInt:aTicketKey.ticketNumber]
         inProject:aTicketKey.projectKey token:token];
+}
+
+- (void)createTicketWithDescription:(NewTicketDescription *)desc
+    forProject:(id)projectKey
+{
+    [service createNewTicket:desc forProject:projectKey token:token];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
@@ -119,6 +126,16 @@
 
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
     inProject:(id)projectKey error:(NSError *)error
+{}
+
+- (void)ticket:(id)ticketKey describedBy:(NewTicketDescription *)description
+    createdForProject:(id)projectKey
+{
+    [delegate createdTicketWithKey:ticketKey];
+}
+
+- (void)failedToCreateNewTicketDescribedBy:(NewTicketDescription *)description
+    forProject:(id)projectKey error:(NSError *)error
 {}
 
 #pragma mark Readable strings from yaml helpers

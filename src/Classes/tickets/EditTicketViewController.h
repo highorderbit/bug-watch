@@ -35,6 +35,9 @@
     SEL action;
 }
 
+@property (nonatomic, readonly) UIBarButtonItem * cancelButton;
+@property (nonatomic, readonly) UIBarButtonItem * updateButton;
+
 @property (nonatomic, assign) id target;
 
 // Takes method with signature like:
