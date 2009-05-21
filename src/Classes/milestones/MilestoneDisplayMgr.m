@@ -84,6 +84,7 @@
             refreshButton;
         [refreshButton release];
 
+        showPending = YES;
         self.milestoneFilterControl.selectedSegmentIndex = 0;
         networkAwareViewController.navigationItem.titleView =
             self.milestoneFilterControl;
@@ -126,6 +127,8 @@
 
 - (void)milestoneFilterDidChange:(id)sender
 {
+    showPending = self.milestoneFilterControl.selectedSegmentIndex == 0;
+
     [self updateDisplay];
 }
 
@@ -135,9 +138,27 @@
 {
     BOOL dataAvailable = self.milestones && self.allProjects;
 
-    if (dataAvailable)
-        [milestonesViewController updateDisplayWithMilestones:self.milestones
-                                                     projects:self.allProjects];
+    if (dataAvailable) {
+        NSMutableDictionary * ms = [NSMutableDictionary dictionary];
+
+        for (NSInteger i = 0; i < self.milestoneProjectKeys.count; ++i) {
+            id projectKey = [self.milestoneProjectKeys objectAtIndex:i];
+            Milestone * milestone = [self.milestones objectAtIndex:i];
+
+            if (![milestone completed] == showPending) {
+                NSMutableArray * array = [ms objectForKey:projectKey];
+                if (!array)
+                    array = [NSMutableArray array];
+
+                [array addObject:milestone];
+                [ms setObject:array forKey:projectKey];
+            }
+        }
+
+        milestonesViewController.milestones = ms;
+        milestonesViewController.projects = self.allProjects;
+        [milestonesViewController updateDisplay];
+    }
 
     [networkAwareViewController setCachedDataAvailable:dataAvailable];
 }

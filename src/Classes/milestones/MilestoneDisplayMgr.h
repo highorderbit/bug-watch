@@ -30,6 +30,8 @@
     NSArray * milestoneProjectKeys;
 
     NSDictionary * allProjects;
+
+    BOOL showPending;
 }
 
 #pragma mark Initialization

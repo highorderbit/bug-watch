@@ -9,18 +9,15 @@
 {
     id<MilestonesViewControllerDelegate> delegate;
 
-    NSArray * openMilestones;
-    NSArray * completedMilestones;
-
+    NSDictionary * milestones;
     NSDictionary * projects;
 }
 
 @property (nonatomic, assign) id<MilestonesViewControllerDelegate> delegate;
-@property (nonatomic, copy, readonly) NSDictionary * projects;
 
-- (NSArray *)milestones;
+@property (nonatomic, copy) NSDictionary * milestones;
+@property (nonatomic, copy) NSDictionary * projects;
 
-- (void)updateDisplayWithMilestones:(NSArray *)someMilestones
-                           projects:(NSDictionary *)someProjects;
+- (void)updateDisplay;
 
 @end
