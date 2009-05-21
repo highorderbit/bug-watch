@@ -28,6 +28,8 @@
 #import "TicketPersistenceStore.h"
 #import "MilestoneUpdatePublisher.h"
 #import "TicketDispMgrMilestoneSetter.h"
+#import "UIStatePersistenceStore.h"
+#import "UIState.h"
 
 @interface BugWatchAppController (Private)
 
@@ -138,6 +140,11 @@
                         newsFeedDataSource:newsFeedDataSource];
 
     [self initMilestonesTab];
+
+    UIStatePersistenceStore * uiStatePersistenceStore =
+        [[[UIStatePersistenceStore alloc] init] autorelease];
+    UIState * uiState = [uiStatePersistenceStore load];
+    tabBarController.selectedIndex = uiState.selectedTab;
 }
 
 - (void)persistState
@@ -148,6 +155,12 @@
         [[[TicketPersistenceStore alloc] init] autorelease];
     [ticketPersistenceStore saveTicketCache:ticketCache
         toPlist:[[self class] ticketCachePlist]];
+        
+    UIStatePersistenceStore * uiStatePersistenceStore =
+        [[[UIStatePersistenceStore alloc] init] autorelease];
+    UIState * uiState = [[[UIState alloc] init] autorelease];
+    uiState.selectedTab = tabBarController.selectedIndex;
+    [uiStatePersistenceStore save:uiState];
 }
 
 #pragma mark Ticket tab initialization

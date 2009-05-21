@@ -192,8 +192,8 @@
         initWithRootViewController:self.editTicketViewController]
         autorelease];
 
-    [self.detailsViewController presentModalViewController:tempNavController
-        animated:YES];
+    [self.detailsNetAwareViewController
+        presentModalViewController:tempNavController animated:YES];
         
     self.editTicketViewController.edit = YES;
 }
@@ -270,6 +270,13 @@
         detailsNetAwareViewController =
             [[NetworkAwareViewController alloc]
             initWithTargetViewController:self.detailsViewController];
+        UIBarButtonItem * editButton =
+            [[[UIBarButtonItem alloc] init] autorelease];
+        editButton.title = @"Edit";
+        editButton.target = self;
+        editButton.action = @selector(editTicket);
+        [detailsNetAwareViewController.navigationItem
+            setRightBarButtonItem:editButton animated:NO];
     }
 
     return detailsNetAwareViewController;

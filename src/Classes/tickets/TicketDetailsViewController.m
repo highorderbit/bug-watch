@@ -40,19 +40,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self.navigationItem setRightBarButtonItem:self.editButtonItem
-        animated:NO];
-
     self.tableView.tableHeaderView = headerView;
-}
-
-#pragma mark UITableViewController implementation
-
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated
-{
-    // customized editing, don't call super
-    [delegate editTicket];
 }
 
 #pragma mark UITableViewDataSource implementation
