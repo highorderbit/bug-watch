@@ -85,9 +85,9 @@
 
 - (void)updateDisplay
 {
-    NSDictionary * milestones =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-        self.milestone, self.milestoneKey, nil];
+    NSMutableDictionary * milestones = [NSMutableDictionary dictionary];
+    for (id ticketKey in tickets)
+        [milestones setObject:self.milestone.name forKey:ticketKey];
 
     NSMutableDictionary * filteredTickets = [tickets mutableCopy];
     NSUInteger filter = self.ticketFilterControl.selectedSegmentIndex == 0 ?
@@ -96,11 +96,12 @@
 
     for (id ticketKey in tickets) {
         TicketMetaData * md = [metadata objectForKey:ticketKey];
-
         if (!(md.state & filter))
             [filteredTickets removeObjectForKey:ticketKey];
     }
 
+    // Note that only the tickets are filtered; metadata, users, milestones,
+    // etc. contain keys for every ticket. Consider revising if necessary.
     [self.ticketsViewController
         setTickets:filteredTickets metaData:metadata assignedToDict:userIds
         milestoneDict:milestones];
