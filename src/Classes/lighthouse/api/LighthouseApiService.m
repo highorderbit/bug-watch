@@ -330,6 +330,19 @@
     SEL sel = @selector(allUsers:fetchedForProject:);
     [self
         invokeSelector:sel withTarget:delegate args:allUsers, projectKey, nil];
+
+    // post general notification
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        allUsers, @"users",
+        projectKey, @"projectKey",
+        nil];
+    NSString * notificationName =
+        [[self class] usersRecevedForProjectNotificationName];
+    [nc postNotificationName:notificationName
+                      object:self
+                    userInfo:userInfo];
 }
 
 - (void)failedToFetchAllUsersForProject:(id)projectKey token:(NSString *)token
@@ -619,6 +632,11 @@
 + (NSString *)milestonesReceivedForAllProjectsNotificationName
 {
     return @"BugWatchMilestonesReceivedNotification";
+}
+
++ (NSString *)usersRecevedForProjectNotificationName
+{
+    return @"BugWatchUsersReceivedForProjectNotification";
 }
 
 #pragma mark General helpers

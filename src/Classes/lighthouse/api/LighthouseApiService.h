@@ -56,5 +56,6 @@
 #pragma mark Notification names posted to the application as data is received
 
 + (NSString *)milestonesReceivedForAllProjectsNotificationName;
++ (NSString *)usersRecevedForProjectNotificationName;
     
 @end
