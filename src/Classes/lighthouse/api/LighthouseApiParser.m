@@ -129,8 +129,8 @@
 
         if ([[[self class] primitiveTypes] containsObject:self.className])
             self.obj = val;
-
-        [object setValue:val forKey:key];
+        else
+            [object setValue:val forKey:key];
     }
 }
 

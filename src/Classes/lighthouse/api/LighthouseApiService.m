@@ -5,6 +5,8 @@
 #import "LighthouseApiService.h"
 #import "LighthouseApi.h"
 #import "LighthouseApiParser.h"
+#import "RandomNumber.h"
+#import "RegexKitLite.h"
 
 @interface LighthouseApiService ()
 
@@ -19,6 +21,7 @@
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 - (NSArray *)parseTicketComments:(NSData *)xml;
 - (NSArray *)parseTicketCommentAuthors:(NSData *)xml;
+- (NSArray *)parseTicketUrls:(NSData *)xml;
 - (NSArray *)parseMilestones:(NSData *)xml;
 - (NSArray *)parseMilestoneIds:(NSData *)xml;
 - (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
@@ -26,6 +29,8 @@
 
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
     args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
+
++ (id)uniqueTicketKey;
 
 @end
 
@@ -37,6 +42,8 @@
 {
     [api release];
     [parser release];
+
+    [newTicketRequests release];
 
     [super dealloc];
 }
@@ -50,6 +57,8 @@
         api.delegate = self;
 
         parser = [[LighthouseApiParser alloc] init];
+
+        newTicketRequests = [[NSMutableDictionary alloc] init];
     }
 
     return self;
@@ -82,6 +91,15 @@
 {
     [api searchTicketsForProject:projectKey withSearchString:searchString
         object:object token:token];
+}
+
+- (void)createNewTicket:(NewTicketDescription *)desc forProject:(id)projectKey
+    token:(NSString *)token
+{
+    id ticketKey = [[self class] uniqueTicketKey];
+    [newTicketRequests setObject:[[desc copy] autorelease] forKey:ticketKey];
+
+    [api beginTicketCreationForProject:projectKey object:ticketKey token:token];
 }
 
 #pragma mark Ticket bins
@@ -211,6 +229,73 @@
     if ([delegate respondsToSelector:sel])
         [delegate failedToSearchTicketsForProject:projectKey
             searchString:searchString object:object error:error];
+}
+
+#pragma mark Creating a new ticket
+
+- (void)ticketCreationDidBegin:(NSData *)xml forProject:(id)projectKey
+    object:(id)object token:(NSString *)token
+{
+    NewTicketDescription * desc = [newTicketRequests objectForKey:object];
+    NSAssert1(desc, @"Did not find a pending ticket request for key: '%@'.",
+        object);
+
+    NSString * creationXml = [desc xmlDescriptionForProject:projectKey];
+    [api completeTicketCreationForProject:projectKey
+                              description:creationXml
+                                   object:object
+                                    token:token];
+}
+
+- (void)failedToBeginTicketCreationForProject:(id)projectKey
+    object:(id)object token:(NSString *)token error:(NSError *)error
+{
+    NewTicketDescription * desc = [newTicketRequests objectForKey:object];
+    NSAssert1(desc, @"Did not find a pending ticket request for key: '%@'.",
+        object);
+
+    SEL sel = @selector(failedToCreateTicket:forProject:error:);
+    [self invokeSelector:sel withTarget:delegate args:desc, projectKey, error];
+
+    [newTicketRequests removeObjectForKey:object];
+}
+
+- (void)ticketCreated:(NSData *)data description:(NSString *)description
+    forProject:(id)projectKey object:(id)object token:(NSString *)token
+{
+    NewTicketDescription * newTicketDescription =
+        [newTicketRequests objectForKey:object];
+    NSAssert1(newTicketDescription, @"Did not find a pending ticket request "
+        "for key: '%@'.", object);
+
+    NSArray * ticketUrls = [self parseTicketUrls:data];
+    NSAssert1(ticketUrls.count == 1, @"Expected 1 url, but got %d.",
+        ticketUrls.count);
+
+    NSString * url = [ticketUrls lastObject];
+    id ticketKey = [url stringByMatching:@".*/(\\d+)$" capture:1];
+
+    SEL sel = @selector(ticket:describedBy:createdForProject:);
+    [self invokeSelector:sel withTarget:delegate args:ticketKey,
+        newTicketDescription, projectKey, nil];
+
+    [newTicketRequests removeObjectForKey:object];
+}
+
+- (void)failedToCompleteTicketCreation:(NSString *)description
+    forProject:(id)projectKey object:(id)object token:(NSString *)token
+    error:(NSError *)error
+{
+    NewTicketDescription * newTicketDescription =
+        [newTicketRequests objectForKey:object];
+    NSAssert1(newTicketDescription, @"Did not find a pending ticket request "
+        "for key: '%@'.", object);
+
+    SEL sel = @selector(failedToCreateNewTicketDescribedBy:forProject:error:);
+    [self invokeSelector:sel withTarget:delegate args:newTicketDescription,
+        projectKey, error, nil];
+
+    [newTicketRequests removeObjectForKey:object];
 }
 
 #pragma mark -- Ticket bins
@@ -407,6 +492,18 @@
     return [parser parse:xml];
 }
 
+- (NSArray *)parseTicketUrls:(NSData *)xml
+{
+    parser.className = @"NSString";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"string", @"url", nil];
+
+    return [parser parse:xml];
+}
+
 - (NSArray *)parseUsers:(NSData *)xml
 {
     parser.className = @"User";
@@ -522,6 +619,13 @@
 + (NSString *)milestonesReceivedForAllProjectsNotificationName
 {
     return @"BugWatchMilestonesReceivedNotification";
+}
+
+#pragma mark General helpers
+
++ (id)uniqueTicketKey
+{
+    return [RandomNumber randomNumber];
 }
 
 @end

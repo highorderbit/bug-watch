@@ -4,6 +4,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class NewTicketDescription;
+
 @protocol LighthouseApiServiceDelegate <NSObject>
 
 #pragma mark Fetching tickets
@@ -38,6 +40,11 @@
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString object:(id)object
     error:(NSError *)error;
+
+- (void)ticket:(id)ticketKey describedBy:(NewTicketDescription *)description
+    createdForProject:(id)projectKey;
+- (void)failedToCreateNewTicketDescribedBy:(NewTicketDescription *)description
+    forProject:(id)projectKey error:(NSError *)error;
 
 #pragma mark Ticket bins
 
