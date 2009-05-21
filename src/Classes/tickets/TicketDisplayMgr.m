@@ -230,13 +230,13 @@
     self.editTicketViewController.tags = @"";
     self.editTicketViewController.state = kNew;
 
-    self.editTicketViewController.member = nil;
+    self.editTicketViewController.member = [NSNumber numberWithInt:0];
     self.editTicketViewController.members = [[userDict copy] autorelease];
     
-    self.editTicketViewController.milestone = nil;
+    self.editTicketViewController.milestone = [NSNumber numberWithInt:0];
     self.editTicketViewController.milestones =
         [[milestoneDict copy] autorelease];
-        
+
     UINavigationController * tempNavController =
         [[[UINavigationController alloc]
         initWithRootViewController:self.editTicketViewController]

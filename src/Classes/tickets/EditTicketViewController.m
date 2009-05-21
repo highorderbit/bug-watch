@@ -10,31 +10,33 @@
 
 enum EditTicketTableSection
 {
-    kEditTicketActionSection,
-    kEditTicketLabelSection
-};
-
-enum EditTicketAction
-{
-    kEditDescription,
-    kAddComment
+    kEditTicketTitleSection,
+    kEditTicketCommentSection,
+    kEditTicketStateSection,
+    kEditTicketTagsSection
 };
 
 enum EditTicketCell
 {
+    kTitle,
+    kDescription,
+    kComment,
     kAssignedTo,
     kMilestone,
-    kState
+    kState,
+    kTags
 };
 
 @interface EditTicketViewController (Private)
 
-+ (UITableViewCell *)createCellForSection:(NSUInteger)section;
 + (NSString *)unsetText;
-- (UITableViewCell *)dequeueCellForSection:(NSUInteger)section;
 - (NSDictionary *)milestonesPlusNone;
 - (NSDictionary *)membersPlusNone;
 - (NSDictionary *)statesPlusNone;
+- (NSInteger)rowForIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)numRowsForSection:(NSInteger)section;
+- (NSString *)valueForRow:(NSInteger)row;
+- (void)setStateWithNumber:(NSNumber *)aState;
 
 @end
 
@@ -42,25 +44,15 @@ static const NSInteger UNSET_KEY = 0;
 
 @implementation EditTicketViewController
 
-@synthesize ticketDescription;
-@synthesize message;
-@synthesize tags;
-
-@synthesize members;
-@synthesize member;
-
-@synthesize milestones;
-@synthesize milestone;
-
+@synthesize ticketDescription, message, comment, tags;
+@synthesize members, member;
+@synthesize milestones, milestone;
 @synthesize state;
-
-@synthesize comments;
-
 @synthesize edit;
+@synthesize target, action;
 
 - (void)dealloc
 {
-    [headerView release];
     [cancelButton release];
     [updateButton release];
     [descriptionTextField release];
@@ -71,12 +63,14 @@ static const NSInteger UNSET_KEY = 0;
 
     [ticketDescription release];
     [message release];
+    [comment release];
     [tags release];
-    [member release];
+    
     [members release];
-    [milestone release];
+    [member release];
+
     [milestones release];
-    [comments release];
+    [milestone release];
 
     [super dealloc];
 }
@@ -85,7 +79,6 @@ static const NSInteger UNSET_KEY = 0;
 {
     [super viewDidLoad];
 
-    self.tableView.tableHeaderView = headerView;
     self.tableView.backgroundColor = [UIColor bugWatchBackgroundColor];
 
     [self.navigationItem setLeftBarButtonItem:cancelButton animated:NO];
@@ -107,57 +100,64 @@ static const NSInteger UNSET_KEY = 0;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
-    return 2;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return section == kEditTicketActionSection ? (self.edit ? 2 : 1) : 3;
+    return [self numRowsForSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell = [self dequeueCellForSection:indexPath.section];
-    if (cell == nil)
-        cell = [[self class] createCellForSection:indexPath.section];
+    static NSString * cellIdentifier = @"EditTicketTableViewCell";
+    
+    EditTicketTableViewCell * cell =
+        (EditTicketTableViewCell *)
+        [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-    if (indexPath.section == kEditTicketActionSection) {
-        switch (indexPath.row) {
-            case kAddComment:
-                cell.text = @"Add comment";
-                break;
-            case kEditDescription:
-                cell.text = @"Edit description";
-                break;
-        }
-    } else {
-        EditTicketTableViewCell * editTicketCell =
-            (EditTicketTableViewCell *)cell;
-        switch (indexPath.row) {
-            case kAssignedTo:
-                [editTicketCell setKeyText:@"assigned to"];
-                NSString * memberName =
-                    [self.membersPlusNone objectForKey:self.member];
-                [editTicketCell setValueText:memberName];
-                break;
-            case kMilestone:
-                [editTicketCell setKeyText:@"milestone"];
-                NSString * milestoneName =
-                    [self.milestonesPlusNone objectForKey:self.milestone];
-                [editTicketCell setValueText:milestoneName];
-                break;
-            case kState:
-                [editTicketCell setKeyText:@"state"];
-                NSString * descriptionText =
-                    state >= kNew ?
-                    [TicketMetaData descriptionForState:state] :
-                    [[self class] unsetText];
-                [editTicketCell
-                    setValueText:descriptionText];
-                break;
-        }
+    if (cell == nil) {
+        NSArray * nib =
+            [[NSBundle mainBundle] loadNibNamed:@"EditTicketTableViewCell"
+            owner:self options:nil];
+
+        cell = [nib objectAtIndex:0];
+    }
+
+    NSInteger row = [self rowForIndexPath:indexPath];
+    NSString * valueForRow = [self valueForRow:row];
+    [cell setValueText:valueForRow];
+
+    switch(row) {
+        case kTitle:
+            [cell setKeyText:@"title"];
+            break;
+        case kDescription:
+            [cell setKeyText:@"description"];
+            break;
+        case kComment:
+            if (valueForRow && ![valueForRow isEqual:@""]) {
+                [cell setKeyText:@"comment"];
+                cell.keyOnly = NO;
+            } else {
+                [cell setKeyText:@"add a comment"];
+                cell.keyOnly = YES;
+            }
+            break;
+        case kAssignedTo:
+            [cell setKeyText:@"assigned to"];
+            break;
+        case kMilestone:
+            [cell setKeyText:@"milestone"];
+            break;
+        case kState:
+            [cell setKeyText:@"state"];
+            break;
+        case kTags:
+            [cell setKeyText:@"tags"];
+            break;
     }
 
     return cell;
@@ -166,71 +166,85 @@ static const NSInteger UNSET_KEY = 0;
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == kEditTicketActionSection) {
-        switch (indexPath.row) {
-            case kAddComment:
-                self.addCommentViewController.navigationItem.title =
-                    @"Add Comment";
-                [self.navigationController
-                    pushViewController:self.addCommentViewController
-                    animated:YES];
-                [self.addCommentViewController setLabelText:@"Add a comment"];
-                [self.addCommentViewController setTextViewText:@""];
-                break;
-            case kEditDescription:
-                self.addCommentViewController.navigationItem.title =
-                    @"Edit Description";
-                [self.navigationController
-                    pushViewController:self.addCommentViewController
-                    animated:YES];
-                [self.addCommentViewController
-                    setLabelText:@"Edit description"];
-                [self.addCommentViewController
-                    setTextViewText:ticketDescription];
-                break;
-        }
-    } else {
-        switch (indexPath.row) {
-            case kAssignedTo:
-                self.itemSelectionTableViewController.navigationItem.title =
-                    @"Set Responsible";
-                [self.itemSelectionTableViewController
-                    setLabelText:@"Who's responsible?"];
-                [self.itemSelectionTableViewController
-                    setItems:self.membersPlusNone];
-                self.itemSelectionTableViewController.selectedItem =
-                    self.member;
-                [self.navigationController
-                    pushViewController:self.itemSelectionTableViewController
-                    animated:YES];
-                break;
-            case kMilestone:
-                self.itemSelectionTableViewController.navigationItem.title =
-                    @"Set Milestone";
-                [self.itemSelectionTableViewController
-                    setLabelText:@"Milestone"];
-                [self.itemSelectionTableViewController
-                    setItems:self.milestonesPlusNone];
-                self.itemSelectionTableViewController.selectedItem =
-                    self.milestone;
-                [self.navigationController
-                    pushViewController:self.itemSelectionTableViewController
-                    animated:YES];
-                break;
-            case kState:
-                self.itemSelectionTableViewController.navigationItem.title =
-                    @"Set State";
-                [self.itemSelectionTableViewController
-                    setLabelText:@"State"];
-                [self.itemSelectionTableViewController
-                    setItems:self.statesPlusNone];
-                self.itemSelectionTableViewController.selectedItem =
-                    [NSNumber numberWithInt:state];
-                [self.navigationController
-                    pushViewController:self.itemSelectionTableViewController
-                    animated:YES];
-                break;
-        }
+    NSInteger row = [self rowForIndexPath:indexPath];
+    switch (row) {
+        case kTitle:
+            self.addCommentViewController.navigationItem.title =
+                @"Edit Title";
+            [self.navigationController
+                pushViewController:self.addCommentViewController
+                animated:YES];
+            self.addCommentViewController.action =
+                @selector(setTicketDescription:);
+            [self.addCommentViewController
+                setTextViewText:self.ticketDescription];
+            break;
+        case kComment:
+            self.addCommentViewController.navigationItem.title =
+                @"Add Comment";
+            [self.navigationController
+                pushViewController:self.addCommentViewController
+                animated:YES];
+            self.addCommentViewController.action = @selector(setComment:);
+            [self.addCommentViewController setTextViewText:self.comment];
+            break;
+        case kDescription:
+            self.addCommentViewController.navigationItem.title =
+                @"Edit Description";
+            [self.navigationController
+                pushViewController:self.addCommentViewController
+                animated:YES];
+            self.addCommentViewController.action = @selector(setMessage:);
+            [self.addCommentViewController setTextViewText:self.message];
+            break;
+        case kAssignedTo:
+            self.itemSelectionTableViewController.navigationItem.title =
+                @"Set Owner";
+            [self.itemSelectionTableViewController
+                setItems:self.membersPlusNone];
+            self.itemSelectionTableViewController.selectedItem =
+                self.member;
+            self.itemSelectionTableViewController.action =
+                @selector(setMember:);
+            [self.navigationController
+                pushViewController:self.itemSelectionTableViewController
+                animated:YES];
+            break;
+        case kMilestone:
+            self.itemSelectionTableViewController.navigationItem.title =
+                @"Set Milestone";
+            [self.itemSelectionTableViewController
+                setItems:self.milestonesPlusNone];
+            self.itemSelectionTableViewController.selectedItem =
+                self.milestone;
+            self.itemSelectionTableViewController.action =
+                @selector(setMilestone:);
+            [self.navigationController
+                pushViewController:self.itemSelectionTableViewController
+                animated:YES];
+            break;
+        case kState:
+            self.itemSelectionTableViewController.navigationItem.title =
+                @"Set State";
+            [self.itemSelectionTableViewController
+                setItems:self.statesPlusNone];
+            self.itemSelectionTableViewController.selectedItem =
+                [NSNumber numberWithInt:state];
+            self.itemSelectionTableViewController.action =
+                @selector(setStateWithNumber:);
+            [self.navigationController
+                pushViewController:self.itemSelectionTableViewController
+                animated:YES];
+            break;
+        case kTags:
+            self.addCommentViewController.navigationItem.title =
+                @"Edit Tags";
+            [self.navigationController
+                pushViewController:self.addCommentViewController
+                animated:YES];
+            self.addCommentViewController.action = @selector(setTags:);
+            [self.addCommentViewController setTextViewText:self.tags];
+            break;
     }
 }
 
@@ -240,6 +254,15 @@ static const NSInteger UNSET_KEY = 0;
     accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellAccessoryDisclosureIndicator;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+    heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger row = [self rowForIndexPath:indexPath];
+    NSString * valueForRow = [self valueForRow:row];
+
+    return [EditTicketTableViewCell heightForContent:valueForRow];
 }
 
 #pragma mark EditTicketViewController implementation
@@ -256,59 +279,84 @@ static const NSInteger UNSET_KEY = 0;
 
 - (IBAction)update:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    NSMethodSignature * sig =
+        [[target class] instanceMethodSignatureForSelector:action];
+    NSInvocation * invocation =
+        [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:target];
+    [invocation setSelector:action];
+    [invocation setArgument:&self atIndex:2];
+    [invocation retainArguments];
+    [invocation invoke];
 }
 
-+ (UITableViewCell *)createCellForSection:(NSUInteger)section
+#pragma mark Table view helpers
+
+- (NSInteger)rowForIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell;
+    NSInteger numRows = indexPath.row;
+    for (int i = kEditTicketTitleSection; i < indexPath.section; i++)
+        numRows += [self numRowsForSection:i];
 
-    if (section == kEditTicketActionSection)
-        cell =
-            [[[HOTableViewCell alloc]
-            initWithFrame:CGRectZero reuseIdentifier:@"HOTableViewCell"
-            tableViewStyle:UITableViewStyleGrouped]
-            autorelease];
-    else {
-        NSArray * nib =
-            [[NSBundle mainBundle] loadNibNamed:@"EditTicketTableViewCell"
-            owner:self options:nil];
+    if (!edit && indexPath.section >= kEditTicketCommentSection)
+        numRows++;
 
-        cell = [nib objectAtIndex:0];
+    return numRows;
+}
+
+- (NSInteger)numRowsForSection:(NSInteger)section
+{
+    NSInteger numRows;
+    switch(section) {
+        case kEditTicketTitleSection:
+            numRows = 2;
+            break;
+        case kEditTicketCommentSection:
+            numRows = self.edit ? 1 : 0;
+            break;
+        case kEditTicketStateSection:
+            numRows = 3;
+            break;
+        case kEditTicketTagsSection:
+            numRows = 1;
+            break;
     }
 
-    return cell;
+    return numRows;
 }
 
-- (UITableViewCell *)dequeueCellForSection:(NSUInteger)section
+- (NSString *)valueForRow:(NSInteger)row
 {
-    NSString * cellIdentifier =
-        section == kEditTicketActionSection ?
-        @"HOTableViewCell" : @"EditTicketTableViewCell";
-    
-    return [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-}
+    NSString * value;
+    switch(row) {
+        case kTitle:
+            value = self.ticketDescription;
+            break;
+        case kDescription:
+            value = self.message;
+            break;
+        case kComment:
+            value = self.comment;
+            break;
+        case kAssignedTo:
+            value = [self.membersPlusNone objectForKey:self.member];
+            break;
+        case kMilestone:
+            value = [self.milestonesPlusNone objectForKey:self.milestone];
+            break;
+        case kState:
+            value =
+                state >= kNew ?
+                [TicketMetaData descriptionForState:state] :
+                [[self class] unsetText];
+            break;
+        case kTags:
+            value = self.tags;
+            break;
+    }
+    value = value && ![value isEqual:@""] ? value : @"--";
 
-#pragma mark UITextFieldDelegate implementation
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    updateButton.enabled = NO;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    updateButton.enabled = YES;
-
-    self.ticketDescription = descriptionTextField.text;
-    self.tags = tagsTextField.text;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    
-    return YES;
+    return value;
 }
 
 #pragma mark Accessors
@@ -320,20 +368,24 @@ static const NSInteger UNSET_KEY = 0;
 
 - (AddCommentViewController *)addCommentViewController
 {
-    if (!addCommentViewController)
+    if (!addCommentViewController) {
         addCommentViewController =
             [[AddCommentViewController alloc]
             initWithNibName:@"AddCommentView" bundle:nil];
+        addCommentViewController.target = self;
+    }
 
     return addCommentViewController;
 }
 
 - (ItemSelectionTableViewController *)itemSelectionTableViewController
 {
-    if (!itemSelectionTableViewController)
+    if (!itemSelectionTableViewController) {
         itemSelectionTableViewController =
             [[ItemSelectionTableViewController alloc]
             initWithNibName:@"ItemSelectionTableView" bundle:nil];
+        itemSelectionTableViewController.target = self;
+    }
 
     return itemSelectionTableViewController;
 }
@@ -376,6 +428,84 @@ static const NSInteger UNSET_KEY = 0;
         forKey:[NSNumber numberWithInt:UNSET_KEY]];
 
     return states;
+}
+
+- (void)setTicketDescription:(NSString *)aTicketDescription
+{
+    NSLog(@"Set ticket title: '%@'", aTicketDescription);
+
+    NSString * tempTicketDescription = [aTicketDescription copy];
+    [ticketDescription release];
+    ticketDescription = tempTicketDescription;
+
+    [self.tableView reloadData];
+}
+
+- (void)setMessage:(NSString *)aMessage
+{
+    NSLog(@"Set ticket description: '%@'", aMessage);
+
+    NSString * tempMessage = [aMessage copy];
+    [message release];
+    message = tempMessage;
+
+    [self.tableView reloadData];
+}
+
+- (void)setComment:(NSString *)aComment
+{
+    NSLog(@"Set ticket comment: '%@'", aComment);
+
+    NSString * tempComment = [aComment copy];
+    [comment release];
+    comment = tempComment;
+
+    [self.tableView reloadData];
+}
+
+- (void)setTags:(NSString *)someTags
+{
+    NSLog(@"Set ticket tags: '%@'", someTags);
+
+    NSString * tempTags = [someTags copy];
+    [tags release];
+    tags = tempTags;
+
+    [self.tableView reloadData];
+}
+
+- (void)setMember:(id)aMember
+{
+    NSLog(@"Set ticket owner: '%@'", aMember);
+
+    id tempMember = [aMember copy];
+    [member release];
+    member = tempMember;
+
+    [self.tableView reloadData];
+}
+
+- (void)setMilestone:(id)aMilestone
+{
+    NSLog(@"Set ticket milestone: '%@'", aMilestone);
+
+    id tempMilestone = [aMilestone copy];
+    [milestone release];
+    milestone = tempMilestone;
+
+    [self.tableView reloadData];
+}
+
+- (void)setStateWithNumber:(NSNumber *)aState
+{
+    self.state = [aState intValue];
+}
+
+- (void)setState:(NSUInteger)aState
+{
+    NSLog(@"Set ticket state: '%d'", aState);
+    state = aState;
+    [self.tableView reloadData];
 }
 
 @end
