@@ -3,11 +3,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AbstractUpdatePublisher.h"
 
-@interface UserUpdatePublisher : NSObject
+@interface UserUpdatePublisher : AbstractUpdatePublisher
 {
-  @private
-    NSInvocation * invocation;
 }
 
 //

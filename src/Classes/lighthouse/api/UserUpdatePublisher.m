@@ -23,20 +23,13 @@
 - (void)dealloc
 {
     [self unsubscribeForNotifications];
-    [invocation release];
     [super dealloc];
 }
 
 - (id)initWithListener:(id)listener action:(SEL)action
 {
-    if (self = [super init]) {
-        NSMethodSignature * sig = [listener methodSignatureForSelector:action];
-        invocation = [[NSInvocation invocationWithMethodSignature:sig] retain];
-        [invocation setTarget:listener];
-        [invocation setSelector:action];
-
+    if (self = [super initWithListener:listener action:action])
         [self subscribeForNotifications];
-    }
 
     return self;
 }
@@ -50,9 +43,9 @@
     NSDictionary * users = [info objectForKey:@"users"];
     id projectKey = [info objectForKey:@"projectKey"];
 
-    [invocation setArgument:&users atIndex:2];
-    [invocation setArgument:&projectKey atIndex:3];
-    [invocation invoke];
+    NSArray * args = [NSArray arrayWithObjects:users, projectKey, nil];
+
+    [self notifyListener:args];
 }
 
 #pragma mark Subscribing for notifications
