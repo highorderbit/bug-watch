@@ -23,12 +23,25 @@
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     token:(NSString *)token error:(NSError *)error;
 
-- (void)searchResults:(NSData *)data fetchedForProject:(id)projectKey
+- (void)searchResults:(NSData *)xml fetchedForProject:(id)projectKey
     searchString:(NSString *)searchString object:(id)object
     token:(NSString *)token;
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString object:(id)object
     token:(NSString *)token error:(NSError *)error;
+
+#pragma mark Writing to tickets
+
+- (void)ticketCreationDidBegin:(NSData *)xml forProject:(id)projectKey
+    object:(id)object token:(NSString *)token;
+- (void)failedToBeginTicketCreationForProject:(id)projectKey
+    object:(id)object token:(NSString *)token error:(NSError *)error;
+
+- (void)ticketCreated:(NSData *)xml description:(NSString *)description
+    forProject:(id)projectKey object:(id)object token:(NSString *)token;
+- (void)failedToCompleteTicketCreation:(NSString *)description
+    forProject:(id)projectKey object:(id)object token:(NSString *)token
+    error:(NSError *)error;
 
 #pragma mark Ticket bins
 

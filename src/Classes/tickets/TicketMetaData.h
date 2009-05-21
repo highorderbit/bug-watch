@@ -4,13 +4,13 @@
 
 #import <Foundation/Foundation.h>
 
-enum TicketState {
+typedef enum {
     kNew        = 1,
     kOpen       = kNew << 1,
     kResolved   = kOpen << 1,
     kHold       = kResolved << 1,
     kInvalid    = kHold << 1
-};
+} TicketState;
 
 @interface TicketMetaData : NSObject
 {

@@ -60,6 +60,8 @@
 		05DB80CB0FC33E7E0095AF32 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB80CA0FC33E7E0095AF32 /* User.m */; };
 		05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB81000FC343CD0095AF32 /* BugWatchAppController.m */; };
 		05DB811F0FC360230095AF32 /* MilestoneUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB811E0FC360230095AF32 /* MilestoneUpdatePublisher.m */; };
+		05DB82A90FC497C90095AF32 /* NewTicketDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB82A80FC497C90095AF32 /* NewTicketDescription.m */; };
+		05DB82AC0FC49E310095AF32 /* RandomNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB82AB0FC49E310095AF32 /* RandomNumber.m */; };
 		05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */; };
 		05DEB1D90FB106470052888E /* MilestoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1D80FB106470052888E /* MilestoneHeaderView.m */; };
 		05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2200FB217090052888E /* LighthouseNewsFeed.m */; };
@@ -254,6 +256,10 @@
 		05DB81000FC343CD0095AF32 /* BugWatchAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppController.m; path = "app-controller/BugWatchAppController.m"; sourceTree = "<group>"; };
 		05DB811D0FC360230095AF32 /* MilestoneUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneUpdatePublisher.h; path = Classes/milestones/MilestoneUpdatePublisher.h; sourceTree = "<group>"; };
 		05DB811E0FC360230095AF32 /* MilestoneUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneUpdatePublisher.m; path = Classes/milestones/MilestoneUpdatePublisher.m; sourceTree = "<group>"; };
+		05DB82A70FC497C90095AF32 /* NewTicketDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewTicketDescription.h; path = lighthouse/api/NewTicketDescription.h; sourceTree = "<group>"; };
+		05DB82A80FC497C90095AF32 /* NewTicketDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewTicketDescription.m; path = lighthouse/api/NewTicketDescription.m; sourceTree = "<group>"; };
+		05DB82AA0FC49E310095AF32 /* RandomNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RandomNumber.h; path = shared/RandomNumber.h; sourceTree = "<group>"; };
+		05DB82AB0FC49E310095AF32 /* RandomNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RandomNumber.m; path = shared/RandomNumber.m; sourceTree = "<group>"; };
 		05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDisplayMgr.h; path = Classes/milestones/MilestoneDisplayMgr.h; sourceTree = "<group>"; };
 		05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDisplayMgr.m; path = Classes/milestones/MilestoneDisplayMgr.m; sourceTree = "<group>"; };
 		05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewControllerDelegate.h; path = Classes/milestones/MilestonesViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -614,6 +620,8 @@
 				052C5ACC0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.h */,
 				052C5ACD0FB3A27A00C7A30C /* TicketMetaData+LighthouseApiParsingAdditions.m */,
 				05DEB33E0FB255160052888E /* LighthouseMilestoneParserTest.m */,
+				05DB82A70FC497C90095AF32 /* NewTicketDescription.h */,
+				05DB82A80FC497C90095AF32 /* NewTicketDescription.m */,
 			);
 			name = api;
 			sourceTree = "<group>";
@@ -694,6 +702,8 @@
 				059738690FB0C26A00059D20 /* MilestoneProgressView.m */,
 				05F0F2850FB8D8DC00963F6E /* NSArray+IterationAdditions.h */,
 				05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */,
+				05DB82AA0FC49E310095AF32 /* RandomNumber.h */,
+				05DB82AB0FC49E310095AF32 /* RandomNumber.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -1218,6 +1228,8 @@
 				05DB80CB0FC33E7E0095AF32 /* User.m in Sources */,
 				05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */,
 				05DB811F0FC360230095AF32 /* MilestoneUpdatePublisher.m in Sources */,
+				05DB82A90FC497C90095AF32 /* NewTicketDescription.m in Sources */,
+				05DB82AC0FC49E310095AF32 /* RandomNumber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

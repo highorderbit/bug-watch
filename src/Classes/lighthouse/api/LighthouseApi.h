@@ -37,6 +37,15 @@
     withSearchString:(NSString *)searchString object:(id)object
     token:(NSString *)token;
 
+- (void)beginTicketCreationForProject:(id)projectKey
+                               object:(id)object
+                                token:(NSString *)token;
+
+- (void)completeTicketCreationForProject:(id)projectKey
+                             description:(NSString *)description
+                                  object:(id)object
+                                   token:(NSString *)token;
+
 #pragma mark Ticket bins
 
 - (void)fetchTicketBinsForProject:(NSUInteger)projectId token:(NSString *)token;

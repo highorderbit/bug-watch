@@ -127,6 +127,56 @@
     [api sendRequest:req];
 }
 
+- (void)beginTicketCreationForProject:(id)projectKey
+                               object:(id)object
+                                token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/tickets/new.xml?_token=%@",
+        baseUrlString, projectKey, token];
+    SEL sel = @selector(handleBeginTicketCreationResponse:toRequest:object:);
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token",
+        projectKey, @"projectKey",
+        object ? object : [NSNull null], @"object",
+        nil];
+
+    [self sendRequestToUrl:urlString callback:sel arguments:args];
+}
+
+- (void)completeTicketCreationForProject:(id)projectKey
+                             description:(NSString *)description
+                                  object:(id)object
+                                   token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/tickets.xml?_token=%@",
+        baseUrlString, projectKey, token];
+    NSData * encodedDescription =
+        [description dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSMutableURLRequest * req =
+        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:encodedDescription];
+    [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token",
+        projectKey, @"projectKey",
+        description, @"description",
+        object ? object : [NSNull null], @"object",
+        nil];
+
+    SEL sel =
+        @selector(handleCompleteTicketCreationResponse:toRequest:args:);
+    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+
+    [api sendRequest:req];
+}
+
 #pragma mark Ticket Bins
 
 - (void)fetchTicketBinsForProject:(NSUInteger)projectId token:(NSString *)token
@@ -252,6 +302,51 @@
     else
         [delegate searchResults:response fetchedForProject:projectKey
             searchString:searchString object:obj token:token];
+}
+
+- (void)handleBeginTicketCreationResponse:(id)response
+                                toRequest:(NSURLRequest *)request
+                                   object:(id)object
+{
+    NSString * token = [object objectForKey:@"token"];
+    id projectKey = [object objectForKey:@"projectKey"];
+    id userObject = [object objectForKey:@"object"];
+    userObject = [userObject isEqual:[NSNull null]] ? nil : userObject;
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToBeginTicketCreationForProject:projectKey
+                                                 object:userObject
+                                                  token:token
+                                                  error:response];
+    else
+        [delegate ticketCreationDidBegin:response
+                              forProject:projectKey
+                                  object:userObject
+                                   token:token];
+}
+
+- (void)handleCompleteTicketCreationResponse:(id)response
+                                   toRequest:(NSURLRequest *)request
+                                        args:(NSDictionary *)args
+{
+    NSString * token = [args objectForKey:@"token"];
+    id projectKey = [args objectForKey:@"projectKey"];
+    NSString * description = [args objectForKey:@"description"];
+    id object = [args objectForKey:@"object"];
+    object = [object isEqual:[NSNull null]] ? nil : object;
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToCompleteTicketCreation:description
+                                      forProject:projectKey
+                                          object:object
+                                           token:token
+                                           error:response];
+    else
+        [delegate ticketCreated:response
+                    description:description
+                     forProject:projectKey
+                         object:object
+                          token:token];
 }
 
 - (void)handleTicketBinResponse:(id)response

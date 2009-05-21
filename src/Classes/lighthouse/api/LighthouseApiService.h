@@ -5,6 +5,7 @@
 #import <Foundation/Foundation.h>
 #import "LighthouseApiServiceDelegate.h"
 #import "LighthouseApiDelegate.h"
+#import "NewTicketDescription.h"
 
 @class LighthouseApi, LighthouseApiParser;
 
@@ -14,6 +15,8 @@
 
     LighthouseApi * api;
     LighthouseApiParser * parser;
+
+    NSMutableDictionary * newTicketRequests;
 }
 
 @property (nonatomic, assign) id<LighthouseApiServiceDelegate> delegate;
@@ -33,6 +36,9 @@
                               token:(NSString *)token;
 - (void)searchTicketsForProject:(id)projectKey
     withSearchString:(NSString *)searchString object:(id)object
+    token:(NSString *)token;
+
+- (void)createNewTicket:(NewTicketDescription *)desc forProject:(id)projectKey
     token:(NSString *)token;
 
 #pragma mark Ticket bins
