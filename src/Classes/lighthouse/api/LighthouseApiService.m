@@ -15,16 +15,24 @@
 - (NSArray *)parseTicketNumbers:(NSData *)xml;
 - (NSArray *)parseTicketMilestoneIds:(NSData *)xml;
 - (NSArray *)parseTicketProjectIds:(NSData *)xml;
+
+- (NSArray *)parseProjects:(NSData *)xml;
+- (NSArray *)parseProjectKeys:(NSData *)xml;
+
 - (NSArray *)parseUsers:(NSData *)xml;
 - (NSArray *)parseUserKeys:(NSData *)xml;
 - (NSArray *)parseUserIds:(NSData *)xml;
+
 - (NSArray *)parseCreatorIds:(NSData *)xml;
+
 - (NSArray *)parseTicketComments:(NSData *)xml;
 - (NSArray *)parseTicketCommentAuthors:(NSData *)xml;
 - (NSArray *)parseTicketUrls:(NSData *)xml;
+
 - (NSArray *)parseMilestones:(NSData *)xml;
 - (NSArray *)parseMilestoneIds:(NSData *)xml;
 - (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
+
 - (NSArray *)parseTicketBins:(NSData *)xml;
 
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
@@ -114,6 +122,13 @@
 - (void)fetchAllUsersForProject:(id)projectKey token:(NSString *)token
 {
     [api fetchAllUsersForProject:projectKey token:token];
+}
+
+#pragma mark Projects
+
+- (void)fetchAllProjects:(NSString *)token
+{
+    [api fetchAllProjects:token];
 }
 
 #pragma mark Milestones
@@ -352,6 +367,23 @@
     [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
 }
 
+#pragma mark -- Projects
+
+- (void)projects:(NSData *)xml fetchedForAllProjects:(NSString *)token
+{
+    NSArray * projects = [self parseProjects:xml];
+    NSArray * projectKeys = [self parseProjectKeys:xml];
+
+    SEL sel = @selector(fetchedAllProjects:projectKeys:);
+    [self
+        invokeSelector:sel withTarget:delegate args:projects, projectKeys, nil];
+}
+
+- (void)failedToFetchAllProjects:(NSString *)token error:(NSError *)error
+{
+    SEL sel = @selector(failedToFetchAllProjects:);
+    [self invokeSelector:sel withTarget:delegate args:error, nil];
+}
 
 #pragma mark -- Milestones
 
@@ -513,6 +545,32 @@
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"string", @"url", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseProjects:(NSData *)xml
+{
+    parser.className = @"Project";
+    parser.classElementType = @"project";
+    parser.classElementCollection = @"projects";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"name",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseProjectKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"project";
+    parser.classElementCollection = @"projects";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"id",
+            nil];
 
     return [parser parse:xml];
 }

@@ -57,6 +57,11 @@
 - (void)failedToFetchAllUsersForProject:(id)projectKey token:(NSString *)token
     error:(NSError *)error;
 
+#pragma mark Projects
+
+- (void)projects:(NSData *)xml fetchedForAllProjects:(NSString *)token;
+- (void)failedToFetchAllProjects:(NSString *)token error:(NSError *)error;
+
 #pragma mark Milestones
 
 - (void)milestones:(NSData *)xml

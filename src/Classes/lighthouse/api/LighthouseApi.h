@@ -54,6 +54,10 @@
 
 - (void)fetchAllUsersForProject:(id)projectKey token:(NSString *)token;
 
+#pragma mark Projects
+
+- (void)fetchAllProjects:(NSString *)token;
+
 #pragma mark Milestones
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token;

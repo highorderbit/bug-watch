@@ -60,6 +60,13 @@
 - (void)allUsers:(NSDictionary *)users fetchedForProject:(id)projectKey;
 - (void)failedToFetchAllUsersForProject:(id)projectKey error:(NSError *)error;
 
+#pragma mark Projects
+
+@optional
+
+- (void)fetchedAllProjects:(NSArray *)projects projectKeys:(NSArray *)keys;
+- (void)failedToFetchAllProjects:(NSError *)error;
+
 #pragma mark Fetching milestones
 
 @optional
