@@ -3,15 +3,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AbstractUpdatePublisher.h"
 
-@interface MilestoneUpdatePublisher : NSObject
+@interface MilestoneUpdatePublisher : AbstractUpdatePublisher
 {
-  @private
-    NSMutableDictionary * listeners;
 }
-
-+ (id)publisher;
-- (id)init;
 
 //
 // The selector provided should have the same arguments as:
@@ -19,9 +15,7 @@
 //                              milestoneKeys:(NSArray *)milestoneKeys
 //                                projectKeys:(NSArray *)projectKeys;
 //
-- (void)subscribeForMilestoneUpdatesForAllProjects:(id)target
-                                            action:(SEL)action;
-
-- (void)unsubscribeForMilestoneUpdatesForAllProjets:(id)target;
++ (id)publisherWithListener:(id)listener action:(SEL)action;
+- (id)initWithListener:(id)listener action:(SEL)action;
 
 @end

@@ -59,9 +59,11 @@
 		05D6A0050FB357C10081AE18 /* NSObject+RuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */; };
 		05DB80CB0FC33E7E0095AF32 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB80CA0FC33E7E0095AF32 /* User.m */; };
 		05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB81000FC343CD0095AF32 /* BugWatchAppController.m */; };
-		05DB811F0FC360230095AF32 /* MilestoneUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB811E0FC360230095AF32 /* MilestoneUpdatePublisher.m */; };
 		05DB82A90FC497C90095AF32 /* NewTicketDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB82A80FC497C90095AF32 /* NewTicketDescription.m */; };
 		05DB82AC0FC49E310095AF32 /* RandomNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB82AB0FC49E310095AF32 /* RandomNumber.m */; };
+		05DB83C50FC4E5F70095AF32 /* AbstractUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB83C40FC4E5F70095AF32 /* AbstractUpdatePublisher.m */; };
+		05DB84030FC4EC900095AF32 /* MilestoneUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB84000FC4EC900095AF32 /* MilestoneUpdatePublisher.m */; };
+		05DB84040FC4EC900095AF32 /* UserUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB84020FC4EC900095AF32 /* UserUpdatePublisher.m */; };
 		05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */; };
 		05DEB1D90FB106470052888E /* MilestoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1D80FB106470052888E /* MilestoneHeaderView.m */; };
 		05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2200FB217090052888E /* LighthouseNewsFeed.m */; };
@@ -257,12 +259,16 @@
 		05DB80CA0FC33E7E0095AF32 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = users/User.m; sourceTree = "<group>"; };
 		05DB80FF0FC343CD0095AF32 /* BugWatchAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppController.h; path = "app-controller/BugWatchAppController.h"; sourceTree = "<group>"; };
 		05DB81000FC343CD0095AF32 /* BugWatchAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppController.m; path = "app-controller/BugWatchAppController.m"; sourceTree = "<group>"; };
-		05DB811D0FC360230095AF32 /* MilestoneUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneUpdatePublisher.h; path = Classes/milestones/MilestoneUpdatePublisher.h; sourceTree = "<group>"; };
-		05DB811E0FC360230095AF32 /* MilestoneUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneUpdatePublisher.m; path = Classes/milestones/MilestoneUpdatePublisher.m; sourceTree = "<group>"; };
 		05DB82A70FC497C90095AF32 /* NewTicketDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewTicketDescription.h; path = lighthouse/api/NewTicketDescription.h; sourceTree = "<group>"; };
 		05DB82A80FC497C90095AF32 /* NewTicketDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewTicketDescription.m; path = lighthouse/api/NewTicketDescription.m; sourceTree = "<group>"; };
 		05DB82AA0FC49E310095AF32 /* RandomNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RandomNumber.h; path = shared/RandomNumber.h; sourceTree = "<group>"; };
 		05DB82AB0FC49E310095AF32 /* RandomNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RandomNumber.m; path = shared/RandomNumber.m; sourceTree = "<group>"; };
+		05DB83C30FC4E5F70095AF32 /* AbstractUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractUpdatePublisher.h; path = lighthouse/api/AbstractUpdatePublisher.h; sourceTree = "<group>"; };
+		05DB83C40FC4E5F70095AF32 /* AbstractUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractUpdatePublisher.m; path = lighthouse/api/AbstractUpdatePublisher.m; sourceTree = "<group>"; };
+		05DB83FF0FC4EC900095AF32 /* MilestoneUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneUpdatePublisher.h; path = lighthouse/api/MilestoneUpdatePublisher.h; sourceTree = "<group>"; };
+		05DB84000FC4EC900095AF32 /* MilestoneUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneUpdatePublisher.m; path = lighthouse/api/MilestoneUpdatePublisher.m; sourceTree = "<group>"; };
+		05DB84010FC4EC900095AF32 /* UserUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserUpdatePublisher.h; path = lighthouse/api/UserUpdatePublisher.h; sourceTree = "<group>"; };
+		05DB84020FC4EC900095AF32 /* UserUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserUpdatePublisher.m; path = lighthouse/api/UserUpdatePublisher.m; sourceTree = "<group>"; };
 		05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDisplayMgr.h; path = Classes/milestones/MilestoneDisplayMgr.h; sourceTree = "<group>"; };
 		05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDisplayMgr.m; path = Classes/milestones/MilestoneDisplayMgr.m; sourceTree = "<group>"; };
 		05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewControllerDelegate.h; path = Classes/milestones/MilestonesViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -551,8 +557,6 @@
 				05A961830FBE142C00CBDC68 /* MilestoneDetailsDataSource.h */,
 				05A961840FBE142C00CBDC68 /* MilestoneDetailsDataSource.m */,
 				05A961860FBE282E00CBDC68 /* MilestoneDetailsDataSourceDelegate.h */,
-				05DB811D0FC360230095AF32 /* MilestoneUpdatePublisher.h */,
-				05DB811E0FC360230095AF32 /* MilestoneUpdatePublisher.m */,
 			);
 			name = milestones;
 			path = ..;
@@ -635,6 +639,12 @@
 				05DEB33E0FB255160052888E /* LighthouseMilestoneParserTest.m */,
 				05DB82A70FC497C90095AF32 /* NewTicketDescription.h */,
 				05DB82A80FC497C90095AF32 /* NewTicketDescription.m */,
+				05DB83C30FC4E5F70095AF32 /* AbstractUpdatePublisher.h */,
+				05DB83C40FC4E5F70095AF32 /* AbstractUpdatePublisher.m */,
+				05DB83FF0FC4EC900095AF32 /* MilestoneUpdatePublisher.h */,
+				05DB84000FC4EC900095AF32 /* MilestoneUpdatePublisher.m */,
+				05DB84010FC4EC900095AF32 /* UserUpdatePublisher.h */,
+				05DB84020FC4EC900095AF32 /* UserUpdatePublisher.m */,
 			);
 			name = api;
 			sourceTree = "<group>";
@@ -1242,10 +1252,12 @@
 				914828800FC3554B002D10E8 /* TicketKey.m in Sources */,
 				05DB80CB0FC33E7E0095AF32 /* User.m in Sources */,
 				05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */,
-				05DB811F0FC360230095AF32 /* MilestoneUpdatePublisher.m in Sources */,
 				05DB82A90FC497C90095AF32 /* NewTicketDescription.m in Sources */,
 				05DB82AC0FC49E310095AF32 /* RandomNumber.m in Sources */,
 				91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */,
+				05DB83C50FC4E5F70095AF32 /* AbstractUpdatePublisher.m in Sources */,
+				05DB84030FC4EC900095AF32 /* MilestoneUpdatePublisher.m in Sources */,
+				05DB84040FC4EC900095AF32 /* UserUpdatePublisher.m in Sources */,
 				91482A770FC4C6A2002D10E8 /* UIState.m in Sources */,
 				91482A780FC4C6A2002D10E8 /* UIStatePersistenceStore.m in Sources */,
 			);

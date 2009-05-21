@@ -201,16 +201,15 @@
     addButton.action = @selector(addSelected);
     
     // intentionally not autoreleasing either of the following objects
-    MilestoneUpdatePublisher * milestoneUpdatePublisher =
-        [[MilestoneUpdatePublisher alloc] init];
     TicketDispMgrMilestoneSetter * milestoneSetter =
         [[TicketDispMgrMilestoneSetter alloc]
         initWithTicketDisplayMgr:ticketDisplayMgr];
-    [milestoneUpdatePublisher
-        subscribeForMilestoneUpdatesForAllProjects:
-        milestoneSetter
+    MilestoneUpdatePublisher * milestoneUpdatePublisher =
+        [[MilestoneUpdatePublisher alloc]
+        initWithListener:milestoneSetter
         action:
         @selector(milestonesReceivedForAllProjects:milestoneKeys:projectKeys:)];
+#pragma unused(milestoneUpdatePublisher)  // suppress compiler warning
 }
 
 - (TicketCache *)loadTicketsFromPersistence
