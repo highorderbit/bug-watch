@@ -26,6 +26,8 @@ typedef enum {
 - (id)initWithTags:(NSString *)someTags state:(NSUInteger)aState
     lastModifiedDate:(NSDate *)aLastModifiedDate;
 
+- (NSComparisonResult)compare:(TicketMetaData *)anotherTicketMetaData;
+
 + (NSString *)descriptionForState:(NSUInteger)ticketState;
 
 @end

@@ -17,6 +17,7 @@
 - (void)setStateChangeText:(NSString *)text;
 - (void)setCommentText:(NSString *)text;
 
-+ (CGFloat)heightForContent:(NSString *)comment;
++ (CGFloat)heightForContent:(NSString *)comment
+    stateChangeText:(NSString *)stateChangeText;
 
 @end

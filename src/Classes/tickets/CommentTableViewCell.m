@@ -52,13 +52,21 @@
 {
     [super layoutSubviews];
 
+    CGFloat stateChangeHeight =
+        [stateChangeLabel heightForString:stateChangeLabel.text];
+    CGRect stateChangeLabelFrame = stateChangeLabel.frame;
+    stateChangeLabelFrame.size.height = stateChangeHeight;
+    stateChangeLabel.frame = stateChangeLabelFrame;
+
+    const static CGFloat LABEL_OFFSET = 2;
+
     CGFloat commentHeight =
         [commentLabel heightForString:commentLabel.text];
-    static const CGFloat MAX_COMMENT_HEIGHT = 72;
-    commentHeight =
-        commentHeight > MAX_COMMENT_HEIGHT ? MAX_COMMENT_HEIGHT : commentHeight;
     CGRect commentLabelFrame = commentLabel.frame;
     commentLabelFrame.size.height = commentHeight;
+    commentLabelFrame.origin.y =
+        stateChangeLabelFrame.size.height + stateChangeLabelFrame.origin.y +
+        LABEL_OFFSET;
     commentLabel.frame = commentLabelFrame;
 }
 
@@ -91,17 +99,23 @@
 }
 
 + (CGFloat)heightForContent:(NSString *)comment
+    stateChangeText:(NSString *)stateChangeText
 {
-    CGSize maxSize = CGSizeMake(302, 72.0);
-    UIFont * font = [UIFont systemFontOfSize:14.0];
+    CGSize maxSize = CGSizeMake(302, 99999.0);
+    UIFont * commentFont = [UIFont systemFontOfSize:14.0];
+    UIFont * stateChangeFont = [UIFont boldSystemFontOfSize:14.0];
     UILineBreakMode mode = UILineBreakModeWordWrap;
 
-    CGSize size =
-        [comment sizeWithFont:font constrainedToSize:maxSize
+    CGSize commentSize =
+        [comment sizeWithFont:commentFont constrainedToSize:maxSize
+        lineBreakMode:mode];
+
+    CGSize stateChangeSize =
+        [stateChangeText sizeWithFont:stateChangeFont constrainedToSize:maxSize
         lineBreakMode:mode];
 
     static const NSUInteger MIN_HEIGHT = 0;
-    NSUInteger height = 58.0 + size.height;
+    NSUInteger height = 37.0 + commentSize.height + stateChangeSize.height;
     height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
 
     return height;

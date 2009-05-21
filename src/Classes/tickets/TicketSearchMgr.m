@@ -103,8 +103,8 @@
 
 - (void)cancelSelected
 {
-    [searchField resignFirstResponder];
     [self updateNavigationBarForNotSearching:YES];
+    [searchField resignFirstResponder];
     [darkTransparentView removeFromSuperview];
     [binViewController.view removeFromSuperview];
 }
@@ -142,8 +142,6 @@
     [UIView commitAnimations];
 
     [navigationItem setRightBarButtonItem:cancelButton animated:YES];
-
-    NSLog(@"parent view: %@", parentView);
 
     darkTransparentView.alpha = 0;
     [parentView addSubview:darkTransparentView];

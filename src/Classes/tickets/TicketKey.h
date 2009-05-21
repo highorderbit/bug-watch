@@ -15,4 +15,6 @@
 
 - (id)initWithProjectKey:(id)projectKey ticketNumber:(NSUInteger)ticketNumber;
 
+- (NSComparisonResult)compare:(TicketKey *)anotherTicketKey;
+
 @end

@@ -18,4 +18,6 @@
 - (id)initWithDescription:(NSString *)aDescription message:(NSString*)aMessage
     creationDate:(NSDate *)aCreationDate;
 
+- (NSComparisonResult)compare:(Ticket *)anotherTicket;
+
 @end

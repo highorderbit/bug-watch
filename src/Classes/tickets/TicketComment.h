@@ -18,4 +18,6 @@
 - (id) initWithStateChangeDescription:(NSString *)aStateChangeDescription
     text:(NSString *)someText date:(NSDate *)aDate;
 
+- (NSComparisonResult)compare:(TicketComment *)anotherTicketComment;
+
 @end

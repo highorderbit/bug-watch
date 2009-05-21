@@ -6,7 +6,7 @@
 
 @implementation TicketDisplayMgr
 
-@synthesize ticketCache, commentCache, filterString;
+@synthesize ticketCache, commentCache, filterString, milestoneDict, userDict;
 
 - (void)dealloc
 {
@@ -22,10 +22,8 @@
     [detailsNetAwareViewController release];
     [editTicketViewController release];
 
-    // TEMPORARY
     [userDict release];
     [milestoneDict release];
-    // TEMPORARY
 
     [super dealloc];
 }
@@ -50,15 +48,15 @@
             forKey:[NSNumber numberWithInt:50190]];
         [userDict setObject:@"John A. Debay"
             forKey:[NSNumber numberWithInt:50209]];
-
-        // this will eventually be read from a user cache of some sort
-        milestoneDict = [[NSMutableDictionary dictionary] retain];
-        [milestoneDict setObject:@"1.0.0"
-            forKey:[NSNumber numberWithInt:37670]];
-        [milestoneDict setObject:@"1.1.0"
-            forKey:[NSNumber numberWithInt:38299]];
-        [milestoneDict setObject:@"1.3.0"
-            forKey:[NSNumber numberWithInt:38302]];
+        // 
+        // // this will eventually be read from a user cache of some sort
+        // milestoneDict = [[NSMutableDictionary dictionary] retain];
+        // [milestoneDict setObject:@"1.0.0"
+        //     forKey:[NSNumber numberWithInt:37670]];
+        // [milestoneDict setObject:@"1.1.0"
+        //     forKey:[NSNumber numberWithInt:38299]];
+        // [milestoneDict setObject:@"1.3.0"
+        //     forKey:[NSNumber numberWithInt:38302]];
         // TEMPORARY
     }
 
@@ -102,12 +100,12 @@
         }
 
         NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
-        // for (id commentKey in commentKeys) {
-        //     NSString * userKey =
-        //         [commentCache authorKeyForCommentKey:commentKey];
-        //     NSString * commentAuthor = [userDict objectForKey:userKey];
-        //     [commentAuthors setObject:commentAuthor forKey:commentKey];
-        // }
+        for (id commentKey in commentKeys) {
+            NSString * userKey =
+                [commentCache authorKeyForCommentKey:commentKey];
+            NSString * commentAuthor = [userDict objectForKey:userKey];
+            [commentAuthors setObject:commentAuthor forKey:commentKey];
+        }
 
         [self.detailsViewController setTicketNumber:key.ticketNumber
             ticket:ticket metaData:metaData reportedBy:reportedBy
@@ -290,6 +288,15 @@
 - (UINavigationController *)navController
 {
     return wrapperController.navigationController;
+}
+
+- (void)setMilestoneDict:(NSDictionary *)aMilestoneDict
+{
+    NSDictionary * tempMilestoneDict = [aMilestoneDict copy];
+    [milestoneDict release];
+    milestoneDict = tempMilestoneDict;
+    
+    [ticketsViewController.tableView reloadData];
 }
 
 @end

@@ -12,6 +12,7 @@
 @interface TicketDetailsViewController (Private)
 
 - (void)layoutView;
+- (NSArray *)sortedKeys;
 
 @end
 
@@ -61,20 +62,18 @@
     return 1;
 }
 
-// Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return [[comments allKeys] count];
+    return [[comments allKeys] count] - 1; // don't show first element
 }
 
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section
 {
-    return [[comments allKeys] count] > 0 ? @"Comments and changes" : nil;
+    return [[comments allKeys] count] > 1 ? @"Comments and changes" : nil;
 }
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -92,30 +91,26 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
-    id commentKey = [[comments allKeys] objectAtIndex:indexPath.row];
+    id commentKey = [[self sortedKeys] objectAtIndex:indexPath.row + 1];
     TicketComment * comment = [comments objectForKey:commentKey];
     [cell setDate:comment.date];
     [cell setStateChangeText:comment.stateChangeDescription];
     [cell setCommentText:comment.text];
-    
+
     NSString * authorName = [commentAuthors objectForKey:commentKey];
     [cell setAuthorName:authorName];
 
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView
-    didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
 - (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id commentKey = [[comments allKeys] objectAtIndex:indexPath.row];
+    id commentKey = [[self sortedKeys] objectAtIndex:indexPath.row + 1];
     TicketComment * comment = [comments objectForKey:commentKey];
 
-    return [CommentTableViewCell heightForContent:comment.text];
+    return [CommentTableViewCell heightForContent:comment.text
+        stateChangeText:comment.stateChangeDescription];
 }
 
 #pragma mark UITableViewDelegate implementation
@@ -141,7 +136,6 @@
     stateLabel.textColor = [UIColor bugWatchColorForState:someMetaData.state];
     dateLabel.text = [aTicket.creationDate shortDescription];
     descriptionLabel.text = aTicket.description;
-    messageLabel.text = aTicket.message;
     NSString * reportedByText = reportedBy ? reportedBy : @"none";
     reportedByLabel.text =
         [NSString stringWithFormat:@"Reported by: %@", reportedByText];
@@ -155,7 +149,11 @@
     NSDictionary * tempComments = [someComments copy];
     [comments release];
     comments = tempComments;
-    
+
+    TicketComment * firstComment =
+        [comments objectForKey:[[self sortedKeys] objectAtIndex:0]];
+    messageLabel.text = firstComment.text;
+
     NSDictionary * tempCommentAuthors = [someCommentAuthors copy];
     [commentAuthors release];
     commentAuthors = tempCommentAuthors;
@@ -222,7 +220,7 @@
 
     CGRect headerViewFrame = headerView.frame;
     NSInteger headerViewOffset =
-        messageLabel.text != @"" ? COMMENT_PADDING : -1 * COMMENT_PADDING;
+        ![messageLabel.text isEqual:@""] ? COMMENT_PADDING : -1 * COMMENT_PADDING;
     headerViewFrame.size.height =
         messageLabelFrame.origin.y + messageLabelFrame.size.height +
         headerViewOffset;
@@ -230,6 +228,11 @@
 
     // necessary to reset header height allocation for table view
     self.tableView.tableHeaderView = headerView;
+}
+
+- (NSArray *)sortedKeys
+{
+    return [[comments allKeys] sortedArrayUsingSelector:@selector(compare:)];
 }
 
 @end

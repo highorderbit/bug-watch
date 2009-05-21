@@ -8,6 +8,12 @@
 #import "TicketTableViewCell.h"
 #import "TicketKey.h"
 
+@interface TicketsViewController (Private)
+
+- (NSArray *)sortedKeys;
+
+@end
+
 @implementation TicketsViewController
 
 @synthesize delegate, headerView;
@@ -56,7 +62,7 @@
         cell = [nib objectAtIndex:0];
     }
 
-    TicketKey * ticketKey = [[tickets allKeys] objectAtIndex:indexPath.row];
+    TicketKey * ticketKey = [[self sortedKeys] objectAtIndex:indexPath.row];
     Ticket * ticket = [tickets objectForKey:ticketKey];
     TicketMetaData * ticketMetaData =
         [metaData objectForKey:ticketKey];
@@ -77,7 +83,7 @@
 - (void)tableView:(UITableView *)aTableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TicketKey * key = [[tickets allKeys] objectAtIndex:indexPath.row];
+    TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
     [delegate selectedTicketKey:key];
 }
 
@@ -86,7 +92,7 @@
 - (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSNumber * ticketNumber = [[tickets allKeys] objectAtIndex:indexPath.row];
+    NSNumber * ticketNumber = [[self sortedKeys] objectAtIndex:indexPath.row];
     Ticket * ticket = [tickets objectForKey:ticketNumber];
     
     return [TicketTableViewCell heightForContent:ticket.description];
@@ -128,6 +134,11 @@
 
     self.tableView.tableHeaderView = headerView;
     [self.tableView reloadData];  // force the header view to resize
+}
+
+- (NSArray *)sortedKeys
+{
+    return [metaData keysSortedByValueUsingSelector:@selector(compare:)];
 }
 
 @end

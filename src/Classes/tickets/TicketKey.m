@@ -44,4 +44,13 @@
         && ticketNumber == aTicketNumber;
 }
 
+- (NSComparisonResult)compare:(TicketKey *)anotherTicketKey
+{
+    NSNumber * number = [NSNumber numberWithInt:self.ticketNumber];
+    NSNumber * anotherNumber =
+        [NSNumber numberWithInt:anotherTicketKey.ticketNumber];
+
+    return [number compare:anotherNumber];
+}
+
 @end

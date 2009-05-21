@@ -58,4 +58,10 @@
     return stateDescription;
 }
 
+- (NSComparisonResult)compare:(TicketMetaData *)anotherTicketMetaData
+{
+    return [anotherTicketMetaData.lastModifiedDate
+        compare:self.lastModifiedDate];
+}
+
 @end

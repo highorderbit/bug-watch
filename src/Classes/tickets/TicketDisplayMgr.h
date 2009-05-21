@@ -34,10 +34,8 @@
     NetworkAwareViewController * detailsNetAwareViewController;
     EditTicketViewController * editTicketViewController;
 
-    // TEMPORARY
     NSMutableDictionary * userDict;
-    NSMutableDictionary * milestoneDict;
-    // TEMPORARY
+    NSDictionary * milestoneDict;
 }
 
 @property (readonly) TicketDetailsViewController * detailsViewController;
@@ -48,6 +46,9 @@
 @property (nonatomic, retain) TicketCache * ticketCache;
 @property (nonatomic, retain) TicketCommentCache * commentCache;
 @property (nonatomic, copy) NSString * filterString;
+
+@property (nonatomic, copy) NSDictionary * milestoneDict;
+@property (nonatomic, copy) NSDictionary * userDict;
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache
     initialFilterString:(NSString *)initialFilterString
