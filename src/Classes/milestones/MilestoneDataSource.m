@@ -43,15 +43,6 @@
     return self;
 }
 
-/*
-#pragma mark Retrieve current milestones
-
-- (NSArray *)currentMilestones
-{
-    return [cache allMilestones].allValues;
-}
-*/
-
 #pragma mark Refreshing the list of milestones
 
 - (BOOL)fetchMilestonesIfNecessary

@@ -26,12 +26,6 @@
 - (id)initWithLighthouseApiService:(LighthouseApiService *)aService
                     milestoneCache:(MilestoneCache *)aMilsetoneCache;
 
-/*
-#pragma mark Retrieve current milestones
-
-- (NSArray *)currentMilestones;
-*/
-
 #pragma mark Refreshing the list of milestones
 
 - (BOOL)fetchMilestonesIfNecessary;
