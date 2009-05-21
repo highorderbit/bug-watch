@@ -8,9 +8,15 @@
 {
     IBOutlet UILabel * keyLabel;
     IBOutlet UILabel * valueLabel;
+    
+    BOOL keyOnly;
 }
+
+@property (nonatomic, assign) BOOL keyOnly;
 
 - (void)setKeyText:(NSString *)text;
 - (void)setValueText:(NSString *)text;
+
++ (CGFloat)heightForContent:(NSString *)content;
 
 @end

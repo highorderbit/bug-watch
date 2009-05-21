@@ -9,12 +9,15 @@
 @interface ItemSelectionTableViewController (Private)
 
 - (NSArray *)sortedKeys;
+- (void)doneSelected;
+- (void)cancelSelected;
 
 @end
 
 @implementation ItemSelectionTableViewController
 
 @synthesize selectedItem;
+@synthesize target, action;
 
 - (void)dealloc
 {
@@ -23,17 +26,31 @@
     [super dealloc];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.view.backgroundColor = [UIColor bugWatchBackgroundColor];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
     [self.tableView reloadData];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor bugWatchBackgroundColor];
+
+    UIBarButtonItem * doneButton = [[[UIBarButtonItem alloc] init] autorelease];
+    doneButton.title = @"Done";
+    doneButton.target = self;
+    doneButton.action = @selector(doneSelected);
+    [self.navigationItem setRightBarButtonItem:doneButton];
+    doneButton.style = UIBarButtonItemStyleDone;
+
+    UIBarButtonItem * cancelButton =
+        [[[UIBarButtonItem alloc] init] autorelease];
+    cancelButton.title = @"Cancel";
+    cancelButton.target = self;
+    cancelButton.action = @selector(cancelSelected);
+    [self.navigationItem setLeftBarButtonItem:cancelButton];
 }
 
 #pragma mark UITableViewDataSource methods
@@ -85,7 +102,7 @@
 - (NSString *)tableView:(UITableView *)aTableView
     titleForHeaderInSection:(NSInteger)section
 {
-    return labelText;
+    return [labelText isEqual:@""] ? nil : labelText;
 }
 
 #pragma mark UITableViewDelegate implementation
@@ -117,6 +134,26 @@
 - (NSArray *)sortedKeys
 {
     return [[items allKeys] sortedArrayUsingSelector:@selector(compare:)];
+}
+
+- (void)doneSelected
+{
+    NSMethodSignature * sig =
+        [[target class] instanceMethodSignatureForSelector:action];
+    NSInvocation * invocation =
+        [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:target];
+    [invocation setSelector:action];
+    [invocation setArgument:&selectedItem atIndex:2];
+    [invocation retainArguments];
+    [invocation invoke];
+
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)cancelSelected
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
