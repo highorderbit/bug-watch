@@ -213,7 +213,7 @@
             NSLocalizedString(@"milestonedetails.tickets.filter.active", @""),
             NSLocalizedString(@"milestonedetails.tickets.filter.inactive", @""),
             nil];
-            
+
         ticketFilterControl =
             [[UISegmentedControl alloc] initWithItems:items];
         ticketFilterControl.segmentedControlStyle = UISegmentedControlStyleBar;
