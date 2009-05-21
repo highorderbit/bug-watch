@@ -153,7 +153,7 @@
     NSMutableString * text = [NSMutableString stringWithCapacity:0];
     for (NSString * key in [diff allKeys]) {
         NSString * value = [diff objectForKey:key];
-        [text appendFormat:@"→ %@ changed to '%@'\n", key, value];
+        [text appendFormat:@"→ %@ changed from '%@'\n", key, value];
     }
 
     return text;
