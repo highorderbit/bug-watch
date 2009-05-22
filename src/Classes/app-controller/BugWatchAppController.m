@@ -25,6 +25,7 @@
 #import "MessageResponseCache.h"
 #import "TicketBinViewController.h"
 #import "TicketBinDataSource.h"
+#import "AccountLevelTicketBinDataSource.h"
 #import "TicketPersistenceStore.h"
 #import "MilestoneUpdatePublisher.h"
 #import "TicketDispMgrMilestoneSetter.h"
@@ -234,7 +235,8 @@
     TicketBinViewController * binViewController =
         [[[TicketBinViewController alloc]
         initWithNibName:@"TicketBinView" bundle:nil] autorelease];
-    TicketBinDataSource * ticketBinDataSource = [self initTicketBinDataSource];
+    AccountLevelTicketBinDataSource * ticketBinDataSource = 
+        [[[AccountLevelTicketBinDataSource alloc] init] autorelease];
 
     TicketSearchMgr * ticketSearchMgr =
         [[TicketSearchMgr alloc]
@@ -243,7 +245,8 @@
         navigationItem:ticketsNetAwareViewController.navigationItem
         ticketBinViewController:binViewController
         parentView:ticketsNetAwareViewController.navigationController.view
-        dataSource:ticketBinDataSource];
+        dataSourceTarget:ticketBinDataSource
+        dataSourceAction:@selector(fetchAllTicketBins)];
     ticketBinDataSource.delegate = ticketSearchMgr;
     binViewController.delegate = ticketSearchMgr;
     // this won't get dealloced, but fine since it exists for the runtime

@@ -16,6 +16,7 @@
 - (void)awakeFromNib
 {
     titleLabel.highlightedTextColor = [UIColor whiteColor];
+    [self setShowCount:YES];
 }
 
 - (void)layoutSubviews
@@ -46,6 +47,11 @@
 - (void)setCount:(NSUInteger)count
 {
     countLabel.text = [NSString stringWithFormat:@"%d", count];
+}
+
+- (void)setShowCount:(BOOL)showCount
+{
+    countLabel.hidden = !showCount;
 }
 
 @end
