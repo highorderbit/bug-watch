@@ -15,6 +15,7 @@
 #import "TicketDataSourceDelegate.h"
 #import "TicketSearchMgrDelegate.h"
 #import "TicketCommentCache.h"
+#import "ProjectSelectionViewController.h"
 
 @interface TicketDisplayMgr :
     NSObject <TicketsViewControllerDelegate,
@@ -33,21 +34,27 @@
     TicketDetailsViewController * detailsViewController;
     NetworkAwareViewController * detailsNetAwareViewController;
     EditTicketViewController * editTicketViewController;
+    ProjectSelectionViewController * projectSelectionViewController;
 
     NSMutableDictionary * userDict;
     NSDictionary * milestoneDict;
 
     UIView * darkTransparentView;
+    
+    id activeProjectKey;
 }
 
 @property (readonly) TicketDetailsViewController * detailsViewController;
 @property (readonly) NetworkAwareViewController * detailsNetAwareViewController;
 @property (readonly) EditTicketViewController * editTicketViewController;
+@property (readonly)
+    ProjectSelectionViewController * projectSelectionViewController;
 @property (readonly) UINavigationController * navController;
 
 @property (nonatomic, retain) TicketCache * ticketCache;
 @property (nonatomic, retain) TicketCommentCache * commentCache;
 @property (nonatomic, copy) NSString * filterString;
+@property (nonatomic, copy) id activeProjectKey;
 
 @property (nonatomic, copy) NSDictionary * milestoneDict;
 @property (nonatomic, copy) NSDictionary * userDict;

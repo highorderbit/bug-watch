@@ -15,7 +15,8 @@
 
 @implementation TicketDisplayMgr
 
-@synthesize ticketCache, commentCache, filterString, milestoneDict, userDict;
+@synthesize ticketCache, commentCache, filterString, activeProjectKey,
+    milestoneDict, userDict;
 
 - (void)dealloc
 {
@@ -23,6 +24,7 @@
     [selectedTicketKey release];
     [ticketCache release];
     [commentCache release];
+    [activeProjectKey release];
 
     [wrapperController release];
     [ticketsViewController release];
@@ -30,6 +32,7 @@
     [detailsViewController release];
     [detailsNetAwareViewController release];
     [editTicketViewController release];
+    [projectSelectionViewController release];
 
     [userDict release];
     [milestoneDict release];
@@ -55,6 +58,8 @@
         [self initDarkTransparentView];
 
         // TEMPORARY
+        self.activeProjectKey = [NSNumber numberWithInt:30772];
+
         // this will eventually be read from a user cache of some sort
         userDict = [[NSMutableDictionary dictionary] retain];
         [userDict setObject:@"Doug Kurth"
@@ -282,9 +287,12 @@
     self.editTicketViewController.milestones =
         [[milestoneDict copy] autorelease];
 
+    UIViewController * rootViewController =
+        self.editTicketViewController;
+
     UINavigationController * tempNavController =
         [[[UINavigationController alloc]
-        initWithRootViewController:self.editTicketViewController]
+        initWithRootViewController:rootViewController]
         autorelease];
 
     [self.navController presentModalViewController:tempNavController
@@ -310,9 +318,7 @@
             desc.milestoneKey = sender.milestone;
     desc.tags = sender.tags;
 
-    NSNumber * projectKey = [NSNumber numberWithInt:30772]; // TEMPORARY
-
-    [dataSource createTicketWithDescription:desc forProject:projectKey];
+    [dataSource createTicketWithDescription:desc forProject:activeProjectKey];
     
     [self.editTicketViewController.view addSubview:darkTransparentView];
     self.editTicketViewController.cancelButton.enabled = NO;
@@ -371,6 +377,20 @@
 
     return editTicketViewController;
 }
+
+- (ProjectSelectionViewController *)projectSelectionViewController
+{
+    if (!projectSelectionViewController) {
+        projectSelectionViewController =
+            [[ProjectSelectionViewController alloc]
+            initWithNibName:@"ProjectSelectionView" bundle:nil];
+        projectSelectionViewController.target = self;
+        projectSelectionViewController.action = @selector(setActiveProjectKey:);
+    }
+
+    return projectSelectionViewController;
+}
+
 
 - (UINavigationController *)navController
 {
