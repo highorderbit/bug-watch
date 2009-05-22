@@ -64,6 +64,7 @@
 		05DB83C50FC4E5F70095AF32 /* AbstractUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB83C40FC4E5F70095AF32 /* AbstractUpdatePublisher.m */; };
 		05DB84030FC4EC900095AF32 /* MilestoneUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB84000FC4EC900095AF32 /* MilestoneUpdatePublisher.m */; };
 		05DB84040FC4EC900095AF32 /* UserUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB84020FC4EC900095AF32 /* UserUpdatePublisher.m */; };
+		05DB84EB0FC5CBC60095AF32 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB84EA0FC5CBC60095AF32 /* Project.m */; };
 		05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */; };
 		05DEB1D90FB106470052888E /* MilestoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1D80FB106470052888E /* MilestoneHeaderView.m */; };
 		05DEB2270FB217090052888E /* LighthouseNewsFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB2200FB217090052888E /* LighthouseNewsFeed.m */; };
@@ -271,6 +272,8 @@
 		05DB84000FC4EC900095AF32 /* MilestoneUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneUpdatePublisher.m; path = lighthouse/api/MilestoneUpdatePublisher.m; sourceTree = "<group>"; };
 		05DB84010FC4EC900095AF32 /* UserUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserUpdatePublisher.h; path = lighthouse/api/UserUpdatePublisher.h; sourceTree = "<group>"; };
 		05DB84020FC4EC900095AF32 /* UserUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserUpdatePublisher.m; path = lighthouse/api/UserUpdatePublisher.m; sourceTree = "<group>"; };
+		05DB84E90FC5CBC60095AF32 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Project.h; path = projects/Project.h; sourceTree = "<group>"; };
+		05DB84EA0FC5CBC60095AF32 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Project.m; path = projects/Project.m; sourceTree = "<group>"; };
 		05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDisplayMgr.h; path = Classes/milestones/MilestoneDisplayMgr.h; sourceTree = "<group>"; };
 		05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDisplayMgr.m; path = Classes/milestones/MilestoneDisplayMgr.m; sourceTree = "<group>"; };
 		05DEB1910FB0FC690052888E /* MilestonesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewControllerDelegate.h; path = Classes/milestones/MilestonesViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -914,6 +917,8 @@
 		913E45A60FAA7757000EB184 /* projects */ = {
 			isa = PBXGroup;
 			children = (
+				05DB84E90FC5CBC60095AF32 /* Project.h */,
+				05DB84EA0FC5CBC60095AF32 /* Project.m */,
 				917DE35B0FB34B6300BF2015 /* ProjectHomeViewController.h */,
 				917DE35C0FB34B6300BF2015 /* ProjectHomeViewController.m */,
 				913E45A30FAA7579000EB184 /* ProjectsViewController.h */,
@@ -1270,6 +1275,7 @@
 				91482A770FC4C6A2002D10E8 /* UIState.m in Sources */,
 				91482A780FC4C6A2002D10E8 /* UIStatePersistenceStore.m in Sources */,
 				91482CAB0FC6254F002D10E8 /* ProjectSelectionViewController.m in Sources */,
+				05DB84EB0FC5CBC60095AF32 /* Project.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

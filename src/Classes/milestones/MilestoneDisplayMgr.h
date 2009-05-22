@@ -19,13 +19,19 @@
     NetworkAwareViewController * networkAwareViewController;
     MilestonesViewController * milestonesViewController;
 
+    UISegmentedControl * milestoneFilterControl;
+
     MilestoneDataSource * milestoneDataSource;
 
     MilestoneDetailsDisplayMgr * milestoneDetailsDisplayMgr;
 
     NSArray * milestones;
     NSArray * milestoneKeys;
-    NSArray * projectKeys;
+    NSArray * milestoneProjectKeys;
+
+    NSDictionary * allProjects;
+
+    BOOL showPending;
 }
 
 #pragma mark Initialization

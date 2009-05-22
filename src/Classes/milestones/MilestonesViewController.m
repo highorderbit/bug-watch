@@ -8,95 +8,58 @@
 #import "NSArray+IterationAdditions.h"
 #import "UITableViewCell+InstantiationAdditions.h"
 
-static const NSInteger NUM_SECTIONS = 2;
-enum Sections
-{
-    kOpenMilestonesSection,
-    kCompletedMilestonesSection
-};
-
 @interface MilestonesViewController ()
 
-- (NSArray *)extractOpenMilestones:(NSArray *)milestones;
-- (NSArray *)extractCompletedMilestones:(NSArray *)milestones;
-
-- (NSInteger)effectiveSectionForSection:(NSInteger)section;
 - (Milestone *)milestoneAtIndexPath:(NSIndexPath *)indexPath;
-
-@property (nonatomic, copy) NSArray * openMilestones;
-@property (nonatomic, copy) NSArray * completedMilestones;
+- (NSInteger)effectiveSectionForSection:(NSInteger)section;
 
 @end
 
 @implementation MilestonesViewController
 
-@synthesize delegate, openMilestones, completedMilestones;
+@synthesize delegate, milestones, projects;
 
 - (void)dealloc
 {
-    [openMilestones release];
-    [completedMilestones release];
+    [milestones release];
+    [projects release];
+
     [super dealloc];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.milestones = [[Milestone dummyData] retain];
 }
 
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tv
 {
-    NSInteger nsections = NUM_SECTIONS;
+    NSInteger nsections = 0;
 
-    if (openMilestones.count == 0)
-        --nsections;
-    if (completedMilestones.count == 0)
-        --nsections;
+    for (id projectKey in self.milestones)
+        nsections += [[self.milestones objectForKey:projectKey] count] ? 1 : 0;
 
-    // required to return at least 1 section
-    return nsections == 0 ? 1 : nsections;
+    return nsections;
 }
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tv
  numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger nrows = 0;
-
-    NSInteger effectiveSection = [self effectiveSectionForSection:section];
-    switch (effectiveSection) {
-        case kOpenMilestonesSection:
-            nrows = openMilestones.count;
-            break;
-        case kCompletedMilestonesSection:
-            nrows = completedMilestones.count;
-            break;
-    }
-
-    return nrows;
+    section = [self effectiveSectionForSection:section];
+    id projectKey = [self.projects.allKeys objectAtIndex:section];
+    return [[self.milestones objectForKey:projectKey] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section
 {
-    NSString * title = nil;
+    section = [self effectiveSectionForSection:section];
 
-    NSInteger effectiveSection = [self effectiveSectionForSection:section];
-    switch (effectiveSection) {
-        case kOpenMilestonesSection:
-            title = NSLocalizedString(@"milestones.open.section.title", @"");
-            break;
-        case kCompletedMilestonesSection:
-            title =
-                NSLocalizedString(@"milestones.completed.section.title", @"");
-            break;
-    }
-
-    return title;
+    id key = [self.projects.allKeys objectAtIndex:section];
+    return [[self.projects objectForKey:key] name];
 }
 
 // Customize the appearance of table view cells.
@@ -119,80 +82,43 @@ enum Sections
 - (void)tableView:(UITableView *)tv
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [delegate userDidSelectMilestone:
-        [self milestoneAtIndexPath:indexPath]];
+    [delegate userDidSelectMilestone:[self milestoneAtIndexPath:indexPath]];
 }
 
-- (NSArray *)milestones
+#pragma mark Updating the display
+
+- (void)updateDisplay
 {
-    return [openMilestones arrayByAddingObjectsFromArray:completedMilestones];
-}
-
-- (void)setMilestones:(NSArray *)someMilestones
-{
-    /*
-    NSSortDescriptor * nilSorter =
-        [[[NSSortDescriptor alloc]
-        initWithKey:nil ascending:NO selector:@selector(isDue)]
-        autorelease];
-    NSSortDescriptor * dueDateSorter =
-        [[[NSSortDescriptor alloc]
-        initWithKey:@"dueDate" ascending:YES] autorelease];
-    NSArray * descriptors =
-        [NSArray arrayWithObjects:nilSorter, dueDateSorter, nil];
-
-    self.openMilestones =
-        [[self extractOpenMilestones:someMilestones]
-        sortedArrayUsingDescriptors:descriptors];
-    self.completedMilestones =
-        [[self extractCompletedMilestones:someMilestones]
-        sortedArrayUsingDescriptors:descriptors];
-    */
-
-    self.openMilestones =
-        [[self extractOpenMilestones:someMilestones]
-        sortedArrayUsingSelector:@selector(dueDateCompare:)];
-    self.completedMilestones =
-        [[self extractCompletedMilestones:someMilestones]
-        sortedArrayUsingSelector:@selector(dueDateCompare:)];
-
     [self.tableView reloadData];
 }
 
 #pragma mark Helper methods
 
-- (NSArray *)extractOpenMilestones:(NSArray *)milestones
+- (Milestone *)milestoneAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray * completed = [self extractCompletedMilestones:milestones];
-    NSMutableArray * mutableMilestones = [[milestones mutableCopy] autorelease];
-    [mutableMilestones removeObjectsInArray:completed];
-    return mutableMilestones;
-}
+    NSInteger section = [self effectiveSectionForSection:indexPath.section];
 
-- (NSArray *)extractCompletedMilestones:(NSArray *)milestones
-{
-    SEL filter = @selector(completed);
-    return [milestones arrayByFilteringObjectsUsingSelector:filter];
+    id projectKey = [self.projects.allKeys objectAtIndex:section];
+    Milestone * milestone =
+        [[self.milestones objectForKey:projectKey] objectAtIndex:indexPath.row];
+
+    return milestone;
 }
 
 - (NSInteger)effectiveSectionForSection:(NSInteger)section
 {
-    if (section == kOpenMilestonesSection && openMilestones.count == 0)
-        return section + 1;
+    NSInteger effectiveSection = section;
 
-    return section;
-}
+    NSArray * projectKeys = self.projects.allKeys;
+    for (NSInteger i = 0; i <= effectiveSection; ++i) {
+        id projectKey = [projectKeys objectAtIndex:i];
+        NSArray * projectMilestones = [self.milestones objectForKey:projectKey];
 
-- (Milestone *)milestoneAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSInteger effectiveSection =
-        [self effectiveSectionForSection:indexPath.section];
-    NSArray * milestones =
-        effectiveSection == kOpenMilestonesSection ?
-        openMilestones :
-        completedMilestones;
+        if (projectMilestones.count == 0)
+            ++effectiveSection;
+    }
 
-    return [milestones objectAtIndex:indexPath.row];
+    return effectiveSection;
 }
 
 @end

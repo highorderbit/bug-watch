@@ -16,7 +16,14 @@
     LighthouseApiService * service;
     MilestoneCache * cache;
 
-    BOOL needsUpdating;
+    // temporary project cache
+    NSArray * projectKeys;
+    NSArray * projects;
+
+    BOOL projectsNeedUpdating;
+    BOOL milestonesNeedUpdating;
+
+    NSUInteger pendingFetches;
 }
 
 @property (nonatomic, assign) id<MilestoneDataSourceDelegate> delegate;
@@ -25,12 +32,6 @@
 
 - (id)initWithLighthouseApiService:(LighthouseApiService *)aService
                     milestoneCache:(MilestoneCache *)aMilsetoneCache;
-
-/*
-#pragma mark Retrieve current milestones
-
-- (NSArray *)currentMilestones;
-*/
 
 #pragma mark Refreshing the list of milestones
 

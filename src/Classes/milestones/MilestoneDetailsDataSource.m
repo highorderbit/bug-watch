@@ -8,6 +8,7 @@
 #import "MilestoneCache.h"
 #import "Milestone.h"
 #import "TicketKey.h"
+#import "NSObject+RuntimeAdditions.h"
 
 @interface MilestoneDetailsDataSource ()
 
@@ -115,11 +116,13 @@
         [NSMutableDictionary dictionaryWithCapacity:creatorIds.count];
 
     for (NSInteger i = 0, count = ticketNumbers.count; i < count; ++i) {
+        id projectId = [projectIds objectAtIndex:i];
         NSNumber * number = [ticketNumbers objectAtIndex:i];
         NSUInteger numberAsInt = [number integerValue];
         TicketKey * ticketKey =
             [[[TicketKey alloc]
-            initWithProjectKey:nil ticketNumber:numberAsInt] autorelease];
+            initWithProjectKey:projectId ticketNumber:numberAsInt]
+            autorelease];
         Ticket * ticket = [tickets objectAtIndex:i];
         TicketMetaData * metaData = [metadata objectAtIndex:i];
         id milestoneId = [milestoneIds objectAtIndex:i];
@@ -137,13 +140,13 @@
             [ticketCache setCreatedByKey:creatorId forKey:ticketKey];
 
         if ([object isEqual:milestoneId]) {
-            [matchingTickets setObject:ticket forKey:number];
-            [matchingMetadata setObject:metaData forKey:number];
+            [matchingTickets setObject:ticket forKey:ticketKey];
+            [matchingMetadata setObject:metaData forKey:ticketKey];
 
             id user = [users objectForKey:userId];
             id creator = [users objectForKey:creatorId];
-            [matchingUserIds setObject:user forKey:number];
-            [matchingCreatorIds setObject:creator forKey:number];
+            [matchingUserIds setObject:user forKey:ticketKey];
+            [matchingCreatorIds setObject:creator forKey:ticketKey];
         }
     }
 
@@ -193,22 +196,17 @@
     NSMutableDictionary * users = [NSMutableDictionary dictionary];
     NSMutableDictionary * creators = [NSMutableDictionary dictionary];
 
-    for (NSNumber * ticketNumber in ticketNumbers) {
-        NSUInteger number = [ticketNumber integerValue];
-        TicketKey * ticketKey =
-            [[[TicketKey alloc]
-            initWithProjectKey:nil ticketNumber:number] autorelease];
-
+    for (TicketKey * ticketKey in ticketNumbers) {
         Ticket * ticket = [ticketCache ticketForKey:ticketKey];
         TicketMetaData * metadata = [ticketCache metaDataForKey:ticketKey];
         id creatorKey = [ticketCache createdByKeyForKey:ticketKey];
         id userKey = [ticketCache assignedToKeyForKey:ticketKey];
 
-        [tickets setObject:ticket forKey:ticketNumber];
-        [metadatas setObject:metadata forKey:ticketNumber];
-        [users setObject:[allUsers objectForKey:userKey] forKey:ticketNumber];
+        [tickets setObject:ticket forKey:ticketKey];
+        [metadatas setObject:metadata forKey:ticketKey];
+        [users setObject:[allUsers objectForKey:userKey] forKey:ticketKey];
         [creators
-            setObject:[allUsers objectForKey:creatorKey] forKey:ticketNumber];
+            setObject:[allUsers objectForKey:creatorKey] forKey:ticketKey];
     }
 
     Milestone * milestone = [milestoneCache milestoneForKey:self.milestoneKey];
