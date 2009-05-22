@@ -38,10 +38,12 @@
 
     NSMutableDictionary * userDict;
     NSDictionary * milestoneDict;
+    NSMutableDictionary * projectDict;
 
     UIView * darkTransparentView;
-    
+
     id activeProjectKey;
+    BOOL selectProject;
 }
 
 @property (readonly) TicketDetailsViewController * detailsViewController;
@@ -55,6 +57,7 @@
 @property (nonatomic, retain) TicketCommentCache * commentCache;
 @property (nonatomic, copy) NSString * filterString;
 @property (nonatomic, copy) id activeProjectKey;
+@property (nonatomic, assign) BOOL selectProject;
 
 @property (nonatomic, copy) NSDictionary * milestoneDict;
 @property (nonatomic, copy) NSDictionary * userDict;

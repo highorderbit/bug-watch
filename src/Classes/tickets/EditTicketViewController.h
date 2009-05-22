@@ -10,8 +10,6 @@
 {
     IBOutlet UIBarButtonItem * cancelButton;
     IBOutlet UIBarButtonItem * updateButton;
-    IBOutlet UITextField * descriptionTextField;
-    IBOutlet UITextField * tagsTextField;
 
     AddCommentViewController * addCommentViewController;
     ItemSelectionTableViewController * itemSelectionTableViewController;

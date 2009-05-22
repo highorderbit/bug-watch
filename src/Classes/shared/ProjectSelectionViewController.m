@@ -56,11 +56,13 @@
     
     UITableViewCell * cell =
         [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil)
+    if (cell == nil) {
         cell =
             [[[UITableViewCell alloc]
             initWithFrame:CGRectZero reuseIdentifier:cellIdentifier]
             autorelease];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     
     id projectKey = [[projects allKeys] objectAtIndex:indexPath.row];
     NSString * project = [projects objectForKey:projectKey];
@@ -78,7 +80,8 @@
         [NSInvocation invocationWithMethodSignature:sig];
     [invocation setTarget:target];
     [invocation setSelector:action];
-    [invocation setArgument:&self atIndex:2];
+    id key = [[projects allKeys] objectAtIndex:indexPath.row];
+    [invocation setArgument:&key atIndex:2];
     [invocation retainArguments];
     [invocation invoke];
 }

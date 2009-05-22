@@ -10,13 +10,17 @@
 - (void)addTicketOnServer:(EditTicketViewController *)sender;
 - (void)initDarkTransparentView;
 - (void)forceQueryRefresh;
+- (void)userDidSelectActiveProjectKey:(id)key;
+- (void)prepareNewTicketView;
+
+@property (nonatomic, readonly) NSDictionary * milestonesForProject;
 
 @end
 
 @implementation TicketDisplayMgr
 
 @synthesize ticketCache, commentCache, filterString, activeProjectKey,
-    milestoneDict, userDict;
+    selectProject, milestoneDict, userDict;
 
 - (void)dealloc
 {
@@ -36,7 +40,8 @@
 
     [userDict release];
     [milestoneDict release];
-    
+    [projectDict release];
+
     [darkTransparentView release];
 
     [super dealloc];
@@ -56,6 +61,7 @@
         dataSource = [aDataSource retain];
 
         [self initDarkTransparentView];
+        self.selectProject = YES;
 
         // TEMPORARY
         self.activeProjectKey = [NSNumber numberWithInt:30772];
@@ -66,6 +72,12 @@
             forKey:[NSNumber numberWithInt:50190]];
         [userDict setObject:@"John A. Debay"
             forKey:[NSNumber numberWithInt:50209]];
+
+        projectDict = [[NSMutableDictionary dictionary] retain];
+        [projectDict setObject:@"Bug Watch"
+            forKey:[NSNumber numberWithInt:30772]];
+        [projectDict setObject:@"Code Watch"
+            forKey:[NSNumber numberWithInt:27400]];
         // TEMPORARY
     }
 
@@ -225,8 +237,7 @@
     
     self.editTicketViewController.milestone =
         [ticketCache milestoneKeyForKey:selectedTicketKey];
-    self.editTicketViewController.milestones =
-        [[milestoneDict copy] autorelease];
+    self.editTicketViewController.milestones = self.milestonesForProject;
     
     UINavigationController * tempNavController =
         [[[UINavigationController alloc]
@@ -273,23 +284,16 @@
 
 - (void)addSelected
 {
-    NSLog(@"Presenting 'add ticket' view");
+    UIViewController * rootViewController;
+
+    if (selectProject) {
+        rootViewController = self.projectSelectionViewController;
+        self.projectSelectionViewController.projects = projectDict;
+    } else {
+        [self prepareNewTicketView];
+        rootViewController = self.editTicketViewController;
+    }
     
-    self.editTicketViewController.ticketDescription = @"";
-    self.editTicketViewController.message = @"";
-    self.editTicketViewController.tags = @"";
-    self.editTicketViewController.state = kNew;
-
-    self.editTicketViewController.member = [NSNumber numberWithInt:0];
-    self.editTicketViewController.members = [[userDict copy] autorelease];
-    
-    self.editTicketViewController.milestone = [NSNumber numberWithInt:0];
-    self.editTicketViewController.milestones =
-        [[milestoneDict copy] autorelease];
-
-    UIViewController * rootViewController =
-        self.editTicketViewController;
-
     UINavigationController * tempNavController =
         [[[UINavigationController alloc]
         initWithRootViewController:rootViewController]
@@ -297,9 +301,6 @@
 
     [self.navController presentModalViewController:tempNavController
         animated:YES];
-
-    self.editTicketViewController.edit = NO;
-    self.editTicketViewController.action = @selector(addTicketOnServer:);
 }
 
 - (void)addTicketOnServer:(EditTicketViewController *)sender
@@ -330,6 +331,32 @@
     NSString * tempFilterString = self.filterString;
     self.filterString = nil;
     [self ticketsFilteredByFilterString:tempFilterString];
+}
+
+- (void)userDidSelectActiveProjectKey:(id)key
+{
+    NSLog(@"User selected project %@ for ticket editing", key);
+    self.activeProjectKey = key;
+    [self prepareNewTicketView];
+    [self.projectSelectionViewController.navigationController
+        pushViewController:self.editTicketViewController animated:YES];
+}
+
+- (void)prepareNewTicketView
+{
+    self.editTicketViewController.ticketDescription = @"";
+    self.editTicketViewController.message = @"";
+    self.editTicketViewController.tags = @"";
+    self.editTicketViewController.state = kNew;
+
+    self.editTicketViewController.member = [NSNumber numberWithInt:0];
+    self.editTicketViewController.members = [[userDict copy] autorelease];
+    
+    self.editTicketViewController.milestone = [NSNumber numberWithInt:0];
+    self.editTicketViewController.milestones = self.milestonesForProject;
+
+    self.editTicketViewController.edit = NO;
+    self.editTicketViewController.action = @selector(addTicketOnServer:);
 }
 
 #pragma mark Accessors
@@ -385,7 +412,8 @@
             [[ProjectSelectionViewController alloc]
             initWithNibName:@"ProjectSelectionView" bundle:nil];
         projectSelectionViewController.target = self;
-        projectSelectionViewController.action = @selector(setActiveProjectKey:);
+        projectSelectionViewController.action =
+            @selector(userDidSelectActiveProjectKey:);
     }
 
     return projectSelectionViewController;
@@ -404,6 +432,12 @@
     milestoneDict = tempMilestoneDict;
     
     [ticketsViewController.tableView reloadData];
+}
+
+- (NSDictionary *)milestonesForProject
+{
+    // TODO: implement
+    return [[milestoneDict copy] autorelease];
 }
 
 @end

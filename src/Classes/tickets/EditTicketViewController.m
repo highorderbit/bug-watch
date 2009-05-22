@@ -56,8 +56,6 @@ static const NSInteger UNSET_KEY = 0;
 {
     [cancelButton release];
     [updateButton release];
-    [descriptionTextField release];
-    [tagsTextField release];
 
     [addCommentViewController release];
     [itemSelectionTableViewController release];
@@ -91,9 +89,6 @@ static const NSInteger UNSET_KEY = 0;
 {
     [super viewWillAppear:animated];
 
-    descriptionTextField.text = self.ticketDescription;
-    tagsTextField.text = self.tags;
-    
     [self.tableView reloadData];
     updateButton.enabled =
         ticketDescription && ![ticketDescription isEqual:@""];
@@ -272,12 +267,10 @@ static const NSInteger UNSET_KEY = 0;
 
 - (IBAction)cancel:(id)sender
 {
-    if (descriptionTextField.editing)
-        [descriptionTextField resignFirstResponder];
-    else if (tagsTextField.editing)
-        [tagsTextField resignFirstResponder];
-    else
+    if ([self.navigationController.viewControllers count] == 1)
         [self dismissModalViewControllerAnimated:YES];
+    else
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)update:(id)sender
