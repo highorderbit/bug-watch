@@ -8,6 +8,9 @@
 #import "RandomNumber.h"
 #import "RegexKitLite.h"
 
+#import "NewTicketDescription.h"
+#import "UpdateTicketDescription.h"
+
 @interface LighthouseApiService ()
 
 - (NSArray *)parseTickets:(NSData *)xml;
@@ -51,7 +54,7 @@
     [api release];
     [parser release];
 
-    [newTicketRequests release];
+    [changeTicketRequests release];
 
     [super dealloc];
 }
@@ -66,7 +69,7 @@
 
         parser = [[LighthouseApiParser alloc] init];
 
-        newTicketRequests = [[NSMutableDictionary alloc] init];
+        changeTicketRequests = [[NSMutableDictionary alloc] init];
     }
 
     return self;
@@ -107,7 +110,7 @@
     token:(NSString *)token
 {
     id requestId = [[self class] uniqueTicketKey];
-    [newTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
     [api beginTicketCreationForProject:projectKey object:requestId token:token];
 }
@@ -115,10 +118,10 @@
 #pragma mark Tickets -- editing
 
 - (void)editTicket:(id)ticketKey forProject:(id)projectKey
-    withDescription:(NewTicketDescription *)desc token:(NSString *)token
+    withDescription:(UpdateTicketDescription *)desc token:(NSString *)token
 {
     id requestId = [[self class] uniqueTicketKey];
-    [newTicketRequests setObject:[[desc copy] autorelease] forKey:requestId]; 
+    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId]; 
 
     NSString * xmlDescription = [desc xmlDescriptionForProject:projectKey];
     [api editTicket:ticketKey forProject:projectKey description:xmlDescription
@@ -266,7 +269,7 @@
 - (void)ticketCreationDidBegin:(NSData *)xml forProject:(id)projectKey
     object:(id)object token:(NSString *)token
 {
-    NewTicketDescription * desc = [newTicketRequests objectForKey:object];
+    NewTicketDescription * desc = [changeTicketRequests objectForKey:object];
     NSAssert1(desc, @"Did not find a pending ticket request for key: '%@'.",
         object);
 
@@ -280,21 +283,21 @@
 - (void)failedToBeginTicketCreationForProject:(id)projectKey
     object:(id)object token:(NSString *)token error:(NSError *)error
 {
-    NewTicketDescription * desc = [newTicketRequests objectForKey:object];
+    NewTicketDescription * desc = [changeTicketRequests objectForKey:object];
     NSAssert1(desc, @"Did not find a pending ticket request for key: '%@'.",
         object);
 
     SEL sel = @selector(failedToCreateTicket:forProject:error:);
     [self invokeSelector:sel withTarget:delegate args:desc, projectKey, error];
 
-    [newTicketRequests removeObjectForKey:object];
+    [changeTicketRequests removeObjectForKey:object];
 }
 
 - (void)ticketCreated:(NSData *)data description:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
 {
     NewTicketDescription * newTicketDescription =
-        [newTicketRequests objectForKey:object];
+        [changeTicketRequests objectForKey:object];
     NSAssert1(newTicketDescription, @"Did not find a pending ticket request "
         "for key: '%@'.", object);
 
@@ -309,7 +312,7 @@
     [self invokeSelector:sel withTarget:delegate args:ticketKey,
         newTicketDescription, projectKey, nil];
 
-    [newTicketRequests removeObjectForKey:object];
+    [changeTicketRequests removeObjectForKey:object];
 }
 
 - (void)failedToCompleteTicketCreation:(NSString *)description
@@ -317,7 +320,7 @@
     error:(NSError *)error
 {
     NewTicketDescription * newTicketDescription =
-        [newTicketRequests objectForKey:object];
+        [changeTicketRequests objectForKey:object];
     NSAssert1(newTicketDescription, @"Did not find a pending ticket request "
         "for key: '%@'.", object);
 
@@ -325,7 +328,7 @@
     [self invokeSelector:sel withTarget:delegate args:newTicketDescription,
         projectKey, error, nil];
 
-    [newTicketRequests removeObjectForKey:object];
+    [changeTicketRequests removeObjectForKey:object];
 }
 
 #pragma mark -- Tickets -- editing
@@ -334,34 +337,34 @@
     withDescription:(NSString *)description object:(id)requestId
     response:(NSData *)xml token:(NSString *)token
 {
-    NewTicketDescription * newTicketDescription =
-        [newTicketRequests objectForKey:requestId];
-    NSAssert1(newTicketDescription, @"Did not find a pending ticket request "
+    UpdateTicketDescription * updateTicketDescription =
+        [changeTicketRequests objectForKey:requestId];
+    NSAssert1(updateTicketDescription, @"Did not find a pending ticket request "
         "for key: '%@'.", requestId);
 
     NSLog(@"Data returned: '%@'.", [[[NSString alloc] initWithData:xml encoding:4] autorelease]);
 
     SEL sel = @selector(editedTicket:forProject:describedBy:);
     [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
-        newTicketDescription, nil];
+        updateTicketDescription, nil];
 
-    [newTicketRequests removeObjectForKey:requestId];
+    [changeTicketRequests removeObjectForKey:requestId];
 }
 
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
     description:(NSString *)description object:(id)requestId
     token:(NSString *)token error:(NSError *)error
 {
-    NewTicketDescription * newTicketDescription =
-        [newTicketRequests objectForKey:requestId];
-    NSAssert1(newTicketDescription, @"Did not find a pending ticket request "
+    UpdateTicketDescription * updateTicketDescription =
+        [changeTicketRequests objectForKey:requestId];
+    NSAssert1(updateTicketDescription, @"Did not find a pending ticket request "
         "for key: '%@'.", requestId);
 
     SEL sel = @selector(failedToEditTicket:forProject:describedBy:error:);
     [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
-        newTicketDescription, error, nil];
+        updateTicketDescription, error, nil];
 
-    [newTicketRequests removeObjectForKey:requestId];
+    [changeTicketRequests removeObjectForKey:requestId];
 }
 
 #pragma mark -- Ticket bins
