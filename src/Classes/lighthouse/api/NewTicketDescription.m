@@ -104,13 +104,15 @@
         @"    <title>%@</title>\n"
         @"    <updated-at type=\"datetime\"></updated-at>\n"
         @"    <user-id type=\"integer\"></user-id>\n"
+        @"    <tag>%@</tag>\n"
         @"</ticket>",
         self.assignedUserKey,
         self.body,
         self.milestoneKey,
         projectKey ? projectKey : @"",
         [TicketMetaData descriptionForState:self.state],
-        self.title];
+        self.title,
+        self.tags];
 }
 
 @end
