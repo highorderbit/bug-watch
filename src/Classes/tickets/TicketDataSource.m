@@ -39,7 +39,7 @@
 
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString
 {
-    [service searchTicketsForAllProjects:aFilterString token:token];
+    [service searchTicketsForAllProjects:aFilterString page:1 token:token];
 }
 
 - (void)fetchTicketWithKey:(TicketKey *)aTicketKey
@@ -52,7 +52,7 @@
 #pragma mark LighthouseApiServiceDelegate implementation
 
 - (void)tickets:(NSArray *)tickets
-    fetchedForSearchString:(NSString *)searchString
+    fetchedForSearchString:(NSString *)searchString page:(NSUInteger)page
     metadata:(NSArray *)someMetaData ticketNumbers:(NSArray *)ticketNumbers
     milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
     userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds
@@ -87,7 +87,8 @@
     [delegate receivedTicketsFromDataSource:ticketCache];
 }
 
-- (void)failedToFetchTicketsForAllProjects:(NSError *)response
+- (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
+    page:(NSUInteger)page error:(NSError *)error
 {}
 
 - (void)details:(NSArray *)details authors:(NSArray *)authors

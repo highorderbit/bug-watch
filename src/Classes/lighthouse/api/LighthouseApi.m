@@ -75,20 +75,25 @@
 }
 
 - (void)searchTicketsForAllProjects:(NSString *)searchString
+                               page:(NSUInteger)page
                               token:(NSString *)token
 {
     NSString * urlString =
-        [NSString stringWithFormat:@"%@tickets.xml?q=%@&_token=%@",
+        [NSString stringWithFormat:@"%@tickets.xml?q=%@&page=%u&_token=%@",
         baseUrlString,
         [searchString
             stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+        page,
         token];
     NSURLRequest * req =
         [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
 
     NSDictionary * args =
         [NSDictionary dictionaryWithObjectsAndKeys:
-        token, @"token", searchString, @"searchString", nil];
+        token, @"token",
+        searchString, @"searchString",
+        [NSNumber numberWithInteger:page], @"page",
+        nil];
 
     SEL sel =
         @selector(handleTicketSearchResultsForAllProjectsResponse:toRequest:\
@@ -100,15 +105,18 @@
 }
 
 - (void)searchTicketsForProject:(id)projectKey
-    withSearchString:(NSString *)searchString object:(id)object
-    token:(NSString *)token
+    withSearchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object token:(NSString *)token
 {
     NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/tickets.xml?q=%@&_token=%@",
+        [NSString
+            stringWithFormat:
+            @"%@projects/%@/tickets.xml?q=%@&page=%u?_token=%@",
         baseUrlString,
         projectKey,
         [searchString
             stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+        page,
         token];
     NSURLRequest * req =
         [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
@@ -118,6 +126,7 @@
         token, @"token",
         searchString, @"searchString",
         projectKey, @"projectKey",
+        [NSNumber numberWithInteger:page], @"page",
         object ? object : [NSNull null], @"object",
         nil];
 
@@ -352,14 +361,15 @@
 {
     NSString * token = [object objectForKey:@"token"];
     NSString * searchString = [object objectForKey:@"searchString"];
+    NSUInteger page = [[object objectForKey:@"page"] integerValue];
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToSearchTicketsForAllProjects:searchString
-                                                token:token
-                                                error:response];
+            page:page token:token error:response];
     else
         [delegate searchResults:response
-            fetchedForAllProjectsWithSearchString:searchString token:token];
+            fetchedForAllProjectsWithSearchString:searchString page:page
+            token:token];
 }
 
 - (void)handleTicketSearchResultsResponse:(id)response
@@ -369,15 +379,17 @@
     NSString * token = [object objectForKey:@"token"];
     NSString * searchString = [object objectForKey:@"searchString"];
     id projectKey = [object objectForKey:@"projectKey"];
+    NSUInteger page = [[object objectForKey:@"page"] integerValue];
     id obj = [object objectForKey:@"object"];
     obj = [obj isEqual:[NSNull null]] ? nil : obj;
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToSearchTicketsForProject:projectKey
-            searchString:searchString object:obj token:token error:response];
+            searchString:searchString page:page object:obj token:token
+            error:response];
     else
         [delegate searchResults:response fetchedForProject:projectKey
-            searchString:searchString object:obj token:token];
+            searchString:searchString page:page object:obj token:token];
 }
 
 - (void)handleBeginTicketCreationResponse:(id)response

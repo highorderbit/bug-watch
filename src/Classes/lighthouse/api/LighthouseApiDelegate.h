@@ -19,16 +19,16 @@
 
 - (void)searchResults:(NSData *)xml
     fetchedForAllProjectsWithSearchString:(NSString *)searchString
-    token:(NSString *)token;
+    page:(NSUInteger)page token:(NSString *)token;
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
-    token:(NSString *)token error:(NSError *)error;
+    page:(NSUInteger)page token:(NSString *)token error:(NSError *)error;
 
 - (void)searchResults:(NSData *)xml fetchedForProject:(id)projectKey
-    searchString:(NSString *)searchString object:(id)object
-    token:(NSString *)token;
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object token:(NSString *)token;
 - (void)failedToSearchTicketsForProject:(id)projectKey
-    searchString:(NSString *)searchString object:(id)object
-    token:(NSString *)token error:(NSError *)error;
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object token:(NSString *)token error:(NSError *)error;
 
 #pragma mark Tickets -- creating
 

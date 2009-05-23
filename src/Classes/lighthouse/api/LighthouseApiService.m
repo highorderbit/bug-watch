@@ -91,17 +91,17 @@
 }
 
 - (void)searchTicketsForAllProjects:(NSString *)searchString
-                              token:(NSString *)token
+    page:(NSUInteger)page token:(NSString *)token
 {
-    [api searchTicketsForAllProjects:searchString token:token];
+    [api searchTicketsForAllProjects:searchString page:page token:token];
 }
 
 - (void)searchTicketsForProject:(id)projectKey
-    withSearchString:(NSString *)searchString object:(id)object
-    token:(NSString *)token
+    withSearchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object token:(NSString *)token
 {
     [api searchTicketsForProject:projectKey withSearchString:searchString
-        object:object token:token];
+        page:page object:object token:token];
 }
 
 #pragma mark Tickets -- creating
@@ -214,7 +214,7 @@
 
 - (void)searchResults:(NSData *)data
     fetchedForAllProjectsWithSearchString:(NSString *)searchString
-    token:(NSString *)token
+    page:(NSUInteger)page token:(NSString *)token
 {
     NSArray * ticketNumbers = [self parseTicketNumbers:data];
     NSArray * tickets = [self parseTickets:data];
@@ -224,24 +224,29 @@
     NSArray * userIds = [self parseUserIds:data];
     NSArray * creatorIds = [self parseCreatorIds:data];
 
-    SEL sel = @selector(tickets:fetchedForSearchString:metadata:ticketNumbers:\
-        milestoneIds:projectIds:userIds:creatorIds:);
+    SEL sel = @selector(tickets:fetchedForSearchString:page:metadata:\
+        ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
 
-    [self invokeSelector:sel withTarget:delegate
-        args:tickets, searchString, metadata, ticketNumbers, milestoneIds,
-        projectIds, userIds, creatorIds, nil];
+    if ([delegate respondsToSelector:sel])
+        [delegate tickets:tickets fetchedForSearchString:searchString
+            page:page metadata:metadata ticketNumbers:ticketNumbers
+            milestoneIds:milestoneIds projectIds:projectIds userIds:userIds
+            creatorIds:creatorIds];
 }
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
-    token:(NSString *)token error:(NSError *)error
+    page:(NSUInteger)page token:(NSString *)token error:(NSError *)error
 {
-    SEL sel = @selector(failedToSearchTicketsForAllProjects:error:);
-    [self invokeSelector:sel withTarget:delegate args:searchString, error, nil];
+    SEL sel = @selector(failedToSearchTicketsForAllProjects:page:error:);
+
+    if ([delegate respondsToSelector:sel])
+        [delegate failedToSearchTicketsForAllProjects:searchString
+            page:page error:error];
 }
 
 - (void)searchResults:(NSData *)data fetchedForProject:(id)projectKey
-    searchString:(NSString *)searchString object:(id)object
-    token:(NSString *)token
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object token:(NSString *)token
 {
     NSArray * ticketNumbers = [self parseTicketNumbers:data];
     NSArray * tickets = [self parseTickets:data];
@@ -252,24 +257,24 @@
     NSArray * creatorIds = [self parseCreatorIds:data];
 
     // call delegate method manually since object might be nil
-    SEL sel = @selector(tickets:fetchedForProject:searchString:object:\
+    SEL sel = @selector(tickets:fetchedForProject:searchString:page:object:\
         metadata:ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
     if ([delegate respondsToSelector:sel])
         [delegate tickets:tickets fetchedForProject:projectKey
-            searchString:searchString object:object metadata:metadata
+            searchString:searchString page:page object:object metadata:metadata
             ticketNumbers:ticketNumbers milestoneIds:milestoneIds
             projectIds:projectIds userIds:userIds creatorIds:creatorIds];
 }
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
-    searchString:(NSString *)searchString object:(id)object
-    token:(NSString *)token error:(NSError *)error
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object token:(NSString *)token error:(NSError *)error
 {
-    SEL sel =
-        @selector(failedToSearchTicketsForProject:searchString:object:error:);
+    SEL sel = @selector(failedToSearchTicketsForProject:searchString:page:\
+        object:error:);
     if ([delegate respondsToSelector:sel])
         [delegate failedToSearchTicketsForProject:projectKey
-            searchString:searchString object:object error:error];
+            searchString:searchString page:page object:object error:error];
 }
 
 #pragma mark -- Tickets -- creating

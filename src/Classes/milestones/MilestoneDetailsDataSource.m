@@ -82,6 +82,7 @@
         [service
             searchTicketsForProject:self.projectKey
             withSearchString:searchString
+            page:1
             object:milestoneKey
             token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3"];
 

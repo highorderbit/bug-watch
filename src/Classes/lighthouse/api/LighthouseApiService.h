@@ -33,10 +33,10 @@
     token:(NSString *)token;
 
 - (void)searchTicketsForAllProjects:(NSString *)searchString
-                              token:(NSString *)token;
+    page:(NSUInteger)page token:(NSString *)token;
 - (void)searchTicketsForProject:(id)projectKey
-    withSearchString:(NSString *)searchString object:(id)object
-    token:(NSString *)token;
+    withSearchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object token:(NSString *)token;
 
 #pragma mark Tickets -- creating
 

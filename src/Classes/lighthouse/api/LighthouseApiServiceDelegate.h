@@ -25,21 +25,22 @@
     inProject:(id)projectKey error:(NSError *)error;
 
 - (void)tickets:(NSArray *)tickets
-    fetchedForSearchString:(NSString *)searchString
+    fetchedForSearchString:(NSString *)searchString page:(NSUInteger)page
     metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers
     milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
     userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds;
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
-    error:(NSError *)error;
+    page:(NSUInteger)page error:(NSError *)error;
 
 - (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
-    searchString:(NSString *)searchString object:(id)object
-    metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers
-    milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
-    userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds;
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object metadata:(NSArray *)metadata
+    ticketNumbers:(NSArray *)ticketNumbers milestoneIds:(NSArray *)milestoneIds
+    projectIds:(NSArray *)projectIds userIds:(NSArray *)userIds
+    creatorIds:(NSArray *)creatorIds;
 - (void)failedToSearchTicketsForProject:(id)projectKey
-    searchString:(NSString *)searchString object:(id)object
-    error:(NSError *)error;
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object error:(NSError *)error;
 
 #pragma mark Tickets -- creating
 
