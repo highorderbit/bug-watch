@@ -177,7 +177,7 @@
     [api sendRequest:req];
 }
 
-#pragma mark Tickets -- updating
+#pragma mark Tickets -- editing
 
 - (void)editTicket:(id)ticketKey forProject:(id)projectKey
     description:(NSString *)description object:(id)object
@@ -205,6 +205,32 @@
         nil];
 
     SEL sel = @selector(handleEditTicketResponse:toRequest:args:);
+    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+
+    [api sendRequest:req];
+}
+
+#pragma mark Tickets -- deleting
+
+- (void)deleteTicket:(id)ticketKey forProject:(id)projectKey
+    token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/tickets/%@.xml?_token=%@",
+        baseUrlString, projectKey, ticketKey, token];
+
+    NSMutableURLRequest * req =
+        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [req setHTTPMethod:@"DELETE"];
+
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token",
+        ticketKey, @"ticketKey",
+        projectKey, @"projectKey",
+        nil];
+
+    SEL sel = @selector(handleDeleteTicketResponse:toRequest:args:);
     [dispatcher request:req isHandledBySelector:sel target:self object:args];
 
     [api sendRequest:req];
@@ -409,6 +435,22 @@
         [delegate editedTicket:ticketKey forProject:projectKey
             withDescription:description object:object response:response
             token:token];
+}
+
+- (void)handleDeleteTicketResponse:(id)response
+                         toRequest:(NSURLRequest *)request
+                              args:(NSDictionary *)args
+{
+    NSString * token = [args objectForKey:@"token"];
+    id projectKey  = [args objectForKey:@"projectKey"];
+    id ticketKey = [args objectForKey:@"ticketKey"];
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToDeleteTicket:ticketKey forProject:projectKey
+            token:token error:response];
+    else
+        [delegate deletedTicket:ticketKey forProject:projectKey
+            token:token response:response];
 }
 
 - (void)handleTicketBinResponse:(id)response

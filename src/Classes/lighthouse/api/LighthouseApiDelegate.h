@@ -52,6 +52,13 @@
     description:(NSString *)desc object:(id)object token:(NSString *)token
     error:(NSError *)error;
 
+#pragma mark Tickets -- deleting
+
+- (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
+    token:(NSString *)token response:(NSData *)response;
+- (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
+    token:(NSString *)token error:(NSError *)response;
+
 #pragma mark Ticket bins
 
 - (void)ticketBins:(NSData *)xml

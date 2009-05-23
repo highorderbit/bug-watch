@@ -48,6 +48,11 @@
 - (void)editTicket:(id)ticketKey forProject:(id)projectKey
     withDescription:(UpdateTicketDescription *)desc token:(NSString *)token;
 
+#pragma mark Tickets -- deleting
+
+- (void)deleteTicket:(id)ticketKey forProject:(id)projectKey
+    token:(NSString *)token;
+
 #pragma mark Ticket bins
 
 - (void)fetchTicketBins:(NSString *)token;

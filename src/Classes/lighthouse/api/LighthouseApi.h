@@ -48,10 +48,15 @@
                                   object:(id)object
                                    token:(NSString *)token;
 
-#pragma mark Tickets -- updating
+#pragma mark Tickets -- editing
 
 - (void)editTicket:(id)ticketKey forProject:(id)projectKey
     description:(NSString *)description object:(id)object
+    token:(NSString *)token;
+
+#pragma mark Tickets -- deleting
+
+- (void)deleteTicket:(id)ticketKey forProject:(id)projectKey
     token:(NSString *)token;
 
 #pragma mark Ticket bins

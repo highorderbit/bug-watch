@@ -55,6 +55,12 @@
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
     describedBy:(NewTicketDescription *)description error:(NSError *)error;
 
+#pragma mark Tickets -- deleting
+
+- (void)deletedTicket:(id)ticketKey forProject:(id)projectKey;
+- (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
+    error:(NSError *)error;
+
 #pragma mark Ticket bins
 
 @optional

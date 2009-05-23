@@ -121,11 +121,19 @@
     withDescription:(UpdateTicketDescription *)desc token:(NSString *)token
 {
     id requestId = [[self class] uniqueTicketKey];
-    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId]; 
+    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
     NSString * xmlDescription = [desc xmlDescriptionForProject:projectKey];
     [api editTicket:ticketKey forProject:projectKey description:xmlDescription
         object:requestId token:token];
+}
+
+#pragma mark Tickets -- deleting
+
+- (void)deleteTicket:(id)ticketKey forProject:(id)projectKey
+    token:(NSString *)token
+{
+    [api deleteTicket:ticketKey forProject:projectKey token:token];
 }
 
 #pragma mark Ticket bins
@@ -342,8 +350,6 @@
     NSAssert1(updateTicketDescription, @"Did not find a pending ticket request "
         "for key: '%@'.", requestId);
 
-    NSLog(@"Data returned: '%@'.", [[[NSString alloc] initWithData:xml encoding:4] autorelease]);
-
     SEL sel = @selector(editedTicket:forProject:describedBy:);
     [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
         updateTicketDescription, nil];
@@ -365,6 +371,27 @@
         updateTicketDescription, error, nil];
 
     [changeTicketRequests removeObjectForKey:requestId];
+}
+
+#pragma mark Tickets -- deleting
+
+- (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
+    token:(NSString *)token response:(NSData *)xml
+{
+    NSLog(@"Delete ticket response: '%@'.",
+        [[[NSString alloc] initWithData:xml encoding:4] autorelease]);
+
+    SEL sel = @selector(deletedTicket:forProject:);
+    [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
+        nil];
+}
+
+- (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
+    token:(NSString *)token error:(NSError *)response
+{
+    SEL sel = @selector(failedToDeleteTicket:forProject:error:);
+    [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
+        response, nil];
 }
 
 #pragma mark -- Ticket bins
