@@ -138,9 +138,9 @@
 
 #pragma mark Ticket bins
 
-- (void)fetchTicketBins:(NSString *)token
+- (void)fetchTicketBinsForProject:(id)projectKey token:(NSString *)token
 {
-    [api fetchTicketBinsForProject:27400 token:token];
+    [api fetchTicketBinsForProject:projectKey token:token];
 }
 
 #pragma mark Users
@@ -396,20 +396,22 @@
 
 #pragma mark -- Ticket bins
 
-- (void)ticketBins:(NSData *)xml
-    fetchedForProject:(NSUInteger)projectId token:(NSString *)token
+- (void)ticketBins:(NSData *)xml fetchedForProject:(id)projectKey
+    token:(NSString *)token
 {
     NSArray * ticketBins = [self parseTicketBins:xml];
 
-    SEL sel = @selector(fetchedTicketBins:token:);
-    [self invokeSelector:sel withTarget:delegate args:ticketBins, token, nil];
+    SEL sel = @selector(fetchedTicketBins:forProject:token:);
+    [self invokeSelector:sel withTarget:delegate args:ticketBins, projectKey,
+        token, nil];
 }
 
-- (void)failedToFetchTicketBinsForProject:(NSUInteger)projectId
+- (void)failedToFetchTicketBinsForProject:(id)projectKey
     token:(NSString *)token error:(NSError *)error
 {
-    SEL sel = @selector(failedToFetchTicketBins:error:);
-    [self invokeSelector:sel withTarget:delegate args:token, error, nil];
+    SEL sel = @selector(failedToFetchTicketBinsForProject:token:error:);
+    [self invokeSelector:sel withTarget:delegate args:projectKey, token, error,
+        nil];
 }
 
 #pragma mark -- Users

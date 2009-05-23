@@ -55,7 +55,7 @@
 
 #pragma mark Ticket bins
 
-- (void)fetchTicketBins:(NSString *)token;
+- (void)fetchTicketBinsForProject:(id)projectKey token:(NSString *)token;
 
 #pragma mark Users
 

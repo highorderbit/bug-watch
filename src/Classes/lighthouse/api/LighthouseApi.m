@@ -238,15 +238,16 @@
 
 #pragma mark Ticket Bins
 
-- (void)fetchTicketBinsForProject:(NSUInteger)projectId token:(NSString *)token
+- (void)fetchTicketBinsForProject:(id)projectKey token:(NSString *)token
 {
     NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%u/bins.xml?_token=%@",
-        baseUrlString, projectId, token];
+        [NSString stringWithFormat:@"%@projects/%@/bins.xml?_token=%@",
+        baseUrlString, projectKey, token];
     SEL sel = @selector(handleTicketBinResponse:toRequest:object:);
     NSDictionary * args =
         [NSDictionary dictionaryWithObjectsAndKeys:
-        token, @"token", [NSNumber numberWithInteger:projectId], @"projectId",
+        token, @"token",
+        projectKey, @"projectKey",
         nil];
 
     [self sendRequestToUrl:urlString callback:sel arguments:args];
@@ -458,14 +459,14 @@
                          object:(id)object
 {
     NSString * token = [object objectForKey:@"token"];
-    NSUInteger projectId = [[object objectForKey:@"projectId"] integerValue];
+    id projectKey = [object objectForKey:@"projectKey"];
 
     if ([response isKindOfClass:[NSError class]])
-        [delegate failedToFetchTicketBinsForProject:projectId
+        [delegate failedToFetchTicketBinsForProject:projectKey
                                               token:token
                                               error:response];
     else
-        [delegate ticketBins:response fetchedForProject:projectId token:token];
+        [delegate ticketBins:response fetchedForProject:projectKey token:token];
 }
 
 - (void)handleAllUsersForProjectResponse:(id)response

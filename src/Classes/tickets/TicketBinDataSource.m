@@ -26,14 +26,15 @@
 {
     // TEMPORARY
     static NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
-    [service fetchTicketBins:token];
+    [service fetchTicketBinsForProject:@"27400" token:token];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
 
-- (void)fetchedTicketBins:(NSArray *)ticketBins token:(NSString *)token
+- (void)fetchedTicketBins:(NSArray *)ticketBins forProject:(id)projectKey
+    token:(NSString *)token
 {
-    NSLog(@"Received ticket bins: ", ticketBins);
+    NSLog(@"Received ticket bins: %@", ticketBins);
     [delegate receivedTicketBinsFromDataSource:ticketBins];
 }
 

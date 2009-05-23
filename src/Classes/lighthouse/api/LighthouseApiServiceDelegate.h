@@ -65,8 +65,10 @@
 
 @optional
 
-- (void)fetchedTicketBins:(NSArray *)ticketBins token:(NSString *)token;
-- (void)failedToFetchTicketBins:(NSString *)token error:(NSError *)error;
+- (void)fetchedTicketBins:(NSArray *)ticketBins forProject:(id)projectKey
+    token:(NSString *)token;
+- (void)failedToFetchTicketBinsForProject:(id)projectKey token:(NSString *)token
+    error:(NSError *)error;
 
 #pragma mark Users
 

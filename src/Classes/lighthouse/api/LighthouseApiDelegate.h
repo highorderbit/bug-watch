@@ -61,9 +61,9 @@
 
 #pragma mark Ticket bins
 
-- (void)ticketBins:(NSData *)xml
-    fetchedForProject:(NSUInteger)projectId token:(NSString *)token;
-- (void)failedToFetchTicketBinsForProject:(NSUInteger)projectId
+- (void)ticketBins:(NSData *)xml fetchedForProject:(id)projectKey
+    token:(NSString *)token;
+- (void)failedToFetchTicketBinsForProject:(id)projectKey
     token:(NSString *)token error:(NSError *)error;
 
 #pragma mark Users
