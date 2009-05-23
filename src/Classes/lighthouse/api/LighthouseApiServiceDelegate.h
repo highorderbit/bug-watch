@@ -41,10 +41,19 @@
     searchString:(NSString *)searchString object:(id)object
     error:(NSError *)error;
 
+#pragma mark Tickets -- creating
+
 - (void)ticket:(id)ticketKey describedBy:(NewTicketDescription *)description
     createdForProject:(id)projectKey;
 - (void)failedToCreateNewTicketDescribedBy:(NewTicketDescription *)description
     forProject:(id)projectKey error:(NSError *)error;
+
+#pragma mark Tickets -- editing
+
+- (void)editedTicket:(id)ticketKey forProject:(id)projectKey
+    describedBy:(NewTicketDescription *)description;
+- (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
+    describedBy:(NewTicketDescription *)description error:(NSError *)error;
 
 #pragma mark Ticket bins
 

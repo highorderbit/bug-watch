@@ -177,6 +177,39 @@
     [api sendRequest:req];
 }
 
+#pragma mark Tickets -- updating
+
+- (void)editTicket:(id)ticketKey forProject:(id)projectKey
+    description:(NSString *)description object:(id)object
+    token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/tickets/%@.xml?_token=%@",
+        baseUrlString, projectKey, ticketKey, token];
+    NSData * encodedDescription =
+        [description dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSMutableURLRequest * req =
+        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [req setHTTPMethod:@"PUT"];
+    [req setHTTPBody:encodedDescription];
+    [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token",
+        ticketKey, @"ticketKey",
+        projectKey, @"projectKey",
+        description, @"description",
+        object, @"object",
+        nil];
+
+    SEL sel = @selector(handleEditTicketResponse:toRequest:args:);
+    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+
+    [api sendRequest:req];
+}
+
 #pragma mark Ticket Bins
 
 - (void)fetchTicketBinsForProject:(NSUInteger)projectId token:(NSString *)token
@@ -353,16 +386,29 @@
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToCompleteTicketCreation:description
-                                      forProject:projectKey
-                                          object:object
-                                           token:token
-                                           error:response];
+            forProject:projectKey object:object token:token error:response];
     else
-        [delegate ticketCreated:response
-                    description:description
-                     forProject:projectKey
-                         object:object
-                          token:token];
+        [delegate ticketCreated:response description:description
+            forProject:projectKey object:object token:token];
+}
+
+- (void)handleEditTicketResponse:(id)response
+                       toRequest:(NSURLRequest *)request
+                            args:(NSDictionary *)args
+{
+    NSString * token = [args objectForKey:@"token"];
+    id projectKey  = [args objectForKey:@"projectKey"];
+    id ticketKey = [args objectForKey:@"ticketKey"];
+    NSString * description = [args objectForKey:@"description"];
+    id object = [args objectForKey:@"object"];
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToEditTicket:ticketKey forProject:projectKey
+             description:description object:object token:token error:response];
+    else
+        [delegate editedTicket:ticketKey forProject:projectKey
+            withDescription:description object:object response:response
+            token:token];
 }
 
 - (void)handleTicketBinResponse:(id)response

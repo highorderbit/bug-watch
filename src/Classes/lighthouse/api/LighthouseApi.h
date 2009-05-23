@@ -24,7 +24,7 @@
 
 - (id)initWithBaseUrlString:(NSString *)aBaseUrlString;
 
-#pragma mark Tickets
+#pragma mark Tickets -- retrieving and searching
 
 - (void)fetchTicketsForAllProjects:(NSString *)token;
 
@@ -37,6 +37,8 @@
     withSearchString:(NSString *)searchString object:(id)object
     token:(NSString *)token;
 
+#pragma mark Tickets -- creating
+
 - (void)beginTicketCreationForProject:(id)projectKey
                                object:(id)object
                                 token:(NSString *)token;
@@ -45,6 +47,12 @@
                              description:(NSString *)description
                                   object:(id)object
                                    token:(NSString *)token;
+
+#pragma mark Tickets -- updating
+
+- (void)editTicket:(id)ticketKey forProject:(id)projectKey
+    description:(NSString *)description object:(id)object
+    token:(NSString *)token;
 
 #pragma mark Ticket bins
 

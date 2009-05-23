@@ -6,7 +6,7 @@
 
 @protocol LighthouseApiDelegate
 
-#pragma mark Tickets
+#pragma mark Tickets -- searching
 
 - (void)tickets:(NSData *)xml fetchedForAllProjectsWithToken:(NSString *)token;
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
@@ -30,7 +30,7 @@
     searchString:(NSString *)searchString object:(id)object
     token:(NSString *)token error:(NSError *)error;
 
-#pragma mark Writing to tickets
+#pragma mark Tickets -- creating
 
 - (void)ticketCreationDidBegin:(NSData *)xml forProject:(id)projectKey
     object:(id)object token:(NSString *)token;
@@ -41,6 +41,15 @@
     forProject:(id)projectKey object:(id)object token:(NSString *)token;
 - (void)failedToCompleteTicketCreation:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
+    error:(NSError *)error;
+
+#pragma mark Tickets -- editing
+
+- (void)editedTicket:(id)ticketKey forProject:(id)projectKey
+    withDescription:(NSString *)description object:(id)requestId
+    response:(NSData *)xml token:(NSString *)token;
+- (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
+    description:(NSString *)desc object:(id)object token:(NSString *)token
     error:(NSError *)error;
 
 #pragma mark Ticket bins
