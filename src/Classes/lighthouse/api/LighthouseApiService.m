@@ -773,6 +773,8 @@
         for (id arg = firstArg; arg != nil; arg = va_arg(args, id), ++argIdx)
             [inv setArgument:&arg atIndex:argIdx];
 
+        va_end(args);
+
         [inv invoke];
 
         return YES;
