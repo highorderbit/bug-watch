@@ -10,8 +10,6 @@
 {
     IBOutlet UIBarButtonItem * cancelButton;
     IBOutlet UIBarButtonItem * updateButton;
-    IBOutlet UITextField * descriptionTextField;
-    IBOutlet UITextField * tagsTextField;
 
     AddCommentViewController * addCommentViewController;
     ItemSelectionTableViewController * itemSelectionTableViewController;
@@ -34,6 +32,9 @@
     id target;
     SEL action;
 }
+
+@property (nonatomic, readonly) UIBarButtonItem * cancelButton;
+@property (nonatomic, readonly) UIBarButtonItem * updateButton;
 
 @property (nonatomic, assign) id target;
 

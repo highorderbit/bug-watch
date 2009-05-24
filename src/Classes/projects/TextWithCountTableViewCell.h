@@ -13,5 +13,6 @@
 
 - (void)setText:(NSString *)text;
 - (void)setCount:(NSUInteger)count;
+- (void)setShowCount:(BOOL)showCount;
 
 @end

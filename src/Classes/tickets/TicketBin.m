@@ -8,7 +8,7 @@
 
 @property (nonatomic, copy) NSString * name;
 @property (nonatomic, copy) NSString * searchString;
-@property (nonatomic, assign) NSUInteger ticketCount;
+@property (nonatomic, assign) NSInteger ticketCount;
 
 @end
 
@@ -17,7 +17,7 @@
 @synthesize name, searchString, ticketCount;
 
 + (id)ticketBinWithName:(NSString *)aName searchString:(NSString *)aSearchString
-    ticketCount:(NSUInteger)aTicketCount
+    ticketCount:(NSInteger)aTicketCount
 {
     return
         [[[[self class] alloc] initWithName:aName searchString:aSearchString
@@ -32,7 +32,7 @@
 }
 
 - (id)initWithName:(NSString *)aName searchString:(NSString *)aSearchString
-    ticketCount:(NSUInteger)aTicketCount
+    ticketCount:(NSInteger)aTicketCount
 {
     if (self = [super init]) {
         self.name = aName;

@@ -124,6 +124,9 @@
 		91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */; };
 		91482A770FC4C6A2002D10E8 /* UIState.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A740FC4C6A2002D10E8 /* UIState.m */; };
 		91482A780FC4C6A2002D10E8 /* UIStatePersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A760FC4C6A2002D10E8 /* UIStatePersistenceStore.m */; };
+		91482CA70FC62349002D10E8 /* ProjectSelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91482CA50FC62349002D10E8 /* ProjectSelectionView.xib */; };
+		91482CAB0FC6254F002D10E8 /* ProjectSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482CAA0FC6254F002D10E8 /* ProjectSelectionViewController.m */; };
+		91482D420FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -371,6 +374,11 @@
 		91482A740FC4C6A2002D10E8 /* UIState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIState.m; path = "app-controller/UIState.m"; sourceTree = "<group>"; };
 		91482A750FC4C6A2002D10E8 /* UIStatePersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIStatePersistenceStore.h; path = "app-controller/UIStatePersistenceStore.h"; sourceTree = "<group>"; };
 		91482A760FC4C6A2002D10E8 /* UIStatePersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIStatePersistenceStore.m; path = "app-controller/UIStatePersistenceStore.m"; sourceTree = "<group>"; };
+		91482CA60FC62349002D10E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectSelectionView.xib; sourceTree = "<group>"; };
+		91482CA90FC6254F002D10E8 /* ProjectSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectSelectionViewController.h; path = shared/ProjectSelectionViewController.h; sourceTree = "<group>"; };
+		91482CAA0FC6254F002D10E8 /* ProjectSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectSelectionViewController.m; path = shared/ProjectSelectionViewController.m; sourceTree = "<group>"; };
+		91482D400FC741F2002D10E8 /* AccountLevelTicketBinDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountLevelTicketBinDataSource.h; path = tickets/AccountLevelTicketBinDataSource.h; sourceTree = "<group>"; };
+		91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountLevelTicketBinDataSource.m; path = tickets/AccountLevelTicketBinDataSource.m; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -740,6 +748,8 @@
 				05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */,
 				05DB82AA0FC49E310095AF32 /* RandomNumber.h */,
 				05DB82AB0FC49E310095AF32 /* RandomNumber.m */,
+				91482CA90FC6254F002D10E8 /* ProjectSelectionViewController.h */,
+				91482CAA0FC6254F002D10E8 /* ProjectSelectionViewController.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -855,6 +865,7 @@
 				9188852A0FB8822F009F5861 /* MessageDetailsView.xib */,
 				918885BC0FB8B8DD009F5861 /* ResponseTableViewCell.xib */,
 				918887ED0FBA1B14009F5861 /* TicketBinView.xib */,
+				91482CA50FC62349002D10E8 /* ProjectSelectionView.xib */,
 			);
 			path = nibs;
 			sourceTree = "<group>";
@@ -912,6 +923,8 @@
 				9148287F0FC3554B002D10E8 /* TicketKey.m */,
 				91482A5C0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.h */,
 				91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */,
+				91482D400FC741F2002D10E8 /* AccountLevelTicketBinDataSource.h */,
+				91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1126,6 +1139,7 @@
 				918885BE0FB8B8DD009F5861 /* ResponseTableViewCell.xib in Resources */,
 				918887EF0FBA1B14009F5861 /* TicketBinView.xib in Resources */,
 				0570D4B60FC0F76D00928667 /* MilestoneHeaderView.xib in Resources */,
+				91482CA70FC62349002D10E8 /* ProjectSelectionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1275,9 +1289,11 @@
 				05DB84040FC4EC900095AF32 /* UserUpdatePublisher.m in Sources */,
 				91482A770FC4C6A2002D10E8 /* UIState.m in Sources */,
 				91482A780FC4C6A2002D10E8 /* UIStatePersistenceStore.m in Sources */,
+				91482CAB0FC6254F002D10E8 /* ProjectSelectionViewController.m in Sources */,
 				05DB84EB0FC5CBC60095AF32 /* Project.m in Sources */,
 				0576B85C0FC8A1AC0015C2AD /* UpdateTicketDescription.m in Sources */,
 				0576B8D50FC8BFB20015C2AD /* ProjectUpdatePublisher.m in Sources */,
+				91482D420FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1394,6 +1410,14 @@
 				913E45A80FAA7779000EB184 /* en */,
 			);
 			name = TextWithCountTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		91482CA50FC62349002D10E8 /* ProjectSelectionView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91482CA60FC62349002D10E8 /* en */,
+			);
+			name = ProjectSelectionView.xib;
 			sourceTree = "<group>";
 		};
 		917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */ = {

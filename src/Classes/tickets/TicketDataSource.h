@@ -22,4 +22,7 @@
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString;
 - (void)fetchTicketWithKey:(TicketKey *)aTicketKey;
 
+- (void)createTicketWithDescription:(NewTicketDescription *)desc
+    forProject:(id)projectKey;
+
 @end

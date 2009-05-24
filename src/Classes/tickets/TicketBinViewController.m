@@ -59,6 +59,7 @@
 
     [cell setText:ticketBin.name];
     [cell setCount:ticketBin.ticketCount];
+    [cell setShowCount:ticketBin.ticketCount != UNKNOWN_TICKET_BIN_COUNT];
 
     return cell;
 }

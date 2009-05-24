@@ -21,8 +21,9 @@
     UINavigationItem * navigationItem;
     TicketBinViewController * binViewController;
     UIView * parentView;
-    TicketBinDataSource * dataSource;
-    
+    id dataSourceTarget;
+    SEL dataSourceAction;
+
     UIView * darkTransparentView;
 }
 
@@ -33,7 +34,7 @@
     cancelButton:(UIBarButtonItem *)aCancelButton
     navigationItem:(UINavigationItem *)aNavigationItem
     ticketBinViewController:(TicketBinViewController *)aBinViewController
-    parentView:(UIView *)parentView
-    dataSource:(TicketBinDataSource *)dataSource;
+    parentView:(UIView *)parentView dataSourceTarget:(id)aDataSourceTarget
+    dataSourceAction:(SEL)aDataSourceAction;
 
 @end

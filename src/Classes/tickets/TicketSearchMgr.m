@@ -19,14 +19,13 @@
 
 - (void)dealloc
 {
-    [delegate release];
-
     [searchField release];
     [addButton release];
     [cancelButton release];
     [navigationItem release];
     [binViewController release];
     [parentView release];
+    [dataSourceTarget release];
     
     [darkTransparentView release];
 
@@ -38,8 +37,8 @@
     cancelButton:(UIBarButtonItem *)aCancelButton
     navigationItem:(UINavigationItem *)aNavigationItem
     ticketBinViewController:(TicketBinViewController *)aBinViewController
-    parentView:(UIView *)aParentView
-    dataSource:(TicketBinDataSource *)aDataSource
+    parentView:(UIView *)aParentView dataSourceTarget:(id)aDataSourceTarget
+    dataSourceAction:(SEL)aDataSourceAction
 {
     if (self = [super init]) {
         searchField = [aSearchField retain];
@@ -48,7 +47,8 @@
         navigationItem = [aNavigationItem retain];
         binViewController = [aBinViewController retain];
         parentView = [aParentView retain];
-        dataSource = [aDataSource retain];
+        dataSourceTarget = [aDataSourceTarget retain];
+        dataSourceAction = aDataSourceAction;
 
         searchField.delegate = self;
         // Can't be set in IB, so setting it here
@@ -152,7 +152,7 @@
     darkTransparentView.alpha = 1;
     [UIView commitAnimations];
     
-    [dataSource performSelector:@selector(fetchAllTicketBins) withObject:nil
+    [dataSourceTarget performSelector:dataSourceAction withObject:nil
         afterDelay:0.6];
 }
 

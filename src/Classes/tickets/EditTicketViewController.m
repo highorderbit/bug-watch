@@ -44,6 +44,7 @@ static const NSInteger UNSET_KEY = 0;
 
 @implementation EditTicketViewController
 
+@synthesize cancelButton, updateButton;
 @synthesize ticketDescription, message, comment, tags;
 @synthesize members, member;
 @synthesize milestones, milestone;
@@ -55,8 +56,6 @@ static const NSInteger UNSET_KEY = 0;
 {
     [cancelButton release];
     [updateButton release];
-    [descriptionTextField release];
-    [tagsTextField release];
 
     [addCommentViewController release];
     [itemSelectionTableViewController release];
@@ -90,10 +89,9 @@ static const NSInteger UNSET_KEY = 0;
 {
     [super viewWillAppear:animated];
 
-    descriptionTextField.text = self.ticketDescription;
-    tagsTextField.text = self.tags;
-    
     [self.tableView reloadData];
+    updateButton.enabled =
+        ticketDescription && ![ticketDescription isEqual:@""];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -269,12 +267,10 @@ static const NSInteger UNSET_KEY = 0;
 
 - (IBAction)cancel:(id)sender
 {
-    if (descriptionTextField.editing)
-        [descriptionTextField resignFirstResponder];
-    else if (tagsTextField.editing)
-        [tagsTextField resignFirstResponder];
-    else
+    if ([self.navigationController.viewControllers count] == 1)
         [self dismissModalViewControllerAnimated:YES];
+    else
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)update:(id)sender
@@ -438,6 +434,9 @@ static const NSInteger UNSET_KEY = 0;
     [ticketDescription release];
     ticketDescription = tempTicketDescription;
 
+    updateButton.enabled =
+        aTicketDescription && ![aTicketDescription isEqual:@""];
+
     [self.tableView reloadData];
 }
 
@@ -448,7 +447,7 @@ static const NSInteger UNSET_KEY = 0;
     NSString * tempMessage = [aMessage copy];
     [message release];
     message = tempMessage;
-
+    
     [self.tableView reloadData];
 }
 

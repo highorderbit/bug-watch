@@ -10,5 +10,6 @@
 
 - (void)receivedTicketsFromDataSource:(TicketCache *)aTicketCache;
 - (void)receivedTicketDetailsFromDataSource:(TicketCommentCache *)commentCache;
+- (void)createdTicketWithKey:(id)ticketKey;
 
 @end
