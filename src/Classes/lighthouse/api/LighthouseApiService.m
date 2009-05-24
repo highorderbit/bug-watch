@@ -38,6 +38,9 @@
 
 - (NSArray *)parseTicketBins:(NSData *)xml;
 
+- (NSArray *)parseMessages:(NSData *)xml;
+- (NSArray *)parseMessageIds:(NSData *)xml;
+
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
     args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
 
@@ -162,6 +165,13 @@
 - (void)fetchMilestonesForAllProjects:(NSString *)token
 {
     [api fetchMilestonesForAllProjects:token];
+}
+
+#pragma mark Messages
+
+- (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token
+{
+    [api fetchMessagesForProject:projectKey token:token];
 }
 
 #pragma mark LighthouseApiDelegate implementation
@@ -517,6 +527,26 @@
     [self invokeSelector:sel withTarget:delegate args:error, nil];
 }
 
+#pragma mark -- Messages
+
+-(void)messages:(NSData *)data fetchedForProject:(id)projectKey
+    token:(NSString *)token
+{
+    NSArray * messages = [self parseMessages:data];
+    NSArray * messageIds = [self parseMessageIds:data];
+
+    SEL sel = @selector(messages:messageIds:fetchedForProject:);
+    [self invokeSelector:sel withTarget:delegate args:messages, messageIds,
+        projectKey, nil];
+}
+
+- (void)failedToFetchMessagesForProject:(id)projectKey token:(NSString *)token
+    error:(NSError *)error
+{
+    SEL sel = @selector(failedToFetchMessagesForProject:token:error:);
+    [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
+}
+
 #pragma mark Parsing XML
 
 - (NSArray *)parseTickets:(NSData *)xml
@@ -736,6 +766,33 @@
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"number", @"project-id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessages:(NSData *)xml
+{
+    parser.className = @"Message";
+    parser.classElementType = @"message";
+    parser.classElementCollection = @"messages";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"title", @"title",
+            @"postedDate", @"created-at",
+            @"message", @"body",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"message";
+    parser.classElementCollection = @"messages";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"id", nil];
 
     return [parser parse:xml];
 }

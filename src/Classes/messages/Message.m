@@ -4,6 +4,14 @@
 
 #import "Message.h"
 
+@interface Message ()
+
+@property (nonatomic, copy) NSDate * postedDate;
+@property (nonatomic, copy) NSString * title;
+@property (nonatomic, copy) NSString * message;
+
+@end
+
 @implementation Message
 
 @synthesize postedDate;
@@ -22,17 +30,23 @@
     message:(NSString *)aMessage
 {
     if (self = [super init]) {
-        postedDate = [aPostedDate retain];
-        title = [aTitle retain];
-        message = [aMessage retain];
+        self.postedDate = aPostedDate;
+        self.title = aTitle;
+        self.message = aMessage;
     }
 
     return self;
 }
 
-- (id)copy
+- (id)copyWithZone:(NSZone *)zone
 {
-    return self;
+    return [self retain];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"Message '%@', posted date: '%@', "
+        "message: '%@'", self.title, self.postedDate, self.message];
 }
 
 @end

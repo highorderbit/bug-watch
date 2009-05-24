@@ -85,4 +85,11 @@
 - (void)failedToFetchMilestonesForAllProjects:(NSString *)token
     error:(NSError *)error;
 
+#pragma mark Messages
+
+-(void)messages:(NSData *)xml fetchedForProject:(id)projectKey
+    token:(NSString *)token;
+- (void)failedToFetchMessagesForProject:(id)projectKey token:(NSString *)token
+    error:(NSError *)error;
+
 @end

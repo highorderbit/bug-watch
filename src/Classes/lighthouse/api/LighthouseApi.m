@@ -315,6 +315,22 @@
     [api sendRequest:req];
 }
 
+#pragma mark Messages
+
+- (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/messages.xml?_token=%@",
+        baseUrlString, projectKey, token];
+
+    SEL callback = @selector(handleMessagesForProjectResponse:toRequest:args:);
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token", projectKey, @"projectKey", nil];
+
+    [self sendRequestToUrl:urlString callback:callback arguments:args];
+}
+
 #pragma mark Handling responses
 
 - (void)handleTicketsForAllProjectsResponse:(id)response
@@ -353,6 +369,20 @@
         [delegate failedToFetchMilestonesForAllProjects:token error:response];
     else
         [delegate milestones:response fetchedForAllProjectsWithToken:token];
+}
+
+- (void)handleMessagesForProjectResponse:(id)response
+                               toRequest:(NSURLRequest *)request
+                                    args:(NSDictionary *)args
+{
+    NSString * token = [args objectForKey:@"token"];
+    id projectKey = [args objectForKey:@"projectKey"];
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToFetchMessagesForProject:projectKey token:token
+            error:response];
+    else
+        [delegate messages:response fetchedForProject:projectKey token:token];
 }
 
 - (void)handleTicketSearchResultsForAllProjectsResponse:(id)response

@@ -92,4 +92,12 @@
 - (void)milestonesFetchedForAllProjects:(NSArray *)milestones;
 - (void)failedToFetchMilestonesForAllProjects:(NSError *)error;
 
+#pragma mark Messages
+
+@optional
+
+- (void)messages:(NSArray *)messages messageIds:(NSArray *)messageIds
+    fetchedForProject:(id)projectKey;
+- (void)failedToFetchMessagesForProject:(id)projectKey error:(NSError *)error;
+
 @end

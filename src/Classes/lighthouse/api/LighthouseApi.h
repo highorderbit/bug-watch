@@ -75,4 +75,8 @@
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token;
 
+#pragma mark Messages
+
+- (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token;
+
 @end
