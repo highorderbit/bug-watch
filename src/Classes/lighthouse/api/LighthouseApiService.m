@@ -443,9 +443,7 @@
         nil];
     NSString * notificationName =
         [[self class] usersRecevedForProjectNotificationName];
-    [nc postNotificationName:notificationName
-                      object:self
-                    userInfo:userInfo];
+    [nc postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
 - (void)failedToFetchAllUsersForProject:(id)projectKey token:(NSString *)token
@@ -465,6 +463,16 @@
     SEL sel = @selector(fetchedAllProjects:projectKeys:);
     [self
         invokeSelector:sel withTarget:delegate args:projects, projectKeys, nil];
+
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        projects, @"projects",
+        projectKeys, @"projectKeys",
+        nil];
+    NSString * notificationName =
+        [[self class] allProjectsReceivedNotificationName];
+    [nc postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
 - (void)failedToFetchAllProjects:(NSString *)token error:(NSError *)error
@@ -783,6 +791,11 @@
 + (NSString *)usersRecevedForProjectNotificationName
 {
     return @"BugWatchUsersReceivedForProjectNotification";
+}
+
++ (NSString *)allProjectsReceivedNotificationName
+{
+    return @"BugWatchAllProjectsReceivedNotification";
 }
 
 #pragma mark General helpers

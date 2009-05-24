@@ -4,10 +4,19 @@
 
 #import "AbstractUpdatePublisher.h"
 
+@interface AbstractUpdatePublisher ()
+
+- (NSString *)notificationName;  // to be provided by subclasses
+- (void)subscribeForNotifications;
+- (void)unsubscribeForNotifications;
+
+@end
+
 @implementation AbstractUpdatePublisher
 
 - (void)dealloc
 {
+    [self unsubscribeForNotifications];
     [invocation release];
     [super dealloc];
 }
@@ -19,6 +28,8 @@
         invocation = [[NSInvocation invocationWithMethodSignature:sig] retain];
         [invocation setTarget:listener];
         [invocation setSelector:action];
+
+        [self subscribeForNotifications];
     }
 
     return self;
@@ -34,6 +45,29 @@
     }
 
     [invocation invoke];
+}
+
+- (NSString *)notificationName
+{
+    NSAssert(NO, @"Subclasses must implement notificationName.");
+    return nil;
+}
+
+- (void)subscribeForNotifications
+{
+    // provided by subclasses
+    NSString * notificationName = [self notificationName];
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+
+    [nc addObserver:self
+           selector:@selector(notificationReceived:)
+               name:notificationName
+             object:nil];
+}
+
+- (void)unsubscribeForNotifications
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

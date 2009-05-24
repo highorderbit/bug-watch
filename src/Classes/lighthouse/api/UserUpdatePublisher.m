@@ -5,13 +5,6 @@
 #import "UserUpdatePublisher.h"
 #import "LighthouseApiService.h"
 
-@interface UserUpdatePublisher ()
-
-- (void)subscribeForNotifications;
-- (void)unsubscribeForNotifications;
-
-@end
-
 @implementation UserUpdatePublisher
 
 + (id)publisherWithListener:(id)listener action:(SEL)action
@@ -22,21 +15,17 @@
 
 - (void)dealloc
 {
-    [self unsubscribeForNotifications];
     [super dealloc];
 }
 
 - (id)initWithListener:(id)listener action:(SEL)action
 {
-    if (self = [super initWithListener:listener action:action])
-        [self subscribeForNotifications];
-
-    return self;
+    return (self = [super initWithListener:listener action:action]);
 }
 
 #pragma mark Receiving notifications
 
-- (void)notificationRecived:(NSNotification *)notification
+- (void)notificationReceived:(NSNotification *)notification
 {
     NSDictionary * info = notification.userInfo;
 
@@ -50,21 +39,9 @@
 
 #pragma mark Subscribing for notifications
 
-- (void)subscribeForNotifications
+- (NSString *)notificationName
 {
-    NSString * notificationName =
-        [LighthouseApiService usersRecevedForProjectNotificationName];
-    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
-
-    [nc addObserver:self
-           selector:@selector(notificationRecived:)
-               name:notificationName
-             object:nil];
-}
-
-- (void)unsubscribeForNotifications
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    return [LighthouseApiService usersRecevedForProjectNotificationName];
 }
 
 @end

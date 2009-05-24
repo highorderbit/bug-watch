@@ -2,12 +2,12 @@
 //  Copyright High Order Bit, Inc. 2009. All rights reserved.
 //
 
-#import "MilestoneUpdatePublisher.h"
+#import "ProjectUpdatePublisher.h"
 #import "LighthouseApiService.h"
 
-@implementation MilestoneUpdatePublisher
+@implementation ProjectUpdatePublisher
 
-+ (id)publisherWithListener:(id)listener action:(SEL)action;
++ (id)publisherWithListener:(id)listener action:(SEL)action
 {
     id obj = [[[self class] alloc] initWithListener:listener action:action];
     return [obj autorelease];
@@ -18,7 +18,7 @@
     [super dealloc];
 }
 
-- (id)initWithListener:(id)listener action:(SEL)action;
+- (id)initWithListener:(id)listener action:(SEL)action
 {
     return (self = [super initWithListener:listener action:action]);
 }
@@ -29,20 +29,17 @@
 {
     NSDictionary * info = notification.userInfo;
 
-    NSArray * milestones = [info objectForKey:@"milestones"];
-    NSArray * milestoneKeys = [info objectForKey:@"milestoneKeys"];
+    NSArray * projects = [info objectForKey:@"projects"];
     NSArray * projectKeys = [info objectForKey:@"projectKeys"];
 
-    NSArray * args =
-        [NSArray arrayWithObjects:milestones, milestoneKeys, projectKeys, nil];
+    NSArray * args = [NSArray arrayWithObjects:projects, projectKeys, nil];
 
     [self notifyListener:args];
 }
 
 - (NSString *)notificationName
 {
-    return
-        [LighthouseApiService milestonesReceivedForAllProjectsNotificationName];
+    return [LighthouseApiService allProjectsReceivedNotificationName];
 }
 
 @end

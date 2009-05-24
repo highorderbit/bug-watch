@@ -73,5 +73,6 @@
 
 + (NSString *)milestonesReceivedForAllProjectsNotificationName;
 + (NSString *)usersRecevedForProjectNotificationName;
++ (NSString *)allProjectsReceivedNotificationName;
     
 @end
