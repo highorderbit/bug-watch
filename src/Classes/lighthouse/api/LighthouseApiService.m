@@ -36,10 +36,13 @@
 - (NSArray *)parseMilestoneIds:(NSData *)xml;
 - (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
 
-- (NSArray *)parseTicketBins:(NSData *)xml;
-
 - (NSArray *)parseMessages:(NSData *)xml;
 - (NSArray *)parseMessageIds:(NSData *)xml;
+- (NSArray *)parseMessageCommentKeys:(NSData *)xml;
+- (NSArray *)parseMessageComments:(NSData *)xml;
+- (NSArray *)parseMessageCommentAuthorIds:(NSData *)xml;
+
+- (NSArray *)parseTicketBins:(NSData *)xml;
 
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
     args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
@@ -172,6 +175,12 @@
 - (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token
 {
     [api fetchMessagesForProject:projectKey token:token];
+}
+
+- (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    token:(NSString *)token
+{
+    [api fetchCommentsForMessage:messageKey inProject:projectKey token:token];
 }
 
 #pragma mark LighthouseApiDelegate implementation
@@ -547,6 +556,30 @@
     [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
 }
 
+- (void)comments:(NSData *)xml fetchedForMessage:(id)messageKey
+      inProject:(id)projectKey token:(NSString *)token
+{
+    NSLog(@"Fetched xml:\n%@", [[[NSString alloc] initWithData:xml encoding:4]
+        autorelease]);
+
+    NSArray * commentKeys = [self parseMessageCommentKeys:xml];
+    NSArray * comments = [self parseMessageComments:xml];
+    NSArray * authors = [self parseMessageCommentAuthorIds:xml];
+
+    SEL sel = @selector(comments:commentKeys:authorKeys:fetchedForMessage:\
+        inProject:);
+    [self invokeSelector:sel withTarget:delegate args:comments, commentKeys,
+        authors, messageKey, projectKey, nil];
+}
+
+- (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    token:(NSString *)token error:(NSError *)error
+{
+    SEL sel = @selector(failedToFetchCommentsForMessage:inProject:error:);
+    [self invokeSelector:sel withTarget:delegate args:messageKey, projectKey,
+        error, nil];
+}
+
 #pragma mark Parsing XML
 
 - (NSArray *)parseTickets:(NSData *)xml
@@ -793,6 +826,44 @@
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"", @"id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageCommentKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"comment";
+    parser.classElementCollection = @"comments";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageComments:(NSData *)xml
+{
+    parser.className = @"MessageResponse";
+    parser.classElementType = @"comment";
+    parser.classElementCollection = @"comments";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"text", @"body",
+            @"date", @"created-at",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageCommentAuthorIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"comment";
+    parser.classElementCollection = @"comments";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"user-id", nil];
 
     return [parser parse:xml];
 }

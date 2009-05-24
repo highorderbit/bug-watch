@@ -78,5 +78,7 @@
 #pragma mark Messages
 
 - (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token;
+- (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    token:(NSString *)token;
 
 @end

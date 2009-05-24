@@ -87,9 +87,14 @@
 
 #pragma mark Messages
 
--(void)messages:(NSData *)xml fetchedForProject:(id)projectKey
+- (void)messages:(NSData *)xml fetchedForProject:(id)projectKey
     token:(NSString *)token;
 - (void)failedToFetchMessagesForProject:(id)projectKey token:(NSString *)token
     error:(NSError *)error;
+
+- (void)comments:(NSData *)xml fetchedForMessage:(id)messageKey
+      inProject:(id)projectKey token:(NSString *)token;
+- (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    token:(NSString *)token error:(NSError *)error;
 
 @end

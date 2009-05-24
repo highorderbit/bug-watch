@@ -72,6 +72,8 @@
 #pragma mark Messages
 
 - (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token;
+- (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    token:(NSString *)token;
 
 #pragma mark Notification names posted to the application as data is received
 

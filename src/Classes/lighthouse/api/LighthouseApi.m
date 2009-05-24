@@ -331,6 +331,24 @@
     [self sendRequestToUrl:urlString callback:callback arguments:args];
 }
 
+- (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/messages/%@.xml?_token=%@",
+        baseUrlString, projectKey, messageKey, token];
+
+    SEL callback = @selector(handleMessageCommentsResponse:toRequest:args:);
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        messageKey, @"messageKey",
+        projectKey, @"projectKey",
+        token, @"token",
+        nil];
+
+    [self sendRequestToUrl:urlString callback:callback arguments:args];
+}
+
 #pragma mark Handling responses
 
 - (void)handleTicketsForAllProjectsResponse:(id)response
@@ -383,6 +401,22 @@
             error:response];
     else
         [delegate messages:response fetchedForProject:projectKey token:token];
+}
+
+- (void)handleMessageCommentsResponse:(id)response
+                            toRequest:(NSURLRequest *)request
+                                 args:(NSDictionary *)args
+{
+    NSString * token = [args objectForKey:@"token"];
+    id projectKey = [args objectForKey:@"projectKey"];
+    id messageKey = [args objectForKey:@"messageKey"];
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToFetchCommentsForMessage:messageKey
+            inProject:projectKey token:token error:response];
+    else
+        [delegate comments:response fetchedForMessage:messageKey
+            inProject:projectKey token:token];
 }
 
 - (void)handleTicketSearchResultsForAllProjectsResponse:(id)response

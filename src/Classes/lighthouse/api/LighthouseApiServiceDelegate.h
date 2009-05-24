@@ -100,4 +100,10 @@
     fetchedForProject:(id)projectKey;
 - (void)failedToFetchMessagesForProject:(id)projectKey error:(NSError *)error;
 
+- (void)comments:(NSArray *)comments commentKeys:(NSArray *)commentKeys
+    authorKeys:(NSArray *)authorKeys fetchedForMessage:(id)messageKey
+    inProject:(id)projectKey;
+- (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    error:(NSError *)error;
+
 @end

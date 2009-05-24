@@ -4,6 +4,13 @@
 
 #import "MessageResponse.h"
 
+@interface MessageResponse ()
+
+@property (nonatomic, copy) NSString * text;
+@property (nonatomic, copy) NSDate * date;
+
+@end
+
 @implementation MessageResponse
 
 @synthesize text;
@@ -19,16 +26,22 @@
 - (id)initWithText:(NSString *)someText date:(NSDate *)aDate
 {
     if (self = [super init]) {
-        text = [someText retain];
-        date = [aDate retain];
+        self.text = someText;
+        self.date = aDate;
     }
     
     return self;
 }
 
-- (id)copy
+- (id)copyWithZone:(NSZone *)zone
 {
-    return self;
+    return [self retain];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"message response: '%@', '%@'",
+        self.date, self.text];
 }
 
 @end
