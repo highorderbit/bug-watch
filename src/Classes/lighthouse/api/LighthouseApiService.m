@@ -37,7 +37,8 @@
 - (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
 
 - (NSArray *)parseMessages:(NSData *)xml;
-- (NSArray *)parseMessageIds:(NSData *)xml;
+- (NSArray *)parseMessageKeys:(NSData *)xml;
+- (NSArray *)parseMessageAuthorKeys:(NSData *)xml;
 - (NSArray *)parseMessageCommentKeys:(NSData *)xml;
 - (NSArray *)parseMessageComments:(NSData *)xml;
 - (NSArray *)parseMessageCommentAuthorIds:(NSData *)xml;
@@ -542,11 +543,12 @@
     token:(NSString *)token
 {
     NSArray * messages = [self parseMessages:data];
-    NSArray * messageIds = [self parseMessageIds:data];
+    NSArray * messageKeys = [self parseMessageKeys:data];
+    NSArray * authorKeys = [self parseMessageAuthorKeys:data];
 
-    SEL sel = @selector(messages:messageIds:fetchedForProject:);
-    [self invokeSelector:sel withTarget:delegate args:messages, messageIds,
-        projectKey, nil];
+    SEL sel = @selector(messages:messageKeys:authorKeys:fetchedForProject:);
+    [self invokeSelector:sel withTarget:delegate args:messages, messageKeys,
+        authorKeys, projectKey, nil];
 }
 
 - (void)failedToFetchMessagesForProject:(id)projectKey token:(NSString *)token
@@ -818,7 +820,7 @@
     return [parser parse:xml];
 }
 
-- (NSArray *)parseMessageIds:(NSData *)xml
+- (NSArray *)parseMessageKeys:(NSData *)xml
 {
     parser.className = @"NSNumber";
     parser.classElementType = @"message";
@@ -826,6 +828,18 @@
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"", @"id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageAuthorKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"message";
+    parser.classElementCollection = @"messages";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"user-id", nil];
 
     return [parser parse:xml];
 }

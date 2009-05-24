@@ -96,8 +96,8 @@
 
 @optional
 
-- (void)messages:(NSArray *)messages messageIds:(NSArray *)messageIds
-    fetchedForProject:(id)projectKey;
+- (void)messages:(NSArray *)messages messageKeys:(NSArray *)messageKeys
+    authorKeys:(NSArray *)authorKeys fetchedForProject:(id)projectKey;
 - (void)failedToFetchMessagesForProject:(id)projectKey error:(NSError *)error;
 
 - (void)comments:(NSArray *)comments commentKeys:(NSArray *)commentKeys
