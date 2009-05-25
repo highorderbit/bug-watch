@@ -93,4 +93,9 @@
     description:(NSString *)description object:(id)object
     token:(NSString *)token;
 
+#pragma mark Messages -- adding comments
+
+- (void)addComment:(NSString *)comment toMessage:(id)messageKey
+    forProject:(id)projectKey object:(id)object token:(NSString *)token;
+
 @end

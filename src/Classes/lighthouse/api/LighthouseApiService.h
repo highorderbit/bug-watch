@@ -10,6 +10,7 @@
 #import "UpdateTicketDescription.h"
 #import "NewMessageDescription.h"
 #import "UpdateMessageDescription.h"
+#import "NewMessageCommentDescription.h"
 
 @class LighthouseApi, LighthouseApiParser;
 
@@ -88,6 +89,11 @@
 
 - (void)editMessage:(id)messageKey forProject:(id)projectKey
     withDescription:(UpdateMessageDescription *)desc token:(NSString *)token;
+
+#pragma mark Messages -- adding comments
+
+- (void)addComment:(NewMessageCommentDescription *)desc toMessage:(id)messageKey
+    forProject:(id)projectKey token:(NSString *)token;
 
 #pragma mark Notification names posted to the application as data is received
 

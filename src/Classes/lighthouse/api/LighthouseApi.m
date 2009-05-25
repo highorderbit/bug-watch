@@ -414,6 +414,38 @@
     [api sendRequest:req];
 }
 
+#pragma mark Messages -- adding comments
+
+- (void)addComment:(NSString *)comment toMessage:(id)messageKey
+    forProject:(id)projectKey object:(id)object token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/messages/%@/comments.xml?"
+        "_token=%@", baseUrlString, projectKey, messageKey, token];
+    NSData * encodedDescription =
+        [comment dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSMutableURLRequest * req =
+        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:encodedDescription];
+    [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token",
+        messageKey, @"messageKey",
+        projectKey, @"projectKey",
+        comment, @"comment",
+        object ? object : [NSNull null], @"object",
+        nil];
+
+    SEL sel = @selector(handleAddMessageCommentResponse:toRequest:args:);
+    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+
+    [api sendRequest:req];
+}
+
 #pragma mark Handling responses
 
 - (void)handleTicketsForAllProjectsResponse:(id)response
@@ -521,6 +553,25 @@
         [delegate editedMessage:messageKey forProject:projectKey
             description:description object:object token:token
             response:response];
+}
+
+- (void)handleAddMessageCommentResponse:(id)response
+                              toRequest:(NSURLRequest *)request
+                                   args:(NSDictionary *)args
+{
+    NSString * token = [args objectForKey:@"token"];
+    id messageKey = [args objectForKey:@"messageKey"];
+    id projectKey = [args objectForKey:@"projectKey"];
+    NSString * comment = [args objectForKey:@"comment"];
+    id object = [args objectForKey:@"object"];
+    object = [object isEqual:[NSNull null]] ? nil : object;
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToAddComment:comment toMessage:messageKey
+            forProject:projectKey object:object token:token error:response];
+    else
+        [delegate addedComment:comment toMessage:messageKey
+            forProject:projectKey object:object token:token response:response];
 }
 
 - (void)handleTicketSearchResultsForAllProjectsResponse:(id)response

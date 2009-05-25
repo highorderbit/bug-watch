@@ -205,6 +205,18 @@
          description:[desc xmlDescription] object:requestId token:token];
 }
 
+#pragma mark Messages -- adding comments
+
+- (void)addComment:(NewMessageCommentDescription *)desc toMessage:(id)messageKey
+    forProject:(id)projectKey token:(NSString *)token
+{
+    id requestId = [[self class] uniqueTicketKey];
+    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+
+    [api addComment:[desc xmlDescription] toMessage:messageKey
+        forProject:projectKey object:requestId token:token];
+}
+
 #pragma mark LighthouseApiDelegate implementation
 
 - (void)tickets:(NSData *)data
@@ -669,6 +681,51 @@
     SEL sel = @selector(failedToEditMessage:forProject:describedBy:error:);
     [self invokeSelector:sel withTarget:delegate args:messageKey,
         projectKey, desc, error, nil];
+
+    [changeTicketRequests removeObjectForKey:requestId];
+}
+
+#pragma mark Messages -- adding comments
+
+- (void)addedComment:(NSString *)comment toMessage:(id)messageKey
+    forProject:(id)projectKey object:(id)requestId token:(NSString *)token
+    response:(NSData *)xml
+{
+    NewMessageCommentDescription * desc =
+        [changeTicketRequests objectForKey:requestId];
+    NSAssert1(desc, @"Did not find a pending new message comment request for "
+        "key: %@.", requestId);
+
+    NSArray * commentKeys = [self parseMessageCommentKeys:xml];
+    NSArray * comments = [self parseMessageComments:xml];
+    NSArray * authors = [self parseMessageCommentAuthorIds:xml];
+
+    NSAssert3(commentKeys.count == 1 && comments.count == 1 &&
+        authors.count == 1, @"Expected 1 new message comment, but got: %@, %@, "
+        "%@.", commentKeys, comments, authors);
+
+    SEL sel = @selector(comment:withKey:authorKey:addedToMessage:forProject:\
+        describedBy:);
+    [self invokeSelector:sel withTarget:delegate args:[comments lastObject],
+        [commentKeys lastObject], [authors lastObject], messageKey, projectKey,
+        desc, nil];
+
+    [changeTicketRequests removeObjectForKey:requestId];
+}
+
+- (void)failedToAddComment:(NSString *)comment toMessage:(id)messageKey
+    forProject:(id)projectKey object:(id)requestId token:(NSString *)token
+    error:(NSError *)error
+{
+    NewMessageCommentDescription * desc =
+        [changeTicketRequests objectForKey:requestId];
+    NSAssert1(desc, @"Did not find a pending new message comment request for "
+        "key: %@.", requestId);
+
+    SEL sel =
+        @selector(failedToAddCommentToMessage:forProject:describedBy:error:);
+    [self invokeSelector:sel withTarget:delegate args:messageKey, projectKey,
+        desc, error, nil];
 
     [changeTicketRequests removeObjectForKey:requestId];
 }

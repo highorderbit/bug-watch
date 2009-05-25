@@ -6,6 +6,8 @@
 
 @class NewTicketDescription, UpdateTicketDescription;
 @class NewMessageDescription, UpdateMessageDescription;
+@class NewMessageCommentDescription;
+@class MessageResponse;
 
 @protocol LighthouseApiServiceDelegate <NSObject>
 
@@ -120,5 +122,13 @@
     describedBy:(UpdateMessageDescription *)description;
 - (void)failedToEditMessage:(id)messageKey forProject:(id)projectKey
     describedBy:(UpdateMessageDescription *)description error:(NSError *)error;
+
+#pragma mark Messages -- adding comments
+
+- (void)comment:(MessageResponse *)comment withKey:(id)commentKey
+    authorKey:(id)authorKey addedToMessage:(id)messageKey
+    forProject:(id)projectKey describedBy:(NewMessageCommentDescription *)desc;
+- (void)failedToAddCommentToMessage:(id)messageKey forProject:(id)projectKey
+    describedBy:(NewMessageDescription *)desc error:(NSError *)error;
 
 @end
