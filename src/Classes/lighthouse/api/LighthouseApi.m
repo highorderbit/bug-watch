@@ -381,6 +381,39 @@
     [api sendRequest:req];
 }
 
+#pragma mark Messages -- editing
+
+- (void)editMessage:(id)messageKey forProject:(id)projectKey
+    description:(NSString *)description object:(id)object
+    token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/messages/%@.xml?_token=%@",
+        baseUrlString, projectKey, messageKey, token];
+    NSData * encodedDescription =
+        [description dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSMutableURLRequest * req =
+        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [req setHTTPMethod:@"PUT"];
+    [req setHTTPBody:encodedDescription];
+    [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token",
+        messageKey, @"messageKey",
+        projectKey, @"projectKey",
+        description, @"description",
+        object ? object : [NSNull null], @"object",
+        nil];
+
+    SEL sel = @selector(handleEditMessageResponse:toRequest:args:);
+    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+
+    [api sendRequest:req];
+}
+
 #pragma mark Handling responses
 
 - (void)handleTicketsForAllProjectsResponse:(id)response
@@ -468,6 +501,26 @@
     else
         [delegate message:response createdForProject:projectKey
             withDescription:description object:object token:token];
+}
+
+- (void)handleEditMessageResponse:(id)response
+                        toRequest:(NSURLRequest *)request
+                             args:(NSDictionary *)args
+{
+    NSString * token = [args objectForKey:@"token"];
+    id messageKey = [args objectForKey:@"messageKey"];
+    id projectKey = [args objectForKey:@"projectKey"];
+    NSString * description = [args objectForKey:@"description"];
+    id object = [args objectForKey:@"object"];
+    object = [object isEqual:[NSNull null]] ? nil : object;
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToEditMessage:messageKey forProject:projectKey
+            description:description object:object token:token error:response];
+    else
+        [delegate editedMessage:messageKey forProject:projectKey
+            description:description object:object token:token
+            response:response];
 }
 
 - (void)handleTicketSearchResultsForAllProjectsResponse:(id)response

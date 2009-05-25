@@ -2,9 +2,9 @@
 //  Copyright High Order Bit, Inc. 2009. All rights reserved.
 //
 
-#import "NewMessageDescription.h"
+#import "UpdateMessageDescription.h"
 
-@implementation NewMessageDescription
+@implementation UpdateMessageDescription
 
 @synthesize title, body;
 
@@ -22,17 +22,12 @@
 
 - (id)init
 {
-    if (self = [super init]) {
-        self.title = @"";
-        self.body = @"";
-    }
-
-    return self;
+    return (self = [super init]);
 }
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    NewMessageDescription * desc = [[[self class] allocWithZone:zone] init];
+    UpdateMessageDescription * desc = [[[self class] allocWithZone:zone] init];
     desc.title = self.title;
     desc.body = self.body;
 
@@ -46,14 +41,18 @@
 
 - (NSString *)xmlDescription
 {
-    return
-        [NSString stringWithFormat:
-        @"<message>\n"
-        "    <title>%@</title>\n"
-        "    <body>%@</body>\n"
-        "</message>",
-        self.title,
-        self.body];
+    NSMutableString * xml = [NSMutableString string];
+    [xml appendString:@"<message>\n"];
+
+    if (self.title)
+        [xml appendFormat:@"\t<title>%@</title>", self.title];
+
+    if (self.body)
+        [xml appendFormat:@"\t<body>%@</body>\n", self.body];
+
+    [xml appendString:@"</message>"];
+
+    return xml;
 }
 
 @end

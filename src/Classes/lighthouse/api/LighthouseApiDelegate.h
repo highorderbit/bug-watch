@@ -106,4 +106,13 @@
     withDescription:(NSString *)description object:(id)object
     token:(NSString *)token error:(NSError *)error;
 
+#pragma mark Messages -- editing
+
+- (void)editedMessage:(id)messageKey forProject:(id)projectKey
+    description:(NSString *)description object:(id)object
+    token:(NSString *)token response:(NSData *)xml;
+- (void)failedToEditMessage:(id)messageKey forProject:(id)projectKey
+    description:(NSString *)description object:object token:(NSString *)token
+    error:(NSError *)error;
+
 @end

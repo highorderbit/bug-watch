@@ -181,6 +181,8 @@
     [api fetchCommentsForMessage:messageKey inProject:projectKey token:token];
 }
 
+#pragma mark Messages -- creating
+
 - (void)createMessage:(NewMessageDescription *)desc forProject:(id)projectKey
     token:(NSString *)token
 {
@@ -189,6 +191,18 @@
 
     [api createMessageForProject:projectKey description:[desc xmlDescription]
         object:requestId token:token];
+}
+
+#pragma mark Messages -- editing
+
+- (void)editMessage:(id)messageKey forProject:(id)projectKey
+    withDescription:(UpdateMessageDescription *)desc token:(NSString *)token
+{
+    id requestId = [[self class] uniqueTicketKey];
+    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+
+    [api editMessage:messageKey forProject:projectKey
+         description:[desc xmlDescription] object:requestId token:token];
 }
 
 #pragma mark LighthouseApiDelegate implementation
@@ -621,6 +635,40 @@
     SEL sel = @selector(failedToCreateMessageDescribedBy:forProject:error:);
     [self invokeSelector:sel withTarget:delegate args:desc, projectKey, error,
         nil];
+
+    [changeTicketRequests removeObjectForKey:requestId];
+}
+
+#pragma mark Messages -- editing
+
+- (void)editedMessage:(id)messageKey forProject:(id)projectKey
+    description:(NSString *)description object:(id)requestId
+    token:(NSString *)token response:(NSData *)xml
+{
+    UpdateMessageDescription * desc =
+        [changeTicketRequests objectForKey:requestId];
+    NSAssert1(desc, @"Did not find a pending update message request for key: "
+        "%@.", requestId);
+
+    SEL sel = @selector(editedMessage:forProject:describedBy:);
+    [self invokeSelector:sel withTarget:delegate args:messageKey,
+        projectKey, desc, nil];
+
+    [changeTicketRequests removeObjectForKey:requestId];
+}
+
+- (void)failedToEditMessage:(id)messageKey forProject:(id)projectKey
+    description:(NSString *)description object:requestId token:(NSString *)token
+    error:(NSError *)error
+{
+    UpdateMessageDescription * desc =
+        [changeTicketRequests objectForKey:requestId];
+    NSAssert1(desc, @"Did not find a pending update message request for key: "
+        "%@.", requestId);
+
+    SEL sel = @selector(failedToEditMessage:forProject:describedBy:error:);
+    [self invokeSelector:sel withTarget:delegate args:messageKey,
+        projectKey, desc, error, nil];
 
     [changeTicketRequests removeObjectForKey:requestId];
 }
