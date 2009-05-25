@@ -8,9 +8,6 @@
 #import "RandomNumber.h"
 #import "RegexKitLite.h"
 
-#import "NewTicketDescription.h"
-#import "UpdateTicketDescription.h"
-
 @interface LighthouseApiService ()
 
 - (NSArray *)parseTickets:(NSData *)xml;
@@ -182,6 +179,16 @@
     token:(NSString *)token
 {
     [api fetchCommentsForMessage:messageKey inProject:projectKey token:token];
+}
+
+- (void)createMessage:(NewMessageDescription *)desc forProject:(id)projectKey
+    token:(NSString *)token
+{
+    id requestId = [[self class] uniqueTicketKey];
+    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+
+    [api createMessageForProject:projectKey description:[desc xmlDescription]
+        object:requestId token:token];
 }
 
 #pragma mark LighthouseApiDelegate implementation
@@ -561,9 +568,6 @@
 - (void)comments:(NSData *)xml fetchedForMessage:(id)messageKey
       inProject:(id)projectKey token:(NSString *)token
 {
-    NSLog(@"Fetched xml:\n%@", [[[NSString alloc] initWithData:xml encoding:4]
-        autorelease]);
-
     NSArray * commentKeys = [self parseMessageCommentKeys:xml];
     NSArray * comments = [self parseMessageComments:xml];
     NSArray * authors = [self parseMessageCommentAuthorIds:xml];
@@ -580,6 +584,45 @@
     SEL sel = @selector(failedToFetchCommentsForMessage:inProject:error:);
     [self invokeSelector:sel withTarget:delegate args:messageKey, projectKey,
         error, nil];
+}
+
+#pragma mark Messages -- creating
+
+- (void)message:(NSData *)xml createdForProject:(id)projectKey
+    withDescription:(NSString *)description object:(id)requestId
+    token:(NSString *)token
+{
+    NewMessageDescription * desc =
+        [changeTicketRequests objectForKey:requestId];
+    NSAssert1(desc, @"Did not find a pending message creation request for key: "
+        "%@.", requestId);
+
+    NSArray * keys = [self parseMessageKeys:xml];
+    NSAssert2(keys.count == 1, @"Expected 1 message ID, but received %d: %@.",
+        keys.count, keys);
+    id key = [keys lastObject];
+
+    SEL sel = @selector(message:describedBy:createdForProject:);
+    [self invokeSelector:sel withTarget:delegate args:key, desc, projectKey,
+        nil];
+
+    [changeTicketRequests removeObjectForKey:requestId];
+}
+
+- (void)failedToCreateMessageForProject:(id)projectKey
+    withDescription:(NSString *)description object:(id)requestId
+    token:(NSString *)token error:(NSError *)error
+{
+    NewMessageDescription * desc =
+        [changeTicketRequests objectForKey:requestId];
+    NSAssert1(desc, @"Did not find a pending message creation request for key: "
+        "%@.", requestId);
+
+    SEL sel = @selector(failedToCreateMessageDescribedBy:forProject:error:);
+    [self invokeSelector:sel withTarget:delegate args:desc, projectKey, error,
+        nil];
+
+    [changeTicketRequests removeObjectForKey:requestId];
 }
 
 #pragma mark Parsing XML

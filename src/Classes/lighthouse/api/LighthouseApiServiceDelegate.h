@@ -4,7 +4,8 @@
 
 #import <Foundation/Foundation.h>
 
-@class NewTicketDescription;
+@class NewTicketDescription, UpdateTicketDescription;
+@class NewMessageDescription;
 
 @protocol LighthouseApiServiceDelegate <NSObject>
 
@@ -52,9 +53,9 @@
 #pragma mark Tickets -- editing
 
 - (void)editedTicket:(id)ticketKey forProject:(id)projectKey
-    describedBy:(NewTicketDescription *)description;
+    describedBy:(UpdateTicketDescription *)description;
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
-    describedBy:(NewTicketDescription *)description error:(NSError *)error;
+    describedBy:(UpdateTicketDescription *)description error:(NSError *)error;
 
 #pragma mark Tickets -- deleting
 
@@ -105,5 +106,12 @@
     inProject:(id)projectKey;
 - (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
     error:(NSError *)error;
+
+#pragma mark Messages -- creating
+
+- (void)message:(id)messageKey describedBy:(NewMessageDescription *)desc
+    createdForProject:(id)projectKey;
+- (void)failedToCreateMessageDescribedBy:(NewMessageDescription *)desc
+    forProject:(id)projectKey error:(NSError *)error;
 
 @end

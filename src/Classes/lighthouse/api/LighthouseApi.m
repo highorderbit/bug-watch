@@ -349,6 +349,38 @@
     [self sendRequestToUrl:urlString callback:callback arguments:args];
 }
 
+#pragma mark Messages -- creating
+
+- (void)createMessageForProject:(id)projectKey
+    description:(NSString *)description object:(id)object
+    token:(NSString *)token
+{
+    NSString * urlString =
+        [NSString stringWithFormat:@"%@projects/%@/messages.xml?_token=%@",
+        baseUrlString, projectKey, token];
+    NSData * encodedDescription =
+        [description dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSMutableURLRequest * req =
+        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:encodedDescription];
+    [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+
+    NSDictionary * args =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        token, @"token",
+        projectKey, @"projectKey",
+        description, @"description",
+        object ? object : [NSNull null], @"object",
+        nil];
+
+    SEL sel = @selector(handleCreateMessageForProjectResponse:toRequest:args:);
+    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+
+    [api sendRequest:req];
+}
+
 #pragma mark Handling responses
 
 - (void)handleTicketsForAllProjectsResponse:(id)response
@@ -417,6 +449,25 @@
     else
         [delegate comments:response fetchedForMessage:messageKey
             inProject:projectKey token:token];
+}
+
+- (void)handleCreateMessageForProjectResponse:(id)response
+                                    toRequest:(NSURLRequest *)request
+                                         args:(NSDictionary *)args
+{
+    NSString * token = [args objectForKey:@"token"];
+    id projectKey = [args objectForKey:@"projectKey"];
+    NSString * description = [args objectForKey:@"description"];
+    id object = [args objectForKey:@"object"];
+    object = [object isEqual:[NSNull null]] ? nil : object;
+
+    if ([response isKindOfClass:[NSError class]])
+        [delegate failedToCreateMessageForProject:projectKey
+            withDescription:description object:object token:token
+            error:response];
+    else
+        [delegate message:response createdForProject:projectKey
+            withDescription:description object:object token:token];
 }
 
 - (void)handleTicketSearchResultsForAllProjectsResponse:(id)response

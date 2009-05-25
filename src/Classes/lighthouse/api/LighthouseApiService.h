@@ -6,8 +6,11 @@
 #import "LighthouseApiServiceDelegate.h"
 #import "LighthouseApiDelegate.h"
 
+#import "NewTicketDescription.h"
+#import "UpdateTicketDescription.h"
+#import "NewMessageDescription.h"
+
 @class LighthouseApi, LighthouseApiParser;
-@class NewTicketDescription, UpdateTicketDescription;
 
 @interface LighthouseApiService : NSObject <LighthouseApiDelegate>
 {
@@ -73,6 +76,11 @@
 
 - (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token;
 - (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    token:(NSString *)token;
+
+#pragma mark Messages -- creating
+
+- (void)createMessage:(NewMessageDescription *)desc forProject:(id)projectKey
     token:(NSString *)token;
 
 #pragma mark Notification names posted to the application as data is received

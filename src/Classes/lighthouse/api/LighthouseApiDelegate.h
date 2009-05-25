@@ -97,4 +97,13 @@
 - (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
     token:(NSString *)token error:(NSError *)error;
 
+#pragma mark Messages -- creating
+
+- (void)message:(NSData *)response createdForProject:(id)projectKey
+    withDescription:(NSString *)description object:(id)object
+    token:(NSString *)token;
+- (void)failedToCreateMessageForProject:(id)projectKey
+    withDescription:(NSString *)description object:(id)object
+    token:(NSString *)token error:(NSError *)error;
+
 @end
