@@ -227,8 +227,6 @@
 
 - (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
 {
-    UIBarButtonItem * cancelButton =
-        ticketsNetAwareViewController.navigationItem.leftBarButtonItem;
     UITextField * searchField =
         (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
 
@@ -241,7 +239,6 @@
     TicketSearchMgr * ticketSearchMgr =
         [[TicketSearchMgr alloc]
         initWithSearchField:searchField addButton:addButton
-        cancelButton:cancelButton
         navigationItem:ticketsNetAwareViewController.navigationItem
         ticketBinViewController:binViewController
         parentView:ticketsNetAwareViewController.navigationController.view

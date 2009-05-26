@@ -75,14 +75,10 @@
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="45198810">
 								<reference key="IBUINavigationBar"/>
 								<string key="IBUITitle">Tickets</string>
-								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="410430477">
-									<string key="IBUITitle">Done</string>
-									<int key="IBUIStyle">1</int>
-								</object>
 								<object class="IBUITextField" key="IBUITitleView" id="618903335">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{63, 7}, {201, 31}}</string>
+									<string key="NSFrame">{{60, 7}, {201, 31}}</string>
 									<reference key="NSSuperview"/>
 									<bool key="IBUIOpaque">NO</bool>
 									<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -465,7 +461,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="618903335"/>
 							<reference ref="45651249"/>
-							<reference ref="410430477"/>
 						</object>
 						<reference key="parent" ref="360103391"/>
 					</object>
@@ -599,11 +594,6 @@
 						<reference key="parent" ref="45198810"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">203</int>
-						<reference key="object" ref="410430477"/>
-						<reference key="parent" ref="45198810"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">205</int>
 						<reference key="object" ref="479484297"/>
 						<reference key="parent" ref="935392927"/>
@@ -654,7 +644,6 @@
 					<string>2.IBPluginDependency</string>
 					<string>201.IBPluginDependency</string>
 					<string>202.IBPluginDependency</string>
-					<string>203.IBPluginDependency</string>
 					<string>205.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
@@ -706,7 +695,6 @@
 						</object>
 					</object>
 					<string>{{229, 373}, {320, 480}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
