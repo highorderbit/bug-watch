@@ -12,6 +12,7 @@
 - (void)forceQueryRefresh;
 - (void)userDidSelectActiveProjectKey:(id)key;
 - (void)prepareNewTicketView;
+- (void)displayTicketDetails:(TicketKey *)key;
 
 @property (nonatomic, readonly) NSDictionary * milestonesForProject;
 
@@ -122,49 +123,14 @@
 {
     NSLog(@"Ticket %@ selected", key);
 
-    if (self.navController.topViewController !=
-        self.detailsNetAwareViewController) {
+    self.detailsNetAwareViewController.title =
+        [NSString stringWithFormat:@"Ticket %d", key.ticketNumber];
+    [self.navController
+        pushViewController:self.detailsNetAwareViewController animated:YES];
 
-        self.detailsNetAwareViewController.title =
-            [NSString stringWithFormat:@"Ticket %d", key.ticketNumber];
-        [self.navController
-            pushViewController:self.detailsNetAwareViewController animated:YES];
-    }
-
-    if (commentCache && [selectedTicketKey isEqual:key]) {
-        [self.detailsNetAwareViewController
-            setUpdatingState:kConnectedAndNotUpdating];        
-        self.detailsNetAwareViewController.cachedDataAvailable = YES;
-        
-        Ticket * ticket = [self.ticketCache ticketForKey:key];
-        TicketMetaData * metaData = [self.ticketCache metaDataForKey:key];
-        id reportedByKey = [self.ticketCache createdByKeyForKey:key];
-        NSString * reportedBy = [userDict objectForKey:reportedByKey];
-        id assignedToKey = [self.ticketCache assignedToKeyForKey:key];
-        NSString * assignedTo = [userDict objectForKey:assignedToKey];
-        id milestoneKey = [self.ticketCache milestoneKeyForKey:key];
-        NSString * milestone = [milestoneDict objectForKey:milestoneKey];
-
-        NSArray * commentKeys = [[commentCache allComments] allKeys];
-        NSMutableDictionary * comments = [NSMutableDictionary dictionary];
-        for (id commentKey in commentKeys) {
-            TicketComment * comment = [commentCache commentForKey:commentKey];
-            [comments setObject:comment forKey:commentKey];
-        }
-
-        NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
-        for (id commentKey in commentKeys) {
-            NSString * userKey =
-                [commentCache authorKeyForCommentKey:commentKey];
-            NSString * commentAuthor = [userDict objectForKey:userKey];
-            [commentAuthors setObject:commentAuthor forKey:commentKey];
-        }
-
-        [self.detailsViewController setTicketNumber:key.ticketNumber
-            ticket:ticket metaData:metaData reportedBy:reportedBy
-            assignedTo:assignedTo milestone:milestone comments:comments
-            commentAuthors:commentAuthors];
-    } else {
+    if (commentCache && [selectedTicketKey isEqual:key])
+        [self displayTicketDetails:key];
+    else {
         [dataSource fetchTicketWithKey:key];
         self.detailsNetAwareViewController.cachedDataAvailable = NO;
         [self.detailsNetAwareViewController
@@ -172,6 +138,42 @@
     }
 
     selectedTicketKey = key;
+}
+
+- (void)displayTicketDetails:(TicketKey *)key
+{
+    [self.detailsNetAwareViewController
+        setUpdatingState:kConnectedAndNotUpdating];        
+    self.detailsNetAwareViewController.cachedDataAvailable = YES;
+    
+    Ticket * ticket = [self.ticketCache ticketForKey:key];
+    TicketMetaData * metaData = [self.ticketCache metaDataForKey:key];
+    id reportedByKey = [self.ticketCache createdByKeyForKey:key];
+    NSString * reportedBy = [userDict objectForKey:reportedByKey];
+    id assignedToKey = [self.ticketCache assignedToKeyForKey:key];
+    NSString * assignedTo = [userDict objectForKey:assignedToKey];
+    id milestoneKey = [self.ticketCache milestoneKeyForKey:key];
+    NSString * milestone = [milestoneDict objectForKey:milestoneKey];
+
+    NSArray * commentKeys = [[commentCache allComments] allKeys];
+    NSMutableDictionary * comments = [NSMutableDictionary dictionary];
+    for (id commentKey in commentKeys) {
+        TicketComment * comment = [commentCache commentForKey:commentKey];
+        [comments setObject:comment forKey:commentKey];
+    }
+
+    NSMutableDictionary * commentAuthors = [NSMutableDictionary dictionary];
+    for (id commentKey in commentKeys) {
+        NSString * userKey =
+            [commentCache authorKeyForCommentKey:commentKey];
+        NSString * commentAuthor = [userDict objectForKey:userKey];
+        [commentAuthors setObject:commentAuthor forKey:commentKey];
+    }
+
+    [self.detailsViewController setTicketNumber:key.ticketNumber
+        ticket:ticket metaData:metaData reportedBy:reportedBy
+        assignedTo:assignedTo milestone:milestone comments:comments
+        commentAuthors:commentAuthors];
 }
 
 - (void)ticketsFilteredByFilterString:(NSString *)aFilterString
@@ -268,7 +270,7 @@
 - (void)receivedTicketDetailsFromDataSource:(TicketCommentCache *)aCommentCache
 {
     self.commentCache = aCommentCache;
-    [self selectedTicketKey:selectedTicketKey];
+    [self displayTicketDetails:selectedTicketKey];
 }
 
 - (void)createdTicketWithKey:(id)ticketKey
