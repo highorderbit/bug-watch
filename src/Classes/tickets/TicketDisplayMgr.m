@@ -165,10 +165,10 @@
             assignedTo:assignedTo milestone:milestone comments:comments
             commentAuthors:commentAuthors];
     } else {
-        [self.detailsNetAwareViewController
-            setUpdatingState:kConnectedAndUpdating];        
-        self.detailsNetAwareViewController.cachedDataAvailable = NO;
         [dataSource fetchTicketWithKey:key];
+        self.detailsNetAwareViewController.cachedDataAvailable = NO;
+        [self.detailsNetAwareViewController
+            setUpdatingState:kConnectedAndUpdating];
     }
 
     selectedTicketKey = key;
