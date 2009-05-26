@@ -136,7 +136,7 @@ static const NSInteger UNSET_KEY = 0;
             [cell setKeyText:@"description"];
             break;
         case kComment:
-            if (valueForRow && ![valueForRow isEqual:@""]) {
+            if (self.comment && ![self.comment isEqual:@""]) {
                 [cell setKeyText:@"comment"];
                 cell.keyOnly = NO;
             } else {

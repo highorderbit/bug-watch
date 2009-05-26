@@ -7,6 +7,7 @@
 #import "TicketCommentCache.h"
 #import "TicketComment.h"
 #import "NewTicketDescription.h"
+#import "UpdateTicketDescription.h"
 
 @interface TicketDataSource (Private)
 
@@ -54,6 +55,13 @@
     forProject:(id)projectKey
 {
     [service createNewTicket:desc forProject:projectKey token:token];
+}
+
+- (void)editTicketWithKey:(id)key description:(UpdateTicketDescription *)desc
+    forProject:(id)projectKey
+{
+    [service editTicket:key forProject:projectKey withDescription:desc
+        token:token];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation

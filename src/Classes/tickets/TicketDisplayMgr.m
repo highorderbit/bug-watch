@@ -4,6 +4,7 @@
 
 #import "TicketDisplayMgr.h"
 #import "NewTicketDescription.h"
+#import "UpdateTicketDescription.h"
 
 @interface TicketDisplayMgr (Private)
 
@@ -14,6 +15,7 @@
 - (void)displayTicketDetails:(TicketKey *)key;
 
 @property (nonatomic, readonly) NSDictionary * milestonesForProject;
+@property (nonatomic, readonly) UIBarButtonItem * detailsEditButton;
 
 @end
 
@@ -134,6 +136,7 @@
         self.detailsNetAwareViewController.cachedDataAvailable = NO;
         [self.detailsNetAwareViewController
             setUpdatingState:kConnectedAndUpdating];
+        self.detailsEditButton.enabled = NO;
     }
 
     selectedTicketKey = key;
@@ -141,6 +144,8 @@
 
 - (void)displayTicketDetails:(TicketKey *)key
 {
+    self.detailsEditButton.enabled = YES;
+            
     [self.detailsNetAwareViewController
         setUpdatingState:kConnectedAndNotUpdating];        
     self.detailsNetAwareViewController.cachedDataAvailable = YES;
@@ -300,6 +305,7 @@
     } else {
         [self prepareNewTicketView];
         rootViewController = self.editTicketViewController;
+        self.editTicketViewController.edit = NO;
     }
     
     UINavigationController * tempNavController =
@@ -315,20 +321,40 @@
 {
     NSLog(@"Sending new ticket definition to server...");
 
-    NewTicketDescription * desc = [NewTicketDescription description];
-    desc.title = sender.ticketDescription;
-    desc.body = sender.message;
-    if (sender.state != 0)
-        desc.state = sender.state;
-    if (sender.member && ![sender.member isEqual:[NSNumber numberWithInt:0]])
-        desc.assignedUserKey = sender.member;
-    if (sender.milestone &&
-        ![sender.milestone isEqual:[NSNumber numberWithInt:0]])
-            desc.milestoneKey = sender.milestone;
-    desc.tags = sender.tags;
+    if (self.editTicketViewController.edit) {
+        UpdateTicketDescription * desc = [UpdateTicketDescription description];
+        desc.title = sender.ticketDescription;
+        desc.comment = sender.comment;
+        if (sender.state != 0)
+            desc.state = sender.state;
+        if (sender.member &&
+            ![sender.member isEqual:[NSNumber numberWithInt:0]])
+                desc.assignedUserKey = sender.member;
+        if (sender.milestone &&
+            ![sender.milestone isEqual:[NSNumber numberWithInt:0]])
+                desc.milestoneKey = sender.milestone;
+        desc.tags = sender.tags;
 
-    [dataSource createTicketWithDescription:desc forProject:activeProjectKey];
-    
+        [dataSource editTicketWithKey:selectedTicketKey description:desc
+            forProject:activeProjectKey];
+    } else {
+        NewTicketDescription * desc = [NewTicketDescription description];
+        desc.title = sender.ticketDescription;
+        desc.body = sender.message;
+        if (sender.state != 0)
+            desc.state = sender.state;
+        if (sender.member &&
+            ![sender.member isEqual:[NSNumber numberWithInt:0]])
+                desc.assignedUserKey = sender.member;
+        if (sender.milestone &&
+            ![sender.milestone isEqual:[NSNumber numberWithInt:0]])
+                desc.milestoneKey = sender.milestone;
+        desc.tags = sender.tags;
+
+        [dataSource createTicketWithDescription:desc
+            forProject:activeProjectKey];
+    }
+
     [self.editTicketViewController.view addSubview:darkTransparentView];
     self.editTicketViewController.cancelButton.enabled = NO;
     self.editTicketViewController.updateButton.enabled = NO;
@@ -357,7 +383,6 @@
     self.editTicketViewController.milestones = self.milestonesForProject;
 
     self.editTicketViewController.edit = NO;
-    self.editTicketViewController.action = @selector(addTicketOnServer:);
 }
 
 #pragma mark Accessors
@@ -394,6 +419,11 @@
     return detailsNetAwareViewController;
 }
 
+- (UIBarButtonItem *)detailsEditButton
+{
+    return self.detailsNetAwareViewController.navigationItem.rightBarButtonItem;
+}
+
 - (EditTicketViewController *)editTicketViewController
 {
     if (!editTicketViewController) {
@@ -401,6 +431,7 @@
             [[EditTicketViewController alloc]
             initWithNibName:@"EditTicketView" bundle:nil];
         editTicketViewController.target = self;
+        self.editTicketViewController.action = @selector(addTicketOnServer:);
     }
 
     return editTicketViewController;
