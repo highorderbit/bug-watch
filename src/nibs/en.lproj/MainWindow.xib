@@ -102,12 +102,12 @@
 										<double key="NSSize">1.600000e+01</double>
 										<int key="NSfFlags">16</int>
 									</object>
-									<bool key="IBUIClearsOnBeginEditing">YES</bool>
 									<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 									<float key="IBUIMinimumFontSize">1.700000e+01</float>
 									<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 										<int key="IBUIReturnKeyType">1</int>
 									</object>
+									<int key="IBUIClearButtonMode">1</int>
 								</object>
 								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="45651249">
 									<int key="IBUIStyle">1</int>
