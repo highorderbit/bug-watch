@@ -10,6 +10,7 @@
 - (void)updateNavigationBarForNotSearching:(BOOL)animated;
 - (void)initDarkTransparentView;
 - (void)searchCurrentText;
+- (void)forceQueryRefresh;
 
 @end
 
@@ -57,7 +58,7 @@
         refreshButton =
             [[UIBarButtonItem alloc]
             initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-            target:self action:@selector(searchCurrentText)];
+            target:self action:@selector(forceQueryRefresh)];
 
         searchField.delegate = self;
         // Can't be set in IB, so setting it here
@@ -205,6 +206,11 @@
 {
     [delegate ticketsFilteredByFilterString:searchField.text];
     [self cancelSelected];
+}
+
+- (void)forceQueryRefresh
+{
+    [delegate forceQueryRefresh];
 }
 
 @end

@@ -9,7 +9,6 @@
 
 - (void)addTicketOnServer:(EditTicketViewController *)sender;
 - (void)initDarkTransparentView;
-- (void)forceQueryRefresh;
 - (void)userDidSelectActiveProjectKey:(id)key;
 - (void)prepareNewTicketView;
 - (void)displayTicketDetails:(TicketKey *)key;
@@ -221,6 +220,13 @@
     self.filterString = aFilterString;
 }
 
+- (void)forceQueryRefresh
+{
+    NSString * tempFilterString = self.filterString;
+    self.filterString = nil;
+    [self ticketsFilteredByFilterString:tempFilterString];
+}
+
 #pragma mark TicketDetailsViewControllerDelegate implementation
 
 - (void)editTicket
@@ -326,13 +332,6 @@
     [self.editTicketViewController.view addSubview:darkTransparentView];
     self.editTicketViewController.cancelButton.enabled = NO;
     self.editTicketViewController.updateButton.enabled = NO;
-}
-
-- (void)forceQueryRefresh
-{
-    NSString * tempFilterString = self.filterString;
-    self.filterString = nil;
-    [self ticketsFilteredByFilterString:tempFilterString];
 }
 
 - (void)userDidSelectActiveProjectKey:(id)key
