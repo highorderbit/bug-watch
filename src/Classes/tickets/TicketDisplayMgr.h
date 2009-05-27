@@ -22,12 +22,11 @@
     TicketDetailsViewControllerDelegate, NetworkAwareViewControllerDelegate,
     TicketDataSourceDelegate, TicketSearchMgrDelegate>
 {
-    NSString * filterString;
     id selectedTicketKey;
 
     TicketCache * ticketCache;
     TicketCommentCache * commentCache;
-    
+
     NetworkAwareViewController * wrapperController;
     TicketsViewController * ticketsViewController;
     TicketDataSource * dataSource;
@@ -44,7 +43,7 @@
 
     id activeProjectKey;
     BOOL selectProject;
-    NSUInteger pageNum;
+    BOOL firstTimeDisplayed;
 }
 
 @property (readonly) TicketDetailsViewController * detailsViewController;
@@ -56,7 +55,6 @@
 
 @property (nonatomic, retain) TicketCache * ticketCache;
 @property (nonatomic, retain) TicketCommentCache * commentCache;
-@property (nonatomic, copy) NSString * filterString;
 @property (nonatomic, copy) id activeProjectKey;
 @property (nonatomic, assign) BOOL selectProject;
 
@@ -64,7 +62,6 @@
 @property (nonatomic, copy) NSDictionary * userDict;
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache
-    initialFilterString:(NSString *)initialFilterString
     networkAwareViewController:(NetworkAwareViewController *)wrapperController
     ticketsViewController:(TicketsViewController *)aTicketsViewController
     dataSource:(TicketDataSource *)aDataSource;

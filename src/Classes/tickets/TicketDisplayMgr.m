@@ -21,12 +21,11 @@
 
 @implementation TicketDisplayMgr
 
-@synthesize ticketCache, commentCache, filterString, activeProjectKey,
-    selectProject, milestoneDict, userDict;
+@synthesize ticketCache, commentCache, activeProjectKey, selectProject,
+    milestoneDict, userDict;
 
 - (void)dealloc
 {
-    [filterString release];
     [selectedTicketKey release];
     [ticketCache release];
     [commentCache release];
@@ -50,13 +49,11 @@
 }
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache
-    initialFilterString:(NSString *)initialFilterString
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
     ticketsViewController:(TicketsViewController *)aTicketsViewController
     dataSource:(TicketDataSource *)aDataSource;
 {
     if (self = [super init]) {
-        self.filterString = initialFilterString;
         ticketCache = [aTicketCache retain];
         wrapperController = [aWrapperController retain];
         ticketsViewController = [aTicketsViewController retain];
@@ -81,6 +78,8 @@
         [projectDict setObject:@"Code Watch"
             forKey:[NSNumber numberWithInt:27400]];
         // TEMPORARY
+        
+        firstTimeDisplayed = YES;
     }
 
     return self;
@@ -144,11 +143,11 @@
 
 - (void)loadMoreTickets
 {
-    pageNum++;
-    NSLog(@"Loading more tickets (page %d)...", pageNum);
+    NSUInteger pageToLoad = ticketCache.numPages + 1;
+    NSLog(@"Loading more tickets (page %d)...", pageToLoad);
     [wrapperController setUpdatingState:kConnectedAndUpdating];
     wrapperController.cachedDataAvailable = YES;
-    [dataSource fetchTicketsWithQuery:self.filterString page:pageNum];
+    [dataSource fetchTicketsWithQuery:self.ticketCache.query page:pageToLoad];
 }
 
 - (void)displayTicketDetails:(TicketKey *)key
@@ -193,14 +192,11 @@
 {
     NSDictionary * allTickets = [ticketCache allTickets];
 
-    if (self.ticketCache &&
-        (aFilterString == self.filterString ||
-        [aFilterString isEqual:self.filterString])) {
+    wrapperController.cachedDataAvailable = !!self.ticketCache;
 
-        NSDictionary * allAssignedToKeys = [self.ticketCache allAssignedToKeys];
+    if (self.ticketCache) {
+        NSDictionary * allAssignedToKeys = [self.ticketCache allAssignedToKeys];       
 
-        [wrapperController setUpdatingState:kConnectedAndNotUpdating];        
-        wrapperController.cachedDataAvailable = YES;
         
         NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
         for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
@@ -223,22 +219,25 @@
 
         [ticketsViewController setTickets:allTickets
             metaData:[ticketCache allMetaData] assignedToDict:assignedToDict
-            milestoneDict:associatedMilestoneDict page:pageNum];
-    } else {
-        pageNum = 1;
-        [wrapperController setUpdatingState:kConnectedAndUpdating];
-        wrapperController.cachedDataAvailable = NO;
-        NSString * searchString = aFilterString ? aFilterString : @"";
-        [dataSource fetchTicketsWithQuery:searchString page:pageNum];
+            milestoneDict:associatedMilestoneDict page:ticketCache.numPages];
     }
 
-    self.filterString = aFilterString;
+    if (aFilterString != self.ticketCache.query &&
+        ![aFilterString isEqual:self.ticketCache.query]) {
+
+        ticketCache.numPages = 1;
+        [wrapperController setUpdatingState:kConnectedAndUpdating];
+        NSString * searchString = aFilterString ? aFilterString : @"";
+        [dataSource fetchTicketsWithQuery:searchString
+            page:ticketCache.numPages];
+    } else
+        [wrapperController setUpdatingState:kConnectedAndNotUpdating];
 }
 
 - (void)forceQueryRefresh
 {
-    NSString * tempFilterString = self.filterString;
-    self.filterString = nil;
+    NSString * tempFilterString = self.ticketCache.query;
+    self.ticketCache.query = nil;
     [self ticketsFilteredByFilterString:tempFilterString];
 }
 
@@ -277,26 +276,30 @@
 
 - (void)networkAwareViewWillAppear
 {
-    [self ticketsFilteredByFilterString:filterString];
+    if (firstTimeDisplayed)
+        [self forceQueryRefresh];
+    else
+        [self ticketsFilteredByFilterString:ticketCache.query];
+
+    firstTimeDisplayed = NO;
 }
 
 #pragma mark TicketDataSourceDelegate implementation
 
 - (void)receivedTicketsFromDataSource:(TicketCache *)aTicketCache
 {
-    if (pageNum > 1) {
+    if (aTicketCache.numPages > 1) {
         [self.ticketCache merge:aTicketCache];
-        if ([aTicketCache.allTickets count] == 0) {
+        if ([aTicketCache.allTickets count] == 0)
             [ticketsViewController setAllPagesLoaded:YES];
-            pageNum--; // bit of a hack
-        } else
+        else
             [ticketsViewController setAllPagesLoaded:NO];
     } else {
         self.ticketCache = aTicketCache;
         [ticketsViewController setAllPagesLoaded:NO];
     }
     
-    [self ticketsFilteredByFilterString:self.filterString];
+    [self ticketsFilteredByFilterString:self.ticketCache.query];
 }
 
 - (void)receivedTicketDetailsFromDataSource:(TicketCommentCache *)aCommentCache

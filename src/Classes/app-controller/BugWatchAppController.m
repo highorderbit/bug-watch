@@ -36,7 +36,8 @@
 
 - (void)initTicketsTab;
 - (TicketCache *)loadTicketsFromPersistence;
-- (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton;
+- (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
+    searchText:(NSString *)searchText;
 - (TicketBinDataSource *)initTicketBinDataSource;
 
 - (void)initProjectsTab;
@@ -173,8 +174,9 @@
     UIBarButtonItem * addButton =
         ticketsNetAwareViewController.navigationItem.rightBarButtonItem;
     TicketSearchMgr * ticketSearchMgr =
-        [self initTicketSearchMgrWithButton:addButton];
-    
+        [self initTicketSearchMgrWithButton:addButton
+        searchText:ticketCache.query];
+
     TicketsViewController * ticketsViewController =
         [[[TicketsViewController alloc]
         initWithNibName:@"TicketsView" bundle:nil] autorelease];
@@ -190,7 +192,6 @@
     
     ticketDisplayMgr =
         [[[TicketDisplayMgr alloc] initWithTicketCache:ticketCache
-        initialFilterString:nil
         networkAwareViewController:ticketsNetAwareViewController
         ticketsViewController:ticketsViewController
         dataSource:ticketDataSource] autorelease];
@@ -226,9 +227,11 @@
 }
 
 - (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
+    searchText:(NSString *)searchText
 {
     UITextField * searchField =
         (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
+    searchField.text = searchText;
 
     TicketBinViewController * binViewController =
         [[[TicketBinViewController alloc]

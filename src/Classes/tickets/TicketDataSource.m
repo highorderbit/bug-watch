@@ -98,6 +98,8 @@
         if (creatorId)
             [ticketCache setCreatedByKey:creatorId forKey:ticketKey];
     }
+    ticketCache.query = searchString;
+    ticketCache.numPages = page;
 
     [delegate receivedTicketsFromDataSource:ticketCache];
 }

@@ -9,6 +9,9 @@
 
 @interface TicketCache : NSObject
 {
+    NSString * query;
+    NSUInteger numPages;
+
     NSMutableDictionary * tickets;
     NSMutableDictionary * metaData;
 
@@ -17,6 +20,9 @@
     NSMutableDictionary * milestoneDict;
     NSMutableDictionary * commentDict;
 }
+
+@property (nonatomic, copy) NSString * query;
+@property (nonatomic, assign) NSUInteger numPages;
 
 - (void)setTicket:(Ticket *)ticket forKey:(id)key;
 - (Ticket *)ticketForKey:(id)key;

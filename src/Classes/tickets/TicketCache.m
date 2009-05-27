@@ -6,8 +6,11 @@
 
 @implementation TicketCache
 
+@synthesize query, numPages;
+
 - (void)dealloc
 {
+    [query release];
     [tickets release];
     [metaData release];
     [createdByDict release];
@@ -130,6 +133,7 @@
     [assignedToDict addEntriesFromDictionary:aTicketCache.allAssignedToKeys];
     [milestoneDict addEntriesFromDictionary:aTicketCache.allMilestoneKeys];
     [commentDict addEntriesFromDictionary:aTicketCache.allCommentKeys];
+    self.numPages = aTicketCache.numPages;
 }
 
 @end
