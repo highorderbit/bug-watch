@@ -31,6 +31,8 @@
 #import "TicketDispMgrMilestoneSetter.h"
 #import "UIStatePersistenceStore.h"
 #import "UIState.h"
+#import "TicketDispMgrProjectSetter.h"
+#import "ProjectUpdatePublisher.h"
 
 @interface BugWatchAppController (Private)
 
@@ -78,6 +80,18 @@
     messageCache = [[MessageCache alloc] init];
     messageResponseCache = [[MessageResponseCache alloc] init];
     
+    // TODO: read milestones, users, projects from persistence store
+
+    // load single-session, global data (milestones, projects, users)
+    NSString * baseServiceUrl = @"https://highorderbit.lighthouseapp.com/"; // TEMPORARY
+    LighthouseApiService * service =
+        [[LighthouseApiService alloc]
+        initWithBaseUrlString:baseServiceUrl];
+
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
+    [service fetchMilestonesForAllProjects:token];
+    [service fetchAllProjects:token];
+
     // TEMPORARY: populate message cache
     Message * msg1 =
        [[Message alloc] initWithPostedDate:[NSDate date]
@@ -206,12 +220,20 @@
     TicketDispMgrMilestoneSetter * milestoneSetter =
         [[TicketDispMgrMilestoneSetter alloc]
         initWithTicketDisplayMgr:ticketDisplayMgr];
-    MilestoneUpdatePublisher * milestoneUpdatePublisher =
-        [[MilestoneUpdatePublisher alloc]
+    // just create, no need to assign a variable
+    [[MilestoneUpdatePublisher alloc]
         initWithListener:milestoneSetter
         action:
         @selector(milestonesReceivedForAllProjects:milestoneKeys:projectKeys:)];
-#pragma unused(milestoneUpdatePublisher)  // suppress compiler warning
+
+    // intentionally not autoreleasing either of the following objects
+    TicketDispMgrProjectSetter * projectSetter =
+        [[TicketDispMgrProjectSetter alloc]
+        initWithTicketDisplayMgr:ticketDisplayMgr];
+    // just create, no need to assign a variable
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:projectSetter
+        action:@selector(fetchedAllProjects:projectKeys:)];
 }
 
 - (TicketCache *)loadTicketsFromPersistence

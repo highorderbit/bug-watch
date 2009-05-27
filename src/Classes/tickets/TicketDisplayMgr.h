@@ -59,6 +59,7 @@
 @property (nonatomic, assign) BOOL selectProject;
 
 @property (nonatomic, copy) NSDictionary * milestoneDict;
+@property (nonatomic, copy) NSDictionary * projectDict;
 @property (nonatomic, copy) NSDictionary * userDict;
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache

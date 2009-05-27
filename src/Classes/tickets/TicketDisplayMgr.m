@@ -22,7 +22,7 @@
 @implementation TicketDisplayMgr
 
 @synthesize ticketCache, commentCache, activeProjectKey, selectProject,
-    milestoneDict, userDict;
+    milestoneDict, projectDict, userDict;
 
 - (void)dealloc
 {
@@ -63,22 +63,14 @@
         self.selectProject = YES;
 
         // TEMPORARY
-        self.activeProjectKey = [NSNumber numberWithInt:30772];
-
         // this will eventually be read from a user cache of some sort
         userDict = [[NSMutableDictionary dictionary] retain];
         [userDict setObject:@"Doug Kurth"
             forKey:[NSNumber numberWithInt:50190]];
         [userDict setObject:@"John A. Debay"
             forKey:[NSNumber numberWithInt:50209]];
-
-        projectDict = [[NSMutableDictionary dictionary] retain];
-        [projectDict setObject:@"Bug Watch"
-            forKey:[NSNumber numberWithInt:30772]];
-        [projectDict setObject:@"Code Watch"
-            forKey:[NSNumber numberWithInt:27400]];
         // TEMPORARY
-        
+
         firstTimeDisplayed = YES;
     }
 
