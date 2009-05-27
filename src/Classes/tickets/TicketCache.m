@@ -117,4 +117,19 @@
     return [commentDict objectForKey:key];
 }
 
+- (NSDictionary *)allCommentKeys
+{
+    return [[commentDict copy] autorelease];
+}
+
+- (void)merge:(TicketCache *)aTicketCache
+{
+    [tickets addEntriesFromDictionary:aTicketCache.allTickets];
+    [metaData addEntriesFromDictionary:aTicketCache.allMetaData];
+    [createdByDict addEntriesFromDictionary:aTicketCache.allCreatedByKeys];
+    [assignedToDict addEntriesFromDictionary:aTicketCache.allAssignedToKeys];
+    [milestoneDict addEntriesFromDictionary:aTicketCache.allMilestoneKeys];
+    [commentDict addEntriesFromDictionary:aTicketCache.allCommentKeys];
+}
+
 @end

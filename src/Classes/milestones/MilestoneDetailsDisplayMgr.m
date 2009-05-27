@@ -104,7 +104,7 @@
     // etc. contain keys for every ticket. Consider revising if necessary.
     [self.ticketsViewController
         setTickets:filteredTickets metaData:metadata assignedToDict:userIds
-        milestoneDict:milestones];
+     milestoneDict:milestones page:1 /* TEMPORARY? - set by DNK after sig change*/];
 
     self.milestoneHeaderView.milestone = self.milestone;
     self.ticketsViewController.headerView = self.milestoneHeaderView;

@@ -44,6 +44,7 @@
 
     id activeProjectKey;
     BOOL selectProject;
+    NSUInteger pageNum;
 }
 
 @property (readonly) TicketDetailsViewController * detailsViewController;

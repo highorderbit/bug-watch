@@ -40,5 +40,8 @@
 
 - (void)setCommentKeys:(NSArray *)keys forKey:(id)key;
 - (NSArray *)commentKeysForKey:(id)key;
+- (NSDictionary *)allCommentKeys;
+
+- (void)merge:(TicketCache *)aTicketCache;
 
 @end

@@ -39,9 +39,9 @@
     return self;
 }
 
-- (void)fetchTicketsWithQuery:(NSString *)aFilterString
+- (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
 {
-    [service searchTicketsForAllProjects:aFilterString page:1 token:token];
+    [service searchTicketsForAllProjects:aFilterString page:page token:token];
 }
 
 - (void)fetchTicketWithKey:(TicketKey *)aTicketKey
@@ -59,7 +59,7 @@
 
 - (void)editTicketWithKey:(id)key description:(UpdateTicketDescription *)desc
     forProject:(id)projectKey
-{
+{    
     [service editTicket:key forProject:projectKey withDescription:desc
         token:token];
 }

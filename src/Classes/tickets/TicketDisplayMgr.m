@@ -142,6 +142,15 @@
     selectedTicketKey = key;
 }
 
+- (void)loadMoreTickets
+{
+    pageNum++;
+    NSLog(@"Loading more tickets (page %d)...", pageNum);
+    [wrapperController setUpdatingState:kConnectedAndUpdating];
+    wrapperController.cachedDataAvailable = YES;
+    [dataSource fetchTicketsWithQuery:self.filterString page:pageNum];
+}
+
 - (void)displayTicketDetails:(TicketKey *)key
 {
     self.detailsEditButton.enabled = YES;
@@ -184,7 +193,7 @@
 {
     NSDictionary * allTickets = [ticketCache allTickets];
 
-    if (ticketCache &&
+    if (self.ticketCache &&
         (aFilterString == self.filterString ||
         [aFilterString isEqual:self.filterString])) {
 
@@ -214,12 +223,13 @@
 
         [ticketsViewController setTickets:allTickets
             metaData:[ticketCache allMetaData] assignedToDict:assignedToDict
-            milestoneDict:associatedMilestoneDict];
+            milestoneDict:associatedMilestoneDict page:pageNum];
     } else {
+        pageNum = 1;
         [wrapperController setUpdatingState:kConnectedAndUpdating];
         wrapperController.cachedDataAvailable = NO;
         NSString * searchString = aFilterString ? aFilterString : @"";
-        [dataSource fetchTicketsWithQuery:searchString];
+        [dataSource fetchTicketsWithQuery:searchString page:pageNum];
     }
 
     self.filterString = aFilterString;
@@ -274,7 +284,18 @@
 
 - (void)receivedTicketsFromDataSource:(TicketCache *)aTicketCache
 {
-    self.ticketCache = aTicketCache;
+    if (pageNum > 1) {
+        [self.ticketCache merge:aTicketCache];
+        if ([aTicketCache.allTickets count] == 0) {
+            [ticketsViewController setAllPagesLoaded:YES];
+            pageNum--; // bit of a hack
+        } else
+            [ticketsViewController setAllPagesLoaded:NO];
+    } else {
+        self.ticketCache = aTicketCache;
+        [ticketsViewController setAllPagesLoaded:NO];
+    }
+    
     [self ticketsFilteredByFilterString:self.filterString];
 }
 

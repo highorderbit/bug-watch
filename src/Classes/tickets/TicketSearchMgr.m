@@ -123,7 +123,6 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionNone
             forView:searchField cache:YES];
     }
-    NSLog(@"Updating search nav bar...");
     
     CGRect frame = searchField.frame;
     frame.size.width = 250;

@@ -19,7 +19,7 @@
 
 -(id)initWithService:(LighthouseApiService *)service;
 
-- (void)fetchTicketsWithQuery:(NSString *)aFilterString;
+- (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page;
 - (void)fetchTicketWithKey:(TicketKey *)aTicketKey;
 
 - (void)createTicketWithDescription:(NewTicketDescription *)desc

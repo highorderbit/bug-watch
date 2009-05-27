@@ -53,4 +53,10 @@
     return [number compare:anotherNumber];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"ticket key: %@, %d", projectKey,
+        ticketNumber];
+}
+
 @end
