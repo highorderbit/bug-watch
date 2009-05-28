@@ -40,6 +40,7 @@
     NSDictionary * projectDict;
 
     UIView * darkTransparentView;
+    UILabel * loadingLabel;
 
     id activeProjectKey;
     BOOL selectProject;

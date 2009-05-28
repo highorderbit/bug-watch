@@ -6,10 +6,13 @@
 #import "AddCommentViewController.h"
 #import "ItemSelectionTableViewController.h"
 
-@interface EditTicketViewController : UITableViewController
+@interface EditTicketViewController :
+    UITableViewController <UIActionSheetDelegate>
 {
     IBOutlet UIBarButtonItem * cancelButton;
     IBOutlet UIBarButtonItem * updateButton;
+    IBOutlet UIView * footerView;
+    IBOutlet UIButton * deleteButton;
 
     AddCommentViewController * addCommentViewController;
     ItemSelectionTableViewController * itemSelectionTableViewController;
@@ -31,6 +34,7 @@
     
     id target;
     SEL action;
+    SEL deleteTicketAction;
 }
 
 @property (nonatomic, readonly) UIBarButtonItem * cancelButton;
@@ -41,6 +45,9 @@
 // Takes method with signature like:
 //    - (void)editTicket:(id)sender;
 @property(nonatomic) SEL action;
+// Takes method with signature like:
+//    - (void)deleteTicket;
+@property(nonatomic) SEL deleteTicketAction;
 
 @property (nonatomic, readonly)
     AddCommentViewController * addCommentViewController;
@@ -64,5 +71,6 @@
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)update:(id)sender;
+- (IBAction)deleteTicket:(id)sender;
 
 @end

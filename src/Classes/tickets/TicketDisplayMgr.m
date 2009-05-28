@@ -13,6 +13,9 @@
 - (void)userDidSelectActiveProjectKey:(id)key;
 - (void)prepareNewTicketView;
 - (void)displayTicketDetails:(TicketKey *)key;
+- (void)deleteTicketOnServer;
+- (void)disableEditViewWithText:(NSString *)text;
+- (void)enableEditView;
 
 @property (nonatomic, readonly) NSDictionary * milestonesForProject;
 @property (nonatomic, readonly) UIBarButtonItem * detailsEditButton;
@@ -44,6 +47,7 @@
     [projectDict release];
 
     [darkTransparentView release];
+    [loadingLabel release];
 
     [super dealloc];
 }
@@ -89,8 +93,7 @@
     [darkTransparentView addSubview:activityIndicator];
     
     CGRect loadingLabelFrame = CGRectMake(21, 120, 280, 65);
-    UILabel * loadingLabel =
-        [[[UILabel alloc] initWithFrame:loadingLabelFrame] autorelease];
+    loadingLabel = [[UILabel alloc] initWithFrame:loadingLabelFrame];
     loadingLabel.text = @"Creating ticket...";
     loadingLabel.textAlignment = UITextAlignmentCenter;
     loadingLabel.font = [UIFont boldSystemFontOfSize:20];
@@ -292,11 +295,22 @@
 
 - (void)createdTicketWithKey:(id)ticketKey
 {
+    [self enableEditView];
+    [self forceQueryRefresh];
+}
+
+- (void)deletedTicketWithKey:(id)ticketKey
+{
+    [self enableEditView];
+    [self forceQueryRefresh];
+}
+
+- (void)enableEditView
+{
     [darkTransparentView removeFromSuperview];
     [self.editTicketViewController dismissModalViewControllerAnimated:YES];
     self.editTicketViewController.cancelButton.enabled = YES;
     self.editTicketViewController.updateButton.enabled = YES;
-    [self forceQueryRefresh];
 }
 
 #pragma mark TicketDisplayMgr implementation
@@ -326,7 +340,8 @@
 - (void)addTicketOnServer:(EditTicketViewController *)sender
 {
     NSLog(@"Sending new ticket definition to server...");
-
+    
+    NSString * actionText;
     if (self.editTicketViewController.edit) {
         UpdateTicketDescription * desc = [UpdateTicketDescription description];
         desc.title = sender.ticketDescription;
@@ -343,6 +358,7 @@
 
         [dataSource editTicketWithKey:selectedTicketKey description:desc
             forProject:activeProjectKey];
+        actionText = @"Editing ticket...";
     } else {
         NewTicketDescription * desc = [NewTicketDescription description];
         desc.title = sender.ticketDescription;
@@ -359,11 +375,18 @@
 
         [dataSource createTicketWithDescription:desc
             forProject:activeProjectKey];
+        actionText = @"Creating ticket...";
     }
+    
+    [self disableEditViewWithText:actionText];
+}
 
-    [self.editTicketViewController.view addSubview:darkTransparentView];
-    self.editTicketViewController.cancelButton.enabled = NO;
-    self.editTicketViewController.updateButton.enabled = NO;
+- (void)deleteTicketOnServer
+{
+    NSLog(@"Deleting ticket %@ on server...");
+    [self disableEditViewWithText:@"Deleting ticket..."];
+    [dataSource deleteTicketWithKey:selectedTicketKey
+        forProject:activeProjectKey];
 }
 
 - (void)userDidSelectActiveProjectKey:(id)key
@@ -389,6 +412,14 @@
     self.editTicketViewController.milestones = self.milestonesForProject;
 
     self.editTicketViewController.edit = NO;
+}
+
+- (void)disableEditViewWithText:(NSString *)text
+{
+    loadingLabel.text = text;
+    [self.editTicketViewController.view.superview addSubview:darkTransparentView];
+    self.editTicketViewController.cancelButton.enabled = NO;
+    self.editTicketViewController.updateButton.enabled = NO;
 }
 
 #pragma mark Accessors
@@ -438,6 +469,8 @@
             initWithNibName:@"EditTicketView" bundle:nil];
         editTicketViewController.target = self;
         self.editTicketViewController.action = @selector(addTicketOnServer:);
+        self.editTicketViewController.deleteTicketAction =
+            @selector(deleteTicketOnServer);
     }
 
     return editTicketViewController;
@@ -469,7 +502,7 @@
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
     
-    [ticketsViewController.tableView reloadData];
+    [self ticketsFilteredByFilterString:ticketCache.query];
 }
 
 - (void)setProjectDict:(NSDictionary *)aProjectDict
@@ -478,7 +511,7 @@
     [projectDict release];
     projectDict = tempProjectDict;
     
-    [ticketsViewController.tableView reloadData];
+    [self ticketsFilteredByFilterString:ticketCache.query];
 }
 
 - (void)setUserDict:(NSDictionary *)aUserDict
@@ -487,7 +520,7 @@
     [userDict release];
     userDict = tempUserDict;
     
-    [ticketsViewController.tableView reloadData];
+    [self ticketsFilteredByFilterString:ticketCache.query];
 }
 
 - (NSDictionary *)milestonesForProject

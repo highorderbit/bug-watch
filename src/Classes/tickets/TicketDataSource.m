@@ -64,6 +64,11 @@
         token:token];
 }
 
+- (void)deleteTicketWithKey:(id)key forProject:(id)projectKey
+{
+    [service deleteTicket:key forProject:projectKey token:token];
+}
+
 #pragma mark LighthouseApiServiceDelegate implementation
 
 - (void)tickets:(NSArray *)tickets
@@ -147,6 +152,15 @@
 
 - (void)failedToCreateNewTicketDescribedBy:(NewTicketDescription *)description
     forProject:(id)projectKey error:(NSError *)error
+{}
+
+- (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
+{
+    [delegate deletedTicketWithKey:ticketKey];
+}
+
+- (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
+    error:(NSError *)error
 {}
 
 #pragma mark Readable strings from yaml helpers

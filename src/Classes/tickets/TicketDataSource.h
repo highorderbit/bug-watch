@@ -26,5 +26,6 @@
     forProject:(id)projectKey;
 - (void)editTicketWithKey:(id)key description:(UpdateTicketDescription *)desc
     forProject:(id)projectKey;
+- (void)deleteTicketWithKey:(id)key forProject:(id)projectKey;
 
 @end
