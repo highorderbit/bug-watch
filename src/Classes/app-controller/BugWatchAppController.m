@@ -33,6 +33,8 @@
 #import "UIState.h"
 #import "TicketDispMgrProjectSetter.h"
 #import "ProjectUpdatePublisher.h"
+#import "UserSetAggregator.h"
+#import "TicketDispMgrUserSetter.h"
 
 @interface BugWatchAppController (Private)
 
@@ -233,6 +235,20 @@
     // just create, no need to assign a variable
     [[ProjectUpdatePublisher alloc]
         initWithListener:projectSetter
+        action:@selector(fetchedAllProjects:projectKeys:)];
+        
+    TicketDispMgrUserSetter * userSetter =
+        [[[TicketDispMgrUserSetter alloc]
+        initWithTicketDisplayMgr:ticketDisplayMgr] autorelease];
+    LighthouseApiService * userSetterService =
+        [[self class] createLighthouseApiService];
+    UserSetAggregator * userSetAggregator =
+           [[UserSetAggregator alloc]
+           initWithListener:userSetter action:@selector(fetchedAllUsers:)
+           apiService:userSetterService token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" /* TEMPORARY */];
+   userSetterService.delegate = userSetAggregator;
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:userSetAggregator
         action:@selector(fetchedAllProjects:projectKeys:)];
 }
 

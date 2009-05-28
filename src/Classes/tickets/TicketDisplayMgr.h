@@ -35,9 +35,9 @@
     EditTicketViewController * editTicketViewController;
     ProjectSelectionViewController * projectSelectionViewController;
 
-    NSMutableDictionary * userDict;
+    NSDictionary * userDict;
     NSDictionary * milestoneDict;
-    NSMutableDictionary * projectDict;
+    NSDictionary * projectDict;
 
     UIView * darkTransparentView;
 

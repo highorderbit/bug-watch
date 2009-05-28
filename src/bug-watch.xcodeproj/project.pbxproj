@@ -129,6 +129,8 @@
 		91482CAB0FC6254F002D10E8 /* ProjectSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482CAA0FC6254F002D10E8 /* ProjectSelectionViewController.m */; };
 		91482D420FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */; };
 		91482FCA0FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FC90FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m */; };
+		91482FE50FCDFD51002D10E8 /* UserSetAggregator.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FE40FCDFD51002D10E8 /* UserSetAggregator.m */; };
+		91482FEB0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -385,6 +387,10 @@
 		91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountLevelTicketBinDataSource.m; path = tickets/AccountLevelTicketBinDataSource.m; sourceTree = "<group>"; };
 		91482FC80FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDispMgrProjectSetter.h; path = tickets/TicketDispMgrProjectSetter.h; sourceTree = "<group>"; };
 		91482FC90FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrProjectSetter.m; path = tickets/TicketDispMgrProjectSetter.m; sourceTree = "<group>"; };
+		91482FE30FCDFD51002D10E8 /* UserSetAggregator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSetAggregator.h; path = users/UserSetAggregator.h; sourceTree = "<group>"; };
+		91482FE40FCDFD51002D10E8 /* UserSetAggregator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSetAggregator.m; path = users/UserSetAggregator.m; sourceTree = "<group>"; };
+		91482FE90FCE04C7002D10E8 /* TicketDispMgrUserSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDispMgrUserSetter.h; path = tickets/TicketDispMgrUserSetter.h; sourceTree = "<group>"; };
+		91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrUserSetter.m; path = tickets/TicketDispMgrUserSetter.m; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -621,6 +627,8 @@
 			children = (
 				05DB80C90FC33E7E0095AF32 /* User.h */,
 				05DB80CA0FC33E7E0095AF32 /* User.m */,
+				91482FE30FCDFD51002D10E8 /* UserSetAggregator.h */,
+				91482FE40FCDFD51002D10E8 /* UserSetAggregator.m */,
 			);
 			name = users;
 			sourceTree = "<group>";
@@ -935,6 +943,8 @@
 				91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */,
 				91482FC80FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.h */,
 				91482FC90FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m */,
+				91482FE90FCE04C7002D10E8 /* TicketDispMgrUserSetter.h */,
+				91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1306,6 +1316,8 @@
 				91482D420FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m in Sources */,
 				0576B9E60FCA13170015C2AD /* NewMessageDescription.m in Sources */,
 				91482FCA0FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m in Sources */,
+				91482FE50FCDFD51002D10E8 /* UserSetAggregator.m in Sources */,
+				91482FEB0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

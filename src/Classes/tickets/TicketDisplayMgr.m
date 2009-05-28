@@ -61,16 +61,6 @@
 
         [self initDarkTransparentView];
         self.selectProject = YES;
-
-        // TEMPORARY
-        // this will eventually be read from a user cache of some sort
-        userDict = [[NSMutableDictionary dictionary] retain];
-        [userDict setObject:@"Doug Kurth"
-            forKey:[NSNumber numberWithInt:50190]];
-        [userDict setObject:@"John A. Debay"
-            forKey:[NSNumber numberWithInt:50209]];
-        // TEMPORARY
-
         firstTimeDisplayed = YES;
     }
 
@@ -478,6 +468,24 @@
     NSDictionary * tempMilestoneDict = [aMilestoneDict copy];
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
+    
+    [ticketsViewController.tableView reloadData];
+}
+
+- (void)setProjectDict:(NSDictionary *)aProjectDict
+{
+    NSDictionary * tempProjectDict = [aProjectDict copy];
+    [projectDict release];
+    projectDict = tempProjectDict;
+    
+    [ticketsViewController.tableView reloadData];
+}
+
+- (void)setUserDict:(NSDictionary *)aUserDict
+{
+    NSDictionary * tempUserDict = [aUserDict copy];
+    [userDict release];
+    userDict = tempUserDict;
     
     [ticketsViewController.tableView reloadData];
 }
