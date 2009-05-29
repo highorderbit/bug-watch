@@ -13,6 +13,7 @@
     NSDictionary * metaData;
     NSDictionary * assignedToDict;
     NSDictionary * milestoneDict;
+    NSMutableDictionary * resolvingDict;
 
     UIView * headerView;
 

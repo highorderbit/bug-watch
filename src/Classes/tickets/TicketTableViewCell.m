@@ -27,6 +27,8 @@
     [milestoneLabel release];
     [stateLabelColor release];
     [resolveButton release];
+    [darkTransparentView release];
+    [activityIndicator release];
 
     [super dealloc];
 }
@@ -39,6 +41,17 @@
         [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
     self.backgroundView.contentMode =  UIViewContentModeBottom;
     resolveButton.titleShadowOffset = CGSizeMake(-1.0, -1.0);
+
+    darkTransparentView = [[UIView alloc] initWithFrame:self.frame];
+    darkTransparentView.alpha = 0.8;
+    darkTransparentView.backgroundColor = [UIColor blackColor];
+    viewEnabled = YES;
+
+    activityIndicator =
+        [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
+    activityIndicator.activityIndicatorViewStyle =
+        UIActivityIndicatorViewStyleWhiteLarge;
+    [activityIndicator startAnimating];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -179,6 +192,46 @@
 {
     milestoneLabel.text =
         [NSString stringWithFormat:@"Milestone: %@", milestoneName];
+}
+
+- (void)disableView
+{
+    NSLog(@"Disabling ticket cell view...");
+
+    static const CGFloat SIDE = 37;
+    CGFloat x = self.frame.size.width / 2 - SIDE / 2;
+    CGFloat y = self.frame.size.height / 2 - SIDE / 2;
+    CGRect activityIndicatorFrame = CGRectMake(x, y, SIDE, SIDE);
+    activityIndicator.frame = activityIndicatorFrame;
+
+    [self addSubview:darkTransparentView];
+    [self addSubview:activityIndicator];
+    
+    CGFloat initialAlpha = darkTransparentView.alpha;
+    darkTransparentView.alpha = 0;
+    activityIndicator.alpha = 0;
+    
+    if (viewEnabled) {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationTransition:UIViewAnimationTransitionNone
+            forView:self cache:YES];
+    }
+
+    darkTransparentView.alpha = initialAlpha;
+    activityIndicator.alpha = 1.0;
+
+    if (viewEnabled)
+        [UIView commitAnimations];
+
+    viewEnabled = NO;
+}
+
+- (void)enableView
+{
+    NSLog(@"Enabling ticket cell view...");
+    [darkTransparentView removeFromSuperview];
+    [activityIndicator removeFromSuperview];
+    viewEnabled = YES;
 }
 
 + (CGFloat)heightForContent:(NSString *)description

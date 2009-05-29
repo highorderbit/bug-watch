@@ -27,6 +27,7 @@
     [metaData release];
     [assignedToDict release];
     [milestoneDict release];
+    [resolvingDict release];
 
     [headerView release];
     [noneFoundView release];
@@ -44,6 +45,7 @@
     [loadMoreButton setTitleColor:[UIColor bugWatchBlueColor]
         forState:UIControlStateNormal];
     [self setAllPagesLoaded:NO];
+    resolvingDict = [[NSMutableDictionary dictionary] retain];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -90,7 +92,23 @@
     milestoneName = milestoneName ? milestoneName : @"none";
     [cell setMilestoneName:milestoneName];
 
+    if ([resolvingDict objectForKey:ticketKey])
+        [cell disableView];
+    else
+        [cell enableView];
+    cell.selectionStyle =
+        ![resolvingDict objectForKey:ticketKey] ?
+        UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+
     return cell;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView
+    willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+
+    return !![resolvingDict objectForKey:key] ? nil : indexPath;
 }
 
 - (void)tableView:(UITableView *)aTableView
@@ -116,7 +134,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
         NSLog(@"Setting ticket state to resolved for ticket %@...", key);
+        [resolvingDict setObject:self forKey:key];
         [delegate resolveTicketWithKey:key];
+        [self.tableView performSelector:@selector(reloadData)
+            withObject:nil afterDelay:0.2];
     }
 }
 
@@ -160,7 +181,9 @@
     NSDictionary * tempMilestoneDict = [aMilestoneDict copy];
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
-    
+
+    [resolvingDict removeAllObjects];
+
     self.tableView.tableFooterView =
         [someTickets count] > 0 ? loadMoreView : noneFoundView;
 
