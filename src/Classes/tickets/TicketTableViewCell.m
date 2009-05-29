@@ -26,6 +26,7 @@
     [assignedToLabel release];
     [milestoneLabel release];
     [stateLabelColor release];
+    [resolveButton release];
 
     [super dealloc];
 }
@@ -37,6 +38,7 @@
     self.backgroundView =
         [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
     self.backgroundView.contentMode =  UIViewContentModeBottom;
+    resolveButton.titleShadowOffset = CGSizeMake(-1.0, -1.0);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -84,6 +86,62 @@
     CGRect stateLabelFrame = stateLabel.frame;
     stateLabelFrame.origin.y = baseLabelY + 28;
     stateLabel.frame = stateLabelFrame;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+
+    CGRect resolveButtonFrame = resolveButton.frame;
+    static const CGFloat MARGIN = 6;
+
+    if (editing) { // show resolve button
+        resolveButtonFrame.origin.x = 320 - MARGIN;
+        resolveButtonFrame.origin.y =
+            self.frame.size.height / 2 - resolveButtonFrame.size.height / 2;
+        resolveButton.frame = resolveButtonFrame;
+
+        [self addSubview:resolveButton];
+
+        if (animated) {
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationTransition:UIViewAnimationTransitionNone
+                forView:resolveButton cache:YES];
+        }
+
+        resolveButtonFrame.origin.x =
+            320 - MARGIN - resolveButtonFrame.size.width;
+        resolveButton.frame = resolveButtonFrame;
+        
+        if (animated)
+            [UIView commitAnimations];
+            
+        numberLabel.hidden = YES;
+        stateLabel.hidden = YES;
+        lastUpdatedLabel.hidden = YES;
+    } else {
+        if (animated) {
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationTransition:UIViewAnimationTransitionNone
+                forView:resolveButton cache:YES];
+        }
+
+        resolveButtonFrame.origin.x = 320 - MARGIN;
+        resolveButton.frame = resolveButtonFrame;
+        
+        if (animated)
+            [UIView commitAnimations];
+        
+        [resolveButton performSelector:@selector(removeFromSuperview)
+            withObject:nil afterDelay:0.2];
+            
+        [numberLabel performSelector:@selector(setHidden:) withObject:nil
+            afterDelay:0.2];
+        [stateLabel performSelector:@selector(setHidden:) withObject:nil
+            afterDelay:0.2];
+        [lastUpdatedLabel performSelector:@selector(setHidden:) withObject:nil
+            afterDelay:0.2];
+    }
 }
 
 #pragma mark TicketTableViewCell implementation

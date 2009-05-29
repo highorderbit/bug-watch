@@ -135,6 +135,14 @@
     [dataSource fetchTicketsWithQuery:self.ticketCache.query page:pageToLoad];
 }
 
+- (void)resolveTicketWithKey:(TicketKey *)key
+{
+    UpdateTicketDescription * desc = [UpdateTicketDescription description];
+    desc.state = kResolved;
+    [dataSource editTicketWithKey:selectedTicketKey description:desc
+        forProject:activeProjectKey];
+}
+
 - (void)displayTicketDetails:(TicketKey *)key
 {
     self.detailsEditButton.enabled = YES;
@@ -417,7 +425,8 @@
 - (void)disableEditViewWithText:(NSString *)text
 {
     loadingLabel.text = text;
-    [self.editTicketViewController.view.superview addSubview:darkTransparentView];
+    [self.editTicketViewController.view.superview
+        addSubview:darkTransparentView];
     self.editTicketViewController.cancelButton.enabled = NO;
     self.editTicketViewController.updateButton.enabled = NO;
 }

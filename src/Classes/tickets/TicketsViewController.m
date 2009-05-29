@@ -100,6 +100,26 @@
     [delegate selectedTicketKey:key];
 }
 
+- (BOOL)tableView:(UITableView *)tableView
+    canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+    TicketMetaData * ticketMetaData = [metaData objectForKey:key];
+
+    return ticketMetaData.state != kResolved;
+}
+
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+    forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+        NSLog(@"Setting ticket state to resolved for ticket %@...", key);
+        [delegate resolveTicketWithKey:key];
+    }
+}
+
 #pragma mark UITableViewDelegate implementation
 
 - (CGFloat)tableView:(UITableView *)aTableView
@@ -109,6 +129,12 @@
     Ticket * ticket = [tickets objectForKey:ticketNumber];
     
     return [TicketTableViewCell heightForContent:ticket.description];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+    editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
 }
 
 #pragma mark TicketsViewController implementation

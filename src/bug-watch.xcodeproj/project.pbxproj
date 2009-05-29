@@ -132,6 +132,7 @@
 		91482FE50FCDFD51002D10E8 /* UserSetAggregator.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FE40FCDFD51002D10E8 /* UserSetAggregator.m */; };
 		91482FEB0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */; };
 		914830710FCF10FF002D10E8 /* DeleteButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 914830700FCF10FF002D10E8 /* DeleteButtonBackground.png */; };
+		914831940FCF5A24002D10E8 /* ResolveButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 914831930FCF5A24002D10E8 /* ResolveButtonBackground.png */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -393,6 +394,7 @@
 		91482FE90FCE04C7002D10E8 /* TicketDispMgrUserSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDispMgrUserSetter.h; path = tickets/TicketDispMgrUserSetter.h; sourceTree = "<group>"; };
 		91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrUserSetter.m; path = tickets/TicketDispMgrUserSetter.m; sourceTree = "<group>"; };
 		914830700FCF10FF002D10E8 /* DeleteButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButtonBackground.png; sourceTree = "<group>"; };
+		914831930FCF5A24002D10E8 /* ResolveButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResolveButtonBackground.png; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -1002,6 +1004,7 @@
 		91806D8A0F97E72900F08005 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				914831930FCF5A24002D10E8 /* ResolveButtonBackground.png */,
 				914830700FCF10FF002D10E8 /* DeleteButtonBackground.png */,
 				917DE3E80FB369E000BF2015 /* PagesSelected.png */,
 				917DE3E10FB3695000BF2015 /* ThumbtackSelected.png */,
@@ -1164,6 +1167,7 @@
 				0570D4B60FC0F76D00928667 /* MilestoneHeaderView.xib in Resources */,
 				91482CA70FC62349002D10E8 /* ProjectSelectionView.xib in Resources */,
 				914830710FCF10FF002D10E8 /* DeleteButtonBackground.png in Resources */,
+				914831940FCF5A24002D10E8 /* ResolveButtonBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

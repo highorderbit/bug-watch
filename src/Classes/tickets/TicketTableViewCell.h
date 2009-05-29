@@ -12,6 +12,7 @@
     IBOutlet UILabel * descriptionLabel;
     IBOutlet UILabel * assignedToLabel;
     IBOutlet UILabel * milestoneLabel;
+    IBOutlet UIButton * resolveButton;
     UIColor * stateLabelColor;
 }
 
