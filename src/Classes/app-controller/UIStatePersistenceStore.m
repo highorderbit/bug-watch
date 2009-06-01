@@ -14,11 +14,6 @@
 
 @implementation UIStatePersistenceStore
 
-- (void)dealloc
-{
-    [super dealloc];
-}
-
 - (UIState *)load
 {
     UIState * state = [[[UIState alloc] init] autorelease];

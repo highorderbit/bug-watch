@@ -43,6 +43,9 @@
 - (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
     searchText:(NSString *)searchText;
 - (TicketBinDataSource *)initTicketBinDataSource;
+- (void)initProjectSetterForTicketDisplayMgr;
+- (void)initMilestoneSetterForTicketDisplayMgr;
+- (void)initUserSetterForTicketDisplayMgr;
 
 - (void)initProjectsTab;
 - (void)initMessagesTab;
@@ -82,6 +85,12 @@
     messageCache = [[MessageCache alloc] init];
     messageResponseCache = [[MessageResponseCache alloc] init];
     
+    // init milestone state listener for persistence, which will be an
+    // instance-level variable so that it may be persisted when the app exits
+
+    // read milestone state from persistence and fire event, but make sure all
+    // listeners are hooked up first -- move to end of function
+
     // TODO: read milestones, users, projects from persistence store
 
     // load single-session, global data (milestones, projects, users)
@@ -218,6 +227,25 @@
     addButton.target = ticketDisplayMgr;
     addButton.action = @selector(addSelected);
     
+    [self initProjectSetterForTicketDisplayMgr];
+    [self initMilestoneSetterForTicketDisplayMgr];
+    [self initUserSetterForTicketDisplayMgr];
+}
+
+- (void)initProjectSetterForTicketDisplayMgr
+{
+    // intentionally not autoreleasing either of the following objects
+    TicketDispMgrProjectSetter * projectSetter =
+        [[TicketDispMgrProjectSetter alloc]
+        initWithTicketDisplayMgr:ticketDisplayMgr];
+    // just create, no need to assign a variable
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:projectSetter
+        action:@selector(fetchedAllProjects:projectKeys:)];
+}
+
+- (void)initMilestoneSetterForTicketDisplayMgr
+{
     // intentionally not autoreleasing either of the following objects
     TicketDispMgrMilestoneSetter * milestoneSetter =
         [[TicketDispMgrMilestoneSetter alloc]
@@ -227,26 +255,20 @@
         initWithListener:milestoneSetter
         action:
         @selector(milestonesReceivedForAllProjects:milestoneKeys:projectKeys:)];
+}
 
-    // intentionally not autoreleasing either of the following objects
-    TicketDispMgrProjectSetter * projectSetter =
-        [[TicketDispMgrProjectSetter alloc]
-        initWithTicketDisplayMgr:ticketDisplayMgr];
-    // just create, no need to assign a variable
-    [[ProjectUpdatePublisher alloc]
-        initWithListener:projectSetter
-        action:@selector(fetchedAllProjects:projectKeys:)];
-        
+- (void)initUserSetterForTicketDisplayMgr
+{
     TicketDispMgrUserSetter * userSetter =
         [[[TicketDispMgrUserSetter alloc]
         initWithTicketDisplayMgr:ticketDisplayMgr] autorelease];
     LighthouseApiService * userSetterService =
         [[self class] createLighthouseApiService];
     UserSetAggregator * userSetAggregator =
-           [[UserSetAggregator alloc]
-           initWithListener:userSetter action:@selector(fetchedAllUsers:)
-           apiService:userSetterService token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" /* TEMPORARY */];
-   userSetterService.delegate = userSetAggregator;
+        [[UserSetAggregator alloc]
+        initWithListener:userSetter action:@selector(fetchedAllUsers:)
+        apiService:userSetterService token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" /* TEMPORARY */];
+    userSetterService.delegate = userSetAggregator;
     [[ProjectUpdatePublisher alloc]
         initWithListener:userSetAggregator
         action:@selector(fetchedAllProjects:projectKeys:)];

@@ -133,6 +133,11 @@
 		91482FEB0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */; };
 		914830710FCF10FF002D10E8 /* DeleteButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 914830700FCF10FF002D10E8 /* DeleteButtonBackground.png */; };
 		914831940FCF5A24002D10E8 /* ResolveButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 914831930FCF5A24002D10E8 /* ResolveButtonBackground.png */; };
+		914832C80FD0ADDF002D10E8 /* MilestonePersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832C70FD0ADDF002D10E8 /* MilestonePersistenceStore.m */; };
+		914832D40FD41D84002D10E8 /* UserCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832D30FD41D84002D10E8 /* UserCache.m */; };
+		914832D90FD41F75002D10E8 /* UserPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832D80FD41F75002D10E8 /* UserPersistenceStore.m */; };
+		914832E00FD426BB002D10E8 /* ProjectCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832DF0FD426BB002D10E8 /* ProjectCache.m */; };
+		914832E30FD42853002D10E8 /* ProjectPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -395,6 +400,16 @@
 		91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrUserSetter.m; path = tickets/TicketDispMgrUserSetter.m; sourceTree = "<group>"; };
 		914830700FCF10FF002D10E8 /* DeleteButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButtonBackground.png; sourceTree = "<group>"; };
 		914831930FCF5A24002D10E8 /* ResolveButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResolveButtonBackground.png; sourceTree = "<group>"; };
+		914832C60FD0ADDF002D10E8 /* MilestonePersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonePersistenceStore.h; path = Classes/milestones/MilestonePersistenceStore.h; sourceTree = "<group>"; };
+		914832C70FD0ADDF002D10E8 /* MilestonePersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestonePersistenceStore.m; path = Classes/milestones/MilestonePersistenceStore.m; sourceTree = "<group>"; };
+		914832D20FD41D84002D10E8 /* UserCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCache.h; path = users/UserCache.h; sourceTree = "<group>"; };
+		914832D30FD41D84002D10E8 /* UserCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCache.m; path = users/UserCache.m; sourceTree = "<group>"; };
+		914832D70FD41F75002D10E8 /* UserPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserPersistenceStore.h; path = users/UserPersistenceStore.h; sourceTree = "<group>"; };
+		914832D80FD41F75002D10E8 /* UserPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserPersistenceStore.m; path = users/UserPersistenceStore.m; sourceTree = "<group>"; };
+		914832DE0FD426BB002D10E8 /* ProjectCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectCache.h; path = projects/ProjectCache.h; sourceTree = "<group>"; };
+		914832DF0FD426BB002D10E8 /* ProjectCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectCache.m; path = projects/ProjectCache.m; sourceTree = "<group>"; };
+		914832E10FD42853002D10E8 /* ProjectPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectPersistenceStore.h; path = projects/ProjectPersistenceStore.h; sourceTree = "<group>"; };
+		914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectPersistenceStore.m; path = projects/ProjectPersistenceStore.m; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -590,6 +605,8 @@
 				05A961830FBE142C00CBDC68 /* MilestoneDetailsDataSource.h */,
 				05A961840FBE142C00CBDC68 /* MilestoneDetailsDataSource.m */,
 				05A961860FBE282E00CBDC68 /* MilestoneDetailsDataSourceDelegate.h */,
+				914832C60FD0ADDF002D10E8 /* MilestonePersistenceStore.h */,
+				914832C70FD0ADDF002D10E8 /* MilestonePersistenceStore.m */,
 			);
 			name = milestones;
 			path = ..;
@@ -633,6 +650,10 @@
 				05DB80CA0FC33E7E0095AF32 /* User.m */,
 				91482FE30FCDFD51002D10E8 /* UserSetAggregator.h */,
 				91482FE40FCDFD51002D10E8 /* UserSetAggregator.m */,
+				914832D20FD41D84002D10E8 /* UserCache.h */,
+				914832D30FD41D84002D10E8 /* UserCache.m */,
+				914832D70FD41F75002D10E8 /* UserPersistenceStore.h */,
+				914832D80FD41F75002D10E8 /* UserPersistenceStore.m */,
 			);
 			name = users;
 			sourceTree = "<group>";
@@ -969,6 +990,10 @@
 				917DE3600FB34ED400BF2015 /* ProjectDisplayMgr.h */,
 				917DE3610FB34ED400BF2015 /* ProjectDisplayMgr.m */,
 				917DE3650FB3521F00BF2015 /* ProjectsViewControllerDelegate.h */,
+				914832DE0FD426BB002D10E8 /* ProjectCache.h */,
+				914832DF0FD426BB002D10E8 /* ProjectCache.m */,
+				914832E10FD42853002D10E8 /* ProjectPersistenceStore.h */,
+				914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */,
 			);
 			name = projects;
 			sourceTree = "<group>";
@@ -1326,6 +1351,11 @@
 				91482FCA0FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m in Sources */,
 				91482FE50FCDFD51002D10E8 /* UserSetAggregator.m in Sources */,
 				91482FEB0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m in Sources */,
+				914832C80FD0ADDF002D10E8 /* MilestonePersistenceStore.m in Sources */,
+				914832D40FD41D84002D10E8 /* UserCache.m in Sources */,
+				914832D90FD41F75002D10E8 /* UserPersistenceStore.m in Sources */,
+				914832E00FD426BB002D10E8 /* ProjectCache.m in Sources */,
+				914832E30FD42853002D10E8 /* ProjectPersistenceStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
