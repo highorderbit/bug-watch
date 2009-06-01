@@ -10,6 +10,7 @@
 #import "MessagesViewController.h"
 #import "MessageResponseCache.h"
 #import "NewsFeedDataSource.h"
+#import "MilestoneCacheSetter.h"
 
 @class NetworkAwareViewController;
 @class NewsFeedDisplayMgr, MilestoneDisplayMgr;
@@ -26,13 +27,15 @@
     IBOutlet UITabBarController * tabBarController;
 
     TicketDisplayMgr * ticketDisplayMgr;
+
     MessageCache * messageCache;
     MessageResponseCache * messageResponseCache;
-    MilestoneCache * milestoneCache;
 
     NewsFeedDisplayMgr * newsFeedDisplayMgr;
     NewsFeedDataSource * newsFeedDataSource;
+
     MilestoneDisplayMgr * milestoneDisplayMgr;
+    MilestoneCacheSetter * milestoneCacheSetter;
 }
 
 - (void)start;

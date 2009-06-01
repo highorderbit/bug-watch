@@ -228,7 +228,6 @@
 
 - (void)enableView
 {
-    NSLog(@"Enabling ticket cell view...");
     [darkTransparentView removeFromSuperview];
     [activityIndicator removeFromSuperview];
     viewEnabled = YES;

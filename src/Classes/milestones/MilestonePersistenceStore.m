@@ -27,22 +27,26 @@
 {
     MilestoneCache * milestoneCache =
         [[[MilestoneCache alloc] init] autorelease];
-
+    
     NSDictionary * dict = [PlistUtils getDictionaryFromPlist:plist];
 
     NSDictionary * milestoneMappings =
         [dict objectForKey:[[self class] milestoneMappingsKey]];
-    for (id key in [milestoneMappings allKeys]) {
-        NSDictionary * milestoneAsDict = [milestoneMappings objectForKey:key];
+    for (NSString * keyAsString in [milestoneMappings allKeys]) {
+        NSNumber * key = [NSNumber numberWithInt:[keyAsString intValue]];
+        NSDictionary * milestoneAsDict =
+            [milestoneMappings objectForKey:keyAsString];
         Milestone * milestone =
             [[self class] milestoneFromDictionary:milestoneAsDict];
+
         [milestoneCache setMilestone:milestone forKey:key];
     }
-
+    
     NSDictionary * projectMappings =
         [dict objectForKey:[[self class] projectMappingsKey]];
-    for (id key in [projectMappings allKeys]) {
-        NSNumber * projectKey = [projectMappings objectForKey:key];
+    for (NSString * keyAsString in [projectMappings allKeys]) {
+        NSNumber * key = [NSNumber numberWithInt:[keyAsString intValue]];
+        NSNumber * projectKey = [projectMappings objectForKey:keyAsString];
         [milestoneCache setProjectKey:projectKey forKey:key];
     }
 
@@ -54,23 +58,24 @@
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
 
     NSMutableDictionary * milestoneMappings = [NSMutableDictionary dictionary];
-    for (id key in [milestoneCache.allMilestones allKeys]) {
+    for (NSNumber * key in [milestoneCache.allMilestones allKeys]) {
         Milestone * milestone = [milestoneCache milestoneForKey:key];
         NSDictionary * milestoneAsDict =
             [[self class] dictionaryFromMilestone:milestone];
-        [milestoneMappings setObject:milestoneAsDict forKey:key];
+        [milestoneMappings setObject:milestoneAsDict forKey:[key description]];
     }
-    
+
     NSMutableDictionary * projectMappings = [NSMutableDictionary dictionary];
-    for (id key in [milestoneCache.allProjectMappings allKeys]) {
+    for (NSNumber * key in [milestoneCache.allProjectMappings allKeys]) {
         NSNumber * projectKey = [milestoneCache projectKeyForKey:key];
-        [milestoneMappings setObject:projectKey forKey:key];
+        [projectMappings setObject:projectKey forKey:[key description]];
     }
 
     [dict setObject:milestoneMappings
         forKey:[[self class] milestoneMappingsKey]];
     [dict setObject:projectMappings forKey:[[self class] projectMappingsKey]];
 
+    NSLog(@"Milestone cache: %@", dict);
     [PlistUtils saveDictionary:dict toPlist:plist];
 }
 
