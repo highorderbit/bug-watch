@@ -6,7 +6,6 @@
 #import "NetworkAwareViewController.h"
 #import "TicketDetailsViewController.h"
 #import "NewsFeedDisplayMgr.h"
-#import "NewsFeedDataSource.h"
 #import "NewsFeedViewController.h"
 #import "LighthouseNewsFeedService.h"
 #import "NetworkAwareViewController.h"
@@ -35,6 +34,7 @@
 #import "ProjectUpdatePublisher.h"
 #import "UserSetAggregator.h"
 #import "TicketDispMgrUserSetter.h"
+#import "NewsFeedPersistenceStore.h"
 
 @interface BugWatchAppController (Private)
 
@@ -49,10 +49,15 @@
 
 - (void)initProjectsTab;
 - (void)initMessagesTab;
+- (void)initNewsFeedTab;
 - (void)initMilestonesTab;
 
+- (void)initSharedStateListeners;
+
 + (LighthouseApiService *)createLighthouseApiService;
+
 + (NSString *)ticketCachePlist;
++ (NSString *)newsFeedCachePlist;
 
 @end
 
@@ -73,6 +78,7 @@
     [milestoneCache release];
 
     [newsFeedDisplayMgr release];
+    [newsFeedDataSource release];
     [milestoneDisplayMgr release];
 
     [super dealloc];
@@ -152,42 +158,42 @@
     [self initTicketsTab];
     [self initProjectsTab];
     [self initMessagesTab];
-
-    // Note: this instantiation/initialization is temporary
-    LighthouseNewsFeedService * newsFeedService =
-        [[[LighthouseNewsFeedService alloc] initWithBaseUrlString:
-        @"http://highorderbit.lighthouseapp.com/events.atom"] autorelease];
-    NewsFeedDataSource * newsFeedDataSource =
-        [[[NewsFeedDataSource alloc]
-        initWithNewsFeedService:newsFeedService] autorelease];
-
-    newsFeedDisplayMgr =
-        [[NewsFeedDisplayMgr alloc]
-        initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
-                        newsFeedDataSource:newsFeedDataSource];
-
+    [self initNewsFeedTab];
     [self initMilestonesTab];
 
     UIStatePersistenceStore * uiStatePersistenceStore =
         [[[UIStatePersistenceStore alloc] init] autorelease];
     UIState * uiState = [uiStatePersistenceStore load];
     tabBarController.selectedIndex = uiState.selectedTab;
+    
+    [self initSharedStateListeners];
 }
 
 - (void)persistState
 {
     NSLog(@"Persisting state...");
+
     TicketCache * ticketCache = ticketDisplayMgr.ticketCache;
     TicketPersistenceStore * ticketPersistenceStore =
         [[[TicketPersistenceStore alloc] init] autorelease];
     [ticketPersistenceStore saveTicketCache:ticketCache
         toPlist:[[self class] ticketCachePlist]];
         
+    NewsFeedPersistenceStore * newsFeedPersistenceStore =
+        [[[NewsFeedPersistenceStore alloc] init] autorelease];
+    [newsFeedPersistenceStore saveNewsItems:newsFeedDataSource.cache
+        toPlist:[[self class] newsFeedCachePlist]];
+        
     UIStatePersistenceStore * uiStatePersistenceStore =
         [[[UIStatePersistenceStore alloc] init] autorelease];
     UIState * uiState = [[[UIState alloc] init] autorelease];
     uiState.selectedTab = tabBarController.selectedIndex;
     [uiStatePersistenceStore save:uiState];
+}
+
+- (void)initSharedStateListeners
+{
+    // TODO: implement for milestones, users, projects
 }
 
 #pragma mark Ticket tab initialization
@@ -362,6 +368,29 @@
     addButton.action = @selector(createNewMessage);
 }
 
+#pragma mark News feed tabl initialization
+
+- (void)initNewsFeedTab
+{
+    // Note: this instantiation/initialization is temporary
+    LighthouseNewsFeedService * newsFeedService =
+        [[[LighthouseNewsFeedService alloc] initWithBaseUrlString:
+        @"http://highorderbit.lighthouseapp.com/events.atom"] autorelease];
+    NewsFeedPersistenceStore * newsFeedPersistenceStore =
+        [[[NewsFeedPersistenceStore alloc] init] autorelease];
+    NSArray * newsItemCache =
+        [newsFeedPersistenceStore
+        loadWithPlist:[[self class] newsFeedCachePlist]];
+    newsFeedDataSource =
+        [[NewsFeedDataSource alloc]
+        initWithNewsFeedService:newsFeedService cache:newsItemCache];
+
+    newsFeedDisplayMgr =
+        [[NewsFeedDisplayMgr alloc]
+        initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
+                        newsFeedDataSource:newsFeedDataSource];
+}
+
 #pragma mark Message tab initialization
 
 - (void)initMilestonesTab
@@ -408,6 +437,11 @@
 + (NSString *)ticketCachePlist
 {
     return @"TicketCache";
+}
+
++ (NSString *)newsFeedCachePlist
+{
+    return @"NewsFeedCache";
 }
 
 @end

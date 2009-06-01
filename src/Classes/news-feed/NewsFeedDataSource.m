@@ -4,7 +4,6 @@
 
 #import "NewsFeedDataSource.h"
 #import "LighthouseNewsFeedService.h"
-#import "NewsFeedItem.h"  // delete when not returning dummy data
 
 @interface NewsFeedDataSource (Private)
 
@@ -15,6 +14,7 @@
 @implementation NewsFeedDataSource
 
 @synthesize delegate;
+@synthesize cache;
 
 - (void)dealloc
 {
@@ -26,12 +26,13 @@
 #pragma mark Initialization
 
 - (id)initWithNewsFeedService:(LighthouseNewsFeedService *)aService
+    cache:(NSArray *)aCache
 {
     if (self = [super init]) {
         service = [aService retain];
         service.delegate = self;
 
-        cache = [[NewsFeedItem dummyData] retain];
+        [self setCache:aCache];
         needsUpdating = YES;
     }
 
@@ -50,7 +51,7 @@
 - (BOOL)fetchNewsFeedIfNecessary
 {
     if (needsUpdating)
-        [service fetchNewsFeed:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3"];
+        [service fetchNewsFeed:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3"/* TEMPORARY */];
 
     return needsUpdating;
 }

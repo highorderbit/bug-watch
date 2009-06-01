@@ -138,6 +138,7 @@
 		914832D90FD41F75002D10E8 /* UserPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832D80FD41F75002D10E8 /* UserPersistenceStore.m */; };
 		914832E00FD426BB002D10E8 /* ProjectCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832DF0FD426BB002D10E8 /* ProjectCache.m */; };
 		914832E30FD42853002D10E8 /* ProjectPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */; };
+		914833040FD434D2002D10E8 /* NewsFeedPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833030FD434D2002D10E8 /* NewsFeedPersistenceStore.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -410,6 +411,8 @@
 		914832DF0FD426BB002D10E8 /* ProjectCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectCache.m; path = projects/ProjectCache.m; sourceTree = "<group>"; };
 		914832E10FD42853002D10E8 /* ProjectPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectPersistenceStore.h; path = projects/ProjectPersistenceStore.h; sourceTree = "<group>"; };
 		914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectPersistenceStore.m; path = projects/ProjectPersistenceStore.m; sourceTree = "<group>"; };
+		914833020FD434D2002D10E8 /* NewsFeedPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedPersistenceStore.h; path = "news-feed/NewsFeedPersistenceStore.h"; sourceTree = "<group>"; };
+		914833030FD434D2002D10E8 /* NewsFeedPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedPersistenceStore.m; path = "news-feed/NewsFeedPersistenceStore.m"; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -749,6 +752,8 @@
 				05E6372F0FA8CD2C00F736A5 /* NewsFeedTableViewCell.m */,
 				055212920FAA599600626049 /* NewsFeedItemViewController.h */,
 				055212930FAA599600626049 /* NewsFeedItemViewController.m */,
+				914833020FD434D2002D10E8 /* NewsFeedPersistenceStore.h */,
+				914833030FD434D2002D10E8 /* NewsFeedPersistenceStore.m */,
 			);
 			name = "news-feed";
 			sourceTree = "<group>";
@@ -1356,6 +1361,7 @@
 				914832D90FD41F75002D10E8 /* UserPersistenceStore.m in Sources */,
 				914832E00FD426BB002D10E8 /* ProjectCache.m in Sources */,
 				914832E30FD42853002D10E8 /* ProjectPersistenceStore.m in Sources */,
+				914833040FD434D2002D10E8 /* NewsFeedPersistenceStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

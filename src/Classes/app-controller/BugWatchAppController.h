@@ -9,6 +9,7 @@
 #import "MessageCache.h"
 #import "MessagesViewController.h"
 #import "MessageResponseCache.h"
+#import "NewsFeedDataSource.h"
 
 @class NetworkAwareViewController;
 @class NewsFeedDisplayMgr, MilestoneDisplayMgr;
@@ -30,6 +31,7 @@
     MilestoneCache * milestoneCache;
 
     NewsFeedDisplayMgr * newsFeedDisplayMgr;
+    NewsFeedDataSource * newsFeedDataSource;
     MilestoneDisplayMgr * milestoneDisplayMgr;
 }
 
