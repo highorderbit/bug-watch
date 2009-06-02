@@ -140,6 +140,9 @@
 		914832E30FD42853002D10E8 /* ProjectPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */; };
 		914833040FD434D2002D10E8 /* NewsFeedPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833030FD434D2002D10E8 /* NewsFeedPersistenceStore.m */; };
 		9148333D0FD46816002D10E8 /* MilestoneCacheSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9148333C0FD46816002D10E8 /* MilestoneCacheSetter.m */; };
+		914833CF0FD48F98002D10E8 /* ProjectCacheSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833CE0FD48F98002D10E8 /* ProjectCacheSetter.m */; };
+		914834000FD561BE002D10E8 /* UserCacheSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833FF0FD561BE002D10E8 /* UserCacheSetter.m */; };
+		914834180FD57C21002D10E8 /* AllUserUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 914834170FD57C21002D10E8 /* AllUserUpdatePublisher.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -416,6 +419,12 @@
 		914833030FD434D2002D10E8 /* NewsFeedPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedPersistenceStore.m; path = "news-feed/NewsFeedPersistenceStore.m"; sourceTree = "<group>"; };
 		9148333B0FD46816002D10E8 /* MilestoneCacheSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneCacheSetter.h; path = Classes/milestones/MilestoneCacheSetter.h; sourceTree = "<group>"; };
 		9148333C0FD46816002D10E8 /* MilestoneCacheSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneCacheSetter.m; path = Classes/milestones/MilestoneCacheSetter.m; sourceTree = "<group>"; };
+		914833CD0FD48F98002D10E8 /* ProjectCacheSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectCacheSetter.h; path = projects/ProjectCacheSetter.h; sourceTree = "<group>"; };
+		914833CE0FD48F98002D10E8 /* ProjectCacheSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectCacheSetter.m; path = projects/ProjectCacheSetter.m; sourceTree = "<group>"; };
+		914833FE0FD561BE002D10E8 /* UserCacheSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCacheSetter.h; path = users/UserCacheSetter.h; sourceTree = "<group>"; };
+		914833FF0FD561BE002D10E8 /* UserCacheSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCacheSetter.m; path = users/UserCacheSetter.m; sourceTree = "<group>"; };
+		914834160FD57C21002D10E8 /* AllUserUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllUserUpdatePublisher.h; path = users/AllUserUpdatePublisher.h; sourceTree = "<group>"; };
+		914834170FD57C21002D10E8 /* AllUserUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllUserUpdatePublisher.m; path = users/AllUserUpdatePublisher.m; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -662,6 +671,10 @@
 				914832D30FD41D84002D10E8 /* UserCache.m */,
 				914832D70FD41F75002D10E8 /* UserPersistenceStore.h */,
 				914832D80FD41F75002D10E8 /* UserPersistenceStore.m */,
+				914833FE0FD561BE002D10E8 /* UserCacheSetter.h */,
+				914833FF0FD561BE002D10E8 /* UserCacheSetter.m */,
+				914834160FD57C21002D10E8 /* AllUserUpdatePublisher.h */,
+				914834170FD57C21002D10E8 /* AllUserUpdatePublisher.m */,
 			);
 			name = users;
 			sourceTree = "<group>";
@@ -1004,6 +1017,8 @@
 				914832DF0FD426BB002D10E8 /* ProjectCache.m */,
 				914832E10FD42853002D10E8 /* ProjectPersistenceStore.h */,
 				914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */,
+				914833CD0FD48F98002D10E8 /* ProjectCacheSetter.h */,
+				914833CE0FD48F98002D10E8 /* ProjectCacheSetter.m */,
 			);
 			name = projects;
 			sourceTree = "<group>";
@@ -1368,6 +1383,9 @@
 				914832E30FD42853002D10E8 /* ProjectPersistenceStore.m in Sources */,
 				914833040FD434D2002D10E8 /* NewsFeedPersistenceStore.m in Sources */,
 				9148333D0FD46816002D10E8 /* MilestoneCacheSetter.m in Sources */,
+				914833CF0FD48F98002D10E8 /* ProjectCacheSetter.m in Sources */,
+				914834000FD561BE002D10E8 /* UserCacheSetter.m in Sources */,
+				914834180FD57C21002D10E8 /* AllUserUpdatePublisher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

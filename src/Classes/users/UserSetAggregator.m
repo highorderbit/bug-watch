@@ -3,6 +3,7 @@
 //
 
 #import "UserSetAggregator.h"
+#import "User.h"
 
 @implementation UserSetAggregator
 
@@ -10,18 +11,15 @@
 
 - (void)dealloc
 {
-    [listener release];
     [service release];
     [token release];
     [super dealloc];
 }
 
-- (id)initWithListener:(id)aListener action:(SEL)anAction
-    apiService:(LighthouseApiService *)aService token:(NSString *)aToken
+- (id)initWithApiService:(LighthouseApiService *)aService
+    token:(NSString *)aToken
 {
     if (self = [super init]) {
-        listener = [aListener retain];
-        action = anAction;
         service = [aService retain];
         token = [aToken retain];
     }
@@ -43,8 +41,33 @@
 {
     outstandingRequests--;
     [self.users addEntriesFromDictionary:projectUsers];
-        if (outstandingRequests == 0)
-            [listener performSelector:action withObject:self.users];
+    if (outstandingRequests == 0) {
+        NSArray * userKeys = [self.users allKeys];
+        NSMutableArray * userArray = [NSMutableArray array];
+
+        for (int i = 0; i < [userKeys count]; i++) {
+            id key = [userKeys objectAtIndex:i];
+            User * user = [self.users objectForKey:key];
+            [userArray insertObject:user atIndex:i];
+        }
+
+        // post general notification
+        NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+        NSDictionary * userInfo =
+            [NSDictionary dictionaryWithObjectsAndKeys:
+            userArray, @"users",
+            userKeys, @"userKeys",
+            nil];
+        NSString * notificationName =
+            [[self class] allUsersReceivedNotificationName];
+        [nc postNotificationName:notificationName object:self
+            userInfo:userInfo];
+    }
+}
+
++ (NSString *)allUsersReceivedNotificationName
+{
+    return @"BugWatchAllUsersReceivedNotification";
 }
 
 @end

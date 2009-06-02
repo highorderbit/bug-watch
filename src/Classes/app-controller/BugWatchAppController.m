@@ -36,6 +36,9 @@
 #import "TicketDispMgrUserSetter.h"
 #import "NewsFeedPersistenceStore.h"
 #import "MilestonePersistenceStore.h"
+#import "ProjectPersistenceStore.h"
+#import "UserPersistenceStore.h"
+#import "AllUserUpdatePublisher.h"
 
 @interface BugWatchAppController (Private)
 
@@ -56,12 +59,16 @@
 - (void)initSharedStateListeners;
 + (void)loadSharedStatesFromPersistence;
 + (void)broadcastMilestoneCache:(MilestoneCache *)cache;
++ (void)broadcastProjectCache:(ProjectCache *)cache;
++ (void)broadcastUserCache:(UserCache *)cache;
 
 + (LighthouseApiService *)createLighthouseApiService;
 
 + (NSString *)newsFeedCachePlist;
 + (NSString *)ticketCachePlist;
++ (NSString *)projectCachePlist;
 + (NSString *)milestoneCachePlist;
++ (NSString *)userCachePlist;
 
 @end
 
@@ -76,16 +83,20 @@
     [messagesNetAwareViewController release];
     [pagesViewController release];
 
+    [newsFeedDisplayMgr release];
+    [newsFeedDataSource release];
+
     [ticketDisplayMgr release];
+
+    [projectCacheSetter release];
 
     [messageCache release];
     [messageResponseCache release];
 
-    [newsFeedDisplayMgr release];
-    [newsFeedDataSource release];
-
     [milestoneDisplayMgr release];
     [milestoneCacheSetter release];
+
+    [userCacheSetter release];
 
     [super dealloc];
 }
@@ -94,16 +105,10 @@
 
 - (void)start
 {
+    [self initSharedStateListeners];
+        
     messageCache = [[MessageCache alloc] init];
     messageResponseCache = [[MessageResponseCache alloc] init];
-    
-    // init milestone state listener for persistence, which will be an
-    // instance-level variable so that it may be persisted when the app exits
-
-    // read milestone state from persistence and fire event, but make sure all
-    // listeners are hooked up first -- move to end of function
-
-    // TODO: read milestones, users, projects from persistence store
 
     // load single-session, global data (milestones, projects, users)
     NSString * baseServiceUrl = @"https://highorderbit.lighthouseapp.com/"; // TEMPORARY
@@ -171,8 +176,7 @@
         [[[UIStatePersistenceStore alloc] init] autorelease];
     UIState * uiState = [uiStatePersistenceStore load];
     tabBarController.selectedIndex = uiState.selectedTab;
-    
-    [self initSharedStateListeners];
+
     [[self class] loadSharedStatesFromPersistence];
 }
 
@@ -195,6 +199,16 @@
         [[[MilestonePersistenceStore alloc] init] autorelease];
     [milestonePersistenceStore save:milestoneCacheSetter.cache
         toPlist:[[self class] milestoneCachePlist]];
+        
+    ProjectPersistenceStore * projectPersistenceStore =
+        [[[ProjectPersistenceStore alloc] init] autorelease];
+    [projectPersistenceStore saveProjectCache:projectCacheSetter.cache
+        toPlist:[[self class] projectCachePlist]];
+        
+    UserPersistenceStore * userPersistenceStore =
+        [[[UserPersistenceStore alloc] init] autorelease];
+    [userPersistenceStore saveUserCache:userCacheSetter.cache
+        toPlist:[[self class] userCachePlist]];
 
     UIStatePersistenceStore * uiStatePersistenceStore =
         [[[UIStatePersistenceStore alloc] init] autorelease];
@@ -210,6 +224,17 @@
         initWithListener:milestoneCacheSetter
         action:
         @selector(milestonesReceivedForAllProjects:milestoneKeys:projectKeys:)];
+
+    projectCacheSetter = [[ProjectCacheSetter alloc] init];
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:projectCacheSetter
+        action:
+        @selector(fetchedAllProjects:projectKeys:)];
+        
+    userCacheSetter = [[UserCacheSetter alloc] init];
+    [[AllUserUpdatePublisher alloc]
+        initWithListener:userCacheSetter
+        action:@selector(fetchedAllUsers:)];
 }
 
 + (void)loadSharedStatesFromPersistence
@@ -220,6 +245,45 @@
         [milestonePersistenceStore
         loadFromPlist:[[self class] milestoneCachePlist]];
     [[self class] broadcastMilestoneCache:milestoneCache];
+
+    ProjectPersistenceStore * projectPersistenceStore =
+        [[[ProjectPersistenceStore alloc] init] autorelease];
+    ProjectCache * projectCache =
+        [projectPersistenceStore
+        loadWithPlist:[[self class] projectCachePlist]];
+    [[self class] broadcastProjectCache:projectCache];
+    
+    UserPersistenceStore * userPersistenceStore =
+        [[[UserPersistenceStore alloc] init] autorelease];
+    UserCache * userCache =
+        [userPersistenceStore
+        loadWithPlist:[[self class] userCachePlist]];
+    [[self class] broadcastUserCache:userCache];
+}
+
++ (void)broadcastProjectCache:(ProjectCache *)projectCache
+{
+    NSDictionary * projectDict = [projectCache allProjects];
+
+    NSArray * projectKeys = [projectDict allKeys];
+    NSMutableArray * projects = [NSMutableArray array];
+
+    for (int i = 0; i < [projectKeys count]; i++) {
+        id key = [projectKeys objectAtIndex:i];
+        Project * project = [projectDict objectForKey:key];
+        [projects insertObject:project atIndex:i];
+    }
+
+    // post general notification
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        projects, @"projects",
+        projectKeys, @"projectKeys",
+        nil];
+    NSString * notificationName =
+        [LighthouseApiService allProjectsReceivedNotificationName];
+    [nc postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
 + (void)broadcastMilestoneCache:(MilestoneCache *)milestoneCache
@@ -250,6 +314,30 @@
     NSString * notificationName =
         [LighthouseApiService milestonesReceivedForAllProjectsNotificationName];
     [nc postNotificationName:notificationName object:self userInfo:userInfo];
+}
+
++ (void)broadcastUserCache:(UserCache *)cache
+{
+    NSArray * userKeys = [[cache allUsers] allKeys];
+    NSMutableArray * userArray = [NSMutableArray array];
+
+    for (int i = 0; i < [userKeys count]; i++) {
+        id key = [userKeys objectAtIndex:i];
+        User * user = [cache userForKey:key];
+        [userArray insertObject:user atIndex:i];
+    }
+
+    // post general notification
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        userArray, @"users",
+        userKeys, @"userKeys",
+        nil];
+    NSString * notificationName =
+        [UserSetAggregator allUsersReceivedNotificationName];
+    [nc postNotificationName:notificationName object:self
+        userInfo:userInfo];
 }
 
 #pragma mark Ticket tab initialization
@@ -322,14 +410,17 @@
 - (void)initUserSetterForTicketDisplayMgr
 {
     TicketDispMgrUserSetter * userSetter =
-        [[[TicketDispMgrUserSetter alloc]
-        initWithTicketDisplayMgr:ticketDisplayMgr] autorelease];
+        [[TicketDispMgrUserSetter alloc]
+        initWithTicketDisplayMgr:ticketDisplayMgr];
     LighthouseApiService * userSetterService =
         [[self class] createLighthouseApiService];
     UserSetAggregator * userSetAggregator =
         [[UserSetAggregator alloc]
-        initWithListener:userSetter action:@selector(fetchedAllUsers:)
-        apiService:userSetterService token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" /* TEMPORARY */];
+        initWithApiService:userSetterService token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" /* TEMPORARY */];
+    [[AllUserUpdatePublisher alloc]
+        initWithListener:userSetter
+        action:@selector(fetchedAllUsers:)];
+
     userSetterService.delegate = userSetAggregator;
     [[ProjectUpdatePublisher alloc]
         initWithListener:userSetAggregator
@@ -501,9 +592,19 @@
     return @"TicketCache";
 }
 
++ (NSString *)projectCachePlist
+{
+    return @"ProjectCache";
+}
+
 + (NSString *)milestoneCachePlist
 {
     return @"MilestoneCache";
+}
+
++ (NSString *)userCachePlist
+{
+    return @"UserCache";
 }
 
 @end

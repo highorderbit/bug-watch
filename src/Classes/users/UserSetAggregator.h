@@ -8,9 +8,6 @@
 
 @interface UserSetAggregator : NSObject <LighthouseApiServiceDelegate>
 {
-    id listener;
-    SEL action;
-
     LighthouseApiService * service;
     NSString * token;
 
@@ -20,13 +17,11 @@
 
 @property (nonatomic, retain) NSMutableDictionary * users;
 
-//
-// The selector provided should have the same arguments as:
-//   - (void)fetchedAllUsers:(NSDictionary *)users;
-//
-- (id)initWithListener:(id)listener action:(SEL)action
-    apiService:(LighthouseApiService *)service token:(NSString *)token;
+- (id)initWithApiService:(LighthouseApiService *)service
+    token:(NSString *)token;
 
 - (void)fetchedAllProjects:(NSArray *)projects projectKeys:(NSArray *)keys;
+
++ (NSString *)allUsersReceivedNotificationName;
 
 @end

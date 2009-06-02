@@ -6,8 +6,6 @@
 #import "AbstractUpdatePublisher.h"
 
 @interface UserUpdatePublisher : AbstractUpdatePublisher
-{
-}
 
 //
 // The selector provided should have the same arguments as:

@@ -23,8 +23,9 @@
 {
     UserCache * userCache = [[[UserCache alloc] init] autorelease];
     NSDictionary * dict = [PlistUtils getDictionaryFromPlist:plist];
-    for (id key in [dict allKeys]) {
-        NSDictionary * userAsDict = [dict objectForKey:key];
+    for (NSString * keyAsString in [dict allKeys]) {
+        NSNumber * key = [NSNumber numberWithInt:[keyAsString intValue]];
+        NSDictionary * userAsDict = [dict objectForKey:keyAsString];
         User * user = [[self class] userFromDictionary:userAsDict];
         [userCache setUser:user forKey:key];
     }
@@ -39,7 +40,7 @@
     for (id key in [userDict allKeys]) {
         User * user = [userDict objectForKey:key];
         NSDictionary * userAsDict = [[self class] dictionaryFromUser:user];
-        [dict setObject:userAsDict forKey:key];
+        [dict setObject:userAsDict forKey:[key description]];
     }
 
     [PlistUtils saveDictionary:dict toPlist:plist];
