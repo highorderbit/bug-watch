@@ -7,8 +7,16 @@
 
 @interface ProjectPersistenceStore (Private)
 
-+ (Project *)projectFromString:(NSString *)string;
-+ (NSString *)stringFromProject:(Project *)project;
++ (Project *)projectFromDictionary:(NSDictionary *)dict;
++ (NSDictionary *)dictionaryFromProject:(Project *)project;
++ (ProjectMetadata *)projectMetadataFromDictionary:(NSDictionary *)dict;
++ (NSDictionary *)dictionaryFromProjectMetadata:(ProjectMetadata *)metadata;
+
++ (NSString *)projectsKey;
++ (NSString *)projectMetadataKey;
+
++ (NSString *)nameKey;
++ (NSString *)openTicketsCountKey;
 
 @end
 
@@ -18,11 +26,25 @@
 {
     ProjectCache * projectCache = [[[ProjectCache alloc] init] autorelease];
     NSDictionary * dict = [PlistUtils getDictionaryFromPlist:plist];
-    for (NSString * keyAsString in [dict allKeys]) {
-        NSString * projectAsString = [dict objectForKey:keyAsString];
+    
+    NSDictionary * projectsDict =
+        [dict objectForKey:[[self class] projectsKey]];
+    NSDictionary * projectMetadataDict =
+        [dict objectForKey:[[self class] projectMetadataKey]];
+
+    for (NSString * keyAsString in [projectsDict allKeys]) {
+        NSDictionary * projectAsDict = [projectsDict objectForKey:keyAsString];
         NSNumber * key = [NSNumber numberWithInt:[keyAsString intValue]];
-        Project * project = [[self class] projectFromString:projectAsString];
+        Project * project = [[self class] projectFromDictionary:projectAsDict];
         [projectCache setProject:project forKey:key];
+    }
+
+    for (NSString * keyAsString in [projectMetadataDict allKeys]) {
+        NSDictionary * metadataAsDict = [projectsDict objectForKey:keyAsString];
+        NSNumber * key = [NSNumber numberWithInt:[keyAsString intValue]];
+        ProjectMetadata * metadata =
+            [[self class] projectMetadataFromDictionary:metadataAsDict];
+        [projectCache setProjectMetadata:metadata forKey:key];
     }
 
     return projectCache;
@@ -31,25 +53,85 @@
 - (void)saveProjectCache:(ProjectCache *)projectCache toPlist:(NSString *)plist
 {
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+
     NSDictionary * projectDict = [projectCache allProjects];
+    NSMutableDictionary * serProjectDict = [NSMutableDictionary dictionary];
     for (NSNumber * key in [projectDict allKeys]) {
         Project * project = [projectDict objectForKey:key];
-        NSString * projectAsString = [[self class] stringFromProject:project];
-        [dict setObject:projectAsString forKey:[key description]];
+        NSDictionary * projectAsDict =
+            [[self class] dictionaryFromProject:project];
+        [serProjectDict setObject:projectAsDict forKey:[key description]];
     }
+    
+    [dict setObject:serProjectDict forKey:[[self class] projectsKey]];
 
-    NSLog(@"Projects: %@", dict);
+    NSDictionary * metadataDict = [projectCache allProjectMetadata];
+    NSMutableDictionary * serMetadataDict = [NSMutableDictionary dictionary];
+    for (NSNumber * key in [metadataDict allKeys]) {
+        ProjectMetadata * metadata = [metadataDict objectForKey:key];
+        NSDictionary * metadataAsDict =
+            [[self class] dictionaryFromProjectMetadata:metadata];
+        [serMetadataDict setObject:metadataAsDict forKey:[key description]];
+    }
+    
+    [dict setObject:serMetadataDict forKey:[[self class] projectMetadataKey]];
+
     [PlistUtils saveDictionary:dict toPlist:plist];
 }
 
-+ (Project *)projectFromString:(NSString *)string
++ (Project *)projectFromDictionary:(NSDictionary *)dict
 {
-    return [[[Project alloc] initWithName:string] autorelease];
+    NSString * name = [dict objectForKey:[[self class] nameKey]];
+
+    return [[[Project alloc] initWithName:name] autorelease];
 }
 
-+ (NSString *)stringFromProject:(Project *)project
++ (NSDictionary *)dictionaryFromProject:(Project *)project
 {
-    return project.name;
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    if (project.name)
+        [dict setObject:project.name forKey:[[self class] nameKey]];
+
+    return dict;
+}
+
++ (ProjectMetadata *)projectMetadataFromDictionary:(NSDictionary *)dict
+{
+    NSNumber * openTicketsCountAsNumber =
+        [dict objectForKey:[[self class] openTicketsCountKey]];
+    NSUInteger openTicketsCount = [openTicketsCountAsNumber intValue];
+
+    return [[[ProjectMetadata alloc] initWithOpenTicketsCount:openTicketsCount]
+        autorelease];
+}
+
++ (NSDictionary *)dictionaryFromProjectMetadata:(ProjectMetadata *)metadata
+{
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    [dict setObject:[NSNumber numberWithInt:metadata.openTicketsCount]
+        forKey:[[self class] openTicketsCountKey]];
+
+    return dict;
+}
+
++ (NSString *)projectsKey
+{
+    return @"projects";
+}
+
++ (NSString *)projectMetadataKey
+{
+    return @"projectMetadata";
+}
+
++ (NSString *)nameKey
+{
+    return @"name";
+}
+
++ (NSString *)openTicketsCountKey
+{
+    return @"openTicketsCountKey";
 }
 
 @end

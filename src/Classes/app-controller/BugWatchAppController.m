@@ -3,15 +3,11 @@
 //
 
 #import "BugWatchAppController.h"
-#import "NetworkAwareViewController.h"
 #import "TicketDetailsViewController.h"
-#import "NewsFeedDisplayMgr.h"
 #import "NewsFeedViewController.h"
 #import "LighthouseNewsFeedService.h"
 #import "NetworkAwareViewController.h"
 #import "TicketComment.h"
-#import "MilestoneCache.h"
-#import "MilestoneDisplayMgr.h"
 #import "MilestoneDetailsDataSource.h"
 #import "MilestoneDetailsDisplayMgr.h"
 #import "ProjectDisplayMgr.h"
@@ -22,15 +18,11 @@
 #import "TicketDataSource.h"
 #import "TicketSearchMgr.h"
 #import "MessageResponseCache.h"
-#import "TicketBinViewController.h"
-#import "TicketBinDataSource.h"
 #import "AccountLevelTicketBinDataSource.h"
 #import "TicketPersistenceStore.h"
 #import "MilestoneUpdatePublisher.h"
-#import "TicketDispMgrMilestoneSetter.h"
 #import "UIStatePersistenceStore.h"
 #import "UIState.h"
-#import "TicketDispMgrProjectSetter.h"
 #import "ProjectUpdatePublisher.h"
 #import "UserSetAggregator.h"
 #import "TicketDispMgrUserSetter.h"
@@ -39,17 +31,12 @@
 #import "ProjectPersistenceStore.h"
 #import "UserPersistenceStore.h"
 #import "AllUserUpdatePublisher.h"
+#import "ProjectDispMgrProjectSetter.h"
 
 @interface BugWatchAppController (Private)
 
 - (void)initTicketsTab;
 - (TicketCache *)loadTicketsFromPersistence;
-- (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
-    searchText:(NSString *)searchText;
-- (TicketBinDataSource *)initTicketBinDataSource;
-- (void)initProjectSetterForTicketDisplayMgr;
-- (void)initMilestoneSetterForTicketDisplayMgr;
-- (void)initUserSetterForTicketDisplayMgr;
 
 - (void)initProjectsTab;
 - (void)initMessagesTab;
@@ -61,8 +48,6 @@
 + (void)broadcastMilestoneCache:(MilestoneCache *)cache;
 + (void)broadcastProjectCache:(ProjectCache *)cache;
 + (void)broadcastUserCache:(UserCache *)cache;
-
-+ (LighthouseApiService *)createLighthouseApiService;
 
 + (NSString *)newsFeedCachePlist;
 + (NSString *)ticketCachePlist;
@@ -78,7 +63,7 @@
 {
     [newsFeedNetworkAwareViewController release];
     [ticketsNetAwareViewController release];
-    [projectsViewController release];
+    [projectsNetAwareViewController release];
     [milestonesNetworkAwareViewController release];
     [messagesNetAwareViewController release];
     [pagesViewController release];
@@ -86,7 +71,9 @@
     [newsFeedDisplayMgr release];
     [newsFeedDataSource release];
 
+    [ticketDisplayMgrFactory release];
     [ticketDisplayMgr release];
+    [ticketSearchMgrFactory release];
 
     [projectCacheSetter release];
 
@@ -98,6 +85,8 @@
 
     [userCacheSetter release];
 
+    [lighthouseApiFactory release];
+
     [super dealloc];
 }
 
@@ -105,18 +94,26 @@
 
 - (void)start
 {
+    NSString * baseServiceUrl = @"https://highorderbit.lighthouseapp.com/"; // TEMPORARY
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
+
+    lighthouseApiFactory =
+        [[LighthouseApiServiceFactory alloc] initWithBaseUrl:baseServiceUrl];
+    ticketSearchMgrFactory =
+        [[TicketSearchMgrFactory alloc] init];
+    ticketDisplayMgrFactory =
+        [[TicketDisplayMgrFactory alloc] initWithApiToken:token
+        lighthouseApiFactory:lighthouseApiFactory];
+
     [self initSharedStateListeners];
-        
+
     messageCache = [[MessageCache alloc] init];
     messageResponseCache = [[MessageResponseCache alloc] init];
 
     // load single-session, global data (milestones, projects, users)
-    NSString * baseServiceUrl = @"https://highorderbit.lighthouseapp.com/"; // TEMPORARY
     LighthouseApiService * service =
-        [[LighthouseApiService alloc]
-        initWithBaseUrlString:baseServiceUrl];
+        [[lighthouseApiFactory createLighthouseApiService] retain];
 
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
     [service fetchMilestonesForAllProjects:token];
     [service fetchAllProjects:token];
 
@@ -348,83 +345,19 @@
 
     UIBarButtonItem * addButton =
         ticketsNetAwareViewController.navigationItem.rightBarButtonItem;
+    UITextField * searchField =
+        (UITextField *)
+        ticketsNetAwareViewController.navigationItem.titleView;
     TicketSearchMgr * ticketSearchMgr =
-        [self initTicketSearchMgrWithButton:addButton
-        searchText:ticketCache.query];
-
-    TicketsViewController * ticketsViewController =
-        [[[TicketsViewController alloc]
-        initWithNibName:@"TicketsView" bundle:nil] autorelease];
-    ticketsNetAwareViewController.targetViewController = ticketsViewController;
-
-    LighthouseApiService * ticketLighthouseApiService =
-        [[self class] createLighthouseApiService];
-
-    TicketDataSource * ticketDataSource =
-        [[[TicketDataSource alloc] initWithService:ticketLighthouseApiService]
-        autorelease];
-    ticketLighthouseApiService.delegate = ticketDataSource;
-
+        [ticketSearchMgrFactory createTicketSearchMgrWithButton:addButton
+        searchText:ticketCache.query searchField:searchField
+        wrapperController:ticketsNetAwareViewController];
     ticketDisplayMgr =
-        [[[TicketDisplayMgr alloc] initWithTicketCache:ticketCache
-        networkAwareViewController:ticketsNetAwareViewController
-        ticketsViewController:ticketsViewController
-        dataSource:ticketDataSource] autorelease];
-    ticketsViewController.delegate = ticketDisplayMgr;
-    ticketsNetAwareViewController.delegate = ticketDisplayMgr;
-    ticketDataSource.delegate = ticketDisplayMgr;
-    ticketSearchMgr.delegate = ticketDisplayMgr;
+        [ticketDisplayMgrFactory createTicketDisplayMgrWithCache:ticketCache
+        wrapperController:ticketsNetAwareViewController
+        ticketSearchMgr:ticketSearchMgr];
     addButton.target = ticketDisplayMgr;
     addButton.action = @selector(addSelected);
-    
-    [self initProjectSetterForTicketDisplayMgr];
-    [self initMilestoneSetterForTicketDisplayMgr];
-    [self initUserSetterForTicketDisplayMgr];
-}
-
-- (void)initProjectSetterForTicketDisplayMgr
-{
-    // intentionally not autoreleasing either of the following objects
-    TicketDispMgrProjectSetter * projectSetter =
-        [[TicketDispMgrProjectSetter alloc]
-        initWithTicketDisplayMgr:ticketDisplayMgr];
-    // just create, no need to assign a variable
-    [[ProjectUpdatePublisher alloc]
-        initWithListener:projectSetter
-        action:@selector(fetchedAllProjects:projectKeys:)];
-}
-
-- (void)initMilestoneSetterForTicketDisplayMgr
-{
-    // intentionally not autoreleasing either of the following objects
-    TicketDispMgrMilestoneSetter * milestoneSetter =
-        [[TicketDispMgrMilestoneSetter alloc]
-        initWithTicketDisplayMgr:ticketDisplayMgr];
-    // just create, no need to assign a variable
-    [[MilestoneUpdatePublisher alloc]
-        initWithListener:milestoneSetter
-        action:
-        @selector(milestonesReceivedForAllProjects:milestoneKeys:projectKeys:)];
-}
-
-- (void)initUserSetterForTicketDisplayMgr
-{
-    TicketDispMgrUserSetter * userSetter =
-        [[TicketDispMgrUserSetter alloc]
-        initWithTicketDisplayMgr:ticketDisplayMgr];
-    LighthouseApiService * userSetterService =
-        [[self class] createLighthouseApiService];
-    UserSetAggregator * userSetAggregator =
-        [[UserSetAggregator alloc]
-        initWithApiService:userSetterService token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" /* TEMPORARY */];
-    [[AllUserUpdatePublisher alloc]
-        initWithListener:userSetter
-        action:@selector(fetchedAllUsers:)];
-
-    userSetterService.delegate = userSetAggregator;
-    [[ProjectUpdatePublisher alloc]
-        initWithListener:userSetAggregator
-        action:@selector(fetchedAllProjects:projectKeys:)];
 }
 
 - (TicketCache *)loadTicketsFromPersistence
@@ -439,56 +372,28 @@
     return ticketCache;
 }
 
-- (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
-    searchText:(NSString *)searchText
-{
-    UITextField * searchField =
-        (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
-    searchField.text = searchText;
-
-    TicketBinViewController * binViewController =
-        [[[TicketBinViewController alloc]
-        initWithNibName:@"TicketBinView" bundle:nil] autorelease];
-    AccountLevelTicketBinDataSource * ticketBinDataSource = 
-        [[[AccountLevelTicketBinDataSource alloc] init] autorelease];
-
-    TicketSearchMgr * ticketSearchMgr =
-        [[TicketSearchMgr alloc]
-        initWithSearchField:searchField addButton:addButton
-        navigationItem:ticketsNetAwareViewController.navigationItem
-        ticketBinViewController:binViewController
-        parentView:ticketsNetAwareViewController.navigationController.view
-        dataSourceTarget:ticketBinDataSource
-        dataSourceAction:@selector(fetchAllTicketBins)];
-    ticketBinDataSource.delegate = ticketSearchMgr;
-    binViewController.delegate = ticketSearchMgr;
-    // this won't get dealloced, but fine since it exists for the runtime
-    // lifetime
-
-    return ticketSearchMgr;
-}
-
-- (TicketBinDataSource *)initTicketBinDataSource
-{
-    LighthouseApiService * ticketBinLighthouseApiService =
-        [[self class] createLighthouseApiService];
-    TicketBinDataSource * ticketBinDataSource =
-        [[[TicketBinDataSource alloc]
-        initWithService:ticketBinLighthouseApiService]
-        autorelease];
-    ticketBinLighthouseApiService.delegate = ticketBinDataSource;
-
-    return ticketBinDataSource;
-}
-
 #pragma mark Project tab initialization
 
 - (void)initProjectsTab
 {
+    ProjectsViewController * projectsViewController =
+        [[[ProjectsViewController alloc]
+        initWithNibName:@"ProjectsView" bundle:nil] autorelease];
+    projectsNetAwareViewController.targetViewController =
+        projectsViewController;
+
     ProjectDisplayMgr * projectDisplayMgr =
-        [[[ProjectDisplayMgr alloc] initWithProjectCache:nil
-        projectsViewController:projectsViewController] autorelease];
+        [[[ProjectDisplayMgr alloc]
+        initWithProjectsViewController:projectsViewController
+        networkAwareViewController:projectsNetAwareViewController] autorelease];
     projectsViewController.delegate = projectDisplayMgr;
+    
+    ProjectDispMgrProjectSetter * projectSetter =
+        [[ProjectDispMgrProjectSetter alloc]
+        initWithProjectDisplayMgr:projectDisplayMgr];
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:projectSetter
+        action:@selector(fetchedAllProjects:projectKeys:)];
 }
 
 #pragma mark Message tab initialization
@@ -546,7 +451,7 @@
         [[[MilestoneCache alloc] init] autorelease];
 
     LighthouseApiService * milestoneDetailsService =
-        [[self class] createLighthouseApiService];
+        [lighthouseApiFactory createLighthouseApiService];
 
     MilestoneDetailsDataSource * milestoneDetailsDataSource =
         [[[MilestoneDetailsDataSource alloc]
@@ -559,7 +464,7 @@
         autorelease];
 
     LighthouseApiService * milestoneService =
-        [[self class] createLighthouseApiService];
+        [lighthouseApiFactory createLighthouseApiService];
     MilestoneDataSource * milestoneDataSource =
         [[[MilestoneDataSource alloc]
         initWithLighthouseApiService:milestoneService
@@ -569,15 +474,6 @@
         initWithNetworkAwareViewController:milestonesNetworkAwareViewController
         milestoneDataSource:milestoneDataSource
         milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
-}
-
-#pragma mark Static factory methods
-
-+ (LighthouseApiService *)createLighthouseApiService
-{
-    return [[[LighthouseApiService alloc]
-        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
-        autorelease];
 }
 
 #pragma mark String constants

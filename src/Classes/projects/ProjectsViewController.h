@@ -8,9 +8,15 @@
 @interface ProjectsViewController : UITableViewController
 {
     NSObject<ProjectsViewControllerDelegate> * delegate;
+
+    NSDictionary * names;
+    NSDictionary * openTicketCounts;
 }
 
-@property (nonatomic, retain)
+@property (nonatomic, assign)
     NSObject<ProjectsViewControllerDelegate> * delegate;
-    
+
+- (void)setNames:(NSDictionary *)names
+    openTicketCounts:(NSDictionary *)openTicketCounts;
+
 @end

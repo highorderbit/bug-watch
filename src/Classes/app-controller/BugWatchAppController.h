@@ -13,16 +13,19 @@
 #import "MilestoneCacheSetter.h"
 #import "ProjectCacheSetter.h"
 #import "UserCacheSetter.h"
-
-@class NetworkAwareViewController;
-@class NewsFeedDisplayMgr, MilestoneDisplayMgr;
-@class MilestoneCache;
+#import "TicketDisplayMgrFactory.h"
+#import "TicketSearchMgrFactory.h"
+#import "LighthouseApiServiceFactory.h"
+#import "NetworkAwareViewController.h"
+#import "MilestoneDisplayMgr.h"
+#import "NewsFeedDisplayMgr.h"
+#import "MilestoneCache.h"
 
 @interface BugWatchAppController : NSObject
 {
     IBOutlet NetworkAwareViewController * newsFeedNetworkAwareViewController;
     IBOutlet NetworkAwareViewController * ticketsNetAwareViewController;
-    IBOutlet ProjectsViewController * projectsViewController;
+    IBOutlet NetworkAwareViewController * projectsNetAwareViewController;
     IBOutlet NetworkAwareViewController * milestonesNetworkAwareViewController;
     IBOutlet NetworkAwareViewController * messagesNetAwareViewController;
     IBOutlet UIViewController * pagesViewController;
@@ -31,7 +34,9 @@
     NewsFeedDisplayMgr * newsFeedDisplayMgr;
     NewsFeedDataSource * newsFeedDataSource;
 
+    TicketDisplayMgrFactory * ticketDisplayMgrFactory;
     TicketDisplayMgr * ticketDisplayMgr;
+    TicketSearchMgrFactory * ticketSearchMgrFactory;
 
     ProjectCacheSetter * projectCacheSetter;
 
@@ -42,6 +47,8 @@
     MilestoneCacheSetter * milestoneCacheSetter;
     
     UserCacheSetter * userCacheSetter;
+    
+    LighthouseApiServiceFactory * lighthouseApiFactory;
 }
 
 - (void)start;

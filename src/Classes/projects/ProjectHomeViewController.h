@@ -3,9 +3,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProjectHomeViewControllerDelegate.h"
+
+enum ProjectTab
+{
+    kProjectHome,
+    kProjectTickets,
+    kProjectMilestones,
+    kProjectMessages
+};
 
 @interface ProjectHomeViewController : UITableViewController
 {
+    NSObject<ProjectHomeViewControllerDelegate> * delegate;
 }
+
+@property (nonatomic, assign)
+    NSObject<ProjectHomeViewControllerDelegate> * delegate;
 
 @end

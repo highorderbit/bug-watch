@@ -6,26 +6,9 @@
 #import "ProjectHomeTableViewCell.h"
 #import "UIColor+BugWatchColors.h"
 
-enum ProjectTab
-{
-    kHome,
-    kTickets,
-    kMilestones,
-    kMessages
-};
-
 @implementation ProjectHomeViewController
 
-- (void)dealloc
-{
-    [super dealloc];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.navigationItem.title = @"Code Watch";
-}
+@synthesize delegate;
 
 #pragma mark TableViewDataSource implementation
 
@@ -58,26 +41,26 @@ enum ProjectTab
     
     switch (indexPath.row)
     {
-        case kHome:
+        case kProjectHome:
             [cell setLabelText:@"Home"];
             [cell setImage:[UIImage imageNamed:@"HomeIcon.png"]];
             [cell
                 setHighlightedImage:
                 [UIImage imageNamed:@"HomeIconSelected.png"]];
             break;
-        case kTickets:
+        case kProjectTickets:
             [cell setLabelText:@"Tickets"];
             [cell setImage:[UIImage imageNamed:@"Bug.png"]];
             [cell setHighlightedImage:[UIImage imageNamed:@"BugSelected.png"]];
             break;
-        case kMilestones:
+        case kProjectMilestones:
             [cell setLabelText:@"Milestones"];
             [cell setImage:[UIImage imageNamed:@"Calendar.png"]];
             [cell
                 setHighlightedImage:
                 [UIImage imageNamed:@"CalendarSelected.png"]];
             break;
-        case kMessages:
+        case kProjectMessages:
             [cell setLabelText:@"Messages"];
             [cell setImage:[UIImage imageNamed:@"Thumbtack.png"]];
             [cell

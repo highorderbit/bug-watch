@@ -9,13 +9,16 @@
 - (void)dealloc
 {
     [projects release];
+    [projectMetadata release];
     [super dealloc];
 }
 
 - (id)init
 {
-    if (self = [super init])
+    if (self = [super init]) {
         projects = [[NSMutableDictionary dictionary] retain];
+        projectMetadata = [[NSMutableDictionary dictionary] retain];
+    }
 
     return self;
 }
@@ -32,7 +35,22 @@
 
 - (NSDictionary *)allProjects
 {
-    return [projects copy];
+    return [[projects copy] autorelease];
+}
+
+- (void)setProjectMetadata:(ProjectMetadata *)metadata forKey:(id)key
+{
+    [projectMetadata setObject:metadata forKey:key];
+}
+
+- (ProjectMetadata *)projectMetadataForKey:(id)key
+{
+    return [[projectMetadata objectForKey:key] copy];
+}
+
+- (NSDictionary *)allProjectMetadata
+{
+    return [[projectMetadata copy] autorelease];
 }
 
 @end

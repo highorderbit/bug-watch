@@ -143,6 +143,11 @@
 		914833CF0FD48F98002D10E8 /* ProjectCacheSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833CE0FD48F98002D10E8 /* ProjectCacheSetter.m */; };
 		914834000FD561BE002D10E8 /* UserCacheSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833FF0FD561BE002D10E8 /* UserCacheSetter.m */; };
 		914834180FD57C21002D10E8 /* AllUserUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 914834170FD57C21002D10E8 /* AllUserUpdatePublisher.m */; };
+		914834B90FD5AA13002D10E8 /* ProjectMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 914834B80FD5AA13002D10E8 /* ProjectMetadata.m */; };
+		914835250FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 914835240FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m */; };
+		914835B30FD6D993002D10E8 /* TicketDisplayMgrFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 914835B20FD6D993002D10E8 /* TicketDisplayMgrFactory.m */; };
+		914835C40FD6E42A002D10E8 /* LighthouseApiServiceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 914835C30FD6E42A002D10E8 /* LighthouseApiServiceFactory.m */; };
+		914835D90FD6EA79002D10E8 /* TicketSearchMgrFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 914835D80FD6EA79002D10E8 /* TicketSearchMgrFactory.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -425,6 +430,17 @@
 		914833FF0FD561BE002D10E8 /* UserCacheSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCacheSetter.m; path = users/UserCacheSetter.m; sourceTree = "<group>"; };
 		914834160FD57C21002D10E8 /* AllUserUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllUserUpdatePublisher.h; path = users/AllUserUpdatePublisher.h; sourceTree = "<group>"; };
 		914834170FD57C21002D10E8 /* AllUserUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllUserUpdatePublisher.m; path = users/AllUserUpdatePublisher.m; sourceTree = "<group>"; };
+		914834B70FD5AA13002D10E8 /* ProjectMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectMetadata.h; path = projects/ProjectMetadata.h; sourceTree = "<group>"; };
+		914834B80FD5AA13002D10E8 /* ProjectMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectMetadata.m; path = projects/ProjectMetadata.m; sourceTree = "<group>"; };
+		914835230FD5F454002D10E8 /* ProjectDispMgrProjectSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectDispMgrProjectSetter.h; path = projects/ProjectDispMgrProjectSetter.h; sourceTree = "<group>"; };
+		914835240FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectDispMgrProjectSetter.m; path = projects/ProjectDispMgrProjectSetter.m; sourceTree = "<group>"; };
+		914835990FD6CF65002D10E8 /* ProjectHomeViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeViewControllerDelegate.h; path = projects/ProjectHomeViewControllerDelegate.h; sourceTree = "<group>"; };
+		914835B10FD6D993002D10E8 /* TicketDisplayMgrFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDisplayMgrFactory.h; path = tickets/TicketDisplayMgrFactory.h; sourceTree = "<group>"; };
+		914835B20FD6D993002D10E8 /* TicketDisplayMgrFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDisplayMgrFactory.m; path = tickets/TicketDisplayMgrFactory.m; sourceTree = "<group>"; };
+		914835C20FD6E42A002D10E8 /* LighthouseApiServiceFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiServiceFactory.h; path = lighthouse/api/LighthouseApiServiceFactory.h; sourceTree = "<group>"; };
+		914835C30FD6E42A002D10E8 /* LighthouseApiServiceFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseApiServiceFactory.m; path = lighthouse/api/LighthouseApiServiceFactory.m; sourceTree = "<group>"; };
+		914835D70FD6EA79002D10E8 /* TicketSearchMgrFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSearchMgrFactory.h; path = tickets/TicketSearchMgrFactory.h; sourceTree = "<group>"; };
+		914835D80FD6EA79002D10E8 /* TicketSearchMgrFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSearchMgrFactory.m; path = tickets/TicketSearchMgrFactory.m; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -728,6 +744,8 @@
 				0576B85B0FC8A1AC0015C2AD /* UpdateTicketDescription.m */,
 				0576B9E40FCA13170015C2AD /* NewMessageDescription.h */,
 				0576B9E50FCA13170015C2AD /* NewMessageDescription.m */,
+				914835C20FD6E42A002D10E8 /* LighthouseApiServiceFactory.h */,
+				914835C30FD6E42A002D10E8 /* LighthouseApiServiceFactory.m */,
 			);
 			name = api;
 			sourceTree = "<group>";
@@ -993,6 +1011,10 @@
 				91482FC90FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m */,
 				91482FE90FCE04C7002D10E8 /* TicketDispMgrUserSetter.h */,
 				91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */,
+				914835B10FD6D993002D10E8 /* TicketDisplayMgrFactory.h */,
+				914835B20FD6D993002D10E8 /* TicketDisplayMgrFactory.m */,
+				914835D70FD6EA79002D10E8 /* TicketSearchMgrFactory.h */,
+				914835D80FD6EA79002D10E8 /* TicketSearchMgrFactory.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1019,6 +1041,11 @@
 				914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */,
 				914833CD0FD48F98002D10E8 /* ProjectCacheSetter.h */,
 				914833CE0FD48F98002D10E8 /* ProjectCacheSetter.m */,
+				914834B70FD5AA13002D10E8 /* ProjectMetadata.h */,
+				914834B80FD5AA13002D10E8 /* ProjectMetadata.m */,
+				914835230FD5F454002D10E8 /* ProjectDispMgrProjectSetter.h */,
+				914835240FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m */,
+				914835990FD6CF65002D10E8 /* ProjectHomeViewControllerDelegate.h */,
 			);
 			name = projects;
 			sourceTree = "<group>";
@@ -1386,6 +1413,11 @@
 				914833CF0FD48F98002D10E8 /* ProjectCacheSetter.m in Sources */,
 				914834000FD561BE002D10E8 /* UserCacheSetter.m in Sources */,
 				914834180FD57C21002D10E8 /* AllUserUpdatePublisher.m in Sources */,
+				914834B90FD5AA13002D10E8 /* ProjectMetadata.m in Sources */,
+				914835250FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m in Sources */,
+				914835B30FD6D993002D10E8 /* TicketDisplayMgrFactory.m in Sources */,
+				914835C40FD6E42A002D10E8 /* LighthouseApiServiceFactory.m in Sources */,
+				914835D90FD6EA79002D10E8 /* TicketSearchMgrFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
