@@ -42,7 +42,7 @@
     wrapperController:(NetworkAwareViewController *)wrapperController
     parentView:(UIView *)parentView
     ticketBinDataSource:(id)ticketBinDataSource;
-- (TicketCache *)loadTicketsFromPersistence;
+- (TicketCache *)loadTicketsFromPersistence:(NSString *)plist;
 
 - (void)initProjectsTab;
 - (void)initMessagesTab;
@@ -57,6 +57,7 @@
 
 + (NSString *)newsFeedCachePlist;
 + (NSString *)ticketCachePlist;
++ (NSString *)projectLevelTicketCachePlist;
 + (NSString *)projectCachePlist;
 + (NSString *)milestoneCachePlist;
 + (NSString *)userCachePlist;
@@ -198,6 +199,11 @@
         [[[TicketPersistenceStore alloc] init] autorelease];
     [ticketPersistenceStore saveTicketCache:ticketCache
         toPlist:[[self class] ticketCachePlist]];
+
+    TicketCache * projectLevelTicketCache =
+        projectLevelTicketDisplayMgr.ticketCache;
+    [ticketPersistenceStore saveTicketCache:projectLevelTicketCache
+        toPlist:[[self class] projectLevelTicketCachePlist]];
 
     MilestonePersistenceStore * milestonePersistenceStore =
         [[[MilestonePersistenceStore alloc] init] autorelease];
@@ -348,7 +354,8 @@
 
 - (void)initTicketsTab
 {
-    TicketCache * ticketCache = [self loadTicketsFromPersistence];
+    TicketCache * ticketCache =
+        [self loadTicketsFromPersistence:[[self class] ticketCachePlist]];
 
     UIBarButtonItem * addButton =
         ticketsNetAwareViewController.navigationItem.rightBarButtonItem;
@@ -390,13 +397,13 @@
     return aTicketDisplayMgr;
 }
 
-- (TicketCache *)loadTicketsFromPersistence
+- (TicketCache *)loadTicketsFromPersistence:(NSString *)plist
 {
     NSLog(@"Loading ticket cache from persistence...");
     TicketPersistenceStore * ticketPersistenceStore =
         [[[TicketPersistenceStore alloc] init] autorelease];
     TicketCache * ticketCache =
-        [ticketPersistenceStore loadWithPlist:[[self class] ticketCachePlist]];
+        [ticketPersistenceStore loadWithPlist:plist];
     NSLog(@"Loaded ticket cache from persistence.");
     
     return ticketCache;
@@ -406,7 +413,9 @@
 
 - (void)initProjectsTab
 {
-    TicketCache * ticketCache = [[[TicketCache alloc] init] autorelease];
+    TicketCache * ticketCache =
+        [self loadTicketsFromPersistence:
+        [[self class] projectLevelTicketCachePlist]];
     UIBarButtonItem * addButton =
         [[[UIBarButtonItem alloc]
         initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil
@@ -555,6 +564,11 @@
 + (NSString *)ticketCachePlist
 {
     return @"TicketCache";
+}
+
++ (NSString *)projectLevelTicketCachePlist
+{
+    return @"ProjectLevelTicketCache";
 }
 
 + (NSString *)projectCachePlist
