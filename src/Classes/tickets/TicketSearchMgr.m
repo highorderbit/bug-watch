@@ -10,7 +10,6 @@
 - (void)updateNavigationBarForNotSearching:(BOOL)animated;
 - (void)initDarkTransparentView;
 - (void)searchCurrentText;
-- (void)forceQueryRefresh;
 
 @end
 
@@ -23,7 +22,6 @@
     [searchField release];
     [addButton release];
     [cancelButton release];
-    [refreshButton release];
     [navigationItem release];
     [binViewController release];
     [parentView release];
@@ -54,11 +52,6 @@
         cancelButton.title = @"Cancel";
         cancelButton.target = self;
         cancelButton.action = @selector(cancelSelected);
-        
-        refreshButton =
-            [[UIBarButtonItem alloc]
-            initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-            target:self action:@selector(forceQueryRefresh)];
 
         searchField.delegate = self;
         // Can't be set in IB, so setting it here
@@ -123,16 +116,18 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionNone
             forView:searchField cache:YES];
     }
-    
+
     CGRect frame = searchField.frame;
     frame.size.width = 250;
     searchField.frame = frame;
-    
+
     if (animated)
         [UIView commitAnimations];
 
-    [navigationItem setRightBarButtonItem:refreshButton animated:animated];
-    [navigationItem setLeftBarButtonItem:addButton animated:animated];
+    [navigationItem setRightBarButtonItem:addButton animated:animated];
+    // let the search field animation start before displaying the back button
+    [navigationItem performSelector:@selector(setHidesBackButton:)
+        withObject:nil afterDelay:0.1];
 }
 
 #pragma mark UITextFieldDelegate implementation
@@ -147,7 +142,8 @@
     searchField.text = @"";
 
     [navigationItem setLeftBarButtonItem:nil animated:NO];
-
+    navigationItem.hidesBackButton = YES;
+    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationTransition:UIViewAnimationTransitionNone
         forView:searchField cache:YES];
@@ -205,11 +201,6 @@
 {
     [delegate ticketsFilteredByFilterString:searchField.text];
     [self cancelSelected];
-}
-
-- (void)forceQueryRefresh
-{
-    [delegate forceQueryRefresh];
 }
 
 @end

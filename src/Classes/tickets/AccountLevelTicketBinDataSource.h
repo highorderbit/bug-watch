@@ -4,14 +4,14 @@
 
 #import <Foundation/Foundation.h>
 #import "TicketBinDataSourceDelegate.h"
+#import "TicketBinDataSourceProtocol.h"
 
-@interface AccountLevelTicketBinDataSource : NSObject
+@interface AccountLevelTicketBinDataSource :
+    NSObject <TicketBinDataSourceProtocol>
 {
     NSObject<TicketBinDataSourceDelegate> * delegate;
     NSArray * ticketBins;
 }
-
-@property (nonatomic, assign) NSObject<TicketBinDataSourceDelegate> * delegate;
 
 - (void)fetchAllTicketBins;
 

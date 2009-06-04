@@ -47,6 +47,8 @@
     BOOL firstTimeDisplayed;
 }
 
+@property (readonly) NetworkAwareViewController * wrapperController;
+@property (readonly) TicketsViewController * ticketsViewController;
 @property (readonly) TicketDetailsViewController * detailsViewController;
 @property (readonly) NetworkAwareViewController * detailsNetAwareViewController;
 @property (readonly) EditTicketViewController * editTicketViewController;

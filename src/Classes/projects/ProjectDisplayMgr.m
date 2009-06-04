@@ -13,6 +13,8 @@
     [projectsViewController release];
     [projectHomeViewController release];
 
+    [ticketDisplayMgr release];
+
     [projectCache release];
     [selectedProjectKey release];
 
@@ -21,10 +23,12 @@
 
 - (id)initWithProjectsViewController:(ProjectsViewController *)aViewController
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
+    ticketDisplayMgr:(TicketDisplayMgr *)aTicketDisplayMgr;
 {
     if (self = [super init]) {
         projectsViewController = [aViewController retain];
         wrapperController = [aWrapperController retain];
+        ticketDisplayMgr = [aTicketDisplayMgr retain];
     }
 
     return self;
@@ -47,23 +51,34 @@
         animated:YES];
 
     self.projectHomeViewController.navigationItem.title = project.name;
+    ticketDisplayMgr.activeProjectKey = key;
 }
 
 #pragma mark ProjectHomeViewControllerDelegate implementation
 
-- (void)selectedTab:(NSUInteger)tab
+- (void)selectedTab:(NSUInteger)tabIndex
 {
-    // init tickets tab from factory
+    NSLog(@"Selected project tab %d", tabIndex);
+
+    switch(tabIndex) {
+        case kProjectTickets:
+            [self.navController
+                pushViewController:self.ticketsNetAwareViewController
+                animated:YES];
+            break;
+    }
 }
 
 #pragma mark Accessors
 
 - (ProjectHomeViewController *)projectHomeViewController
 {
-    if (!projectHomeViewController)
+    if (!projectHomeViewController) {
         projectHomeViewController =
             [[ProjectHomeViewController alloc]
             initWithNibName:@"ProjectHomeView" bundle:nil];
+        projectHomeViewController.delegate = self;
+    }
 
     return projectHomeViewController;
 }
@@ -71,6 +86,11 @@
 - (UINavigationController *)navController
 {
     return wrapperController.navigationController;
+}
+
+- (NetworkAwareViewController *)ticketsNetAwareViewController
+{
+    return ticketDisplayMgr.wrapperController;
 }
 
 - (void)setProjectCache:(ProjectCache *)aProjectCache

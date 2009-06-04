@@ -24,8 +24,8 @@
 
 @implementation TicketDisplayMgr
 
-@synthesize ticketCache, commentCache, activeProjectKey, selectProject,
-    milestoneDict, projectDict, userDict;
+@synthesize wrapperController, ticketsViewController, ticketCache, commentCache,
+    activeProjectKey, selectProject, milestoneDict, projectDict, userDict;
 
 - (void)dealloc
 {

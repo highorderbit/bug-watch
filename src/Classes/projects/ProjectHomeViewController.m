@@ -75,6 +75,7 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [delegate selectedTab:indexPath.row];
 }
 
 @end

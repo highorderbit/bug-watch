@@ -36,6 +36,12 @@
 @interface BugWatchAppController (Private)
 
 - (void)initTicketsTab;
+- (TicketDisplayMgr *)createTicketDispMgr:(TicketCache *)ticketCache
+    addButton:(UIBarButtonItem *)addButton
+    searchField:(UITextField *)searchField
+    wrapperController:(NetworkAwareViewController *)wrapperController
+    parentView:(UIView *)parentView
+    ticketBinDataSource:(id)ticketBinDataSource;
 - (TicketCache *)loadTicketsFromPersistence;
 
 - (void)initProjectsTab;
@@ -73,6 +79,7 @@
 
     [ticketDisplayMgrFactory release];
     [ticketDisplayMgr release];
+    [projectLevelTicketDisplayMgr release];
     [ticketSearchMgrFactory release];
 
     [projectCacheSetter release];
@@ -348,16 +355,39 @@
     UITextField * searchField =
         (UITextField *)
         ticketsNetAwareViewController.navigationItem.titleView;
+    
+    AccountLevelTicketBinDataSource * ticketBinDataSource = 
+        [[[AccountLevelTicketBinDataSource alloc] init] autorelease];
+
+    ticketDisplayMgr =
+        [self createTicketDispMgr:ticketCache addButton:addButton
+        searchField:searchField
+        wrapperController:ticketsNetAwareViewController
+        parentView:ticketsNetAwareViewController.navigationController.view
+        ticketBinDataSource:ticketBinDataSource];
+}
+
+- (TicketDisplayMgr *)createTicketDispMgr:(TicketCache *)ticketCache
+    addButton:(UIBarButtonItem *)addButton
+    searchField:(UITextField *)searchField
+    wrapperController:(NetworkAwareViewController *)wrapperController
+    parentView:(UIView *)parentView ticketBinDataSource:(id)ticketBinDataSource
+{
     TicketSearchMgr * ticketSearchMgr =
         [ticketSearchMgrFactory createTicketSearchMgrWithButton:addButton
         searchText:ticketCache.query searchField:searchField
-        wrapperController:ticketsNetAwareViewController];
-    ticketDisplayMgr =
+        wrapperController:wrapperController parentView:parentView
+        ticketBinDataSource:ticketBinDataSource];
+    ((NSObject<TicketBinDataSourceProtocol> *)ticketBinDataSource).delegate =
+        ticketSearchMgr;
+
+    TicketDisplayMgr * aTicketDisplayMgr =
         [ticketDisplayMgrFactory createTicketDisplayMgrWithCache:ticketCache
-        wrapperController:ticketsNetAwareViewController
-        ticketSearchMgr:ticketSearchMgr];
-    addButton.target = ticketDisplayMgr;
+        wrapperController:wrapperController ticketSearchMgr:ticketSearchMgr];
+    addButton.target = aTicketDisplayMgr;
     addButton.action = @selector(addSelected);
+
+    return aTicketDisplayMgr;
 }
 
 - (TicketCache *)loadTicketsFromPersistence
@@ -376,6 +406,44 @@
 
 - (void)initProjectsTab
 {
+    TicketCache * ticketCache = [[[TicketCache alloc] init] autorelease];
+    UIBarButtonItem * addButton =
+        [[[UIBarButtonItem alloc]
+        initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil
+        action:nil]
+        autorelease];
+    UITextField * searchField = [[[UITextField alloc] init] autorelease];
+    static const CGFloat FONT_SIZE = 17.0;
+    searchField.font = [UIFont systemFontOfSize:FONT_SIZE];
+    searchField.minimumFontSize = FONT_SIZE;
+    searchField.borderStyle = UITextBorderStyleRoundedRect;
+    searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    searchField.placeholder = @"Filter tickets";
+    searchField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    searchField.returnKeyType = UIReturnKeyGo;
+    searchField.contentVerticalAlignment =
+        UIControlContentVerticalAlignmentCenter;
+
+    NetworkAwareViewController * wrapperController =
+        [[[NetworkAwareViewController alloc] init] autorelease];
+    wrapperController.navigationItem.title = @"Tickets";
+    wrapperController.navigationItem.titleView = searchField;
+
+    UIView * parentView =
+        projectsNetAwareViewController.navigationController.view;
+
+    LighthouseApiService * ticketBinService =
+        [lighthouseApiFactory createLighthouseApiService];
+    TicketBinDataSource * ticketBinDataSource =
+        [[TicketBinDataSource alloc] initWithService:ticketBinService];
+    ticketBinService.delegate = ticketBinDataSource;
+
+    projectLevelTicketDisplayMgr =
+        [self createTicketDispMgr:ticketCache addButton:addButton
+        searchField:searchField wrapperController:wrapperController
+        parentView:parentView ticketBinDataSource:ticketBinDataSource];
+    projectLevelTicketDisplayMgr.selectProject = NO;
+
     ProjectsViewController * projectsViewController =
         [[[ProjectsViewController alloc]
         initWithNibName:@"ProjectsView" bundle:nil] autorelease];
@@ -385,7 +453,8 @@
     ProjectDisplayMgr * projectDisplayMgr =
         [[[ProjectDisplayMgr alloc]
         initWithProjectsViewController:projectsViewController
-        networkAwareViewController:projectsNetAwareViewController] autorelease];
+        networkAwareViewController:projectsNetAwareViewController
+        ticketDisplayMgr:projectLevelTicketDisplayMgr] autorelease];
     projectsViewController.delegate = projectDisplayMgr;
     
     ProjectDispMgrProjectSetter * projectSetter =

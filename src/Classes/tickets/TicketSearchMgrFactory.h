@@ -11,6 +11,7 @@
 - (TicketSearchMgr *)
     createTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
     searchText:(NSString *)searchText searchField:(UITextField *)searchField
-    wrapperController:(NetworkAwareViewController *)wrapperController;
+    wrapperController:(NetworkAwareViewController *)wrapperController
+    parentView:(UIView *)parentView ticketBinDataSource:(id)ticketBinDataSource;
 
 @end

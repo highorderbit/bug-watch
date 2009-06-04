@@ -11,24 +11,21 @@
     createTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
     searchText:(NSString *)searchText searchField:(UITextField *)searchField
     wrapperController:(NetworkAwareViewController *)wrapperController
+    parentView:(UIView *)parentView ticketBinDataSource:(id)ticketBinDataSource
 {
     searchField.text = searchText;
 
     TicketBinViewController * binViewController =
         [[[TicketBinViewController alloc]
         initWithNibName:@"TicketBinView" bundle:nil] autorelease];
-    AccountLevelTicketBinDataSource * ticketBinDataSource = 
-        [[[AccountLevelTicketBinDataSource alloc] init] autorelease];
 
     TicketSearchMgr * ticketSearchMgr =
         [[TicketSearchMgr alloc]
         initWithSearchField:searchField addButton:addButton
         navigationItem:wrapperController.navigationItem
         ticketBinViewController:binViewController
-        parentView:wrapperController.navigationController.view
-        dataSourceTarget:ticketBinDataSource
+        parentView:parentView dataSourceTarget:ticketBinDataSource
         dataSourceAction:@selector(fetchAllTicketBins)];
-    ticketBinDataSource.delegate = ticketSearchMgr;
     binViewController.delegate = ticketSearchMgr;
     // this won't get dealloced, but fine since it exists for the runtime
     // lifetime

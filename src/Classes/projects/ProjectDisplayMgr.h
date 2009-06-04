@@ -9,6 +9,7 @@
 #import "ProjectHomeViewController.h"
 #import "ProjectCache.h"
 #import "NetworkAwareViewController.h"
+#import "TicketDisplayMgr.h"
 
 @interface ProjectDisplayMgr :
     NSObject <ProjectsViewControllerDelegate, ProjectHomeViewControllerDelegate>
@@ -17,16 +18,21 @@
     ProjectHomeViewController * projectHomeViewController;
     NetworkAwareViewController * wrapperController;
 
+    TicketDisplayMgr * ticketDisplayMgr;
+
     ProjectCache * projectCache;    
     id selectedProjectKey;
 }
 
 - (id)initWithProjectsViewController:(ProjectsViewController *)aViewController
-    networkAwareViewController:(NetworkAwareViewController *)wrapperController;
+    networkAwareViewController:(NetworkAwareViewController *)wrapperController
+    ticketDisplayMgr:(TicketDisplayMgr *)ticketDisplayMgr;
 
 @property (readonly) ProjectHomeViewController * projectHomeViewController;
 @property (readonly) UINavigationController * navController;
 
+@property (readonly) NetworkAwareViewController * ticketsNetAwareViewController;
+    
 @property (nonatomic, retain) ProjectCache * projectCache;
 @property (nonatomic, copy) id selectedProjectKey;
 

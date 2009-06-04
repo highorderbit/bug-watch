@@ -18,7 +18,6 @@
     UITextField * searchField;
     UIBarButtonItem * addButton;
     UIBarButtonItem * cancelButton;
-    UIBarButtonItem * refreshButton;
     UINavigationItem * navigationItem;
     TicketBinViewController * binViewController;
     UIView * parentView;

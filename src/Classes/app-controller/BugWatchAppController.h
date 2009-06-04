@@ -36,6 +36,7 @@
 
     TicketDisplayMgrFactory * ticketDisplayMgrFactory;
     TicketDisplayMgr * ticketDisplayMgr;
+    TicketDisplayMgr * projectLevelTicketDisplayMgr;
     TicketSearchMgrFactory * ticketSearchMgrFactory;
 
     ProjectCacheSetter * projectCacheSetter;

@@ -525,6 +525,7 @@
 		91D6807F0F98DDC40040A310 /* HomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeIcon.png; sourceTree = "<group>"; };
 		91D680810F98DF880040A310 /* Bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bug.png; sourceTree = "<group>"; };
 		91D680880F98E4060040A310 /* Calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Calendar.png; sourceTree = "<group>"; };
+		91E14D060FD83B7600B9B8CD /* TicketBinDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBinDataSourceProtocol.h; path = tickets/TicketBinDataSourceProtocol.h; sourceTree = "<group>"; };
 		91E1FC7F0FACB6F100E86DDE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EditTicketView.xib; sourceTree = "<group>"; };
 		91E1FC810FACB70900E86DDE /* EditTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditTicketViewController.h; path = tickets/EditTicketViewController.h; sourceTree = "<group>"; };
 		91E1FC820FACB70900E86DDE /* EditTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditTicketViewController.m; path = tickets/EditTicketViewController.m; sourceTree = "<group>"; };
@@ -1015,6 +1016,7 @@
 				914835B20FD6D993002D10E8 /* TicketDisplayMgrFactory.m */,
 				914835D70FD6EA79002D10E8 /* TicketSearchMgrFactory.h */,
 				914835D80FD6EA79002D10E8 /* TicketSearchMgrFactory.m */,
+				91E14D060FD83B7600B9B8CD /* TicketBinDataSourceProtocol.h */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
