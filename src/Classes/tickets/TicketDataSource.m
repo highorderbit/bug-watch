@@ -44,6 +44,13 @@
     [service searchTicketsForAllProjects:aFilterString page:page token:token];
 }
 
+- (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
+    project:(id)projectKey
+{
+    [service searchTicketsForProject:projectKey withSearchString:aFilterString
+        page:page object:nil token:token];
+}
+
 - (void)fetchTicketWithKey:(TicketKey *)aTicketKey
 {
     [service
@@ -111,6 +118,24 @@
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     page:(NSUInteger)page error:(NSError *)error
+{}
+
+- (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object metadata:(NSArray *)metadata
+    ticketNumbers:(NSArray *)ticketNumbers milestoneIds:(NSArray *)milestoneIds
+    projectIds:(NSArray *)projectIds userIds:(NSArray *)userIds
+    creatorIds:(NSArray *)creatorIds
+{
+    [self tickets:tickets fetchedForSearchString:searchString page:page
+        metadata:metadata ticketNumbers:ticketNumbers
+        milestoneIds:milestoneIds projectIds:projectIds userIds:userIds
+       creatorIds:creatorIds];
+}
+
+- (void)failedToSearchTicketsForProject:(id)projectKey
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object error:(NSError *)error
 {}
 
 - (void)details:(NSArray *)details authors:(NSArray *)authors

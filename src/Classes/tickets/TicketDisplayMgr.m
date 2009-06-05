@@ -137,7 +137,12 @@
     NSLog(@"Loading more tickets (page %d)...", pageToLoad);
     [wrapperController setUpdatingState:kConnectedAndUpdating];
     wrapperController.cachedDataAvailable = YES;
-    [dataSource fetchTicketsWithQuery:self.ticketCache.query page:pageToLoad];
+    if (selectProject)
+        [dataSource fetchTicketsWithQuery:self.ticketCache.query
+            page:pageToLoad];
+    else
+        [dataSource fetchTicketsWithQuery:self.ticketCache.query
+            page:pageToLoad project:activeProjectKey];
 }
 
 - (void)resolveTicketWithKey:(TicketKey *)key
@@ -228,8 +233,12 @@
         ticketCache.numPages = 1;
         [wrapperController setUpdatingState:kConnectedAndUpdating];
         NSString * searchString = aFilterString ? aFilterString : @"";
-        [dataSource fetchTicketsWithQuery:searchString
-            page:ticketCache.numPages];
+        if (selectProject)
+            [dataSource fetchTicketsWithQuery:searchString
+                page:ticketCache.numPages];
+        else
+            [dataSource fetchTicketsWithQuery:searchString
+                page:ticketCache.numPages project:activeProjectKey];
     } else
         [wrapperController setUpdatingState:kConnectedAndNotUpdating];
 }

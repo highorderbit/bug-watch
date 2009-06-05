@@ -13,9 +13,10 @@
 {
     NSObject<TicketBinDataSourceDelegate> * delegate;
     LighthouseApiService * service;
+    NSString * token;
 }
 
--(id)initWithService:(LighthouseApiService *)service;
-- (void)fetchAllTicketBins;
+- (id)initWithService:(LighthouseApiService *)service token:(NSString *)aToken;
+- (void)fetchAllTicketBinsForProject:(id)projectKey;
 
 @end

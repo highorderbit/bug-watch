@@ -183,6 +183,7 @@
 		918887F30FBA1BBF009F5861 /* TicketBinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918887F20FBA1BBF009F5861 /* TicketBinViewController.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
+		919891CC0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
 		91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */; };
@@ -503,6 +504,8 @@
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
+		919891CA0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectSpecificTicketBinDSAdapter.h; path = tickets/ProjectSpecificTicketBinDSAdapter.h; sourceTree = "<group>"; };
+		919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectSpecificTicketBinDSAdapter.m; path = tickets/ProjectSpecificTicketBinDSAdapter.m; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
 		91A85AB30FAF59A30084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AddCommentView.xib; sourceTree = "<group>"; };
@@ -1022,6 +1025,8 @@
 				914835D70FD6EA79002D10E8 /* TicketSearchMgrFactory.h */,
 				914835D80FD6EA79002D10E8 /* TicketSearchMgrFactory.m */,
 				91E14D060FD83B7600B9B8CD /* TicketBinDataSourceProtocol.h */,
+				919891CA0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.h */,
+				919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1426,6 +1431,7 @@
 				914835C40FD6E42A002D10E8 /* LighthouseApiServiceFactory.m in Sources */,
 				914835D90FD6EA79002D10E8 /* TicketSearchMgrFactory.m in Sources */,
 				91E14D270FD8857000B9B8CD /* RecentHistoryCache.m in Sources */,
+				919891CC0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

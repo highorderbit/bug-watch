@@ -32,6 +32,7 @@
 #import "UserPersistenceStore.h"
 #import "AllUserUpdatePublisher.h"
 #import "ProjectDispMgrProjectSetter.h"
+#import "ProjectSpecificTicketBinDSAdapter.h"
 
 @interface BugWatchAppController (Private)
 
@@ -443,15 +444,22 @@
 
     LighthouseApiService * ticketBinService =
         [lighthouseApiFactory createLighthouseApiService];
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
     TicketBinDataSource * ticketBinDataSource =
-        [[TicketBinDataSource alloc] initWithService:ticketBinService];
+        [[TicketBinDataSource alloc] initWithService:ticketBinService
+        token:token];
     ticketBinService.delegate = ticketBinDataSource;
+    ProjectSpecificTicketBinDSAdapter * projSpecificTicketBinDS =
+        [[ProjectSpecificTicketBinDSAdapter alloc]
+        initWithTicketBinDataSource:ticketBinDataSource];
+    ticketBinDataSource.delegate = projSpecificTicketBinDS;
 
     projectLevelTicketDisplayMgr =
         [self createTicketDispMgr:ticketCache addButton:addButton
         searchField:searchField wrapperController:wrapperController
-        parentView:parentView ticketBinDataSource:ticketBinDataSource];
+        parentView:parentView ticketBinDataSource:projSpecificTicketBinDS];
     projectLevelTicketDisplayMgr.selectProject = NO;
+    projSpecificTicketBinDS.ticketDisplayMgr = projectLevelTicketDisplayMgr;
 
     ProjectsViewController * projectsViewController =
         [[[ProjectsViewController alloc]

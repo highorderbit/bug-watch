@@ -20,6 +20,8 @@
 -(id)initWithService:(LighthouseApiService *)service;
 
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page;
+- (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
+    project:(id)projectKey;
 - (void)fetchTicketWithKey:(TicketKey *)aTicketKey;
 
 - (void)createTicketWithDescription:(NewTicketDescription *)desc
