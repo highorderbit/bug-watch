@@ -26,7 +26,7 @@
 
 @synthesize wrapperController, ticketsViewController, ticketCache,
     recentHistoryCommentCache, activeProjectKey, selectProject, milestoneDict,
-    projectDict, userDict;
+    milestoneToProjectDict, projectDict, userDict;
 
 - (void)dealloc
 {
@@ -45,6 +45,7 @@
 
     [userDict release];
     [milestoneDict release];
+    [milestoneToProjectDict release];
     [projectDict release];
 
     [darkTransparentView release];
@@ -67,7 +68,7 @@
         [self initDarkTransparentView];
         self.selectProject = YES;
         firstTimeDisplayed = YES;
-        
+
         recentHistoryCommentCache =
             [[RecentHistoryCache alloc] initWithCacheLimit:20];
     }
@@ -545,14 +546,24 @@
     NSDictionary * tempUserDict = [aUserDict copy];
     [userDict release];
     userDict = tempUserDict;
-    
+
     [self ticketsFilteredByFilterString:ticketCache.query];
 }
 
 - (NSDictionary *)milestonesForProject
 {
-    // TODO: implement
-    return [[milestoneDict copy] autorelease];
+    NSMutableDictionary * milestonesForProject =
+        [NSMutableDictionary dictionary];
+
+    for (id key in [milestoneToProjectDict allKeys]) {
+        id projectKey = [milestoneToProjectDict objectForKey:key];
+        if ([projectKey isEqual:activeProjectKey]) {
+            NSString * milestoneName = [milestoneDict objectForKey:key];
+            [milestonesForProject setObject:milestoneName forKey:key];
+        }
+    }
+
+    return milestonesForProject;
 }
 
 @end

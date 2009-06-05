@@ -38,6 +38,7 @@
 
     NSDictionary * userDict;
     NSDictionary * milestoneDict;
+    NSDictionary * milestoneToProjectDict;
     NSDictionary * projectDict;
 
     UIView * darkTransparentView;
@@ -63,6 +64,7 @@
 @property (nonatomic, assign) BOOL selectProject;
 
 @property (nonatomic, copy) NSDictionary * milestoneDict;
+@property (nonatomic, copy) NSDictionary * milestoneToProjectDict;
 @property (nonatomic, copy) NSDictionary * projectDict;
 @property (nonatomic, copy) NSDictionary * userDict;
 
