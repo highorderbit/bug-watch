@@ -16,6 +16,7 @@
 #import "TicketSearchMgrDelegate.h"
 #import "TicketCommentCache.h"
 #import "ProjectSelectionViewController.h"
+#import "RecentHistoryCache.h"
 
 @interface TicketDisplayMgr :
     NSObject <TicketsViewControllerDelegate,
@@ -25,7 +26,7 @@
     id selectedTicketKey;
 
     TicketCache * ticketCache;
-    TicketCommentCache * commentCache;
+    RecentHistoryCache * recentHistoryCommentCache;
 
     NetworkAwareViewController * wrapperController;
     TicketsViewController * ticketsViewController;
@@ -57,7 +58,7 @@
 @property (readonly) UINavigationController * navController;
 
 @property (nonatomic, retain) TicketCache * ticketCache;
-@property (nonatomic, retain) TicketCommentCache * commentCache;
+@property (nonatomic, retain) RecentHistoryCache * recentHistoryCommentCache;
 @property (nonatomic, copy) id activeProjectKey;
 @property (nonatomic, assign) BOOL selectProject;
 

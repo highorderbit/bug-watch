@@ -198,6 +198,7 @@
 		91D680800F98DDC40040A310 /* HomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D6807F0F98DDC40040A310 /* HomeIcon.png */; };
 		91D680820F98DF880040A310 /* Bug.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D680810F98DF880040A310 /* Bug.png */; };
 		91D680890F98E4060040A310 /* Calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D680880F98E4060040A310 /* Calendar.png */; };
+		91E14D270FD8857000B9B8CD /* RecentHistoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E14D260FD8857000B9B8CD /* RecentHistoryCache.m */; };
 		91E1FC800FACB6F100E86DDE /* EditTicketView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC7E0FACB6F100E86DDE /* EditTicketView.xib */; };
 		91E1FC830FACB70900E86DDE /* EditTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E1FC820FACB70900E86DDE /* EditTicketViewController.m */; };
 		91E1FC860FACBBBE00E86DDE /* TextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC850FACBBBE00E86DDE /* TextField.png */; };
@@ -526,6 +527,8 @@
 		91D680810F98DF880040A310 /* Bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bug.png; sourceTree = "<group>"; };
 		91D680880F98E4060040A310 /* Calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Calendar.png; sourceTree = "<group>"; };
 		91E14D060FD83B7600B9B8CD /* TicketBinDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBinDataSourceProtocol.h; path = tickets/TicketBinDataSourceProtocol.h; sourceTree = "<group>"; };
+		91E14D250FD8857000B9B8CD /* RecentHistoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecentHistoryCache.h; path = shared/RecentHistoryCache.h; sourceTree = "<group>"; };
+		91E14D260FD8857000B9B8CD /* RecentHistoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecentHistoryCache.m; path = shared/RecentHistoryCache.m; sourceTree = "<group>"; };
 		91E1FC7F0FACB6F100E86DDE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EditTicketView.xib; sourceTree = "<group>"; };
 		91E1FC810FACB70900E86DDE /* EditTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditTicketViewController.h; path = tickets/EditTicketViewController.h; sourceTree = "<group>"; };
 		91E1FC820FACB70900E86DDE /* EditTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditTicketViewController.m; path = tickets/EditTicketViewController.m; sourceTree = "<group>"; };
@@ -798,6 +801,8 @@
 		05E637760FA8D35100F736A5 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				91E14D250FD8857000B9B8CD /* RecentHistoryCache.h */,
+				91E14D260FD8857000B9B8CD /* RecentHistoryCache.m */,
 				91C5D8820FAFA49100943292 /* HOTableViewCell.h */,
 				91C5D8830FAFA49100943292 /* HOTableViewCell.m */,
 				055214020FAB709600626049 /* NetworkAwareViewController.h */,
@@ -1420,6 +1425,7 @@
 				914835B30FD6D993002D10E8 /* TicketDisplayMgrFactory.m in Sources */,
 				914835C40FD6E42A002D10E8 /* LighthouseApiServiceFactory.m in Sources */,
 				914835D90FD6EA79002D10E8 /* TicketSearchMgrFactory.m in Sources */,
+				91E14D270FD8857000B9B8CD /* RecentHistoryCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

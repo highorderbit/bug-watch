@@ -24,14 +24,15 @@
 
 @implementation TicketDisplayMgr
 
-@synthesize wrapperController, ticketsViewController, ticketCache, commentCache,
-    activeProjectKey, selectProject, milestoneDict, projectDict, userDict;
+@synthesize wrapperController, ticketsViewController, ticketCache,
+    recentHistoryCommentCache, activeProjectKey, selectProject, milestoneDict,
+    projectDict, userDict;
 
 - (void)dealloc
 {
     [selectedTicketKey release];
     [ticketCache release];
-    [commentCache release];
+    [recentHistoryCommentCache release];
     [activeProjectKey release];
 
     [wrapperController release];
@@ -66,6 +67,9 @@
         [self initDarkTransparentView];
         self.selectProject = YES;
         firstTimeDisplayed = YES;
+        
+        recentHistoryCommentCache =
+            [[RecentHistoryCache alloc] initWithCacheLimit:20];
     }
 
     return self;
@@ -113,15 +117,16 @@
     [self.navController
         pushViewController:self.detailsNetAwareViewController animated:YES];
 
-    if (commentCache && [selectedTicketKey isEqual:key])
+    TicketCommentCache * commentCache =
+        [recentHistoryCommentCache objectForKey:key];
+    if (commentCache)
         [self displayTicketDetails:key];
-    else {
-        [dataSource fetchTicketWithKey:key];
-        self.detailsNetAwareViewController.cachedDataAvailable = NO;
-        [self.detailsNetAwareViewController
-            setUpdatingState:kConnectedAndUpdating];
-        self.detailsEditButton.enabled = NO;
-    }
+
+    [dataSource fetchTicketWithKey:key];
+    self.detailsNetAwareViewController.cachedDataAvailable = !!commentCache;
+    [self.detailsNetAwareViewController
+        setUpdatingState:kConnectedAndUpdating];
+    self.detailsEditButton.enabled = NO;
 
     selectedTicketKey = key;
 }
@@ -159,7 +164,9 @@
     NSString * assignedTo = [userDict objectForKey:assignedToKey];
     id milestoneKey = [self.ticketCache milestoneKeyForKey:key];
     NSString * milestone = [milestoneDict objectForKey:milestoneKey];
-
+    
+    TicketCommentCache * commentCache =
+        [recentHistoryCommentCache objectForKey:key];
     NSArray * commentKeys = [[commentCache allComments] allKeys];
     NSMutableDictionary * comments = [NSMutableDictionary dictionary];
     for (id commentKey in commentKeys) {
@@ -297,7 +304,8 @@
 
 - (void)receivedTicketDetailsFromDataSource:(TicketCommentCache *)aCommentCache
 {
-    self.commentCache = aCommentCache;
+    [recentHistoryCommentCache setObject:aCommentCache
+        forKey:selectedTicketKey];
     [self displayTicketDetails:selectedTicketKey];
 }
 
