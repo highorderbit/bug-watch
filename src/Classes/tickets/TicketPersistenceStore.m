@@ -44,9 +44,14 @@
 
 - (TicketCache *)loadWithPlist:(NSString *)plist
 {
-    TicketCache * ticketCache = [[[TicketCache alloc] init] autorelease];
-
     NSDictionary * dict = [PlistUtils getDictionaryFromPlist:plist];
+
+    if (![dict objectForKey:[[self class] ticketDictKey]]) {
+        NSLog(@"Loading 'nil' ticket cache...");
+        return nil;
+    }
+
+    TicketCache * ticketCache = [[[TicketCache alloc] init] autorelease];
 
     NSDictionary * ticketDict =
         [dict objectForKey:[[self class] ticketDictKey]];

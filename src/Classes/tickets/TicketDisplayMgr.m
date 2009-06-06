@@ -197,13 +197,11 @@
 - (void)ticketsFilteredByFilterString:(NSString *)aFilterString
 {
     NSDictionary * allTickets = [ticketCache allTickets];
-
     wrapperController.cachedDataAvailable = !!self.ticketCache;
 
     if (self.ticketCache) {
         NSDictionary * allAssignedToKeys = [self.ticketCache allAssignedToKeys];       
 
-        
         NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
         for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
             id userKey = [allAssignedToKeys objectForKey:ticketNumber];
@@ -228,18 +226,15 @@
             milestoneDict:associatedMilestoneDict page:ticketCache.numPages];
     }
 
-    if (aFilterString != self.ticketCache.query &&
-        ![aFilterString isEqual:self.ticketCache.query]) {
-
+    if (![aFilterString isEqual:self.ticketCache.query]) {
         ticketCache.numPages = 1;
         [wrapperController setUpdatingState:kConnectedAndUpdating];
         NSString * searchString = aFilterString ? aFilterString : @"";
         if (selectProject)
-            [dataSource fetchTicketsWithQuery:searchString
-                page:ticketCache.numPages];
+            [dataSource fetchTicketsWithQuery:searchString page:1];
         else
-            [dataSource fetchTicketsWithQuery:searchString
-                page:ticketCache.numPages project:activeProjectKey];
+            [dataSource fetchTicketsWithQuery:searchString page:1
+                project:activeProjectKey];
     } else
         [wrapperController setUpdatingState:kConnectedAndNotUpdating];
 }
@@ -298,6 +293,7 @@
 
 - (void)receivedTicketsFromDataSource:(TicketCache *)aTicketCache
 {
+    NSLog(@"Received ticket cache: %@", aTicketCache);
     if (aTicketCache.numPages > 1) {
         [self.ticketCache merge:aTicketCache];
         if ([aTicketCache.allTickets count] == 0)
@@ -308,7 +304,7 @@
         self.ticketCache = aTicketCache;
         [ticketsViewController setAllPagesLoaded:NO];
     }
-    
+
     [self ticketsFilteredByFilterString:self.ticketCache.query];
 }
 
