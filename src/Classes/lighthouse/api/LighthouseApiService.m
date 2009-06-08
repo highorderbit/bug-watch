@@ -45,7 +45,7 @@
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
     args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
 
-+ (id)uniqueTicketKey;
++ (id)nextRequestId;
 
 @end
 
@@ -113,7 +113,7 @@
 - (void)createNewTicket:(NewTicketDescription *)desc forProject:(id)projectKey
     token:(NSString *)token
 {
-    id requestId = [[self class] uniqueTicketKey];
+    id requestId = [[self class] nextRequestId];
     [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
     [api beginTicketCreationForProject:projectKey object:requestId token:token];
@@ -124,7 +124,7 @@
 - (void)editTicket:(id)ticketKey forProject:(id)projectKey
     withDescription:(UpdateTicketDescription *)desc token:(NSString *)token
 {
-    id requestId = [[self class] uniqueTicketKey];
+    id requestId = [[self class] nextRequestId];
     [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
     NSString * xmlDescription = [desc xmlDescriptionForProject:projectKey];
@@ -186,7 +186,7 @@
 - (void)createMessage:(NewMessageDescription *)desc forProject:(id)projectKey
     token:(NSString *)token
 {
-    id requestId = [[self class] uniqueTicketKey];
+    id requestId = [[self class] nextRequestId];
     [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
     [api createMessageForProject:projectKey description:[desc xmlDescription]
@@ -198,7 +198,7 @@
 - (void)editMessage:(id)messageKey forProject:(id)projectKey
     withDescription:(UpdateMessageDescription *)desc token:(NSString *)token
 {
-    id requestId = [[self class] uniqueTicketKey];
+    id requestId = [[self class] nextRequestId];
     [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
     [api editMessage:messageKey forProject:projectKey
@@ -210,7 +210,7 @@
 - (void)addComment:(NewMessageCommentDescription *)desc toMessage:(id)messageKey
     forProject:(id)projectKey token:(NSString *)token
 {
-    id requestId = [[self class] uniqueTicketKey];
+    id requestId = [[self class] nextRequestId];
     [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
     [api addComment:[desc xmlDescription] toMessage:messageKey
@@ -1092,7 +1092,7 @@
 
 #pragma mark General helpers
 
-+ (id)uniqueTicketKey
++ (id)nextRequestId
 {
     return [RandomNumber randomNumber];
 }
