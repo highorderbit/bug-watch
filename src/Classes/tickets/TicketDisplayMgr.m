@@ -152,9 +152,9 @@
     UpdateTicketDescription * desc = [UpdateTicketDescription description];
     desc.state = kResolved;
     NSNumber * ticketKey =
-        [NSNumber numberWithInteger:key.ticketNumber];
+        [NSNumber numberWithInteger:selectedTicketKey.ticketNumber];
     [dataSource editTicketWithKey:ticketKey description:desc
-        forProject:key.projectKey];
+        forProject:selectedTicketKey.projectKey];
 }
 
 - (void)displayTicketDetails:(TicketKey *)key
