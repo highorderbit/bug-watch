@@ -5,6 +5,7 @@
 #import "TicketDisplayMgr.h"
 #import "NewTicketDescription.h"
 #import "UpdateTicketDescription.h"
+#import "TicketKey.h"
 
 @interface TicketDisplayMgr (Private)
 
@@ -150,7 +151,9 @@
 {
     UpdateTicketDescription * desc = [UpdateTicketDescription description];
     desc.state = kResolved;
-    [dataSource editTicketWithKey:selectedTicketKey description:desc
+    NSNumber * ticketKey =
+        [NSNumber numberWithInteger:key.ticketNumber];
+    [dataSource editTicketWithKey:ticketKey description:desc
         forProject:activeProjectKey];
 }
 
@@ -378,7 +381,9 @@
                 desc.milestoneKey = sender.milestone;
         desc.tags = sender.tags;
 
-        [dataSource editTicketWithKey:selectedTicketKey description:desc
+        NSNumber * ticketKey =
+            [NSNumber numberWithInteger:selectedTicketKey.ticketNumber];
+        [dataSource editTicketWithKey:ticketKey description:desc
             forProject:activeProjectKey];
         actionText = @"Editing ticket...";
     } else {
