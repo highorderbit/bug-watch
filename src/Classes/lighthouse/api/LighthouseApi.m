@@ -192,6 +192,11 @@
     description:(NSString *)description object:(id)object
     token:(NSString *)token
 {
+    NSAssert(ticketKey, @"Ticket key cannot be nil.");
+    NSAssert(projectKey, @"Project key cannot be nil.");
+    NSAssert(description, @"Description cannot be nil.");
+    NSAssert(token, @"Token cannot be nil.");
+
     NSString * urlString =
         [NSString stringWithFormat:@"%@projects/%@/tickets/%@.xml?_token=%@",
         baseUrlString, projectKey, ticketKey, token];
