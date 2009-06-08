@@ -6,16 +6,17 @@
 #import "LighthouseApiService.h"
 #import "LighthouseApiDelegate.h"
 #import "TicketBinDataSourceDelegate.h"
+#import "TicketBinDataSourceProtocol.h"
 
-@interface TicketBinDataSource : NSObject <LighthouseApiServiceDelegate>
+@interface TicketBinDataSource :
+    NSObject <LighthouseApiServiceDelegate, TicketBinDataSourceProtocol>
 {
     NSObject<TicketBinDataSourceDelegate> * delegate;
     LighthouseApiService * service;
+    NSString * token;
 }
 
-@property (nonatomic, assign) NSObject<TicketBinDataSourceDelegate> * delegate;
-
--(id)initWithService:(LighthouseApiService *)service;
-- (void)fetchAllTicketBins;
+- (id)initWithService:(LighthouseApiService *)service token:(NSString *)aToken;
+- (void)fetchAllTicketBinsForProject:(id)projectKey;
 
 @end

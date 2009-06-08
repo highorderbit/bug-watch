@@ -50,12 +50,14 @@ static const NSInteger UNSET_KEY = 0;
 @synthesize milestones, milestone;
 @synthesize state;
 @synthesize edit;
-@synthesize target, action;
+@synthesize target, action, deleteTicketAction;
 
 - (void)dealloc
 {
     [cancelButton release];
     [updateButton release];
+    [footerView release];
+    [deleteButton release];
 
     [addCommentViewController release];
     [itemSelectionTableViewController release];
@@ -79,6 +81,8 @@ static const NSInteger UNSET_KEY = 0;
     [super viewDidLoad];
 
     self.tableView.backgroundColor = [UIColor bugWatchBackgroundColor];
+    self.tableView.tableFooterView = footerView;
+    deleteButton.titleShadowOffset = CGSizeMake(-0.5, -0.5);
 
     [self.navigationItem setLeftBarButtonItem:cancelButton animated:NO];
     [self.navigationItem setRightBarButtonItem:updateButton animated:NO];
@@ -136,7 +140,7 @@ static const NSInteger UNSET_KEY = 0;
             [cell setKeyText:@"description"];
             break;
         case kComment:
-            if (valueForRow && ![valueForRow isEqual:@""]) {
+            if (self.comment && ![self.comment isEqual:@""]) {
                 [cell setKeyText:@"comment"];
                 cell.keyOnly = NO;
             } else {
@@ -263,29 +267,6 @@ static const NSInteger UNSET_KEY = 0;
     return [EditTicketTableViewCell heightForContent:valueForRow];
 }
 
-#pragma mark EditTicketViewController implementation
-
-- (IBAction)cancel:(id)sender
-{
-    if ([self.navigationController.viewControllers count] == 1)
-        [self dismissModalViewControllerAnimated:YES];
-    else
-        [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)update:(id)sender
-{
-    NSMethodSignature * sig =
-        [[target class] instanceMethodSignatureForSelector:action];
-    NSInvocation * invocation =
-        [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setTarget:target];
-    [invocation setSelector:action];
-    [invocation setArgument:&self atIndex:2];
-    [invocation retainArguments];
-    [invocation invoke];
-}
-
 #pragma mark Table view helpers
 
 - (NSInteger)rowForIndexPath:(NSIndexPath *)indexPath
@@ -355,6 +336,49 @@ static const NSInteger UNSET_KEY = 0;
     return value;
 }
 
+#pragma mark EditTicketViewController implementation
+
+- (IBAction)cancel:(id)sender
+{
+    if ([self.navigationController.viewControllers count] == 1)
+        [self dismissModalViewControllerAnimated:YES];
+    else
+        [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)update:(id)sender
+{
+    NSMethodSignature * sig =
+        [[target class] instanceMethodSignatureForSelector:action];
+    NSInvocation * invocation =
+        [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:target];
+    [invocation setSelector:action];
+    [invocation setArgument:&self atIndex:2];
+    [invocation retainArguments];
+    [invocation invoke];
+}
+
+- (IBAction)deleteTicket:(id)sender
+{
+    NSLog(@"Delete ticket button tapped.");
+
+    UIActionSheet * actionSheet =
+        [[UIActionSheet alloc]
+        initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel"
+        destructiveButtonTitle:@"Delete Ticket" otherButtonTitles:nil, nil];
+
+	[actionSheet showInView:self.view];
+	[actionSheet release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet
+    clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == 0)
+        [target performSelector:deleteTicketAction withObject:nil];
+}
+
 #pragma mark Accessors
 
 + (NSString *)unsetText
@@ -390,6 +414,7 @@ static const NSInteger UNSET_KEY = 0;
 {
     edit = editVal;
     self.navigationItem.title = edit ? @"Edit Ticket" : @"Add Ticket";
+    self.tableView.tableFooterView = edit ? footerView : nil;
     [self.tableView reloadData];
 }
 

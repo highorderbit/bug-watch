@@ -3,16 +3,11 @@
 //
 
 #import "BugWatchAppController.h"
-#import "NetworkAwareViewController.h"
 #import "TicketDetailsViewController.h"
-#import "NewsFeedDisplayMgr.h"
-#import "NewsFeedDataSource.h"
 #import "NewsFeedViewController.h"
 #import "LighthouseNewsFeedService.h"
 #import "NetworkAwareViewController.h"
 #import "TicketComment.h"
-#import "MilestoneCache.h"
-#import "MilestoneDisplayMgr.h"
 #import "MilestoneDetailsDataSource.h"
 #import "MilestoneDetailsDisplayMgr.h"
 #import "ProjectDisplayMgr.h"
@@ -23,28 +18,50 @@
 #import "TicketDataSource.h"
 #import "TicketSearchMgr.h"
 #import "MessageResponseCache.h"
-#import "TicketBinViewController.h"
-#import "TicketBinDataSource.h"
 #import "AccountLevelTicketBinDataSource.h"
 #import "TicketPersistenceStore.h"
 #import "MilestoneUpdatePublisher.h"
-#import "TicketDispMgrMilestoneSetter.h"
 #import "UIStatePersistenceStore.h"
 #import "UIState.h"
+#import "ProjectUpdatePublisher.h"
+#import "UserSetAggregator.h"
+#import "TicketDispMgrUserSetter.h"
+#import "NewsFeedPersistenceStore.h"
+#import "MilestonePersistenceStore.h"
+#import "ProjectPersistenceStore.h"
+#import "UserPersistenceStore.h"
+#import "AllUserUpdatePublisher.h"
+#import "ProjectDispMgrProjectSetter.h"
+#import "ProjectSpecificTicketBinDSAdapter.h"
 
 @interface BugWatchAppController (Private)
 
 - (void)initTicketsTab;
-- (TicketCache *)loadTicketsFromPersistence;
-- (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton;
-- (TicketBinDataSource *)initTicketBinDataSource;
+- (TicketDisplayMgr *)createTicketDispMgr:(TicketCache *)ticketCache
+    addButton:(UIBarButtonItem *)addButton
+    searchField:(UITextField *)searchField
+    wrapperController:(NetworkAwareViewController *)wrapperController
+    parentView:(UIView *)parentView
+    ticketBinDataSource:(id)ticketBinDataSource;
+- (TicketCache *)loadTicketsFromPersistence:(NSString *)plist;
 
 - (void)initProjectsTab;
 - (void)initMessagesTab;
+- (void)initNewsFeedTab;
 - (void)initMilestonesTab;
 
-+ (LighthouseApiService *)createLighthouseApiService;
+- (void)initSharedStateListeners;
++ (void)loadSharedStatesFromPersistence;
++ (void)broadcastMilestoneCache:(MilestoneCache *)cache;
++ (void)broadcastProjectCache:(ProjectCache *)cache;
++ (void)broadcastUserCache:(UserCache *)cache;
+
++ (NSString *)newsFeedCachePlist;
 + (NSString *)ticketCachePlist;
++ (NSString *)projectLevelTicketCachePlist;
++ (NSString *)projectCachePlist;
++ (NSString *)milestoneCachePlist;
++ (NSString *)userCachePlist;
 
 @end
 
@@ -54,18 +71,30 @@
 {
     [newsFeedNetworkAwareViewController release];
     [ticketsNetAwareViewController release];
-    [projectsViewController release];
+    [projectsNetAwareViewController release];
     [milestonesNetworkAwareViewController release];
     [messagesNetAwareViewController release];
     [pagesViewController release];
 
+    [newsFeedDisplayMgr release];
+    [newsFeedDataSource release];
+
+    [ticketDisplayMgrFactory release];
     [ticketDisplayMgr release];
+    [projectLevelTicketDisplayMgr release];
+    [ticketSearchMgrFactory release];
+
+    [projectCacheSetter release];
+
     [messageCache release];
     [messageResponseCache release];
-    [milestoneCache release];
 
-    [newsFeedDisplayMgr release];
     [milestoneDisplayMgr release];
+    [milestoneCacheSetter release];
+
+    [userCacheSetter release];
+
+    [lighthouseApiFactory release];
 
     [super dealloc];
 }
@@ -74,9 +103,29 @@
 
 - (void)start
 {
+    NSString * baseServiceUrl = @"https://highorderbit.lighthouseapp.com/"; // TEMPORARY
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
+
+    lighthouseApiFactory =
+        [[LighthouseApiServiceFactory alloc] initWithBaseUrl:baseServiceUrl];
+    ticketSearchMgrFactory =
+        [[TicketSearchMgrFactory alloc] init];
+    ticketDisplayMgrFactory =
+        [[TicketDisplayMgrFactory alloc] initWithApiToken:token
+        lighthouseApiFactory:lighthouseApiFactory];
+
+    [self initSharedStateListeners];
+
     messageCache = [[MessageCache alloc] init];
     messageResponseCache = [[MessageResponseCache alloc] init];
-    
+
+    // load single-session, global data (milestones, projects, users)
+    LighthouseApiService * service =
+        [[lighthouseApiFactory createLighthouseApiService] retain];
+
+    [service fetchMilestonesForAllProjects:token];
+    [service fetchAllProjects:token];
+
     // TEMPORARY: populate message cache
     Message * msg1 =
        [[Message alloc] initWithPostedDate:[NSDate date]
@@ -126,37 +175,52 @@
     [self initTicketsTab];
     [self initProjectsTab];
     [self initMessagesTab];
-
-    // Note: this instantiation/initialization is temporary
-    LighthouseNewsFeedService * newsFeedService =
-        [[[LighthouseNewsFeedService alloc] initWithBaseUrlString:
-        @"http://highorderbit.lighthouseapp.com/events.atom"] autorelease];
-    NewsFeedDataSource * newsFeedDataSource =
-        [[[NewsFeedDataSource alloc]
-        initWithNewsFeedService:newsFeedService] autorelease];
-
-    newsFeedDisplayMgr =
-        [[NewsFeedDisplayMgr alloc]
-        initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
-                        newsFeedDataSource:newsFeedDataSource];
-
+    [self initNewsFeedTab];
     [self initMilestonesTab];
 
     UIStatePersistenceStore * uiStatePersistenceStore =
         [[[UIStatePersistenceStore alloc] init] autorelease];
     UIState * uiState = [uiStatePersistenceStore load];
     tabBarController.selectedIndex = uiState.selectedTab;
+
+    [[self class] loadSharedStatesFromPersistence];
 }
 
 - (void)persistState
 {
     NSLog(@"Persisting state...");
+
+    NewsFeedPersistenceStore * newsFeedPersistenceStore =
+        [[[NewsFeedPersistenceStore alloc] init] autorelease];
+    [newsFeedPersistenceStore saveNewsItems:newsFeedDataSource.cache
+        toPlist:[[self class] newsFeedCachePlist]];
+
     TicketCache * ticketCache = ticketDisplayMgr.ticketCache;
     TicketPersistenceStore * ticketPersistenceStore =
         [[[TicketPersistenceStore alloc] init] autorelease];
     [ticketPersistenceStore saveTicketCache:ticketCache
         toPlist:[[self class] ticketCachePlist]];
+
+    TicketCache * projectLevelTicketCache =
+        projectLevelTicketDisplayMgr.ticketCache;
+    [ticketPersistenceStore saveTicketCache:projectLevelTicketCache
+        toPlist:[[self class] projectLevelTicketCachePlist]];
+
+    MilestonePersistenceStore * milestonePersistenceStore =
+        [[[MilestonePersistenceStore alloc] init] autorelease];
+    [milestonePersistenceStore save:milestoneCacheSetter.cache
+        toPlist:[[self class] milestoneCachePlist]];
         
+    ProjectPersistenceStore * projectPersistenceStore =
+        [[[ProjectPersistenceStore alloc] init] autorelease];
+    [projectPersistenceStore saveProjectCache:projectCacheSetter.cache
+        toPlist:[[self class] projectCachePlist]];
+        
+    UserPersistenceStore * userPersistenceStore =
+        [[[UserPersistenceStore alloc] init] autorelease];
+    [userPersistenceStore saveUserCache:userCacheSetter.cache
+        toPlist:[[self class] userCachePlist]];
+
     UIStatePersistenceStore * uiStatePersistenceStore =
         [[[UIStatePersistenceStore alloc] init] autorelease];
     UIState * uiState = [[[UIState alloc] init] autorelease];
@@ -164,118 +228,258 @@
     [uiStatePersistenceStore save:uiState];
 }
 
+- (void)initSharedStateListeners
+{
+    milestoneCacheSetter = [[MilestoneCacheSetter alloc] init];
+    [[MilestoneUpdatePublisher alloc]
+        initWithListener:milestoneCacheSetter
+        action:
+        @selector(milestonesReceivedForAllProjects:milestoneKeys:projectKeys:)];
+
+    projectCacheSetter = [[ProjectCacheSetter alloc] init];
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:projectCacheSetter
+        action:
+        @selector(fetchedAllProjects:projectKeys:)];
+        
+    userCacheSetter = [[UserCacheSetter alloc] init];
+    [[AllUserUpdatePublisher alloc]
+        initWithListener:userCacheSetter
+        action:@selector(fetchedAllUsers:)];
+}
+
++ (void)loadSharedStatesFromPersistence
+{
+    MilestonePersistenceStore * milestonePersistenceStore =
+        [[[MilestonePersistenceStore alloc] init] autorelease];
+    MilestoneCache * milestoneCache =
+        [milestonePersistenceStore
+        loadFromPlist:[[self class] milestoneCachePlist]];
+    [[self class] broadcastMilestoneCache:milestoneCache];
+
+    ProjectPersistenceStore * projectPersistenceStore =
+        [[[ProjectPersistenceStore alloc] init] autorelease];
+    ProjectCache * projectCache =
+        [projectPersistenceStore
+        loadWithPlist:[[self class] projectCachePlist]];
+    [[self class] broadcastProjectCache:projectCache];
+    
+    UserPersistenceStore * userPersistenceStore =
+        [[[UserPersistenceStore alloc] init] autorelease];
+    UserCache * userCache =
+        [userPersistenceStore
+        loadWithPlist:[[self class] userCachePlist]];
+    [[self class] broadcastUserCache:userCache];
+}
+
++ (void)broadcastProjectCache:(ProjectCache *)projectCache
+{
+    NSDictionary * projectDict = [projectCache allProjects];
+
+    NSArray * projectKeys = [projectDict allKeys];
+    NSMutableArray * projects = [NSMutableArray array];
+
+    for (int i = 0; i < [projectKeys count]; i++) {
+        id key = [projectKeys objectAtIndex:i];
+        Project * project = [projectDict objectForKey:key];
+        [projects insertObject:project atIndex:i];
+    }
+
+    // post general notification
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        projects, @"projects",
+        projectKeys, @"projectKeys",
+        nil];
+    NSString * notificationName =
+        [LighthouseApiService allProjectsReceivedNotificationName];
+    [nc postNotificationName:notificationName object:self userInfo:userInfo];
+}
+
++ (void)broadcastMilestoneCache:(MilestoneCache *)milestoneCache
+{
+    NSDictionary * milestoneDict = [milestoneCache allMilestones];
+    NSDictionary * projectKeyDict = [milestoneCache allProjectMappings];
+
+    NSArray * milestoneIds = [milestoneDict allKeys];
+    NSMutableArray * milestones = [NSMutableArray array];
+    NSMutableArray * projectIds = [NSMutableArray array];
+
+    for (int i = 0; i < [milestoneIds count]; i++) {
+        id key = [milestoneIds objectAtIndex:i];
+        Milestone * milestone = [milestoneDict objectForKey:key];
+        id projectKey = [projectKeyDict objectForKey:key];
+        [milestones insertObject:milestone atIndex:i];
+        [projectIds insertObject:projectKey atIndex:i];
+    }
+
+    // post general notification
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        milestones, @"milestones",
+        milestoneIds, @"milestoneKeys",
+        projectIds, @"projectKeys",
+        nil];
+    NSString * notificationName =
+        [LighthouseApiService milestonesReceivedForAllProjectsNotificationName];
+    [nc postNotificationName:notificationName object:self userInfo:userInfo];
+}
+
++ (void)broadcastUserCache:(UserCache *)cache
+{
+    NSArray * userKeys = [[cache allUsers] allKeys];
+    NSMutableArray * userArray = [NSMutableArray array];
+
+    for (int i = 0; i < [userKeys count]; i++) {
+        id key = [userKeys objectAtIndex:i];
+        User * user = [cache userForKey:key];
+        [userArray insertObject:user atIndex:i];
+    }
+
+    // post general notification
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        userArray, @"users",
+        userKeys, @"userKeys",
+        nil];
+    NSString * notificationName =
+        [UserSetAggregator allUsersReceivedNotificationName];
+    [nc postNotificationName:notificationName object:self
+        userInfo:userInfo];
+}
+
 #pragma mark Ticket tab initialization
 
 - (void)initTicketsTab
 {
-    TicketCache * ticketCache = [self loadTicketsFromPersistence];
+    TicketCache * ticketCache =
+        [self loadTicketsFromPersistence:[[self class] ticketCachePlist]];
 
     UIBarButtonItem * addButton =
         ticketsNetAwareViewController.navigationItem.rightBarButtonItem;
-    TicketSearchMgr * ticketSearchMgr =
-        [self initTicketSearchMgrWithButton:addButton];
+    UITextField * searchField =
+        (UITextField *)
+        ticketsNetAwareViewController.navigationItem.titleView;
     
-    TicketsViewController * ticketsViewController =
-        [[[TicketsViewController alloc]
-        initWithNibName:@"TicketsView" bundle:nil] autorelease];
-    ticketsNetAwareViewController.targetViewController = ticketsViewController;
-    
-    LighthouseApiService * ticketLighthouseApiService =
-        [[self class] createLighthouseApiService];
+    AccountLevelTicketBinDataSource * ticketBinDataSource = 
+        [[[AccountLevelTicketBinDataSource alloc] init] autorelease];
 
-    TicketDataSource * ticketDataSource =
-        [[[TicketDataSource alloc] initWithService:ticketLighthouseApiService]
-        autorelease];
-    ticketLighthouseApiService.delegate = ticketDataSource;
-    
     ticketDisplayMgr =
-        [[[TicketDisplayMgr alloc] initWithTicketCache:ticketCache
-        initialFilterString:nil
-        networkAwareViewController:ticketsNetAwareViewController
-        ticketsViewController:ticketsViewController
-        dataSource:ticketDataSource] autorelease];
-    ticketsViewController.delegate = ticketDisplayMgr;
-    ticketsNetAwareViewController.delegate = ticketDisplayMgr;
-    ticketDataSource.delegate = ticketDisplayMgr;
-    ticketSearchMgr.delegate = ticketDisplayMgr;
-    addButton.target = ticketDisplayMgr;
-    addButton.action = @selector(addSelected);
-    
-    // intentionally not autoreleasing either of the following objects
-    TicketDispMgrMilestoneSetter * milestoneSetter =
-        [[TicketDispMgrMilestoneSetter alloc]
-        initWithTicketDisplayMgr:ticketDisplayMgr];
-    MilestoneUpdatePublisher * milestoneUpdatePublisher =
-        [[MilestoneUpdatePublisher alloc]
-        initWithListener:milestoneSetter
-        action:
-        @selector(milestonesReceivedForAllProjects:milestoneKeys:projectKeys:)];
-#pragma unused(milestoneUpdatePublisher)  // suppress compiler warning
+        [self createTicketDispMgr:ticketCache addButton:addButton
+        searchField:searchField
+        wrapperController:ticketsNetAwareViewController
+        parentView:ticketsNetAwareViewController.navigationController.view
+        ticketBinDataSource:ticketBinDataSource];
 }
 
-- (TicketCache *)loadTicketsFromPersistence
+- (TicketDisplayMgr *)createTicketDispMgr:(TicketCache *)ticketCache
+    addButton:(UIBarButtonItem *)addButton
+    searchField:(UITextField *)searchField
+    wrapperController:(NetworkAwareViewController *)wrapperController
+    parentView:(UIView *)parentView ticketBinDataSource:(id)ticketBinDataSource
+{
+    TicketSearchMgr * ticketSearchMgr =
+        [ticketSearchMgrFactory createTicketSearchMgrWithButton:addButton
+        searchText:ticketCache.query searchField:searchField
+        wrapperController:wrapperController parentView:parentView
+        ticketBinDataSource:ticketBinDataSource];
+    ((NSObject<TicketBinDataSourceProtocol> *)ticketBinDataSource).delegate =
+        ticketSearchMgr;
+
+    TicketDisplayMgr * aTicketDisplayMgr =
+        [ticketDisplayMgrFactory createTicketDisplayMgrWithCache:ticketCache
+        wrapperController:wrapperController ticketSearchMgr:ticketSearchMgr];
+    addButton.target = aTicketDisplayMgr;
+    addButton.action = @selector(addSelected);
+
+    return aTicketDisplayMgr;
+}
+
+- (TicketCache *)loadTicketsFromPersistence:(NSString *)plist
 {
     NSLog(@"Loading ticket cache from persistence...");
     TicketPersistenceStore * ticketPersistenceStore =
         [[[TicketPersistenceStore alloc] init] autorelease];
     TicketCache * ticketCache =
-        [ticketPersistenceStore loadWithPlist:[[self class] ticketCachePlist]];
+        [ticketPersistenceStore loadWithPlist:plist];
     NSLog(@"Loaded ticket cache from persistence.");
     
     return ticketCache;
-}
-
-- (TicketSearchMgr *)initTicketSearchMgrWithButton:(UIBarButtonItem *)addButton
-{
-    UIBarButtonItem * cancelButton =
-        ticketsNetAwareViewController.navigationItem.leftBarButtonItem;
-    UITextField * searchField =
-        (UITextField *)ticketsNetAwareViewController.navigationItem.titleView;
-
-    TicketBinViewController * binViewController =
-        [[[TicketBinViewController alloc]
-        initWithNibName:@"TicketBinView" bundle:nil] autorelease];
-    AccountLevelTicketBinDataSource * ticketBinDataSource = 
-        [[[AccountLevelTicketBinDataSource alloc] init] autorelease];
-
-    TicketSearchMgr * ticketSearchMgr =
-        [[TicketSearchMgr alloc]
-        initWithSearchField:searchField addButton:addButton
-        cancelButton:cancelButton
-        navigationItem:ticketsNetAwareViewController.navigationItem
-        ticketBinViewController:binViewController
-        parentView:ticketsNetAwareViewController.navigationController.view
-        dataSourceTarget:ticketBinDataSource
-        dataSourceAction:@selector(fetchAllTicketBins)];
-    ticketBinDataSource.delegate = ticketSearchMgr;
-    binViewController.delegate = ticketSearchMgr;
-    // this won't get dealloced, but fine since it exists for the runtime
-    // lifetime
-
-    return ticketSearchMgr;
-}
-
-- (TicketBinDataSource *)initTicketBinDataSource
-{
-    LighthouseApiService * ticketBinLighthouseApiService =
-        [[self class] createLighthouseApiService];
-    TicketBinDataSource * ticketBinDataSource =
-        [[[TicketBinDataSource alloc]
-        initWithService:ticketBinLighthouseApiService]
-        autorelease];
-    ticketBinLighthouseApiService.delegate = ticketBinDataSource;
-
-    return ticketBinDataSource;
 }
 
 #pragma mark Project tab initialization
 
 - (void)initProjectsTab
 {
+    TicketCache * ticketCache =
+        [self loadTicketsFromPersistence:
+        [[self class] projectLevelTicketCachePlist]];
+    UIBarButtonItem * addButton =
+        [[[UIBarButtonItem alloc]
+        initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil
+        action:nil]
+        autorelease];
+    UITextField * searchField = [[[UITextField alloc] init] autorelease];
+    static const CGFloat FONT_SIZE = 17.0;
+    searchField.font = [UIFont systemFontOfSize:FONT_SIZE];
+    searchField.minimumFontSize = FONT_SIZE;
+    searchField.borderStyle = UITextBorderStyleRoundedRect;
+    searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    searchField.placeholder = @"Filter tickets";
+    searchField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    searchField.returnKeyType = UIReturnKeyGo;
+    searchField.contentVerticalAlignment =
+        UIControlContentVerticalAlignmentCenter;
+
+    NetworkAwareViewController * wrapperController =
+        [[[NetworkAwareViewController alloc] init] autorelease];
+    wrapperController.navigationItem.title = @"Tickets";
+    wrapperController.navigationItem.titleView = searchField;
+
+    UIView * parentView =
+        projectsNetAwareViewController.navigationController.view;
+
+    LighthouseApiService * ticketBinService =
+        [lighthouseApiFactory createLighthouseApiService];
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
+    TicketBinDataSource * ticketBinDataSource =
+        [[TicketBinDataSource alloc] initWithService:ticketBinService
+        token:token];
+    ticketBinService.delegate = ticketBinDataSource;
+    ProjectSpecificTicketBinDSAdapter * projSpecificTicketBinDS =
+        [[ProjectSpecificTicketBinDSAdapter alloc]
+        initWithTicketBinDataSource:ticketBinDataSource];
+    ticketBinDataSource.delegate = projSpecificTicketBinDS;
+
+    projectLevelTicketDisplayMgr =
+        [self createTicketDispMgr:ticketCache addButton:addButton
+        searchField:searchField wrapperController:wrapperController
+        parentView:parentView ticketBinDataSource:projSpecificTicketBinDS];
+    projectLevelTicketDisplayMgr.selectProject = NO;
+    projSpecificTicketBinDS.ticketDisplayMgr = projectLevelTicketDisplayMgr;
+
+    ProjectsViewController * projectsViewController =
+        [[[ProjectsViewController alloc]
+        initWithNibName:@"ProjectsView" bundle:nil] autorelease];
+    projectsNetAwareViewController.targetViewController =
+        projectsViewController;
+
     ProjectDisplayMgr * projectDisplayMgr =
-        [[[ProjectDisplayMgr alloc] initWithProjectCache:nil
-        projectsViewController:projectsViewController] autorelease];
+        [[[ProjectDisplayMgr alloc]
+        initWithProjectsViewController:projectsViewController
+        networkAwareViewController:projectsNetAwareViewController
+        ticketDisplayMgr:projectLevelTicketDisplayMgr] autorelease];
     projectsViewController.delegate = projectDisplayMgr;
+    
+    ProjectDispMgrProjectSetter * projectSetter =
+        [[ProjectDispMgrProjectSetter alloc]
+        initWithProjectDisplayMgr:projectDisplayMgr];
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:projectSetter
+        action:@selector(fetchedAllProjects:projectKeys:)];
 }
 
 #pragma mark Message tab initialization
@@ -302,14 +506,38 @@
     addButton.action = @selector(createNewMessage);
 }
 
+#pragma mark News feed tabl initialization
+
+- (void)initNewsFeedTab
+{
+    // Note: this instantiation/initialization is temporary
+    LighthouseNewsFeedService * newsFeedService =
+        [[[LighthouseNewsFeedService alloc] initWithBaseUrlString:
+        @"http://highorderbit.lighthouseapp.com/events.atom"] autorelease];
+    NewsFeedPersistenceStore * newsFeedPersistenceStore =
+        [[[NewsFeedPersistenceStore alloc] init] autorelease];
+    NSArray * newsItemCache =
+        [newsFeedPersistenceStore
+        loadWithPlist:[[self class] newsFeedCachePlist]];
+    newsFeedDataSource =
+        [[NewsFeedDataSource alloc]
+        initWithNewsFeedService:newsFeedService cache:newsItemCache];
+
+    newsFeedDisplayMgr =
+        [[NewsFeedDisplayMgr alloc]
+        initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
+                        newsFeedDataSource:newsFeedDataSource];
+}
+
 #pragma mark Message tab initialization
 
 - (void)initMilestonesTab
 {
-    milestoneCache = [[MilestoneCache alloc] init];
+    MilestoneCache * milestoneCache =
+        [[[MilestoneCache alloc] init] autorelease];
 
     LighthouseApiService * milestoneDetailsService =
-        [[self class] createLighthouseApiService];
+        [lighthouseApiFactory createLighthouseApiService];
 
     MilestoneDetailsDataSource * milestoneDetailsDataSource =
         [[[MilestoneDetailsDataSource alloc]
@@ -322,7 +550,7 @@
         autorelease];
 
     LighthouseApiService * milestoneService =
-        [[self class] createLighthouseApiService];
+        [lighthouseApiFactory createLighthouseApiService];
     MilestoneDataSource * milestoneDataSource =
         [[[MilestoneDataSource alloc]
         initWithLighthouseApiService:milestoneService
@@ -334,20 +562,36 @@
         milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
 }
 
-#pragma mark Static factory methods
-
-+ (LighthouseApiService *)createLighthouseApiService
-{
-    return [[[LighthouseApiService alloc]
-        initWithBaseUrlString:@"https://highorderbit.lighthouseapp.com/"]
-        autorelease];
-}
-
 #pragma mark String constants
+
++ (NSString *)newsFeedCachePlist
+{
+    return @"NewsFeedCache";
+}
 
 + (NSString *)ticketCachePlist
 {
     return @"TicketCache";
+}
+
++ (NSString *)projectLevelTicketCachePlist
+{
+    return @"ProjectLevelTicketCache";
+}
+
++ (NSString *)projectCachePlist
+{
+    return @"ProjectCache";
+}
+
++ (NSString *)milestoneCachePlist
+{
+    return @"MilestoneCache";
+}
+
++ (NSString *)userCachePlist
+{
+    return @"UserCache";
 }
 
 @end

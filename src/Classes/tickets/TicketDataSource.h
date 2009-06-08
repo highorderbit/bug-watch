@@ -19,10 +19,15 @@
 
 -(id)initWithService:(LighthouseApiService *)service;
 
-- (void)fetchTicketsWithQuery:(NSString *)aFilterString;
+- (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page;
+- (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
+    project:(id)projectKey;
 - (void)fetchTicketWithKey:(TicketKey *)aTicketKey;
 
 - (void)createTicketWithDescription:(NewTicketDescription *)desc
     forProject:(id)projectKey;
+- (void)editTicketWithKey:(id)key description:(UpdateTicketDescription *)desc
+    forProject:(id)projectKey;
+- (void)deleteTicketWithKey:(id)key forProject:(id)projectKey;
 
 @end

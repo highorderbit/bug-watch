@@ -16,18 +16,18 @@
 #import "TicketSearchMgrDelegate.h"
 #import "TicketCommentCache.h"
 #import "ProjectSelectionViewController.h"
+#import "RecentHistoryCache.h"
 
 @interface TicketDisplayMgr :
     NSObject <TicketsViewControllerDelegate,
     TicketDetailsViewControllerDelegate, NetworkAwareViewControllerDelegate,
     TicketDataSourceDelegate, TicketSearchMgrDelegate>
 {
-    NSString * filterString;
     id selectedTicketKey;
 
     TicketCache * ticketCache;
-    TicketCommentCache * commentCache;
-    
+    RecentHistoryCache * recentHistoryCommentCache;
+
     NetworkAwareViewController * wrapperController;
     TicketsViewController * ticketsViewController;
     TicketDataSource * dataSource;
@@ -36,16 +36,21 @@
     EditTicketViewController * editTicketViewController;
     ProjectSelectionViewController * projectSelectionViewController;
 
-    NSMutableDictionary * userDict;
+    NSDictionary * userDict;
     NSDictionary * milestoneDict;
-    NSMutableDictionary * projectDict;
+    NSDictionary * milestoneToProjectDict;
+    NSDictionary * projectDict;
 
     UIView * darkTransparentView;
+    UILabel * loadingLabel;
 
     id activeProjectKey;
     BOOL selectProject;
+    BOOL firstTimeDisplayed;
 }
 
+@property (readonly) NetworkAwareViewController * wrapperController;
+@property (readonly) TicketsViewController * ticketsViewController;
 @property (readonly) TicketDetailsViewController * detailsViewController;
 @property (readonly) NetworkAwareViewController * detailsNetAwareViewController;
 @property (readonly) EditTicketViewController * editTicketViewController;
@@ -54,16 +59,16 @@
 @property (readonly) UINavigationController * navController;
 
 @property (nonatomic, retain) TicketCache * ticketCache;
-@property (nonatomic, retain) TicketCommentCache * commentCache;
-@property (nonatomic, copy) NSString * filterString;
+@property (nonatomic, retain) RecentHistoryCache * recentHistoryCommentCache;
 @property (nonatomic, copy) id activeProjectKey;
 @property (nonatomic, assign) BOOL selectProject;
 
 @property (nonatomic, copy) NSDictionary * milestoneDict;
+@property (nonatomic, copy) NSDictionary * milestoneToProjectDict;
+@property (nonatomic, copy) NSDictionary * projectDict;
 @property (nonatomic, copy) NSDictionary * userDict;
 
 - (id)initWithTicketCache:(TicketCache *)aTicketCache
-    initialFilterString:(NSString *)initialFilterString
     networkAwareViewController:(NetworkAwareViewController *)wrapperController
     ticketsViewController:(TicketsViewController *)aTicketsViewController
     dataSource:(TicketDataSource *)aDataSource;

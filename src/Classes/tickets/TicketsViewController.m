@@ -7,6 +7,7 @@
 #import "TicketMetaData.h"
 #import "TicketTableViewCell.h"
 #import "TicketKey.h"
+#import "UIColor+BugWatchColors.h"
 
 @interface TicketsViewController (Private)
 
@@ -26,11 +27,25 @@
     [metaData release];
     [assignedToDict release];
     [milestoneDict release];
+    [resolvingDict release];
 
     [headerView release];
-    [footerView release];
+    [noneFoundView release];
+    [loadMoreView release];
+    [loadMoreButton release];
+    [currentPagesLabel release];
+    [noMorePagesLabel release];
 
     [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [loadMoreButton setTitleColor:[UIColor bugWatchBlueColor]
+        forState:UIControlStateNormal];
+    [self setAllPagesLoaded:NO];
+    resolvingDict = [[NSMutableDictionary dictionary] retain];
 }
 
 #pragma mark UITableViewDataSource implementation
@@ -77,7 +92,23 @@
     milestoneName = milestoneName ? milestoneName : @"none";
     [cell setMilestoneName:milestoneName];
 
+    if ([resolvingDict objectForKey:ticketKey])
+        [cell disableView];
+    else
+        [cell enableView];
+    cell.selectionStyle =
+        ![resolvingDict objectForKey:ticketKey] ?
+        UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+
     return cell;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView
+    willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+
+    return !![resolvingDict objectForKey:key] ? nil : indexPath;
 }
 
 - (void)tableView:(UITableView *)aTableView
@@ -85,6 +116,29 @@
 {
     TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
     [delegate selectedTicketKey:key];
+}
+
+- (BOOL)tableView:(UITableView *)tableView
+    canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+    TicketMetaData * ticketMetaData = [metaData objectForKey:key];
+
+    return ticketMetaData.state != kResolved;
+}
+
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+    forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+        NSLog(@"Setting ticket state to resolved for ticket %@...", key);
+        [resolvingDict setObject:self forKey:key];
+        [delegate resolveTicketWithKey:key];
+        [self.tableView performSelector:@selector(reloadData)
+            withObject:nil afterDelay:0.2];
+    }
 }
 
 #pragma mark UITableViewDelegate implementation
@@ -98,12 +152,19 @@
     return [TicketTableViewCell heightForContent:ticket.description];
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+    editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
 #pragma mark TicketsViewController implementation
 
 - (void)setTickets:(NSDictionary *)someTickets
     metaData:(NSDictionary *)someMetaData
     assignedToDict:(NSDictionary *)anAssignedToDict
     milestoneDict:(NSDictionary *)aMilestoneDict
+    page:(NSUInteger)page
 {
     NSDictionary * tempTickets = [someTickets copy];
     [tickets release];
@@ -120,9 +181,17 @@
     NSDictionary * tempMilestoneDict = [aMilestoneDict copy];
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
-    
-    self.tableView.tableFooterView = [someTickets count] > 0 ? nil : footerView;
-        
+
+    [resolvingDict removeAllObjects];
+
+    self.tableView.tableFooterView =
+        [someTickets count] > 0 ? loadMoreView : noneFoundView;
+
+    currentPagesLabel.text =
+        page > 1 ?
+        [NSString stringWithFormat:@"Showing pages 1 - %d", page] :
+        @"Showing page 1";
+
     [self.tableView reloadData];
 }
 
@@ -133,7 +202,7 @@
     headerView = view;
 
     self.tableView.tableHeaderView = headerView;
-    [self.tableView reloadData];  // force the header view to resize
+    [self.tableView reloadData]; // force the header view to resize
 }
 
 - (NSArray *)sortedKeys
@@ -141,5 +210,15 @@
     return [metaData keysSortedByValueUsingSelector:@selector(compare:)];
 }
 
-@end
+- (IBAction)loadMoreTickets:(id)sender
+{
+    [delegate loadMoreTickets];
+}
 
+- (void)setAllPagesLoaded:(BOOL)allPagesLoaded
+{
+    noMorePagesLabel.hidden = !allPagesLoaded;
+    loadMoreButton.hidden = allPagesLoaded;
+}
+
+@end

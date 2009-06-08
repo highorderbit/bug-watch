@@ -8,5 +8,7 @@
 @protocol TicketsViewControllerDelegate
 
 - (void)selectedTicketKey:(TicketKey *)key;
+- (void)loadMoreTickets;
+- (void)resolveTicketWithKey:(TicketKey *)key;
 
 @end

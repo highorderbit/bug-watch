@@ -31,7 +31,6 @@
 
 - (id)initWithSearchField:(UITextField *)aSearchField
     addButton:(UIBarButtonItem *)anAddButton
-    cancelButton:(UIBarButtonItem *)aCancelButton
     navigationItem:(UINavigationItem *)aNavigationItem
     ticketBinViewController:(TicketBinViewController *)aBinViewController
     parentView:(UIView *)parentView dataSourceTarget:(id)aDataSourceTarget

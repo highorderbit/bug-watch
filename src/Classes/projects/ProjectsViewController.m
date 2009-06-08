@@ -11,7 +11,8 @@
 
 - (void)dealloc
 {
-    [delegate release];
+    [names release];
+    [openTicketCounts release];
     [super dealloc];
 }
 
@@ -25,14 +26,14 @@
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return 1; // TEMPORARY
+    return names ? [[names allKeys] count] : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * cellIdentifier = @"TextWithCountTableViewCell";
-    
+
     TextWithCountTableViewCell * cell =
         (TextWithCountTableViewCell *)
         [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -44,8 +45,13 @@
         cell = [nib objectAtIndex:0];
     }
 
-    [cell setText:@"Code Watch"];
-    [cell setCount:14];
+    id key = [[names allKeys] objectAtIndex:indexPath.row];
+    NSString * name = [names objectForKey:key];
+    NSUInteger openTicketsCount =
+        [[openTicketCounts objectForKey:key] intValue];
+
+    [cell setText:name];
+    [cell setCount:openTicketsCount];
 
     return cell;
 }
@@ -53,7 +59,22 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [delegate selectedProjectKey:nil];
+    id key = [[names allKeys] objectAtIndex:indexPath.row];
+    [delegate selectedProjectKey:key];
+}
+
+- (void)setNames:(NSDictionary *)someNames
+    openTicketCounts:(NSDictionary *)someOpenTicketCounts
+{
+    NSDictionary * tempNames = [someNames copy];
+    [names release];
+    names = tempNames;
+
+    NSDictionary * tempOpenTicketCounts = [someOpenTicketCounts copy];
+    [openTicketCounts release];
+    openTicketCounts = tempOpenTicketCounts;
+
+    [self.tableView reloadData];
 }
 
 @end

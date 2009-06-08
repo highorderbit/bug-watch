@@ -6,20 +6,29 @@
 
 @implementation ProjectDisplayMgr
 
+@synthesize projectCache, selectedProjectKey;
+
 - (void)dealloc
 {
-    [projectCache release];
     [projectsViewController release];
     [projectHomeViewController release];
+
+    [ticketDisplayMgr release];
+
+    [projectCache release];
+    [selectedProjectKey release];
+
     [super dealloc];
 }
 
-- (id)initWithProjectCache:(id)aProjectCache
-    projectsViewController:(ProjectsViewController *)aProjectsViewController
+- (id)initWithProjectsViewController:(ProjectsViewController *)aViewController
+    networkAwareViewController:(NetworkAwareViewController *)aWrapperController
+    ticketDisplayMgr:(TicketDisplayMgr *)aTicketDisplayMgr;
 {
     if (self = [super init]) {
-        projectCache = [aProjectCache retain];
-        projectsViewController = [aProjectsViewController retain];
+        projectsViewController = [aViewController retain];
+        wrapperController = [aWrapperController retain];
+        ticketDisplayMgr = [aTicketDisplayMgr retain];
     }
 
     return self;
@@ -30,25 +39,86 @@
 - (void)selectedProjectKey:(id)key
 {
     NSLog(@"Project %@ selected", key);
+
+    self.selectedProjectKey = key;
+
+    Project * project = [projectCache projectForKey:key];
+    // setting this twice -- once before and once after pushing the nav
+    // controller -- seems to fix some UI glitches
+    self.projectHomeViewController.navigationItem.title = project.name;
+
     [self.navController pushViewController:self.projectHomeViewController
         animated:YES];
+
+    self.projectHomeViewController.navigationItem.title = project.name;
+    ticketDisplayMgr.activeProjectKey = key;
+}
+
+#pragma mark ProjectHomeViewControllerDelegate implementation
+
+- (void)selectedTab:(NSUInteger)tabIndex
+{
+    NSLog(@"Selected project tab %d", tabIndex);
+
+    switch(tabIndex) {
+        case kProjectTickets:
+            [self.navController
+                pushViewController:self.ticketsNetAwareViewController
+                animated:YES];
+            break;
+    }
 }
 
 #pragma mark Accessors
 
 - (ProjectHomeViewController *)projectHomeViewController
 {
-    if (!projectHomeViewController)
+    if (!projectHomeViewController) {
         projectHomeViewController =
             [[ProjectHomeViewController alloc]
             initWithNibName:@"ProjectHomeView" bundle:nil];
+        projectHomeViewController.delegate = self;
+    }
 
     return projectHomeViewController;
 }
 
 - (UINavigationController *)navController
 {
-    return projectsViewController.navigationController;
+    return wrapperController.navigationController;
+}
+
+- (NetworkAwareViewController *)ticketsNetAwareViewController
+{
+    return ticketDisplayMgr.wrapperController;
+}
+
+- (void)setProjectCache:(ProjectCache *)aProjectCache
+{
+    [aProjectCache retain];
+    [projectCache release];
+    projectCache = aProjectCache;
+
+    NSDictionary * allProjects = [aProjectCache allProjects];
+    NSMutableDictionary * names = [NSMutableDictionary dictionary];
+    for (id key in [allProjects allKeys]) {
+        Project * project = [allProjects objectForKey:key];
+        [names setObject:project.name forKey:key];
+    }
+
+    NSDictionary * allProjectMetadata = [aProjectCache allProjectMetadata];
+    NSMutableDictionary * openTicketCounts = [NSMutableDictionary dictionary];
+    for (id key in [allProjectMetadata allKeys]) {
+        ProjectMetadata * metadata = [allProjectMetadata objectForKey:key];
+        [openTicketCounts
+            setObject:[NSNumber numberWithInt:metadata.openTicketsCount]
+            forKey:key];
+    }
+
+    [projectsViewController setNames:names openTicketCounts:openTicketCounts];
+
+    [wrapperController setCachedDataAvailable:YES];
+    [wrapperController setUpdatingState:kConnectedAndNotUpdating];
 }
 
 @end

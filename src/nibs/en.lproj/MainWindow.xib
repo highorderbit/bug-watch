@@ -75,14 +75,10 @@
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="45198810">
 								<reference key="IBUINavigationBar"/>
 								<string key="IBUITitle">Tickets</string>
-								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="410430477">
-									<string key="IBUITitle">Done</string>
-									<int key="IBUIStyle">1</int>
-								</object>
 								<object class="IBUITextField" key="IBUITitleView" id="618903335">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{63, 7}, {201, 31}}</string>
+									<string key="NSFrame">{{60, 7}, {201, 31}}</string>
 									<reference key="NSSuperview"/>
 									<bool key="IBUIOpaque">NO</bool>
 									<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -102,12 +98,12 @@
 										<double key="NSSize">1.600000e+01</double>
 										<int key="NSfFlags">16</int>
 									</object>
-									<bool key="IBUIClearsOnBeginEditing">YES</bool>
 									<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 									<float key="IBUIMinimumFontSize">1.700000e+01</float>
 									<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 										<int key="IBUIReturnKeyType">1</int>
 									</object>
+									<int key="IBUIClearButtonMode">1</int>
 								</object>
 								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="45651249">
 									<int key="IBUIStyle">1</int>
@@ -294,14 +290,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">projectsViewController</string>
-						<reference key="source" ref="127522796"/>
-						<reference key="destination" ref="416417005"/>
-					</object>
-					<int key="connectionID">190</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">newsFeedNetworkAwareViewController</string>
 						<reference key="source" ref="127522796"/>
 						<reference key="destination" ref="78905859"/>
@@ -339,6 +327,14 @@
 						<reference key="destination" ref="1034742383"/>
 					</object>
 					<int key="connectionID">207</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">projectsNetAwareViewController</string>
+						<reference key="source" ref="127522796"/>
+						<reference key="destination" ref="416417005"/>
+					</object>
+					<int key="connectionID">208</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -465,7 +461,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="618903335"/>
 							<reference ref="45651249"/>
-							<reference ref="410430477"/>
 						</object>
 						<reference key="parent" ref="360103391"/>
 					</object>
@@ -599,11 +594,6 @@
 						<reference key="parent" ref="45198810"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">203</int>
-						<reference key="object" ref="410430477"/>
-						<reference key="parent" ref="45198810"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">205</int>
 						<reference key="object" ref="479484297"/>
 						<reference key="parent" ref="935392927"/>
@@ -654,7 +644,6 @@
 					<string>2.IBPluginDependency</string>
 					<string>201.IBPluginDependency</string>
 					<string>202.IBPluginDependency</string>
-					<string>203.IBPluginDependency</string>
 					<string>205.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
@@ -679,7 +668,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>ProjectsViewController</string>
+					<string>NetworkAwareViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -710,7 +699,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>BugWatchAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -735,7 +723,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">207</int>
+			<int key="maxID">208</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -751,7 +739,7 @@
 							<string>milestonesNetworkAwareViewController</string>
 							<string>newsFeedNetworkAwareViewController</string>
 							<string>pagesViewController</string>
-							<string>projectsViewController</string>
+							<string>projectsNetAwareViewController</string>
 							<string>tabBarController</string>
 							<string>ticketsNetAwareViewController</string>
 						</object>
@@ -761,7 +749,7 @@
 							<string>NetworkAwareViewController</string>
 							<string>NetworkAwareViewController</string>
 							<string>UIViewController</string>
-							<string>ProjectsViewController</string>
+							<string>NetworkAwareViewController</string>
 							<string>UITabBarController</string>
 							<string>NetworkAwareViewController</string>
 						</object>
@@ -828,14 +816,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/shared/NetworkAwareViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ProjectsViewController</string>
-					<string key="superclassName">UITableViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/projects/ProjectsViewController.h</string>
 					</object>
 				</object>
 			</object>

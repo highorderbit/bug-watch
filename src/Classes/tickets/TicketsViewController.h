@@ -13,10 +13,15 @@
     NSDictionary * metaData;
     NSDictionary * assignedToDict;
     NSDictionary * milestoneDict;
+    NSMutableDictionary * resolvingDict;
 
     UIView * headerView;
 
-    IBOutlet UIView * footerView;
+    IBOutlet UIView * noneFoundView;
+    IBOutlet UIView * loadMoreView;
+    IBOutlet UIButton * loadMoreButton;
+    IBOutlet UILabel * currentPagesLabel;
+    IBOutlet UILabel * noMorePagesLabel;
 }
 
 @property (nonatomic, retain)
@@ -26,6 +31,9 @@
 - (void)setTickets:(NSDictionary *)someTickets
     metaData:(NSDictionary *)someMetaData
     assignedToDict:(NSDictionary *)anAssignedToDict
-    milestoneDict:(NSDictionary *)aMilestoneDict;
+    milestoneDict:(NSDictionary *)aMilestoneDict page:(NSUInteger)page;
+
+- (IBAction)loadMoreTickets:(id)sender;
+- (void)setAllPagesLoaded:(BOOL)allPagesLoaded;
 
 @end

@@ -34,7 +34,6 @@
 
 - (id)initWithSearchField:(UITextField *)aSearchField
     addButton:(UIBarButtonItem *)anAddButton
-    cancelButton:(UIBarButtonItem *)aCancelButton
     navigationItem:(UINavigationItem *)aNavigationItem
     ticketBinViewController:(TicketBinViewController *)aBinViewController
     parentView:(UIView *)aParentView dataSourceTarget:(id)aDataSourceTarget
@@ -43,12 +42,16 @@
     if (self = [super init]) {
         searchField = [aSearchField retain];
         addButton = [anAddButton retain];
-        cancelButton = [aCancelButton retain];
         navigationItem = [aNavigationItem retain];
         binViewController = [aBinViewController retain];
         parentView = [aParentView retain];
         dataSourceTarget = [aDataSourceTarget retain];
         dataSourceAction = aDataSourceAction;
+
+        cancelButton = [[UIBarButtonItem alloc] init];
+        cancelButton.title = @"Cancel";
+        cancelButton.target = self;
+        cancelButton.action = @selector(cancelSelected);
 
         searchField.delegate = self;
         // Can't be set in IB, so setting it here
@@ -56,9 +59,6 @@
         frame.size.height = 28;
         searchField.frame = frame;
         searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
-
-        cancelButton.target = self;
-        cancelButton.action = @selector(cancelSelected);
 
         [navigationItem setLeftBarButtonItem:nil];
         [self updateNavigationBarForNotSearching:NO];
@@ -118,19 +118,32 @@
     }
 
     CGRect frame = searchField.frame;
-    frame.size.width = 300;
+    frame.size.width = 250;
     searchField.frame = frame;
-    
+
     if (animated)
         [UIView commitAnimations];
 
     [navigationItem setRightBarButtonItem:addButton animated:animated];
+    // let the search field animation start before displaying the back button
+    [navigationItem performSelector:@selector(setHidesBackButton:)
+        withObject:nil afterDelay:0.1];
 }
 
 #pragma mark UITextFieldDelegate implementation
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    // This improves a funky animation where it seems the text field text is
+    // scaled larger and then shrunk back to it's desired size
+    // The solution is simply to hide the text during the animation
+    [searchField performSelector:@selector(setText:) withObject:searchField.text
+        afterDelay:0.3];
+    searchField.text = @"";
+
+    [navigationItem setLeftBarButtonItem:nil animated:NO];
+    navigationItem.hidesBackButton = YES;
+    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationTransition:UIViewAnimationTransitionNone
         forView:searchField cache:YES];

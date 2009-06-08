@@ -27,6 +27,8 @@
 + (NSString *)createdByDictKey;
 + (NSString *)assignedToDictKey;
 + (NSString *)milestoneDictKey;
++ (NSString *)queryKey;
++ (NSString *)numPagesKey;
 
 + (NSString *)descriptionKey;
 + (NSString *)messageKey;
@@ -42,9 +44,14 @@
 
 - (TicketCache *)loadWithPlist:(NSString *)plist
 {
-    TicketCache * ticketCache = [[[TicketCache alloc] init] autorelease];
-
     NSDictionary * dict = [PlistUtils getDictionaryFromPlist:plist];
+
+    if (![dict objectForKey:[[self class] ticketDictKey]]) {
+        NSLog(@"Loading 'nil' ticket cache...");
+        return nil;
+    }
+
+    TicketCache * ticketCache = [[[TicketCache alloc] init] autorelease];
 
     NSDictionary * ticketDict =
         [dict objectForKey:[[self class] ticketDictKey]];
@@ -80,6 +87,10 @@
         [ticketCache setMilestoneKey:milestoneKey forKey:key];
     }
     
+    ticketCache.query = [dict objectForKey:[[self class] queryKey]];
+    ticketCache.numPages =
+        [[dict objectForKey:[[self class] numPagesKey]] intValue];
+
     return ticketCache;
 }
 
@@ -136,6 +147,11 @@
     [dict setObject:createdByDict forKey:[[self class] createdByDictKey]];
     [dict setObject:assignedToDict forKey:[[self class] assignedToDictKey]];
     [dict setObject:milestoneDict forKey:[[self class] milestoneDictKey]];
+    
+    if (ticketCache.query)
+        [dict setObject:ticketCache.query forKey:[[self class] queryKey]];
+    NSNumber * numPages = [NSNumber numberWithInt:ticketCache.numPages];
+    [dict setObject:numPages forKey:[[self class] numPagesKey]];
 
     NSLog(@"Ticket cache: %@", dict);
     [PlistUtils saveDictionary:dict toPlist:plist];
@@ -298,6 +314,16 @@
 + (NSString *)milestoneDictKey
 {
     return @"milestoneDict";
+}
+
++ (NSString *)queryKey
+{
+    return @"query";
+}
+
++ (NSString *)numPagesKey
+{
+    return @"numPages";
 }
 
 + (NSString *)descriptionKey

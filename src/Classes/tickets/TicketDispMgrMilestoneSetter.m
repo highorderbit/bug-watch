@@ -24,15 +24,22 @@
 - (void)milestonesReceivedForAllProjects:(NSArray *)milestones
     milestoneKeys:(NSArray *)milestoneKeys projectKeys:(NSArray *)projectKeys
 {
+    NSLog(@"Setting milestones on ticket display manager...");
+    NSLog(@"Milestones: %@", milestones);
     NSMutableDictionary * milestoneDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary * milestoneToProjectDict =
+        [NSMutableDictionary dictionary];
     for (int i = 0; i < [milestoneKeys count]; i++) {
         id milestoneKey = [milestoneKeys objectAtIndex:i];
         Milestone * milestone = [milestones objectAtIndex:i];
         NSString * milestoneName = milestone.name;
         [milestoneDict setObject:milestoneName forKey:milestoneKey];
+        id projectKey = [projectKeys objectAtIndex:i];
+        [milestoneToProjectDict setObject:projectKey forKey:milestoneKey];
     }
 
     ticketDisplayMgr.milestoneDict = milestoneDict;
+    ticketDisplayMgr.milestoneToProjectDict = milestoneToProjectDict;
 }
 
 @end

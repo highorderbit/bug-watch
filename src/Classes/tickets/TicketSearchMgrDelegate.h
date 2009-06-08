@@ -7,5 +7,6 @@
 @protocol TicketSearchMgrDelegate
 
 - (void)ticketsFilteredByFilterString:(NSString *)filterString;
+- (void)forceQueryRefresh;
 
 @end

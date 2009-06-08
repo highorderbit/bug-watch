@@ -130,6 +130,26 @@
 		91482CA70FC62349002D10E8 /* ProjectSelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91482CA50FC62349002D10E8 /* ProjectSelectionView.xib */; };
 		91482CAB0FC6254F002D10E8 /* ProjectSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482CAA0FC6254F002D10E8 /* ProjectSelectionViewController.m */; };
 		91482D420FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */; };
+		91482FCA0FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FC90FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m */; };
+		91482FE50FCDFD51002D10E8 /* UserSetAggregator.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FE40FCDFD51002D10E8 /* UserSetAggregator.m */; };
+		91482FEB0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */; };
+		914830710FCF10FF002D10E8 /* DeleteButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 914830700FCF10FF002D10E8 /* DeleteButtonBackground.png */; };
+		914831940FCF5A24002D10E8 /* ResolveButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 914831930FCF5A24002D10E8 /* ResolveButtonBackground.png */; };
+		914832C80FD0ADDF002D10E8 /* MilestonePersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832C70FD0ADDF002D10E8 /* MilestonePersistenceStore.m */; };
+		914832D40FD41D84002D10E8 /* UserCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832D30FD41D84002D10E8 /* UserCache.m */; };
+		914832D90FD41F75002D10E8 /* UserPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832D80FD41F75002D10E8 /* UserPersistenceStore.m */; };
+		914832E00FD426BB002D10E8 /* ProjectCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832DF0FD426BB002D10E8 /* ProjectCache.m */; };
+		914832E30FD42853002D10E8 /* ProjectPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */; };
+		914833040FD434D2002D10E8 /* NewsFeedPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833030FD434D2002D10E8 /* NewsFeedPersistenceStore.m */; };
+		9148333D0FD46816002D10E8 /* MilestoneCacheSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9148333C0FD46816002D10E8 /* MilestoneCacheSetter.m */; };
+		914833CF0FD48F98002D10E8 /* ProjectCacheSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833CE0FD48F98002D10E8 /* ProjectCacheSetter.m */; };
+		914834000FD561BE002D10E8 /* UserCacheSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 914833FF0FD561BE002D10E8 /* UserCacheSetter.m */; };
+		914834180FD57C21002D10E8 /* AllUserUpdatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 914834170FD57C21002D10E8 /* AllUserUpdatePublisher.m */; };
+		914834B90FD5AA13002D10E8 /* ProjectMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 914834B80FD5AA13002D10E8 /* ProjectMetadata.m */; };
+		914835250FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 914835240FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m */; };
+		914835B30FD6D993002D10E8 /* TicketDisplayMgrFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 914835B20FD6D993002D10E8 /* TicketDisplayMgrFactory.m */; };
+		914835C40FD6E42A002D10E8 /* LighthouseApiServiceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 914835C30FD6E42A002D10E8 /* LighthouseApiServiceFactory.m */; };
+		914835D90FD6EA79002D10E8 /* TicketSearchMgrFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 914835D80FD6EA79002D10E8 /* TicketSearchMgrFactory.m */; };
 		917DE34F0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE34D0FB3465F00BF2015 /* ProjectHomeTableViewCell.xib */; };
 		917DE3560FB346B500BF2015 /* ProjectHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 917DE3540FB346B500BF2015 /* ProjectHomeView.xib */; };
 		917DE35A0FB34B2100BF2015 /* ProjectHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 917DE3590FB34B2100BF2015 /* ProjectHomeTableViewCell.m */; };
@@ -165,6 +185,7 @@
 		918887F30FBA1BBF009F5861 /* TicketBinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918887F20FBA1BBF009F5861 /* TicketBinViewController.m */; };
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
+		919891CC0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
 		91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */; };
@@ -180,6 +201,7 @@
 		91D680800F98DDC40040A310 /* HomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D6807F0F98DDC40040A310 /* HomeIcon.png */; };
 		91D680820F98DF880040A310 /* Bug.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D680810F98DF880040A310 /* Bug.png */; };
 		91D680890F98E4060040A310 /* Calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 91D680880F98E4060040A310 /* Calendar.png */; };
+		91E14D270FD8857000B9B8CD /* RecentHistoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E14D260FD8857000B9B8CD /* RecentHistoryCache.m */; };
 		91E1FC800FACB6F100E86DDE /* EditTicketView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC7E0FACB6F100E86DDE /* EditTicketView.xib */; };
 		91E1FC830FACB70900E86DDE /* EditTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E1FC820FACB70900E86DDE /* EditTicketViewController.m */; };
 		91E1FC860FACBBBE00E86DDE /* TextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC850FACBBBE00E86DDE /* TextField.png */; };
@@ -388,6 +410,45 @@
 		91482CAA0FC6254F002D10E8 /* ProjectSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectSelectionViewController.m; path = shared/ProjectSelectionViewController.m; sourceTree = "<group>"; };
 		91482D400FC741F2002D10E8 /* AccountLevelTicketBinDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountLevelTicketBinDataSource.h; path = tickets/AccountLevelTicketBinDataSource.h; sourceTree = "<group>"; };
 		91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountLevelTicketBinDataSource.m; path = tickets/AccountLevelTicketBinDataSource.m; sourceTree = "<group>"; };
+		91482FC80FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDispMgrProjectSetter.h; path = tickets/TicketDispMgrProjectSetter.h; sourceTree = "<group>"; };
+		91482FC90FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrProjectSetter.m; path = tickets/TicketDispMgrProjectSetter.m; sourceTree = "<group>"; };
+		91482FE30FCDFD51002D10E8 /* UserSetAggregator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSetAggregator.h; path = users/UserSetAggregator.h; sourceTree = "<group>"; };
+		91482FE40FCDFD51002D10E8 /* UserSetAggregator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSetAggregator.m; path = users/UserSetAggregator.m; sourceTree = "<group>"; };
+		91482FE90FCE04C7002D10E8 /* TicketDispMgrUserSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDispMgrUserSetter.h; path = tickets/TicketDispMgrUserSetter.h; sourceTree = "<group>"; };
+		91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrUserSetter.m; path = tickets/TicketDispMgrUserSetter.m; sourceTree = "<group>"; };
+		914830700FCF10FF002D10E8 /* DeleteButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButtonBackground.png; sourceTree = "<group>"; };
+		914831930FCF5A24002D10E8 /* ResolveButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResolveButtonBackground.png; sourceTree = "<group>"; };
+		914832C60FD0ADDF002D10E8 /* MilestonePersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonePersistenceStore.h; path = Classes/milestones/MilestonePersistenceStore.h; sourceTree = "<group>"; };
+		914832C70FD0ADDF002D10E8 /* MilestonePersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestonePersistenceStore.m; path = Classes/milestones/MilestonePersistenceStore.m; sourceTree = "<group>"; };
+		914832D20FD41D84002D10E8 /* UserCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCache.h; path = users/UserCache.h; sourceTree = "<group>"; };
+		914832D30FD41D84002D10E8 /* UserCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCache.m; path = users/UserCache.m; sourceTree = "<group>"; };
+		914832D70FD41F75002D10E8 /* UserPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserPersistenceStore.h; path = users/UserPersistenceStore.h; sourceTree = "<group>"; };
+		914832D80FD41F75002D10E8 /* UserPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserPersistenceStore.m; path = users/UserPersistenceStore.m; sourceTree = "<group>"; };
+		914832DE0FD426BB002D10E8 /* ProjectCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectCache.h; path = projects/ProjectCache.h; sourceTree = "<group>"; };
+		914832DF0FD426BB002D10E8 /* ProjectCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectCache.m; path = projects/ProjectCache.m; sourceTree = "<group>"; };
+		914832E10FD42853002D10E8 /* ProjectPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectPersistenceStore.h; path = projects/ProjectPersistenceStore.h; sourceTree = "<group>"; };
+		914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectPersistenceStore.m; path = projects/ProjectPersistenceStore.m; sourceTree = "<group>"; };
+		914833020FD434D2002D10E8 /* NewsFeedPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedPersistenceStore.h; path = "news-feed/NewsFeedPersistenceStore.h"; sourceTree = "<group>"; };
+		914833030FD434D2002D10E8 /* NewsFeedPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedPersistenceStore.m; path = "news-feed/NewsFeedPersistenceStore.m"; sourceTree = "<group>"; };
+		9148333B0FD46816002D10E8 /* MilestoneCacheSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneCacheSetter.h; path = Classes/milestones/MilestoneCacheSetter.h; sourceTree = "<group>"; };
+		9148333C0FD46816002D10E8 /* MilestoneCacheSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneCacheSetter.m; path = Classes/milestones/MilestoneCacheSetter.m; sourceTree = "<group>"; };
+		914833CD0FD48F98002D10E8 /* ProjectCacheSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectCacheSetter.h; path = projects/ProjectCacheSetter.h; sourceTree = "<group>"; };
+		914833CE0FD48F98002D10E8 /* ProjectCacheSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectCacheSetter.m; path = projects/ProjectCacheSetter.m; sourceTree = "<group>"; };
+		914833FE0FD561BE002D10E8 /* UserCacheSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCacheSetter.h; path = users/UserCacheSetter.h; sourceTree = "<group>"; };
+		914833FF0FD561BE002D10E8 /* UserCacheSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCacheSetter.m; path = users/UserCacheSetter.m; sourceTree = "<group>"; };
+		914834160FD57C21002D10E8 /* AllUserUpdatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllUserUpdatePublisher.h; path = users/AllUserUpdatePublisher.h; sourceTree = "<group>"; };
+		914834170FD57C21002D10E8 /* AllUserUpdatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllUserUpdatePublisher.m; path = users/AllUserUpdatePublisher.m; sourceTree = "<group>"; };
+		914834B70FD5AA13002D10E8 /* ProjectMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectMetadata.h; path = projects/ProjectMetadata.h; sourceTree = "<group>"; };
+		914834B80FD5AA13002D10E8 /* ProjectMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectMetadata.m; path = projects/ProjectMetadata.m; sourceTree = "<group>"; };
+		914835230FD5F454002D10E8 /* ProjectDispMgrProjectSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectDispMgrProjectSetter.h; path = projects/ProjectDispMgrProjectSetter.h; sourceTree = "<group>"; };
+		914835240FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectDispMgrProjectSetter.m; path = projects/ProjectDispMgrProjectSetter.m; sourceTree = "<group>"; };
+		914835990FD6CF65002D10E8 /* ProjectHomeViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeViewControllerDelegate.h; path = projects/ProjectHomeViewControllerDelegate.h; sourceTree = "<group>"; };
+		914835B10FD6D993002D10E8 /* TicketDisplayMgrFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDisplayMgrFactory.h; path = tickets/TicketDisplayMgrFactory.h; sourceTree = "<group>"; };
+		914835B20FD6D993002D10E8 /* TicketDisplayMgrFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDisplayMgrFactory.m; path = tickets/TicketDisplayMgrFactory.m; sourceTree = "<group>"; };
+		914835C20FD6E42A002D10E8 /* LighthouseApiServiceFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseApiServiceFactory.h; path = lighthouse/api/LighthouseApiServiceFactory.h; sourceTree = "<group>"; };
+		914835C30FD6E42A002D10E8 /* LighthouseApiServiceFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseApiServiceFactory.m; path = lighthouse/api/LighthouseApiServiceFactory.m; sourceTree = "<group>"; };
+		914835D70FD6EA79002D10E8 /* TicketSearchMgrFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSearchMgrFactory.h; path = tickets/TicketSearchMgrFactory.h; sourceTree = "<group>"; };
+		914835D80FD6EA79002D10E8 /* TicketSearchMgrFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSearchMgrFactory.m; path = tickets/TicketSearchMgrFactory.m; sourceTree = "<group>"; };
 		917DE34E0FB3465F00BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeTableViewCell.xib; sourceTree = "<group>"; };
 		917DE3550FB346B500BF2015 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectHomeView.xib; sourceTree = "<group>"; };
 		917DE3580FB34B2100BF2015 /* ProjectHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectHomeTableViewCell.h; path = projects/ProjectHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -449,6 +510,8 @@
 		919677970FABC9A4004A5DE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CommentTableViewCell.xib; sourceTree = "<group>"; };
 		919677990FABC9BD004A5DE2 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentTableViewCell.h; path = tickets/CommentTableViewCell.h; sourceTree = "<group>"; };
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
+		919891CA0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectSpecificTicketBinDSAdapter.h; path = tickets/ProjectSpecificTicketBinDSAdapter.h; sourceTree = "<group>"; };
+		919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectSpecificTicketBinDSAdapter.m; path = tickets/ProjectSpecificTicketBinDSAdapter.m; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
 		91A85AB30FAF59A30084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AddCommentView.xib; sourceTree = "<group>"; };
@@ -472,6 +535,9 @@
 		91D6807F0F98DDC40040A310 /* HomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeIcon.png; sourceTree = "<group>"; };
 		91D680810F98DF880040A310 /* Bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bug.png; sourceTree = "<group>"; };
 		91D680880F98E4060040A310 /* Calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Calendar.png; sourceTree = "<group>"; };
+		91E14D060FD83B7600B9B8CD /* TicketBinDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketBinDataSourceProtocol.h; path = tickets/TicketBinDataSourceProtocol.h; sourceTree = "<group>"; };
+		91E14D250FD8857000B9B8CD /* RecentHistoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecentHistoryCache.h; path = shared/RecentHistoryCache.h; sourceTree = "<group>"; };
+		91E14D260FD8857000B9B8CD /* RecentHistoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecentHistoryCache.m; path = shared/RecentHistoryCache.m; sourceTree = "<group>"; };
 		91E1FC7F0FACB6F100E86DDE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EditTicketView.xib; sourceTree = "<group>"; };
 		91E1FC810FACB70900E86DDE /* EditTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditTicketViewController.h; path = tickets/EditTicketViewController.h; sourceTree = "<group>"; };
 		91E1FC820FACB70900E86DDE /* EditTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditTicketViewController.m; path = tickets/EditTicketViewController.m; sourceTree = "<group>"; };
@@ -583,6 +649,10 @@
 				05A961830FBE142C00CBDC68 /* MilestoneDetailsDataSource.h */,
 				05A961840FBE142C00CBDC68 /* MilestoneDetailsDataSource.m */,
 				05A961860FBE282E00CBDC68 /* MilestoneDetailsDataSourceDelegate.h */,
+				914832C60FD0ADDF002D10E8 /* MilestonePersistenceStore.h */,
+				914832C70FD0ADDF002D10E8 /* MilestonePersistenceStore.m */,
+				9148333B0FD46816002D10E8 /* MilestoneCacheSetter.h */,
+				9148333C0FD46816002D10E8 /* MilestoneCacheSetter.m */,
 			);
 			name = milestones;
 			path = ..;
@@ -624,6 +694,16 @@
 			children = (
 				05DB80C90FC33E7E0095AF32 /* User.h */,
 				05DB80CA0FC33E7E0095AF32 /* User.m */,
+				91482FE30FCDFD51002D10E8 /* UserSetAggregator.h */,
+				91482FE40FCDFD51002D10E8 /* UserSetAggregator.m */,
+				914832D20FD41D84002D10E8 /* UserCache.h */,
+				914832D30FD41D84002D10E8 /* UserCache.m */,
+				914832D70FD41F75002D10E8 /* UserPersistenceStore.h */,
+				914832D80FD41F75002D10E8 /* UserPersistenceStore.m */,
+				914833FE0FD561BE002D10E8 /* UserCacheSetter.h */,
+				914833FF0FD561BE002D10E8 /* UserCacheSetter.m */,
+				914834160FD57C21002D10E8 /* AllUserUpdatePublisher.h */,
+				914834170FD57C21002D10E8 /* AllUserUpdatePublisher.m */,
 			);
 			name = users;
 			sourceTree = "<group>";
@@ -681,6 +761,8 @@
 				05FCB3B30FCA6685008F45E6 /* UpdateMessageDescription.m */,
 				05FCB4160FCA6E3E008F45E6 /* NewMessageCommentDescription.h */,
 				05FCB4170FCA6E3E008F45E6 /* NewMessageCommentDescription.m */,
+				914835C20FD6E42A002D10E8 /* LighthouseApiServiceFactory.h */,
+				914835C30FD6E42A002D10E8 /* LighthouseApiServiceFactory.m */,
 			);
 			name = api;
 			sourceTree = "<group>";
@@ -723,6 +805,8 @@
 				05E6372F0FA8CD2C00F736A5 /* NewsFeedTableViewCell.m */,
 				055212920FAA599600626049 /* NewsFeedItemViewController.h */,
 				055212930FAA599600626049 /* NewsFeedItemViewController.m */,
+				914833020FD434D2002D10E8 /* NewsFeedPersistenceStore.h */,
+				914833030FD434D2002D10E8 /* NewsFeedPersistenceStore.m */,
 			);
 			name = "news-feed";
 			sourceTree = "<group>";
@@ -730,6 +814,8 @@
 		05E637760FA8D35100F736A5 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				91E14D250FD8857000B9B8CD /* RecentHistoryCache.h */,
+				91E14D260FD8857000B9B8CD /* RecentHistoryCache.m */,
 				91C5D8820FAFA49100943292 /* HOTableViewCell.h */,
 				91C5D8830FAFA49100943292 /* HOTableViewCell.m */,
 				055214020FAB709600626049 /* NetworkAwareViewController.h */,
@@ -940,6 +1026,17 @@
 				91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */,
 				91482D400FC741F2002D10E8 /* AccountLevelTicketBinDataSource.h */,
 				91482D410FC741F2002D10E8 /* AccountLevelTicketBinDataSource.m */,
+				91482FC80FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.h */,
+				91482FC90FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m */,
+				91482FE90FCE04C7002D10E8 /* TicketDispMgrUserSetter.h */,
+				91482FEA0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m */,
+				914835B10FD6D993002D10E8 /* TicketDisplayMgrFactory.h */,
+				914835B20FD6D993002D10E8 /* TicketDisplayMgrFactory.m */,
+				914835D70FD6EA79002D10E8 /* TicketSearchMgrFactory.h */,
+				914835D80FD6EA79002D10E8 /* TicketSearchMgrFactory.m */,
+				91E14D060FD83B7600B9B8CD /* TicketBinDataSourceProtocol.h */,
+				919891CA0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.h */,
+				919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -960,6 +1057,17 @@
 				917DE3600FB34ED400BF2015 /* ProjectDisplayMgr.h */,
 				917DE3610FB34ED400BF2015 /* ProjectDisplayMgr.m */,
 				917DE3650FB3521F00BF2015 /* ProjectsViewControllerDelegate.h */,
+				914832DE0FD426BB002D10E8 /* ProjectCache.h */,
+				914832DF0FD426BB002D10E8 /* ProjectCache.m */,
+				914832E10FD42853002D10E8 /* ProjectPersistenceStore.h */,
+				914832E20FD42853002D10E8 /* ProjectPersistenceStore.m */,
+				914833CD0FD48F98002D10E8 /* ProjectCacheSetter.h */,
+				914833CE0FD48F98002D10E8 /* ProjectCacheSetter.m */,
+				914834B70FD5AA13002D10E8 /* ProjectMetadata.h */,
+				914834B80FD5AA13002D10E8 /* ProjectMetadata.m */,
+				914835230FD5F454002D10E8 /* ProjectDispMgrProjectSetter.h */,
+				914835240FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m */,
+				914835990FD6CF65002D10E8 /* ProjectHomeViewControllerDelegate.h */,
 			);
 			name = projects;
 			sourceTree = "<group>";
@@ -995,6 +1103,8 @@
 		91806D8A0F97E72900F08005 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				914831930FCF5A24002D10E8 /* ResolveButtonBackground.png */,
+				914830700FCF10FF002D10E8 /* DeleteButtonBackground.png */,
 				917DE3E80FB369E000BF2015 /* PagesSelected.png */,
 				917DE3E10FB3695000BF2015 /* ThumbtackSelected.png */,
 				917DE3DB0FB368B600BF2015 /* CalendarSelected.png */,
@@ -1155,6 +1265,8 @@
 				918887EF0FBA1B14009F5861 /* TicketBinView.xib in Resources */,
 				0570D4B60FC0F76D00928667 /* MilestoneHeaderView.xib in Resources */,
 				91482CA70FC62349002D10E8 /* ProjectSelectionView.xib in Resources */,
+				914830710FCF10FF002D10E8 /* DeleteButtonBackground.png in Resources */,
+				914831940FCF5A24002D10E8 /* ResolveButtonBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1312,6 +1424,26 @@
 				0576B9E60FCA13170015C2AD /* NewMessageDescription.m in Sources */,
 				05FCB3B40FCA6685008F45E6 /* UpdateMessageDescription.m in Sources */,
 				05FCB4180FCA6E3E008F45E6 /* NewMessageCommentDescription.m in Sources */,
+				91482FCA0FCDE2EE002D10E8 /* TicketDispMgrProjectSetter.m in Sources */,
+				91482FE50FCDFD51002D10E8 /* UserSetAggregator.m in Sources */,
+				91482FEB0FCE04C7002D10E8 /* TicketDispMgrUserSetter.m in Sources */,
+				914832C80FD0ADDF002D10E8 /* MilestonePersistenceStore.m in Sources */,
+				914832D40FD41D84002D10E8 /* UserCache.m in Sources */,
+				914832D90FD41F75002D10E8 /* UserPersistenceStore.m in Sources */,
+				914832E00FD426BB002D10E8 /* ProjectCache.m in Sources */,
+				914832E30FD42853002D10E8 /* ProjectPersistenceStore.m in Sources */,
+				914833040FD434D2002D10E8 /* NewsFeedPersistenceStore.m in Sources */,
+				9148333D0FD46816002D10E8 /* MilestoneCacheSetter.m in Sources */,
+				914833CF0FD48F98002D10E8 /* ProjectCacheSetter.m in Sources */,
+				914834000FD561BE002D10E8 /* UserCacheSetter.m in Sources */,
+				914834180FD57C21002D10E8 /* AllUserUpdatePublisher.m in Sources */,
+				914834B90FD5AA13002D10E8 /* ProjectMetadata.m in Sources */,
+				914835250FD5F454002D10E8 /* ProjectDispMgrProjectSetter.m in Sources */,
+				914835B30FD6D993002D10E8 /* TicketDisplayMgrFactory.m in Sources */,
+				914835C40FD6E42A002D10E8 /* LighthouseApiServiceFactory.m in Sources */,
+				914835D90FD6EA79002D10E8 /* TicketSearchMgrFactory.m in Sources */,
+				91E14D270FD8857000B9B8CD /* RecentHistoryCache.m in Sources */,
+				919891CC0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

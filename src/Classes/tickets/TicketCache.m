@@ -6,8 +6,11 @@
 
 @implementation TicketCache
 
+@synthesize query, numPages;
+
 - (void)dealloc
 {
+    [query release];
     [tickets release];
     [metaData release];
     [createdByDict release];
@@ -115,6 +118,22 @@
 - (NSArray *)commentKeysForKey:(id)key
 {
     return [commentDict objectForKey:key];
+}
+
+- (NSDictionary *)allCommentKeys
+{
+    return [[commentDict copy] autorelease];
+}
+
+- (void)merge:(TicketCache *)aTicketCache
+{
+    [tickets addEntriesFromDictionary:aTicketCache.allTickets];
+    [metaData addEntriesFromDictionary:aTicketCache.allMetaData];
+    [createdByDict addEntriesFromDictionary:aTicketCache.allCreatedByKeys];
+    [assignedToDict addEntriesFromDictionary:aTicketCache.allAssignedToKeys];
+    [milestoneDict addEntriesFromDictionary:aTicketCache.allMilestoneKeys];
+    [commentDict addEntriesFromDictionary:aTicketCache.allCommentKeys];
+    self.numPages = aTicketCache.numPages;
 }
 
 @end

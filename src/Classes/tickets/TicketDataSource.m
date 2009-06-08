@@ -7,6 +7,7 @@
 #import "TicketCommentCache.h"
 #import "TicketComment.h"
 #import "NewTicketDescription.h"
+#import "UpdateTicketDescription.h"
 
 @interface TicketDataSource (Private)
 
@@ -38,9 +39,16 @@
     return self;
 }
 
-- (void)fetchTicketsWithQuery:(NSString *)aFilterString
+- (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
 {
-    [service searchTicketsForAllProjects:aFilterString page:1 token:token];
+    [service searchTicketsForAllProjects:aFilterString page:page token:token];
+}
+
+- (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
+    project:(id)projectKey
+{
+    [service searchTicketsForProject:projectKey withSearchString:aFilterString
+        page:page object:nil token:token];
 }
 
 - (void)fetchTicketWithKey:(TicketKey *)aTicketKey
@@ -54,6 +62,18 @@
     forProject:(id)projectKey
 {
     [service createNewTicket:desc forProject:projectKey token:token];
+}
+
+- (void)editTicketWithKey:(id)key description:(UpdateTicketDescription *)desc
+    forProject:(id)projectKey
+{    
+    [service editTicket:key forProject:projectKey withDescription:desc
+        token:token];
+}
+
+- (void)deleteTicketWithKey:(id)key forProject:(id)projectKey
+{
+    [service deleteTicket:key forProject:projectKey token:token];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
@@ -90,12 +110,32 @@
         if (creatorId)
             [ticketCache setCreatedByKey:creatorId forKey:ticketKey];
     }
+    ticketCache.query = searchString;
+    ticketCache.numPages = page;
 
     [delegate receivedTicketsFromDataSource:ticketCache];
 }
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     page:(NSUInteger)page error:(NSError *)error
+{}
+
+- (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object metadata:(NSArray *)metadata
+    ticketNumbers:(NSArray *)ticketNumbers milestoneIds:(NSArray *)milestoneIds
+    projectIds:(NSArray *)projectIds userIds:(NSArray *)userIds
+    creatorIds:(NSArray *)creatorIds
+{
+    [self tickets:tickets fetchedForSearchString:searchString page:page
+        metadata:metadata ticketNumbers:ticketNumbers
+        milestoneIds:milestoneIds projectIds:projectIds userIds:userIds
+       creatorIds:creatorIds];
+}
+
+- (void)failedToSearchTicketsForProject:(id)projectKey
+    searchString:(NSString *)searchString page:(NSUInteger)page
+    object:(id)object error:(NSError *)error
 {}
 
 - (void)details:(NSArray *)details authors:(NSArray *)authors
@@ -137,6 +177,15 @@
 
 - (void)failedToCreateNewTicketDescribedBy:(NewTicketDescription *)description
     forProject:(id)projectKey error:(NSError *)error
+{}
+
+- (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
+{
+    [delegate deletedTicketWithKey:ticketKey];
+}
+
+- (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
+    error:(NSError *)error
 {}
 
 #pragma mark Readable strings from yaml helpers

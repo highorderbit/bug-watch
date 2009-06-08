@@ -43,7 +43,6 @@
         id object = [args objectAtIndex:i];
         [invocation setArgument:&object atIndex:i + 2];
     }
-
     [invocation invoke];
 }
 
