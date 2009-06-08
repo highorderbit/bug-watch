@@ -154,7 +154,7 @@
     NSNumber * ticketKey =
         [NSNumber numberWithInteger:key.ticketNumber];
     [dataSource editTicketWithKey:ticketKey description:desc
-        forProject:activeProjectKey];
+        forProject:key.projectKey];
 }
 
 - (void)displayTicketDetails:(TicketKey *)key
@@ -384,7 +384,7 @@
         NSNumber * ticketKey =
             [NSNumber numberWithInteger:selectedTicketKey.ticketNumber];
         [dataSource editTicketWithKey:ticketKey description:desc
-            forProject:activeProjectKey];
+            forProject:selectedTicketKey.projectKey];
         actionText = @"Editing ticket...";
     } else {
         NewTicketDescription * desc = [NewTicketDescription description];
