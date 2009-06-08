@@ -41,7 +41,8 @@
     for (id projectKey in self.milestones)
         nsections += [[self.milestones objectForKey:projectKey] count] ? 1 : 0;
 
-    return nsections;
+    // required to return at least one section
+    return nsections == 0 ? 1 : nsections;
 }
 
 // Customize the number of rows in the table view.
@@ -56,10 +57,14 @@
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section
 {
-    section = [self effectiveSectionForSection:section];
+    if (milestones.count == 0)
+        return nil;
+    else {
+        section = [self effectiveSectionForSection:section];
 
-    id key = [self.projects.allKeys objectAtIndex:section];
-    return [[self.projects objectForKey:key] name];
+        id key = [self.projects.allKeys objectAtIndex:section];
+        return [[self.projects objectForKey:key] name];
+    }
 }
 
 // Customize the appearance of table view cells.
