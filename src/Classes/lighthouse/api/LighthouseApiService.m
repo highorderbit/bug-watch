@@ -330,7 +330,7 @@
             searchString:searchString page:page object:object error:error];
 }
 
-#pragma mark -- Tickets -- creating
+#pragma mark Tickets -- creating
 
 - (void)ticketCreationDidBegin:(NSData *)xml forProject:(id)projectKey
     object:(id)object token:(NSString *)token
@@ -397,7 +397,7 @@
     [changeTicketRequests removeObjectForKey:object];
 }
 
-#pragma mark -- Tickets -- editing
+#pragma mark Tickets -- editing
 
 - (void)editedTicket:(id)ticketKey forProject:(id)projectKey
     withDescription:(NSString *)description object:(id)requestId
