@@ -158,6 +158,8 @@
         type = [title stringByMatching:@"\\[#\\d+\\]"];
         if (type)
             type = NSLocalizedString(@"newsfeed.item.type.ticket", @"");
+        else  // assume it is a bulk edit operation
+            type = NSLocalizedString(@"newsfeed.item.type.bulkedit", @"");
     }
 
     return [type lowercaseString];
