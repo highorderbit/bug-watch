@@ -111,7 +111,7 @@
     NSString * urlString =
         [NSString
             stringWithFormat:
-            @"%@projects/%@/tickets.xml?q=%@&page=%u?_token=%@",
+            @"%@projects/%@/tickets.xml?q=%@&page=%u&_token=%@",
         baseUrlString,
         projectKey,
         [searchString
