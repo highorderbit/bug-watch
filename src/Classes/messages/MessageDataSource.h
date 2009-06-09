@@ -6,6 +6,7 @@
 #import "MessageDataSourceDelegate.h"
 #import "LighthouseApiService.h"
 #import "LighthouseApiServiceDelegate.h"
+#import "NewMessageDescription.h"
 
 @interface MessageDataSource : NSObject <LighthouseApiServiceDelegate>
 {
@@ -19,5 +20,7 @@
 
 - (id)initWithService:(LighthouseApiService *)service;
 - (void)fetchMessagesForProject:(id)projectKey;
+- (void)createMessageWithDescription:(NewMessageDescription *)desc
+    forProject:(id)projectKey;
 
 @end

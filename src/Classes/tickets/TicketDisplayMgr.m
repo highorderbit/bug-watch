@@ -518,7 +518,6 @@
     return projectSelectionViewController;
 }
 
-
 - (UINavigationController *)navController
 {
     return wrapperController.navigationController;

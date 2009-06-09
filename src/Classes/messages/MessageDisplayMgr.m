@@ -6,13 +6,17 @@
 
 @interface MessageDisplayMgr (Private)
 
+- (void)initDarkTransparentView;
 - (void)displayCachedMessages;
+- (void)disableEditViewWithText:(NSString *)text;
+- (void)enableEditView;
 
 @end
 
 @implementation MessageDisplayMgr
 
-@synthesize messageCache, userDict, projectDict, activeProjectKey;
+@synthesize messageCache, userDict, projectDict, activeProjectKey,
+    selectProject;
 
 - (void)dealloc
 {
@@ -27,6 +31,9 @@
 
     [userDict release];
     [projectDict release];
+
+    [darkTransparentView release];
+    [loadingLabel release];
 
     [activeProjectKey release];
 
@@ -48,9 +55,43 @@
         
         self.activeProjectKey = nil;
         wrapperController.cachedDataAvailable = NO;
+        self.selectProject = YES;
+        
+        [self initDarkTransparentView];
     }
 
     return self;
+}
+
+- (void)initDarkTransparentView
+{
+    CGRect darkTransparentViewFrame = CGRectMake(0, 0, 320, 480);
+    darkTransparentView =
+        [[UIView alloc] initWithFrame:darkTransparentViewFrame];
+    
+    CGRect transparentViewFrame = CGRectMake(0, 0, 320, 480);
+    UIView * transparentView =
+        [[[UIView alloc] initWithFrame:transparentViewFrame] autorelease];
+    transparentView.backgroundColor = [UIColor blackColor];
+    transparentView.alpha = 0.8;
+    [darkTransparentView addSubview:transparentView];
+    
+    CGRect activityIndicatorFrame = CGRectMake(142, 85, 37, 37);
+    UIActivityIndicatorView * activityIndicator =
+        [[UIActivityIndicatorView alloc] initWithFrame:activityIndicatorFrame];
+    activityIndicator.activityIndicatorViewStyle =
+        UIActivityIndicatorViewStyleWhiteLarge;
+    [activityIndicator startAnimating];
+    [darkTransparentView addSubview:activityIndicator];
+    
+    CGRect loadingLabelFrame = CGRectMake(21, 120, 280, 65);
+    loadingLabel = [[UILabel alloc] initWithFrame:loadingLabelFrame];
+    loadingLabel.text = @"Creating ticket...";
+    loadingLabel.textAlignment = UITextAlignmentCenter;
+    loadingLabel.font = [UIFont boldSystemFontOfSize:20];
+    loadingLabel.textColor = [UIColor whiteColor];
+    loadingLabel.backgroundColor = [UIColor clearColor];
+    [darkTransparentView addSubview:loadingLabel];
 }
 
 #pragma mark MessagesViewControllerDelegate implementation
@@ -68,7 +109,7 @@
 
         resetCache = YES;
         [wrapperController setUpdatingState:kConnectedAndUpdating];
-        if (!self.activeProjectKey) {
+        if (selectProject) {
             for (id projectKey in [self.projectDict allKeys])
                 [dataSource fetchMessagesForProject:projectKey];
         } else
@@ -79,14 +120,6 @@
 - (void)displayCachedMessages
 {
     NSMutableDictionary * postedByDict = [NSMutableDictionary dictionary];
-    NSDictionary * allPostedByKeys = [messageCache allPostedByKeys];
-    for (id key in allPostedByKeys) {
-        id postedByKey = [allPostedByKeys objectForKey:key];
-        NSString * postedByName = [userDict objectForKey:postedByKey];
-        if (postedByName)
-            [postedByDict setObject:postedByName forKey:key];
-    }
-
     NSMutableDictionary * msgProjectDict = [NSMutableDictionary dictionary];
     NSMutableDictionary * numResponsesDict = [NSMutableDictionary dictionary];
 
@@ -95,6 +128,16 @@
         NSUInteger respCount = [[messageCache responseKeysForKey:key] count];
         NSNumber * respCountAsNum = [NSNumber numberWithInt:respCount];
         [numResponsesDict setObject:respCountAsNum forKey:key];
+
+        id postedByKey = [messageCache postedByKeyForKey:key];
+        NSString * postedByName = [userDict objectForKey:postedByKey];
+        if (postedByName)
+            [postedByDict setObject:postedByName forKey:key];
+        
+        id projectKey = [messageCache projectKeyForKey:key];
+        NSString * projectName = [projectDict objectForKey:projectKey];
+        if (projectName)
+            [msgProjectDict setObject:projectName forKey:key];
     }
 
     [messagesViewController setMessages:[messageCache allMessages]
@@ -150,13 +193,71 @@
     resetCache = NO;
 }
 
+- (void)createdMessageWithKey:(id)key
+{
+    [self enableEditView];
+    [self showAllMessages];
+}
+
+#pragma mark NewMessageViewControllerDelegate implementation
+
+- (void)postNewMessage:(NSString *)message withTitle:(NSString *)title
+{
+    NSLog(@"Posting message to server: %@", title);
+    [self disableEditViewWithText:@"Posting message..."];
+    NewMessageDescription * description = [NewMessageDescription description];
+    description.title = title;
+    description.body = message;
+    [dataSource createMessageWithDescription:description
+        forProject:self.activeProjectKey];
+}
+
 #pragma mark MessageDisplayMgr implementation
 
 - (void)createNewMessage
 {
     NSLog(@"Presenting 'create message' view");
-    [self.navController presentModalViewController:self.newMessageViewController
+
+    UIViewController * rootViewController;
+
+    if (selectProject) {
+        rootViewController = self.projectSelectionViewController;
+        self.projectSelectionViewController.projects = projectDict;
+    } else
+        rootViewController = self.newMessageViewController;
+
+    UINavigationController * tempNavController =
+        [[[UINavigationController alloc]
+        initWithRootViewController:rootViewController]
+        autorelease];
+
+    [self.navController presentModalViewController:tempNavController
         animated:YES];
+}
+
+- (void)userDidSelectActiveProjectKey:(id)key
+{
+    NSLog(@"User selected project %@ for message editing", key);
+    self.activeProjectKey = key;
+    [self.projectSelectionViewController.navigationController
+        pushViewController:self.newMessageViewController animated:YES];
+}
+
+- (void)disableEditViewWithText:(NSString *)text
+{
+    loadingLabel.text = text;
+    [self.newMessageViewController.view.superview
+        addSubview:darkTransparentView];
+    self.newMessageViewController.cancelButton.enabled = NO;
+    self.newMessageViewController.postButton.enabled = NO;
+}
+
+- (void)enableEditView
+{
+    [darkTransparentView removeFromSuperview];
+    [self.newMessageViewController dismissModalViewControllerAnimated:YES];
+    self.newMessageViewController.cancelButton.enabled = YES;
+    self.newMessageViewController.postButton.enabled = YES;
 }
 
 #pragma mark Accessors
@@ -168,8 +269,24 @@
             [[NewMessageViewController alloc]
             initWithNibName:@"NewMessageView" bundle:nil];
     }
+    newMessageViewController.navigationItem.hidesBackButton = YES;
+    newMessageViewController.delegate = self;
 
     return newMessageViewController;
+}
+
+- (ProjectSelectionViewController *)projectSelectionViewController
+{
+    if (!projectSelectionViewController) {
+        projectSelectionViewController =
+            [[ProjectSelectionViewController alloc]
+            initWithNibName:@"ProjectSelectionView" bundle:nil];
+        projectSelectionViewController.target = self;
+        projectSelectionViewController.action =
+            @selector(userDidSelectActiveProjectKey:);
+    }
+
+    return projectSelectionViewController;
 }
 
 - (MessageDetailsViewController *)detailsViewController

@@ -8,5 +8,6 @@
 @protocol MessageDataSourceDelegate
 
 - (void)receivedMessagesFromDataSource:(MessageCache *)aMessageCache;
+- (void)createdMessageWithKey:(id)key;
 
 @end

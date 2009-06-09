@@ -12,11 +12,12 @@
 #import "MessageResponseCache.h"
 #import "MessageDataSource.h"
 #import "MessageDataSourceDelegate.h"
+#import "ProjectSelectionViewController.h"
 
 @interface MessageDisplayMgr :
     NSObject
     <MessagesViewControllerDelegate, NetworkAwareViewControllerDelegate,
-    MessageDataSourceDelegate>
+    MessageDataSourceDelegate, NewMessageViewControllerDelegate>
 {
     MessageCache * messageCache;
     MessageResponseCache * responseCache;
@@ -25,18 +26,25 @@
     MessagesViewController * messagesViewController;
 
     NewMessageViewController * newMessageViewController;
+    ProjectSelectionViewController * projectSelectionViewController;
     MessageDetailsViewController * detailsViewController;
 
     NSDictionary * userDict;
     NSDictionary * projectDict;
+    
+    UIView * darkTransparentView;
+    UILabel * loadingLabel;
 
     id activeProjectKey;
     BOOL resetCache;
+    BOOL selectProject;
 }
 
 @property (nonatomic, retain) MessageCache * messageCache;
 @property (nonatomic, readonly)
     NewMessageViewController * newMessageViewController;
+@property (nonatomic, readonly)
+    ProjectSelectionViewController * projectSelectionViewController;
 @property (nonatomic, readonly)
     MessageDetailsViewController * detailsViewController;
 @property (nonatomic, readonly) UINavigationController * navController;
@@ -45,6 +53,7 @@
 @property (nonatomic, copy) NSDictionary * userDict;
 
 @property (nonatomic, copy) id activeProjectKey;
+@property (nonatomic, assign) BOOL selectProject;
 
 - (id)initWithMessageCache:(MessageCache *)aMessageCache
     messageResponseCache:(MessageResponseCache *)aMessageResponseCache

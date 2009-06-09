@@ -35,7 +35,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"Cell";
+    static NSString * cellIdentifier = @"MessageTableViewCell";
 
     MessageTableViewCell * cell =
         (MessageTableViewCell *)
@@ -60,6 +60,9 @@
     NSUInteger numResponses =
         [[numResponsesDict objectForKey:messageKey] intValue];
     [cell setNumResponses:numResponses];
+
+    NSString * projectName = [projectDict objectForKey:messageKey];
+    [cell setProjectName:projectName];
 
     return cell;
 }

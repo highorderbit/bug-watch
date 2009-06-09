@@ -522,6 +522,7 @@
 		919892360FDD75DF00A61099 /* MessageDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDataSource.h; path = messages/MessageDataSource.h; sourceTree = "<group>"; };
 		919892370FDD75DF00A61099 /* MessageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDataSource.m; path = messages/MessageDataSource.m; sourceTree = "<group>"; };
 		919892390FDD762400A61099 /* MessageDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDataSourceDelegate.h; path = messages/MessageDataSourceDelegate.h; sourceTree = "<group>"; };
+		919892D80FDECC5E00A61099 /* NewMessageViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewMessageViewControllerDelegate.h; path = messages/NewMessageViewControllerDelegate.h; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
 		91A85AB30FAF59A30084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AddCommentView.xib; sourceTree = "<group>"; };
@@ -1113,6 +1114,7 @@
 				919892360FDD75DF00A61099 /* MessageDataSource.h */,
 				919892370FDD75DF00A61099 /* MessageDataSource.m */,
 				919892390FDD762400A61099 /* MessageDataSourceDelegate.h */,
+				919892D80FDECC5E00A61099 /* NewMessageViewControllerDelegate.h */,
 			);
 			name = messages;
 			sourceTree = "<group>";

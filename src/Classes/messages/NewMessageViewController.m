@@ -6,12 +6,32 @@
 
 @implementation NewMessageViewController
 
+@synthesize delegate, postButton, cancelButton;
+
 - (void)dealloc
 {
     [postButton release];
+    [cancelButton release];
     [titleField release];
     [messageTextView release];
     [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    [self.navigationItem setLeftBarButtonItem:cancelButton animated:NO];
+    [self.navigationItem setRightBarButtonItem:postButton animated:NO];
+    self.navigationItem.title = @"New Message";
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    titleField.text = @"";
+    messageTextView.text = @"";
 }
 
 - (IBAction)cancelSelected:(id)sender
@@ -21,13 +41,18 @@
         [titleField resignFirstResponder];
     else if (messageViewEditing)
         [messageTextView resignFirstResponder];
-    else
+    else if ([self.navigationController.viewControllers count] == 1)
         [self dismissModalViewControllerAnimated:YES];
+    else
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)postSelected:(id)sender
 {
     NSLog(@"Post new message selected");
+    NSString * message = messageTextView.text;
+    NSString * title = titleField.text;
+    [delegate postNewMessage:message withTitle:title];
 }
 
 - (IBAction)editMessageText:(id)sender

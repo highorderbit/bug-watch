@@ -28,6 +28,14 @@
     [service fetchMessagesForProject:projectKey token:self.token];
 }
 
+- (void)createMessageWithDescription:(NewMessageDescription *)desc
+    forProject:(id)projectKey
+{
+    [service createMessage:desc forProject:projectKey token:token];
+}
+
+#pragma mark LighthouseApiServiceDelegate implementation
+
 - (void)messages:(NSArray *)messages messageKeys:(NSArray *)messageKeys
     authorKeys:(NSArray *)authorKeys fetchedForProject:(id)projectKey
 {
@@ -45,6 +53,16 @@
 }
 
 - (void)failedToFetchMessagesForProject:(id)projectKey error:(NSError *)error
+{}
+
+- (void)message:(id)messageKey describedBy:(NewMessageDescription *)desc
+    createdForProject:(id)projectKey
+{
+    [delegate createdMessageWithKey:nil];
+}
+
+- (void)failedToCreateMessageDescribedBy:(NewMessageDescription *)desc
+    forProject:(id)projectKey error:(NSError *)error
 {}
 
 @end
