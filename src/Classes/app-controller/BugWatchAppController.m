@@ -33,6 +33,8 @@
 #import "AllUserUpdatePublisher.h"
 #import "ProjectDispMgrProjectSetter.h"
 #import "ProjectSpecificTicketBinDSAdapter.h"
+#import "MessageDisplayProjectSetter.h"
+#import "MessageDisplayUserSetter.h"
 
 @interface BugWatchAppController (Private)
 
@@ -86,9 +88,6 @@
 
     [projectCacheSetter release];
 
-    [messageCache release];
-    [messageResponseCache release];
-
     [milestoneDisplayMgr release];
     [milestoneCacheSetter release];
 
@@ -103,8 +102,10 @@
 
 - (void)start
 {
-    NSString * baseServiceUrl = @"https://highorderbit.lighthouseapp.com/"; // TEMPORARY
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
+    // TEMPORARY
+    NSString * baseServiceUrl = @"https://highorderbit.lighthouseapp.com/"; 
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
+    // TEMPORARY
 
     lighthouseApiFactory =
         [[LighthouseApiServiceFactory alloc] initWithBaseUrl:baseServiceUrl];
@@ -116,61 +117,12 @@
 
     [self initSharedStateListeners];
 
-    messageCache = [[MessageCache alloc] init];
-    messageResponseCache = [[MessageResponseCache alloc] init];
-
     // load single-session, global data (milestones, projects, users)
     LighthouseApiService * service =
         [[lighthouseApiFactory createLighthouseApiService] retain];
 
     [service fetchMilestonesForAllProjects:token];
     [service fetchAllProjects:token];
-
-    // TEMPORARY: populate message cache
-    Message * msg1 =
-       [[Message alloc] initWithPostedDate:[NSDate date]
-       title:@"App Store Description"
-       message:@"Code Watch is the best way to get GitHub on your iPhone.\nKeep track of what's going on with all of your GitHub repositories, including your private ones."];
-    Message * msg2 =
-        [[Message alloc] initWithPostedDate:[NSDate date]
-        title:@"What should we do with private information after logging out?"
-        message:@"We don't really address this issue at all, currently. Off the top of my head, I suppose we should clear the primary user info (do we do that currently?), clear the news feed cache, and remove all repos in the repo cache marked as private. We could also just do the easy thing and clear all caches with potentially private information. Actually, I would probably favor the last solution. It's easy, and I don't think this use-case will be very common."];
-    [messageCache setMessage:msg1 forKey:[NSNumber numberWithInt:0]];
-    [messageCache setMessage:msg2 forKey:[NSNumber numberWithInt:1]];
-    [messageCache setPostedByKey:[NSNumber numberWithInt:0]
-        forKey:[NSNumber numberWithInt:1]];
-    [messageCache setPostedByKey:[NSNumber numberWithInt:1]
-        forKey:[NSNumber numberWithInt:0]];
-
-    [messageCache setResponseKeys:[NSArray array]
-        forKey:[NSNumber numberWithInt:0]];
-    NSMutableArray * responseKeys = [NSMutableArray array];
-    [responseKeys addObject:[NSNumber numberWithInt:0]];
-    [responseKeys addObject:[NSNumber numberWithInt:1]];
-    [messageCache setResponseKeys:responseKeys
-        forKey:[NSNumber numberWithInt:0]];
-        
-    [messageCache setProjectKey:[NSNumber numberWithInt:0]
-        forKey:[NSNumber numberWithInt:1]];
-    [messageCache setProjectKey:[NSNumber numberWithInt:1]
-        forKey:[NSNumber numberWithInt:0]];
-
-    MessageResponse * msgResp1 =
-        [[[MessageResponse alloc]
-        initWithText:@"My response 1" date:[NSDate date]] autorelease];
-    MessageResponse * msgResp2 =
-        [[[MessageResponse alloc]
-        initWithText:@"My response 2 My response 2 My response 2 My response 2"
-        date:[NSDate date]] autorelease];
-    [messageResponseCache setResponse:msgResp1
-        forKey:[NSNumber numberWithInt:0]];
-    [messageResponseCache setResponse:msgResp2
-        forKey:[NSNumber numberWithInt:1]];
-    [messageResponseCache setAuthorKey:[NSNumber numberWithInt:0]
-        forKey:[NSNumber numberWithInt:0]];
-    [messageResponseCache setAuthorKey:[NSNumber numberWithInt:1]
-        forKey:[NSNumber numberWithInt:1]];
-    // TEMPORARY
 
     [self initTicketsTab];
     [self initProjectsTab];
@@ -486,20 +438,57 @@
 
 - (void)initMessagesTab
 {
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
+
     MessagesViewController * messagesViewController =
         [[MessagesViewController alloc]
         initWithNibName:@"MessagesView" bundle:nil];
     messagesNetAwareViewController.targetViewController =
         messagesViewController;
 
+    LighthouseApiService * dataSourceService =
+        [lighthouseApiFactory createLighthouseApiService];
+    MessageDataSource * dataSource =
+        [[[MessageDataSource alloc] initWithService:dataSourceService]
+        autorelease];
+    dataSource.token = token;
+    dataSourceService.delegate = dataSource;
+
     MessageDisplayMgr * messageDisplayMgr =
-        [[[MessageDisplayMgr alloc] initWithMessageCache:messageCache
-        messageResponseCache:messageResponseCache
+        [[[MessageDisplayMgr alloc] initWithMessageCache:nil
+        messageResponseCache:nil dataSource:dataSource
         networkAwareViewController:messagesNetAwareViewController
         messagesViewController:messagesViewController] autorelease];
     messagesViewController.delegate = messageDisplayMgr;
     messagesNetAwareViewController.delegate = messageDisplayMgr;
-    
+    dataSource.delegate = messageDisplayMgr;
+
+    // intentionally not autoreleasing either of the following objects
+    MessageDisplayProjectSetter * projectSetter =
+        [[MessageDisplayProjectSetter alloc]
+        initWithMessageDisplayMgr:messageDisplayMgr];
+    // just create, no need to assign a variable
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:projectSetter
+        action:@selector(fetchedAllProjects:projectKeys:)];
+
+    MessageDisplayUserSetter * userSetter =
+        [[MessageDisplayUserSetter alloc]
+        initWithMessageDisplayMgr:messageDisplayMgr];
+    LighthouseApiService * userSetterService =
+        [lighthouseApiFactory createLighthouseApiService];
+    UserSetAggregator * userSetAggregator =
+        [[UserSetAggregator alloc]
+        initWithApiService:userSetterService token:token];
+    [[AllUserUpdatePublisher alloc]
+        initWithListener:userSetter
+        action:@selector(fetchedAllUsers:)];
+
+    userSetterService.delegate = userSetAggregator;
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:userSetAggregator
+        action:@selector(fetchedAllProjects:projectKeys:)];
+
     UIBarButtonItem * addButton =
         messagesNetAwareViewController.navigationItem.rightBarButtonItem;
     addButton.target = messageDisplayMgr;

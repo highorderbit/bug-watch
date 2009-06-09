@@ -184,6 +184,9 @@
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919891CC0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */; };
+		919892200FDD5BF000A61099 /* MessageDisplayUserSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198921F0FDD5BF000A61099 /* MessageDisplayUserSetter.m */; };
+		919892230FDD5C0A00A61099 /* MessageDisplayProjectSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 919892220FDD5C0A00A61099 /* MessageDisplayProjectSetter.m */; };
+		919892380FDD75DF00A61099 /* MessageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 919892370FDD75DF00A61099 /* MessageDataSource.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
 		91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */; };
@@ -506,6 +509,13 @@
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
 		919891CA0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectSpecificTicketBinDSAdapter.h; path = tickets/ProjectSpecificTicketBinDSAdapter.h; sourceTree = "<group>"; };
 		919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectSpecificTicketBinDSAdapter.m; path = tickets/ProjectSpecificTicketBinDSAdapter.m; sourceTree = "<group>"; };
+		9198921E0FDD5BF000A61099 /* MessageDisplayUserSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDisplayUserSetter.h; path = messages/MessageDisplayUserSetter.h; sourceTree = "<group>"; };
+		9198921F0FDD5BF000A61099 /* MessageDisplayUserSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDisplayUserSetter.m; path = messages/MessageDisplayUserSetter.m; sourceTree = "<group>"; };
+		919892210FDD5C0A00A61099 /* MessageDisplayProjectSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDisplayProjectSetter.h; path = messages/MessageDisplayProjectSetter.h; sourceTree = "<group>"; };
+		919892220FDD5C0A00A61099 /* MessageDisplayProjectSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDisplayProjectSetter.m; path = messages/MessageDisplayProjectSetter.m; sourceTree = "<group>"; };
+		919892360FDD75DF00A61099 /* MessageDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDataSource.h; path = messages/MessageDataSource.h; sourceTree = "<group>"; };
+		919892370FDD75DF00A61099 /* MessageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDataSource.m; path = messages/MessageDataSource.m; sourceTree = "<group>"; };
+		919892390FDD762400A61099 /* MessageDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDataSourceDelegate.h; path = messages/MessageDataSourceDelegate.h; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
 		91A85AB30FAF59A30084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AddCommentView.xib; sourceTree = "<group>"; };
@@ -1086,6 +1096,13 @@
 				918885C20FB8B981009F5861 /* ResponseTableViewCell.m */,
 				918886010FB8D9F9009F5861 /* MessageResponseCache.h */,
 				918886020FB8D9F9009F5861 /* MessageResponseCache.m */,
+				9198921E0FDD5BF000A61099 /* MessageDisplayUserSetter.h */,
+				9198921F0FDD5BF000A61099 /* MessageDisplayUserSetter.m */,
+				919892210FDD5C0A00A61099 /* MessageDisplayProjectSetter.h */,
+				919892220FDD5C0A00A61099 /* MessageDisplayProjectSetter.m */,
+				919892360FDD75DF00A61099 /* MessageDataSource.h */,
+				919892370FDD75DF00A61099 /* MessageDataSource.m */,
+				919892390FDD762400A61099 /* MessageDataSourceDelegate.h */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -1432,6 +1449,9 @@
 				914835D90FD6EA79002D10E8 /* TicketSearchMgrFactory.m in Sources */,
 				91E14D270FD8857000B9B8CD /* RecentHistoryCache.m in Sources */,
 				919891CC0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m in Sources */,
+				919892200FDD5BF000A61099 /* MessageDisplayUserSetter.m in Sources */,
+				919892230FDD5C0A00A61099 /* MessageDisplayProjectSetter.m in Sources */,
+				919892380FDD75DF00A61099 /* MessageDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -41,9 +41,6 @@
 
     ProjectCacheSetter * projectCacheSetter;
 
-    MessageCache * messageCache;
-    MessageResponseCache * messageResponseCache;
-
     MilestoneDisplayMgr * milestoneDisplayMgr;
     MilestoneCacheSetter * milestoneCacheSetter;
     

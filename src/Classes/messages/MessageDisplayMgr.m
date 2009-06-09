@@ -4,47 +4,50 @@
 
 #import "MessageDisplayMgr.h"
 
+@interface MessageDisplayMgr (Private)
+
+- (void)displayCachedMessages;
+
+@end
+
 @implementation MessageDisplayMgr
+
+@synthesize messageCache, userDict, projectDict, activeProjectKey;
 
 - (void)dealloc
 {
     [messageCache release];
     [responseCache release];
+    [dataSource release];
     [messagesViewController release];
     [wrapperController release];
 
     [newMessageViewController release];
     [detailsViewController release];
 
-    // TEMPORARY
     [userDict release];
     [projectDict release];
-    // TEMPORARY
-    
+
+    [activeProjectKey release];
+
     [super dealloc];
 }
 
 - (id)initWithMessageCache:(MessageCache *)aMessageCache
     messageResponseCache:(MessageResponseCache *)aMessageResponseCache
+    dataSource:(MessageDataSource *)aDataSource
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
     messagesViewController:(MessagesViewController *)aMessagesViewController
 {
     if (self = [super init]) {
         messageCache = [aMessageCache retain];
         responseCache = [aMessageResponseCache retain];
+        dataSource = [aDataSource retain];
         wrapperController = [aWrapperController retain];
         messagesViewController = [aMessagesViewController retain];
         
-        // TEMPORARY
-        // this will eventually be read from a user cache of some sort
-        userDict = [[NSMutableDictionary dictionary] retain];
-        [userDict setObject:@"Doug Kurth" forKey:[NSNumber numberWithInt:0]];
-        [userDict setObject:@"John A. Debay" forKey:[NSNumber numberWithInt:1]];
-        
-        projectDict = [[NSMutableDictionary dictionary] retain];
-        [projectDict setObject:@"Code Watch" forKey:[NSNumber numberWithInt:0]];
-        [projectDict setObject:@"Bug Watch" forKey:[NSNumber numberWithInt:1]];
-        // TEMPORARY
+        self.activeProjectKey = nil;
+        wrapperController.cachedDataAvailable = NO;
     }
 
     return self;
@@ -54,22 +57,39 @@
 
 - (void)showAllMessages
 {
-    // TEMPORARY
-    wrapperController.cachedDataAvailable = YES;
-    [wrapperController setUpdatingState:kConnectedAndNotUpdating];
-    // TEMPORARY
-    
+    NSLog(@"Showing messages...");
+    // Make sure we've received a project dictionary already, otherwise wait
+    // and show all messages after it has arrived
+    if (self.activeProjectKey || self.projectDict) {
+        wrapperController.cachedDataAvailable = !!messageCache;
+
+        if (messageCache) 
+            [self displayCachedMessages];
+
+        resetCache = YES;
+        [wrapperController setUpdatingState:kConnectedAndUpdating];
+        if (!self.activeProjectKey) {
+            for (id projectKey in [self.projectDict allKeys])
+                [dataSource fetchMessagesForProject:projectKey];
+        } else
+            [dataSource fetchMessagesForProject:self.activeProjectKey];
+    }
+}
+
+- (void)displayCachedMessages
+{
     NSMutableDictionary * postedByDict = [NSMutableDictionary dictionary];
     NSDictionary * allPostedByKeys = [messageCache allPostedByKeys];
     for (id key in allPostedByKeys) {
         id postedByKey = [allPostedByKeys objectForKey:key];
         NSString * postedByName = [userDict objectForKey:postedByKey];
-        [postedByDict setObject:postedByName forKey:key];
+        if (postedByName)
+            [postedByDict setObject:postedByName forKey:key];
     }
 
     NSMutableDictionary * msgProjectDict = [NSMutableDictionary dictionary];
     NSMutableDictionary * numResponsesDict = [NSMutableDictionary dictionary];
-    
+
     NSArray * allMessageKeys = [[messageCache allMessages] allKeys];
     for (id key in allMessageKeys) {
         NSUInteger respCount = [[messageCache responseKeysForKey:key] count];
@@ -116,6 +136,20 @@
     [self showAllMessages];
 }
 
+#pragma mark MessageDataSourceDelegate implementation
+
+- (void)receivedMessagesFromDataSource:(MessageCache *)aMessageCache
+{
+    NSLog(@"Received messages from data source: %@", aMessageCache);
+    [wrapperController setUpdatingState:kConnectedAndNotUpdating];
+    if (resetCache)
+        self.messageCache = aMessageCache;
+    else
+        [self.messageCache merge:aMessageCache];
+    [self displayCachedMessages];
+    resetCache = NO;
+}
+
 #pragma mark MessageDisplayMgr implementation
 
 - (void)createNewMessage
@@ -152,6 +186,24 @@
 - (UINavigationController *)navController
 {
     return wrapperController.navigationController;
+}
+
+- (void)setProjectDict:(NSDictionary *)aProjectDict
+{
+    NSDictionary * tempProjectDict = [aProjectDict copy];
+    [projectDict release];
+    projectDict = tempProjectDict;
+
+    [self showAllMessages];
+}
+
+- (void)setUserDict:(NSDictionary *)aUserDict
+{
+    NSDictionary * tempUserDict = [aUserDict copy];
+    [userDict release];
+    userDict = tempUserDict;
+
+    [self showAllMessages];
 }
 
 @end
