@@ -18,4 +18,6 @@
 - (id)initWithPostedDate:(NSDate *)postedDate title:(NSString *)title
     message:(NSString *)message;
 
+- (NSComparisonResult)compare:(Message *)anotherMessage;
+
 @end

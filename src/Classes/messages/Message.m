@@ -49,4 +49,9 @@
         "message: '%@'", self.title, self.postedDate, self.message];
 }
 
+- (NSComparisonResult)compare:(Message *)anotherMessage
+{
+    return [anotherMessage.postedDate compare:self.postedDate];
+}
+
 @end

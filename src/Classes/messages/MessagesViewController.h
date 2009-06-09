@@ -23,4 +23,6 @@
 @property (nonatomic, retain)
     NSObject<MessagesViewControllerDelegate> * delegate;
 
+@property (nonatomic, readonly) NSArray * sortedKeys;
+
 @end

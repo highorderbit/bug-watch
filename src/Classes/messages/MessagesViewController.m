@@ -48,7 +48,7 @@
         cell = [nib objectAtIndex:0];
     }
 
-    id messageKey = [[messages allKeys] objectAtIndex:indexPath.row];
+    id messageKey = [self.sortedKeys objectAtIndex:indexPath.row];
     Message * message = [messages objectForKey:messageKey];
     [cell setTitleText:message.title];
     [cell setCommentText:message.message];
@@ -67,7 +67,7 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id messageKey = [[messages allKeys] objectAtIndex:indexPath.row];
+    id messageKey = [self.sortedKeys objectAtIndex:indexPath.row];
     [delegate selectedMessageKey:messageKey];
 }
 
@@ -76,7 +76,7 @@
 - (CGFloat)tableView:(UITableView *)tableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id messageKey = [[messages allKeys] objectAtIndex:indexPath.row];
+    id messageKey = [self.sortedKeys objectAtIndex:indexPath.row];
     Message * message = [messages objectForKey:messageKey];
 
     return [MessageTableViewCell heightForTitle:message.title
@@ -93,11 +93,11 @@
     NSDictionary * tempMessages = [someMessages copy];
     [messages release];
     messages = tempMessages;
-    
+
     NSDictionary * tempPostedByDict = [aPostedByDict copy];
     [postedByDict release];
     postedByDict = tempPostedByDict;
-    
+
     NSDictionary * tempProjectDict = [aProjectDict copy];
     [projectDict release];
     projectDict = tempProjectDict;
@@ -108,6 +108,11 @@
 
     [self.tableView reloadData];
 }
-    
+
+- (NSArray *)sortedKeys
+{
+    return [messages keysSortedByValueUsingSelector:@selector(compare:)];
+}
+
 @end
 
