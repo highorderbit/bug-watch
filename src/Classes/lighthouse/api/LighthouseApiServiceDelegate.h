@@ -5,7 +5,9 @@
 #import <Foundation/Foundation.h>
 
 @class NewTicketDescription, UpdateTicketDescription;
-@class NewMessageDescription;
+@class NewMessageDescription, UpdateMessageDescription;
+@class NewMessageCommentDescription;
+@class MessageResponse;
 
 @protocol LighthouseApiServiceDelegate <NSObject>
 
@@ -113,5 +115,20 @@
     createdForProject:(id)projectKey;
 - (void)failedToCreateMessageDescribedBy:(NewMessageDescription *)desc
     forProject:(id)projectKey error:(NSError *)error;
+
+#pragma mark Messages -- editing
+
+- (void)editedMessage:(id)messageKey forProject:(id)projectKey
+    describedBy:(UpdateMessageDescription *)description;
+- (void)failedToEditMessage:(id)messageKey forProject:(id)projectKey
+    describedBy:(UpdateMessageDescription *)description error:(NSError *)error;
+
+#pragma mark Messages -- adding comments
+
+- (void)comment:(MessageResponse *)comment withKey:(id)commentKey
+    authorKey:(id)authorKey addedToMessage:(id)messageKey
+    forProject:(id)projectKey describedBy:(NewMessageCommentDescription *)desc;
+- (void)failedToAddCommentToMessage:(id)messageKey forProject:(id)projectKey
+    describedBy:(NewMessageDescription *)desc error:(NSError *)error;
 
 @end

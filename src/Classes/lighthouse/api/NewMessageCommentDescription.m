@@ -2,9 +2,9 @@
 //  Copyright High Order Bit, Inc. 2009. All rights reserved.
 //
 
-#import "NewMessageDescription.h"
+#import "NewMessageCommentDescription.h"
 
-@implementation NewMessageDescription
+@implementation NewMessageCommentDescription
 
 @synthesize title, body;
 
@@ -32,7 +32,8 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    NewMessageDescription * desc = [[[self class] allocWithZone:zone] init];
+    NewMessageCommentDescription * desc =
+        [[[self class] allocWithZone:zone] init];
     desc.title = self.title;
     desc.body = self.body;
 

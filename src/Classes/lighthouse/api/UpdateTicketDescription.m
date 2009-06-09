@@ -88,6 +88,8 @@
     </ticket>
     */     
 
+    NSAssert(projectKey, @"Project key cannot be nil.");
+
     NSMutableString * xml = [NSMutableString string];
     [xml appendString:@"<ticket>\n"];
 
