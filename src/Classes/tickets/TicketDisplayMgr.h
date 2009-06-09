@@ -48,7 +48,7 @@
 
     id activeProjectKey;
     BOOL selectProject;
-    BOOL firstTimeDisplayed;
+    BOOL displayDirty;
 }
 
 @property (readonly) NetworkAwareViewController * wrapperController;

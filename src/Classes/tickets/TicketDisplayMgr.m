@@ -17,6 +17,7 @@
 - (void)deleteTicketOnServer;
 - (void)disableEditViewWithText:(NSString *)text;
 - (void)enableEditView;
+- (void)updateDisplayIfDirty;
 
 @property (nonatomic, readonly) NSDictionary * milestonesForProject;
 @property (nonatomic, readonly) UIBarButtonItem * detailsEditButton;
@@ -68,10 +69,11 @@
 
         [self initDarkTransparentView];
         self.selectProject = YES;
-        firstTimeDisplayed = YES;
+        displayDirty = YES;
 
         recentHistoryCommentCache =
             [[RecentHistoryCache alloc] initWithCacheLimit:20];
+
     }
 
     return self;
@@ -242,6 +244,14 @@
         [wrapperController setUpdatingState:kConnectedAndNotUpdating];
 }
 
+- (void)updateDisplayIfDirty
+{
+    if (displayDirty) {
+        [self forceQueryRefresh];
+        displayDirty = NO;
+    }
+}
+
 - (void)forceQueryRefresh
 {
     NSString * tempFilterString = self.ticketCache.query;
@@ -284,12 +294,7 @@
 
 - (void)networkAwareViewWillAppear
 {
-    if (firstTimeDisplayed)
-        [self forceQueryRefresh];
-    else
-        [self ticketsFilteredByFilterString:ticketCache.query];
-
-    firstTimeDisplayed = NO;
+    [self updateDisplayIfDirty];
 }
 
 #pragma mark TicketDataSourceDelegate implementation
@@ -529,7 +534,9 @@
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
     
-    [self ticketsFilteredByFilterString:ticketCache.query];
+    displayDirty = YES;
+    if (ticketsViewController.isFirstResponder)
+        [self updateDisplayIfDirty];
 }
 
 - (void)setProjectDict:(NSDictionary *)aProjectDict
@@ -537,8 +544,10 @@
     NSDictionary * tempProjectDict = [aProjectDict copy];
     [projectDict release];
     projectDict = tempProjectDict;
-    
-    [self ticketsFilteredByFilterString:ticketCache.query];
+
+    displayDirty = YES;
+    if (ticketsViewController.isFirstResponder)
+        [self updateDisplayIfDirty];
 }
 
 - (void)setUserDict:(NSDictionary *)aUserDict
@@ -547,7 +556,9 @@
     [userDict release];
     userDict = tempUserDict;
 
-    [self ticketsFilteredByFilterString:ticketCache.query];
+    displayDirty = YES;
+    if (ticketsViewController.isFirstResponder)
+        [self updateDisplayIfDirty];
 }
 
 - (NSDictionary *)milestonesForProject
