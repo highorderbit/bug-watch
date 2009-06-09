@@ -12,16 +12,20 @@
 #import "UpdateMessageDescription.h"
 #import "NewMessageCommentDescription.h"
 
-@class LighthouseApi, LighthouseApiParser;
+@class LighthouseApi;
+@class LighthouseApiParser, BugWatchObjectBuilder;
 
 @interface LighthouseApiService : NSObject <LighthouseApiDelegate>
 {
     id<LighthouseApiServiceDelegate> delegate;
 
     LighthouseApi * api;
+
     LighthouseApiParser * parser;
+    BugWatchObjectBuilder * builder;
 
     NSMutableDictionary * changeTicketRequests;
+    NSMutableDictionary * responseProcessors;
 }
 
 @property (nonatomic, assign) id<LighthouseApiServiceDelegate> delegate;

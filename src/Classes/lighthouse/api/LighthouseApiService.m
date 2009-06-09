@@ -8,6 +8,11 @@
 #import "RandomNumber.h"
 #import "RegexKitLite.h"
 
+#import "BugWatchObjectBuilder.h"
+
+#import "ResponseProcessor.h"
+#import "CreateTicketResponseProcessor.h"
+
 @interface LighthouseApiService ()
 
 - (NSArray *)parseTickets:(NSData *)xml;
@@ -56,9 +61,12 @@
 - (void)dealloc
 {
     [api release];
+
     [parser release];
+    [builder release];
 
     [changeTicketRequests release];
+    [responseProcessors release];
 
     [super dealloc];
 }
@@ -72,8 +80,10 @@
         api.delegate = self;
 
         parser = [[LighthouseApiParser alloc] init];
+        builder = [[BugWatchObjectBuilder alloc] initWithParser:parser];
 
         changeTicketRequests = [[NSMutableDictionary alloc] init];
+        responseProcessors = [[NSMutableDictionary alloc] init];
     }
 
     return self;
@@ -116,7 +126,20 @@
     id requestId = [[self class] nextRequestId];
     [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
-    [api beginTicketCreationForProject:projectKey object:requestId token:token];
+    CreateTicketResponseProcessor * processor =
+        [CreateTicketResponseProcessor processorWithBuilder:builder
+                                                description:desc
+                                                 projectKey:projectKey
+                                                   delegate:delegate];
+    [responseProcessors setObject:processor forKey:requestId];
+
+    NSString * creationXml = [desc xmlDescriptionForProject:projectKey];
+    [api completeTicketCreationForProject:projectKey
+                              description:creationXml
+                                   object:requestId
+                                    token:token];
+
+    //[api beginTicketCreationForProject:projectKey object:requestId token:token];
 }
 
 #pragma mark Tickets -- editing
@@ -362,21 +385,13 @@
 - (void)ticketCreated:(NSData *)data description:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
 {
-    NewTicketDescription * newTicketDescription =
-        [changeTicketRequests objectForKey:object];
-    NSAssert1(newTicketDescription, @"Did not find a pending ticket request "
-        "for key: '%@'.", object);
+    ResponseProcessor * processor = [responseProcessors objectForKey:object];
 
-    NSArray * ticketUrls = [self parseTicketUrls:data];
-    NSAssert1(ticketUrls.count == 1, @"Expected 1 url, but got %d.",
-        ticketUrls.count);
+    NSAssert1(processor, @"Did not find a response processor for key: '%@'.",
+        object);
 
-    NSString * url = [ticketUrls lastObject];
-    id ticketKey = [url stringByMatching:@".*/(\\d+)$" capture:1];
-
-    SEL sel = @selector(ticket:describedBy:createdForProject:);
-    [self invokeSelector:sel withTarget:delegate args:ticketKey,
-        newTicketDescription, projectKey, nil];
+    [processor process:data];
+    [responseProcessors removeObjectForKey:object];
 
     [changeTicketRequests removeObjectForKey:object];
 }
@@ -385,14 +400,13 @@
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     error:(NSError *)error
 {
-    NewTicketDescription * newTicketDescription =
-        [changeTicketRequests objectForKey:object];
-    NSAssert1(newTicketDescription, @"Did not find a pending ticket request "
-        "for key: '%@'.", object);
+    ResponseProcessor * processor = [responseProcessors objectForKey:object];
 
-    SEL sel = @selector(failedToCreateNewTicketDescribedBy:forProject:error:);
-    [self invokeSelector:sel withTarget:delegate args:newTicketDescription,
-        projectKey, error, nil];
+    NSAssert1(processor, @"Did not find a response processor for key: '%@'.",
+        object);
+
+    [processor processError:error];
+    [responseProcessors removeObjectForKey:object];
 
     [changeTicketRequests removeObjectForKey:object];
 }

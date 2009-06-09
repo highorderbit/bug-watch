@@ -25,6 +25,7 @@
 		052C5C640FB49D9300C7A30C /* LighthouseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C610FB49D6E00C7A30C /* LighthouseApi.m */; };
 		052C5CA50FB4A54C00C7A30C /* LighthouseApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */; };
 		052C5DA50FB4E25900C7A30C /* MilestoneDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C5DA40FB4E25900C7A30C /* MilestoneDataSource.m */; };
+		0537C4EE0FDF1DB100D87E0B /* NSError+InstantiationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C4ED0FDF1DB100D87E0B /* NSError+InstantiationAdditions.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -45,6 +46,9 @@
 		0576B9E60FCA13170015C2AD /* NewMessageDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0576B9E50FCA13170015C2AD /* NewMessageDescription.m */; };
 		05852AF00FBC9E190025FCAE /* MilestoneCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05852AEF0FBC9E190025FCAE /* MilestoneCache.m */; };
 		05852BC20FBCF48F0025FCAE /* Milestone+SortAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05852BC10FBCF48F0025FCAE /* Milestone+SortAdditions.m */; };
+		058ED3FB0FDED4C700595604 /* ResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 058ED3FA0FDED4C700595604 /* ResponseProcessor.m */; };
+		058ED3FF0FDED4E700595604 /* CreateTicketResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 058ED3FE0FDED4E700595604 /* CreateTicketResponseProcessor.m */; };
+		058ED4040FDEDBC500595604 /* BugWatchObjectBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 058ED4030FDEDBC500595604 /* BugWatchObjectBuilder.m */; };
 		0597365D0FAFB42200059D20 /* MilestonesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0597365B0FAFB42200059D20 /* MilestonesView.xib */; };
 		059736620FAFB47800059D20 /* MilestonesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736610FAFB47800059D20 /* MilestonesViewController.m */; };
 		059736730FAFB6F600059D20 /* MilestonesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 059736710FAFB6F600059D20 /* MilestonesTableViewCell.xib */; };
@@ -230,6 +234,8 @@
 		052C5DA30FB4E25900C7A30C /* MilestoneDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDataSource.h; path = Classes/milestones/MilestoneDataSource.h; sourceTree = "<group>"; };
 		052C5DA40FB4E25900C7A30C /* MilestoneDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDataSource.m; path = Classes/milestones/MilestoneDataSource.m; sourceTree = "<group>"; };
 		052C5DE10FB664A200C7A30C /* MilestoneDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDataSourceDelegate.h; path = Classes/milestones/MilestoneDataSourceDelegate.h; sourceTree = "<group>"; };
+		0537C4EC0FDF1DB100D87E0B /* NSError+InstantiationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+InstantiationAdditions.h"; path = "shared/NSError+InstantiationAdditions.h"; sourceTree = "<group>"; };
+		0537C4ED0FDF1DB100D87E0B /* NSError+InstantiationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+InstantiationAdditions.m"; path = "shared/NSError+InstantiationAdditions.m"; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -264,6 +270,12 @@
 		05852AEF0FBC9E190025FCAE /* MilestoneCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneCache.m; path = Classes/milestones/MilestoneCache.m; sourceTree = "<group>"; };
 		05852BC00FBCF48F0025FCAE /* Milestone+SortAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Milestone+SortAdditions.h"; path = "Classes/milestones/Milestone+SortAdditions.h"; sourceTree = "<group>"; };
 		05852BC10FBCF48F0025FCAE /* Milestone+SortAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Milestone+SortAdditions.m"; path = "Classes/milestones/Milestone+SortAdditions.m"; sourceTree = "<group>"; };
+		058ED3F90FDED4C700595604 /* ResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResponseProcessor.h; path = lighthouse/api/processors/ResponseProcessor.h; sourceTree = "<group>"; };
+		058ED3FA0FDED4C700595604 /* ResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResponseProcessor.m; path = lighthouse/api/processors/ResponseProcessor.m; sourceTree = "<group>"; };
+		058ED3FD0FDED4E700595604 /* CreateTicketResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateTicketResponseProcessor.h; path = lighthouse/api/processors/CreateTicketResponseProcessor.h; sourceTree = "<group>"; };
+		058ED3FE0FDED4E700595604 /* CreateTicketResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateTicketResponseProcessor.m; path = lighthouse/api/processors/CreateTicketResponseProcessor.m; sourceTree = "<group>"; };
+		058ED4020FDEDBC500595604 /* BugWatchObjectBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchObjectBuilder.h; path = lighthouse/api/builders/BugWatchObjectBuilder.h; sourceTree = "<group>"; };
+		058ED4030FDEDBC500595604 /* BugWatchObjectBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchObjectBuilder.m; path = lighthouse/api/builders/BugWatchObjectBuilder.m; sourceTree = "<group>"; };
 		0597365C0FAFB42200059D20 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MilestonesView.xib; sourceTree = "<group>"; };
 		059736600FAFB47800059D20 /* MilestonesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestonesViewController.h; path = Classes/milestones/MilestonesViewController.h; sourceTree = "<group>"; };
 		059736610FAFB47800059D20 /* MilestonesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestonesViewController.m; path = Classes/milestones/MilestonesViewController.m; sourceTree = "<group>"; };
@@ -623,6 +635,26 @@
 			name = html;
 			sourceTree = "<group>";
 		};
+		058ED3FC0FDED4CC00595604 /* processors */ = {
+			isa = PBXGroup;
+			children = (
+				058ED3F90FDED4C700595604 /* ResponseProcessor.h */,
+				058ED3FA0FDED4C700595604 /* ResponseProcessor.m */,
+				058ED3FD0FDED4E700595604 /* CreateTicketResponseProcessor.h */,
+				058ED3FE0FDED4E700595604 /* CreateTicketResponseProcessor.m */,
+			);
+			name = processors;
+			sourceTree = "<group>";
+		};
+		058ED4000FDEDB9700595604 /* builders */ = {
+			isa = PBXGroup;
+			children = (
+				058ED4020FDEDBC500595604 /* BugWatchObjectBuilder.h */,
+				058ED4030FDEDBC500595604 /* BugWatchObjectBuilder.m */,
+			);
+			name = builders;
+			sourceTree = "<group>";
+		};
 		0597365F0FAFB44600059D20 /* milestones */ = {
 			isa = PBXGroup;
 			children = (
@@ -726,6 +758,8 @@
 		05DEB23C0FB2194E0052888E /* api */ = {
 			isa = PBXGroup;
 			children = (
+				058ED3FC0FDED4CC00595604 /* processors */,
+				058ED4000FDEDB9700595604 /* builders */,
 				052C5C600FB49D6E00C7A30C /* LighthouseApi.h */,
 				052C5C610FB49D6E00C7A30C /* LighthouseApi.m */,
 				052C5C630FB49D8C00C7A30C /* LighthouseApiDelegate.h */,
@@ -847,6 +881,8 @@
 				059738690FB0C26A00059D20 /* MilestoneProgressView.m */,
 				05F0F2850FB8D8DC00963F6E /* NSArray+IterationAdditions.h */,
 				05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */,
+				0537C4EC0FDF1DB100D87E0B /* NSError+InstantiationAdditions.h */,
+				0537C4ED0FDF1DB100D87E0B /* NSError+InstantiationAdditions.m */,
 				05DB82AA0FC49E310095AF32 /* RandomNumber.h */,
 				05DB82AB0FC49E310095AF32 /* RandomNumber.m */,
 				91482CA90FC6254F002D10E8 /* ProjectSelectionViewController.h */,
@@ -1444,6 +1480,10 @@
 				914835D90FD6EA79002D10E8 /* TicketSearchMgrFactory.m in Sources */,
 				91E14D270FD8857000B9B8CD /* RecentHistoryCache.m in Sources */,
 				919891CC0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m in Sources */,
+				058ED3FB0FDED4C700595604 /* ResponseProcessor.m in Sources */,
+				058ED3FF0FDED4E700595604 /* CreateTicketResponseProcessor.m in Sources */,
+				058ED4040FDEDBC500595604 /* BugWatchObjectBuilder.m in Sources */,
+				0537C4EE0FDF1DB100D87E0B /* NSError+InstantiationAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
