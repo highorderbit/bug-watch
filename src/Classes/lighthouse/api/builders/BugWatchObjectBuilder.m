@@ -42,6 +42,45 @@
     return [parser parse:xml];
 }
 
+- (NSArray *)parseTickets:(NSData *)xml
+{
+    parser.className = @"Ticket";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"description", @"title",
+            @"creationDate", @"created-at", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseTicketMetaData:(NSData *)xml
+{
+    parser.className = @"TicketMetaData";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"tags", @"tag",
+            @"state", @"state",
+            @"lastModifiedDate", @"updated-at", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseTicketNumbers:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"number", nil];
+
+    return [parser parse:xml];
+}
+
 - (NSArray *)parseTicketUrls:(NSData *)xml
 {
     parser.className = @"NSString";
@@ -50,6 +89,54 @@
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"string", @"url", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseTicketMilestoneIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"milestone-id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseTicketProjectIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"project-id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseUserIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"user-id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseCreatorIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"creator-id", nil];
 
     return [parser parse:xml];
 }

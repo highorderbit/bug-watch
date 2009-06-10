@@ -19,6 +19,15 @@
 #pragma mark Building objects
 
 - (NSArray *)parseErrors:(NSData *)xml;
+
+- (NSArray *)parseTickets:(NSData *)xml;
+- (NSArray *)parseTicketMetaData:(NSData *)xml;
+- (NSArray *)parseTicketNumbers:(NSData *)xml;
 - (NSArray *)parseTicketUrls:(NSData *)xml;
+- (NSArray *)parseTicketMilestoneIds:(NSData *)xml;
+- (NSArray *)parseTicketProjectIds:(NSData *)xml;
+
+- (NSArray *)parseUserIds:(NSData *)xml;
+- (NSArray *)parseCreatorIds:(NSData *)xml;
 
 @end

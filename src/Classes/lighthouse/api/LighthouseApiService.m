@@ -10,7 +10,7 @@
 
 #import "BugWatchObjectBuilder.h"
 
-#import "ResponseProcessor.h"
+#import "ResponseProcessors.h"
 #import "CreateTicketResponseProcessor.h"
 #import "EditTicketResponseProcessor.h"
 
@@ -97,14 +97,20 @@
 
 - (void)fetchTicketsForAllProjects:(NSString *)token
 {
-    [api fetchTicketsForAllProjects:token];
+    FetchAllTicketsResponseProcessor * processor =
+        [FetchAllTicketsResponseProcessor processorWithBuilder:builder
+                                                      delegate:delegate];
+
+    id requestId = [api fetchTicketsForAllProjects:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 - (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
     token:(NSString *)token
 {
     [api fetchDetailsForTicket:ticketKey
-                     inProject:(id)projectKey
+                     inProject:projectKey
                          token:token];
 }
 
@@ -257,27 +263,13 @@
 - (void)tickets:(NSData *)xml fetchedForAllProjectsWithToken:(NSString *)token
     requestId:(id)requestId
 {
-    NSArray * ticketNumbers = [self parseTicketNumbers:xml];
-    NSArray * tickets = [self parseTickets:xml];
-    NSArray * metadata = [self parseTicketMetaData:xml];
-    NSArray * milestoneIds = [self parseTicketMilestoneIds:xml];
-    NSArray * projectIds = [self parseTicketProjectIds:xml];
-    NSArray * userIds = [self parseUserIds:xml];
-    NSArray * creatorIds = [self parseCreatorIds:xml];
-
-    SEL sel =
-        @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
-             milestoneIds:projectIds:userIds:creatorIds:);
-
-    [self invokeSelector:sel withTarget:delegate args:tickets, metadata,
-        ticketNumbers, milestoneIds, projectIds, userIds, creatorIds, nil];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
     requestId:(id)requestId error:(NSError *)error
 {
-    SEL sel = @selector(failedToFetchTicketsForAllProjects:);
-    [self invokeSelector:sel withTarget:delegate args:error, nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 - (void)details:(NSData *)xml fetchedForTicket:(id)ticketKey
