@@ -3,7 +3,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseProcessors.h"
+#import "ResponseProcessor.h"
 
 @class UpdateMessageDescription;
 
