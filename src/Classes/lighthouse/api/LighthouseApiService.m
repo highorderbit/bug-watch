@@ -285,7 +285,18 @@
 - (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
     token:(NSString *)token
 {
-    [api fetchCommentsForMessage:messageKey inProject:projectKey token:token];
+    ResponseProcessor * processor =
+        [FetchMessageCommentsResponseProcessor
+            processorWithBuilder:builder
+                      messageKey:messageKey
+                      projectKey:projectKey
+                        delegate:delegate];
+
+    id requestId = [api fetchCommentsForMessage:messageKey
+                                      inProject:projectKey
+                                          token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Messages -- creating
@@ -499,22 +510,13 @@
 - (void)comments:(NSData *)xml fetchedForMessage:(id)messageKey
     inProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * commentKeys = [self parseMessageCommentKeys:xml];
-    NSArray * comments = [self parseMessageComments:xml];
-    NSArray * authors = [self parseMessageCommentAuthorIds:xml];
-
-    SEL sel = @selector(comments:commentKeys:authorKeys:fetchedForMessage:\
-        inProject:);
-    [self invokeSelector:sel withTarget:delegate args:comments, commentKeys,
-        authors, messageKey, projectKey, nil];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
     token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
-    SEL sel = @selector(failedToFetchCommentsForMessage:inProject:error:);
-    [self invokeSelector:sel withTarget:delegate args:messageKey, projectKey,
-        error, nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark Messages -- creating
