@@ -109,9 +109,17 @@
 - (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
     token:(NSString *)token
 {
-    [api fetchDetailsForTicket:ticketKey
-                     inProject:projectKey
-                         token:token];
+    FetchTicketDetailsResponseProcessor * processor =
+        [FetchTicketDetailsResponseProcessor processorWithBuilder:builder
+                                                        ticketKey:ticketKey
+                                                       projectKey:projectKey
+                                                         delegate:delegate];
+
+    id requestId = [api fetchDetailsForTicket:ticketKey
+                                    inProject:projectKey
+                                        token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 - (void)searchTicketsForAllProjects:(NSString *)searchString
@@ -275,22 +283,14 @@
 - (void)details:(NSData *)xml fetchedForTicket:(id)ticketKey
     inProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * ticketComments = [self parseTicketComments:xml];
-    NSArray * authors = [self parseTicketCommentAuthors:xml];
-
-    SEL sel = @selector(details:authors:fetchedForTicket:inProject:);
-    [self invokeSelector:sel withTarget:delegate args:ticketComments,
-        authors, ticketKey, projectKey, nil];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
     inProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
     error:(NSError *)error
 {
-    SEL sel =
-        @selector(failedToFetchTicketDetailsForTicket:inProject:token:error:);
-    [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
-        error, nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 - (void)searchResults:(NSData *)xml
@@ -1038,6 +1038,9 @@
 - (void)processResponse:(NSData *)xml toRequest:(id)requestId
 {
     ResponseProcessor * processor = [responseProcessors objectForKey:requestId];
+    NSAssert1(processor, @"Failed to find a response process for request: "
+        "'%@'.", requestId);
+
     [processor process:xml];
     [responseProcessors removeObjectForKey:requestId];
 }
@@ -1045,6 +1048,9 @@
 - (void)processErrorResponse:(NSError *)error toRequest:(id)requestId
 {
     ResponseProcessor * processor = [responseProcessors objectForKey:requestId];
+    NSAssert1(processor, @"Failed to find a response process for request: "
+        "'%@'.", requestId);
+
     [processor processError:error];
     [responseProcessors removeObjectForKey:requestId];
 }

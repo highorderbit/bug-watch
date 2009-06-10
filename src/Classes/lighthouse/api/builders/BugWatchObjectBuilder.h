@@ -26,6 +26,8 @@
 - (NSArray *)parseTicketUrls:(NSData *)xml;
 - (NSArray *)parseTicketMilestoneIds:(NSData *)xml;
 - (NSArray *)parseTicketProjectIds:(NSData *)xml;
+- (NSArray *)parseTicketComments:(NSData *)xml;
+- (NSArray *)parseTicketCommentAuthors:(NSData *)xml;
 
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;

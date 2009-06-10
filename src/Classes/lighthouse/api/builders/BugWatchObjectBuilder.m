@@ -117,6 +117,33 @@
     return [parser parse:xml];
 }
 
+- (NSArray *)parseTicketComments:(NSData *)xml
+{
+    parser.className = @"TicketComment";
+    parser.classElementType = @"version";
+    parser.classElementCollection = @"versions";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"date", @"created-at",
+            @"text", @"body",
+            @"stateChangeDescription", @"diffable-attributes",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseTicketCommentAuthors:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"version";
+    parser.classElementCollection = @"versions";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"creator-id", nil];
+
+    return [parser parse:xml];
+}
+
 - (NSArray *)parseUserIds:(NSData *)xml
 {
     parser.className = @"NSNumber";

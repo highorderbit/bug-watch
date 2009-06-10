@@ -6,3 +6,4 @@
 #import "CreateTicketResponseProcessor.h"
 #import "EditTicketResponseProcessor.h"
 #import "FetchAllTicketsResponseProcessor.h"
+#import "FetchTicketDetailsResponseProcessor.h"
