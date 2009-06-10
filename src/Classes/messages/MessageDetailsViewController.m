@@ -19,6 +19,7 @@
 - (void)dealloc
 {
     [headerView release];
+    [footerView release];
     [metaDataView release];
     [gradientImage release];
 
@@ -38,6 +39,7 @@
 {
     [super viewDidLoad];
     self.tableView.tableHeaderView = headerView;
+    self.tableView.tableFooterView = footerView;
     self.navigationItem.title = @"Message Info";
 }
 
