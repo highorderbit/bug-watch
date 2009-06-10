@@ -18,6 +18,7 @@
 - (void)disableEditViewWithText:(NSString *)text;
 - (void)enableEditView;
 - (void)updateDisplayIfDirty;
+- (void)updateTicketsViewController;
 
 @property (nonatomic, readonly) NSDictionary * milestonesForProject;
 @property (nonatomic, readonly) UIBarButtonItem * detailsEditButton;
@@ -201,35 +202,10 @@
 
 - (void)ticketsFilteredByFilterString:(NSString *)aFilterString
 {
-    NSDictionary * allTickets = [ticketCache allTickets];
     wrapperController.cachedDataAvailable = !!self.ticketCache;
 
-    if (self.ticketCache) {
-        NSDictionary * allAssignedToKeys = [self.ticketCache allAssignedToKeys];       
-
-        NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
-        for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
-            id userKey = [allAssignedToKeys objectForKey:ticketNumber];
-            id assignedTo = [userDict objectForKey:userKey];
-            if (assignedTo)
-                [assignedToDict setObject:assignedTo forKey:ticketNumber];
-        }
-
-        NSDictionary * allMilestoneKeys = [self.ticketCache allMilestoneKeys];
-        NSMutableDictionary * associatedMilestoneDict =
-            [NSMutableDictionary dictionary];
-        for (NSNumber * ticketNumber in [allMilestoneKeys allKeys]) {
-            id userKey = [allMilestoneKeys objectForKey:ticketNumber];
-            id milestone = [milestoneDict objectForKey:userKey];
-            if (milestone)
-                [associatedMilestoneDict setObject:milestone
-                    forKey:ticketNumber];
-        }
-
-        [ticketsViewController setTickets:allTickets
-            metaData:[ticketCache allMetaData] assignedToDict:assignedToDict
-            milestoneDict:associatedMilestoneDict page:ticketCache.numPages];
-    }
+    if (self.ticketCache)
+        [self updateTicketsViewController];
 
     if (![aFilterString isEqual:self.ticketCache.query]) {
         ticketCache.numPages = 1;
@@ -242,6 +218,35 @@
                 project:activeProjectKey];
     } else
         [wrapperController setUpdatingState:kConnectedAndNotUpdating];
+}
+
+- (void)updateTicketsViewController
+{
+    NSDictionary * allTickets = [ticketCache allTickets];
+    NSDictionary * allAssignedToKeys = [self.ticketCache allAssignedToKeys];       
+
+    NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
+    for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
+        id userKey = [allAssignedToKeys objectForKey:ticketNumber];
+        id assignedTo = [userDict objectForKey:userKey];
+        if (assignedTo)
+            [assignedToDict setObject:assignedTo forKey:ticketNumber];
+    }
+
+    NSDictionary * allMilestoneKeys = [self.ticketCache allMilestoneKeys];
+    NSMutableDictionary * associatedMilestoneDict =
+        [NSMutableDictionary dictionary];
+    for (NSNumber * ticketNumber in [allMilestoneKeys allKeys]) {
+        id userKey = [allMilestoneKeys objectForKey:ticketNumber];
+        id milestone = [milestoneDict objectForKey:userKey];
+        if (milestone)
+            [associatedMilestoneDict setObject:milestone
+                forKey:ticketNumber];
+    }
+
+    [ticketsViewController setTickets:allTickets
+        metaData:[ticketCache allMetaData] assignedToDict:assignedToDict
+        milestoneDict:associatedMilestoneDict page:ticketCache.numPages];
 }
 
 - (void)updateDisplayIfDirty
@@ -533,10 +538,7 @@
     NSDictionary * tempMilestoneDict = [aMilestoneDict copy];
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
-    
-    displayDirty = YES;
-    if (ticketsViewController.isFirstResponder)
-        [self updateDisplayIfDirty];
+    [self updateTicketsViewController];
 }
 
 - (void)setProjectDict:(NSDictionary *)aProjectDict
@@ -544,10 +546,7 @@
     NSDictionary * tempProjectDict = [aProjectDict copy];
     [projectDict release];
     projectDict = tempProjectDict;
-
-    displayDirty = YES;
-    if (ticketsViewController.isFirstResponder)
-        [self updateDisplayIfDirty];
+    [self updateTicketsViewController];
 }
 
 - (void)setUserDict:(NSDictionary *)aUserDict
@@ -555,10 +554,7 @@
     NSDictionary * tempUserDict = [aUserDict copy];
     [userDict release];
     userDict = tempUserDict;
-
-    displayDirty = YES;
-    if (ticketsViewController.isFirstResponder)
-        [self updateDisplayIfDirty];
+    [self updateTicketsViewController];
 }
 
 - (NSDictionary *)milestonesForProject

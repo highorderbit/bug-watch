@@ -10,6 +10,7 @@
 - (void)displayCachedMessages;
 - (void)disableEditViewWithText:(NSString *)text;
 - (void)enableEditView;
+- (void)updateDisplayIfDirty;
 
 @end
 
@@ -52,11 +53,12 @@
         dataSource = [aDataSource retain];
         wrapperController = [aWrapperController retain];
         messagesViewController = [aMessagesViewController retain];
-        
+
         self.activeProjectKey = nil;
         wrapperController.cachedDataAvailable = NO;
         self.selectProject = YES;
-        
+        displayDirty = YES;
+
         [self initDarkTransparentView];
     }
 
@@ -68,7 +70,7 @@
     CGRect darkTransparentViewFrame = CGRectMake(0, 0, 320, 480);
     darkTransparentView =
         [[UIView alloc] initWithFrame:darkTransparentViewFrame];
-    
+
     CGRect transparentViewFrame = CGRectMake(0, 0, 320, 480);
     UIView * transparentView =
         [[[UIView alloc] initWithFrame:transparentViewFrame] autorelease];
@@ -117,32 +119,46 @@
     }
 }
 
+- (void)updateDisplayIfDirty
+{
+    if (displayDirty) {
+        [self showAllMessages];
+        displayDirty = NO;
+    }
+}
+
 - (void)displayCachedMessages
 {
-    NSMutableDictionary * postedByDict = [NSMutableDictionary dictionary];
-    NSMutableDictionary * msgProjectDict = [NSMutableDictionary dictionary];
-    NSMutableDictionary * numResponsesDict = [NSMutableDictionary dictionary];
+    if (messageCache) {
+        NSMutableDictionary * postedByDict = [NSMutableDictionary dictionary];
+        NSMutableDictionary * msgProjectDict = [NSMutableDictionary dictionary];
+        NSMutableDictionary * numResponsesDict =
+            [NSMutableDictionary dictionary];
 
-    NSArray * allMessageKeys = [[messageCache allMessages] allKeys];
-    for (id key in allMessageKeys) {
-        NSUInteger respCount = [[messageCache responseKeysForKey:key] count];
-        NSNumber * respCountAsNum = [NSNumber numberWithInt:respCount];
-        [numResponsesDict setObject:respCountAsNum forKey:key];
+        NSArray * allMessageKeys = [[messageCache allMessages] allKeys];
+        for (id key in allMessageKeys) {
+            NSUInteger respCount =
+                [[messageCache responseKeysForKey:key] count];
+            NSNumber * respCountAsNum = [NSNumber numberWithInt:respCount];
+            [numResponsesDict setObject:respCountAsNum forKey:key];
 
-        id postedByKey = [messageCache postedByKeyForKey:key];
-        NSString * postedByName = [userDict objectForKey:postedByKey];
-        if (postedByName)
-            [postedByDict setObject:postedByName forKey:key];
+            id postedByKey = [messageCache postedByKeyForKey:key];
+            NSString * postedByName = [userDict objectForKey:postedByKey];
+            if (postedByName)
+                [postedByDict setObject:postedByName forKey:key];
         
-        id projectKey = [messageCache projectKeyForKey:key];
-        NSString * projectName = [projectDict objectForKey:projectKey];
-        if (projectName)
-            [msgProjectDict setObject:projectName forKey:key];
-    }
+            id projectKey = [messageCache projectKeyForKey:key];
+            NSString * projectName = [projectDict objectForKey:projectKey];
+            if (projectName)
+                [msgProjectDict setObject:projectName forKey:key];
+        }
 
-    [messagesViewController setMessages:[messageCache allMessages]
-        postedByDict:postedByDict projectDict:msgProjectDict
-        numResponsesDict:numResponsesDict];
+        [messagesViewController setMessages:[messageCache allMessages]
+            postedByDict:postedByDict projectDict:msgProjectDict
+            numResponsesDict:numResponsesDict];
+
+        wrapperController.cachedDataAvailable = YES;
+    }
 }
 
 - (void)selectedMessageKey:(id)key
@@ -176,7 +192,7 @@
 
 - (void)networkAwareViewWillAppear
 {
-    [self showAllMessages];
+    [self updateDisplayIfDirty];
 }
 
 #pragma mark MessageDataSourceDelegate implementation
@@ -310,8 +326,7 @@
     NSDictionary * tempProjectDict = [aProjectDict copy];
     [projectDict release];
     projectDict = tempProjectDict;
-
-    [self showAllMessages];
+    [self displayCachedMessages];
 }
 
 - (void)setUserDict:(NSDictionary *)aUserDict
@@ -319,8 +334,7 @@
     NSDictionary * tempUserDict = [aUserDict copy];
     [userDict release];
     userDict = tempUserDict;
-
-    [self showAllMessages];
+    [self displayCachedMessages];
 }
 
 @end

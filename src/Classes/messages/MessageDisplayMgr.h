@@ -38,6 +38,7 @@
     id activeProjectKey;
     BOOL resetCache;
     BOOL selectProject;
+    BOOL displayDirty;
 }
 
 @property (nonatomic, retain) MessageCache * messageCache;
