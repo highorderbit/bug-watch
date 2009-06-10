@@ -46,14 +46,14 @@
     NSArray * milestoneIds = [self.objectBuilder parseTicketMilestoneIds:xml];
     NSArray * projectIds = [self.objectBuilder parseTicketProjectIds:xml];
     NSArray * userKeys = [self.objectBuilder parseTicketUserKeys:xml];
-    NSArray * creatorIds = [self.objectBuilder parseCreatorIds:xml];
+    NSArray * creatorKeys = [self.objectBuilder parseTicketCreatorKeys:xml];
 
     SEL sel =
         @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
              milestoneIds:projectIds:userIds:creatorIds:);
 
     [self invokeSelector:sel withTarget:delegate args:tickets, metadata,
-        ticketNumbers, milestoneIds, projectIds, userKeys, creatorIds, nil];
+        ticketNumbers, milestoneIds, projectIds, userKeys, creatorKeys, nil];
 }
 
 - (void)processErrors:(NSArray *)errors foundInResponse:(NSData *)xml

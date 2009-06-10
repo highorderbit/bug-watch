@@ -95,7 +95,7 @@
     NSArray * milestoneIds = [self.objectBuilder parseTicketMilestoneIds:xml];
     NSArray * projectIds = [self.objectBuilder parseTicketProjectIds:xml];
     NSArray * userKeys = [self.objectBuilder parseTicketUserKeys:xml];
-    NSArray * creatorIds = [self.objectBuilder parseCreatorIds:xml];
+    NSArray * creatorKeys = [self.objectBuilder parseTicketCreatorKeys:xml];
 
     if (projectKey) {
         SEL sel = @selector(tickets:fetchedForProject:searchString:page:object:\
@@ -105,7 +105,7 @@
                 searchString:searchString page:page object:object
                 metadata:metadata ticketNumbers:ticketNumbers
                 milestoneIds:milestoneIds projectIds:projectIds
-                userIds:userKeys creatorIds:creatorIds];
+                userIds:userKeys creatorIds:creatorKeys];
     } else {
         SEL sel = @selector(tickets:fetchedForSearchString:page:metadata:\
             ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
@@ -113,7 +113,7 @@
             [delegate tickets:tickets fetchedForSearchString:searchString
                 page:page metadata:metadata ticketNumbers:ticketNumbers
                 milestoneIds:milestoneIds projectIds:projectIds userIds:userKeys
-                creatorIds:creatorIds];
+                creatorIds:creatorKeys];
     }
 }
 

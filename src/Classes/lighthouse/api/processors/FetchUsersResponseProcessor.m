@@ -45,7 +45,6 @@
     return self;
 }
 
-
 - (void)processResponse:(NSData *)xml
 {
     NSArray * users = [self.objectBuilder parseUsers:xml];

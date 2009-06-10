@@ -246,7 +246,13 @@
 
 - (void)fetchAllProjects:(NSString *)token
 {
-    [api fetchAllProjects:token];
+    ResponseProcessor * processor =
+        [FetchProjectsResponseProcessor processorWithBuilder:builder
+                                                    delegate:delegate];
+
+    id requestId = [api fetchAllProjects:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Milestones
@@ -440,29 +446,13 @@
 - (void)projects:(NSData *)xml fetchedForAllProjects:(NSString *)token
     requestId:(id)requestId
 {
-    NSArray * projects = [self parseProjects:xml];
-    NSArray * projectKeys = [self parseProjectKeys:xml];
-
-    SEL sel = @selector(fetchedAllProjects:projectKeys:);
-    [self
-        invokeSelector:sel withTarget:delegate args:projects, projectKeys, nil];
-
-    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
-    NSDictionary * userInfo =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-        projects, @"projects",
-        projectKeys, @"projectKeys",
-        nil];
-    NSString * notificationName =
-        [[self class] allProjectsReceivedNotificationName];
-    [nc postNotificationName:notificationName object:self userInfo:userInfo];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToFetchAllProjects:(NSString *)token requestId:(id)requestId
     error:(NSError *)error
 {
-    SEL sel = @selector(failedToFetchAllProjects:);
-    [self invokeSelector:sel withTarget:delegate args:error, nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark -- Milestones

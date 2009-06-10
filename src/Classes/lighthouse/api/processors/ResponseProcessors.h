@@ -12,6 +12,6 @@
 #import "EditTicketResponseProcessor.h"
 #import "DeleteTicketResponseProcessor.h"
 
-#import "FetchTicketBinsResponseProcessor.h"
-
 #import "FetchUsersResponseProcessor.h"
+#import "FetchProjectsResponseProcessor.h"
+#import "FetchTicketBinsResponseProcessor.h"

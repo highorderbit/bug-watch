@@ -29,11 +29,13 @@
 - (NSArray *)parseTicketComments:(NSData *)xml;
 - (NSArray *)parseTicketCommentAuthors:(NSData *)xml;
 - (NSArray *)parseTicketUserKeys:(NSData *)xml;
+- (NSArray *)parseTicketCreatorKeys:(NSData *)xml;
 
 - (NSArray *)parseUsers:(NSData *)xml;
 - (NSArray *)parseUserKeys:(NSData *)xml;
 
-- (NSArray *)parseCreatorIds:(NSData *)xml;
+- (NSArray *)parseProjects:(NSData *)xml;
+- (NSArray *)parseProjectKeys:(NSData *)xml;
 
 - (NSArray *)parseTicketBins:(NSData *)xml;
 
