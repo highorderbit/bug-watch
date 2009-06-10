@@ -12,6 +12,7 @@
 
 #import "ResponseProcessor.h"
 #import "CreateTicketResponseProcessor.h"
+#import "EditTicketResponseProcessor.h"
 
 @interface LighthouseApiService ()
 
@@ -49,6 +50,9 @@
 
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
     args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
+
+- (void)processResponse:(NSData *)xml toRequest:(id)requestId;
+- (void)processErrorResponse:(NSError *)error toRequest:(id)requestId;
 
 + (id)nextRequestId;
 
@@ -123,21 +127,19 @@
 - (void)createNewTicket:(NewTicketDescription *)desc forProject:(id)projectKey
     token:(NSString *)token
 {
-    id requestId = [[self class] nextRequestId];
-    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
-
     CreateTicketResponseProcessor * processor =
         [CreateTicketResponseProcessor processorWithBuilder:builder
                                                 description:desc
                                                  projectKey:projectKey
                                                    delegate:delegate];
-    [responseProcessors setObject:processor forKey:requestId];
 
     NSString * creationXml = [desc xmlDescriptionForProject:projectKey];
-    [api createTicketForProject:projectKey
-                    description:creationXml
-                         object:requestId
-                          token:token];
+    id requestId = [api createTicketForProject:projectKey
+                                   description:creationXml
+                                        object:nil
+                                         token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Tickets -- editing
@@ -145,12 +147,24 @@
 - (void)editTicket:(id)ticketKey forProject:(id)projectKey
     withDescription:(UpdateTicketDescription *)desc token:(NSString *)token
 {
-    id requestId = [[self class] nextRequestId];
-    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+    EditTicketResponseProcessor * processor =
+        [EditTicketResponseProcessor processorWithBuilder:builder
+                                                ticketKey:ticketKey
+                                               projectKey:projectKey
+                                              description:desc
+                                                 delegate:delegate];
 
     NSString * xmlDescription = [desc xmlDescriptionForProject:projectKey];
-    [api editTicket:ticketKey forProject:projectKey description:xmlDescription
-        object:requestId token:token];
+    id requestId = [api editTicket:ticketKey
+                        forProject:projectKey
+                       description:xmlDescription
+                            object:nil
+                             token:token];
+
+    // TODO: delete me
+    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Tickets -- deleting
@@ -360,30 +374,14 @@
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     requestId:(id)requestId
 {
-    ResponseProcessor * processor = [responseProcessors objectForKey:object];
-
-    NSAssert1(processor, @"Did not find a response processor for key: '%@'.",
-        object);
-
-    [processor process:xml];
-    [responseProcessors removeObjectForKey:object];
-
-    [changeTicketRequests removeObjectForKey:object];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToCreateTicketWithDescription:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     requestId:(id)requestId error:(NSError *)error
 {
-    ResponseProcessor * processor = [responseProcessors objectForKey:object];
-
-    NSAssert1(processor, @"Did not find a response processor for key: '%@'.",
-        object);
-
-    [processor processError:error];
-    [responseProcessors removeObjectForKey:object];
-
-    [changeTicketRequests removeObjectForKey:object];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark Tickets -- editing
@@ -392,32 +390,14 @@
     withDescription:(NSString *)description object:(id)object
     response:(NSData *)xml token:(NSString *)token requestId:(id)requestId
 {
-    UpdateTicketDescription * updateTicketDescription =
-        [changeTicketRequests objectForKey:requestId];
-    NSAssert1(updateTicketDescription, @"Did not find a pending ticket request "
-        "for key: '%@'.", requestId);
-
-    SEL sel = @selector(editedTicket:forProject:describedBy:);
-    [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
-        updateTicketDescription, nil];
-
-    [changeTicketRequests removeObjectForKey:requestId];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
     description:(NSString *)desc object:(id)object token:(NSString *)token
     requestId:(id)requestId error:(NSError *)error
 {
-    UpdateTicketDescription * updateTicketDescription =
-        [changeTicketRequests objectForKey:requestId];
-    NSAssert1(updateTicketDescription, @"Did not find a pending ticket request "
-        "for key: '%@'.", requestId);
-
-    SEL sel = @selector(failedToEditTicket:forProject:describedBy:error:);
-    [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
-        updateTicketDescription, error, nil];
-
-    [changeTicketRequests removeObjectForKey:requestId];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark Tickets -- deleting
@@ -1059,6 +1039,22 @@
     }
 
     return NO;
+}
+
+#pragma mark Response processing helpers
+
+- (void)processResponse:(NSData *)xml toRequest:(id)requestId
+{
+    ResponseProcessor * processor = [responseProcessors objectForKey:requestId];
+    [processor process:xml];
+    [responseProcessors removeObjectForKey:requestId];
+}
+
+- (void)processErrorResponse:(NSError *)error toRequest:(id)requestId
+{
+    ResponseProcessor * processor = [responseProcessors objectForKey:requestId];
+    [processor processError:error];
+    [responseProcessors removeObjectForKey:requestId];
 }
 
 #pragma mark Notification names

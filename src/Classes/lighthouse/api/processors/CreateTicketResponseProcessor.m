@@ -10,7 +10,7 @@
 
 @property (nonatomic, copy) NewTicketDescription * description;
 @property (nonatomic, copy) id projectKey;
-@property (nonatomic, retain) id delegate;
+@property (nonatomic, assign) id delegate;
 
 @end
 
@@ -54,6 +54,8 @@
     return self;
 }
 
+#pragma mark Processing responses
+
 - (void)processResponse:(NSData *)response
 {
     NSArray * ticketUrls = [self.objectBuilder parseTicketUrls:response];
@@ -68,14 +70,9 @@
 
 - (void)processErrors:(NSArray *)errors foundInResponse:(NSData *)xml
 {
-    //////////////////////////////////////////////////////////////////
-    // TODO: Change delegate methods to retrieve an array of errors //
-    //////////////////////////////////////////////////////////////////
-    NSError * error = [errors lastObject];
-
-    SEL sel = @selector(failedToCreateNewTicketDescribedBy:forProject:error:);
+    SEL sel = @selector(failedToCreateNewTicketDescribedBy:forProject:errors:);
     [self invokeSelector:sel withTarget:delegate args:description,
-        projectKey, error, nil];
+        projectKey, errors, nil];
 }
 
 @end
