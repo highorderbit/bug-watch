@@ -218,7 +218,14 @@
 
 - (void)fetchTicketBinsForProject:(id)projectKey token:(NSString *)token
 {
-    [api fetchTicketBinsForProject:projectKey token:token];
+    ResponseProcessor * processor =
+        [FetchTicketBinsResponseProcessor processorWithBuilder:builder
+                                                    projectKey:projectKey
+                                                      delegate:delegate];
+
+    id requestId = [api fetchTicketBinsForProject:projectKey token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Users
@@ -398,19 +405,13 @@
 - (void)ticketBins:(NSData *)xml fetchedForProject:(id)projectKey
     token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * ticketBins = [self parseTicketBins:xml];
-
-    SEL sel = @selector(fetchedTicketBins:forProject:token:);
-    [self invokeSelector:sel withTarget:delegate args:ticketBins, projectKey,
-        token, nil];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToFetchTicketBinsForProject:(id)projectKey
     token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
-    SEL sel = @selector(failedToFetchTicketBinsForProject:token:error:);
-    [self invokeSelector:sel withTarget:delegate args:projectKey, token, error,
-        nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark -- Users

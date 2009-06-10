@@ -32,4 +32,6 @@
 - (NSArray *)parseUserIds:(NSData *)xml;
 - (NSArray *)parseCreatorIds:(NSData *)xml;
 
+- (NSArray *)parseTicketBins:(NSData *)xml;
+
 @end

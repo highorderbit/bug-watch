@@ -168,4 +168,19 @@
     return [parser parse:xml];
 }
 
+- (NSArray *)parseTicketBins:(NSData *)xml
+{
+    parser.className = @"TicketBin";
+    parser.classElementType = @"ticket-bin";
+    parser.classElementCollection = @"ticket-bins";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"name",
+            @"searchString", @"query",
+            @"ticketCount", @"tickets-count",
+            nil];
+
+    return [parser parse:xml];
+}
+
 @end

@@ -31,6 +31,7 @@
 		0537C5A40FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C5A30FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.m */; };
 		0537C5B90FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C5B80FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m */; };
 		0537C5D30FE0425B00D87E0B /* DeleteTicketResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C5D20FE0425B00D87E0B /* DeleteTicketResponseProcessor.m */; };
+		0537C5EC0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C5EB0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -252,6 +253,8 @@
 		0537C5B80FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchAllTicketsResponseProcessor.m; path = lighthouse/api/processors/SearchAllTicketsResponseProcessor.m; sourceTree = "<group>"; };
 		0537C5D10FE0425B00D87E0B /* DeleteTicketResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeleteTicketResponseProcessor.h; path = lighthouse/api/processors/DeleteTicketResponseProcessor.h; sourceTree = "<group>"; };
 		0537C5D20FE0425B00D87E0B /* DeleteTicketResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeleteTicketResponseProcessor.m; path = lighthouse/api/processors/DeleteTicketResponseProcessor.m; sourceTree = "<group>"; };
+		0537C5EA0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetchTicketBinsResponseProcessor.h; path = lighthouse/api/processors/FetchTicketBinsResponseProcessor.h; sourceTree = "<group>"; };
+		0537C5EB0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetchTicketBinsResponseProcessor.m; path = lighthouse/api/processors/FetchTicketBinsResponseProcessor.m; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -669,6 +672,8 @@
 				0537C53D0FE0122D00D87E0B /* EditTicketResponseProcessor.m */,
 				0537C5D10FE0425B00D87E0B /* DeleteTicketResponseProcessor.h */,
 				0537C5D20FE0425B00D87E0B /* DeleteTicketResponseProcessor.m */,
+				0537C5EA0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.h */,
+				0537C5EB0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.m */,
 			);
 			name = processors;
 			sourceTree = "<group>";
@@ -1516,6 +1521,7 @@
 				0537C5A40FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.m in Sources */,
 				0537C5B90FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m in Sources */,
 				0537C5D30FE0425B00D87E0B /* DeleteTicketResponseProcessor.m in Sources */,
+				0537C5EC0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
