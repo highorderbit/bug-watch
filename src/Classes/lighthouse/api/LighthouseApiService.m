@@ -202,7 +202,16 @@
 - (void)deleteTicket:(id)ticketKey forProject:(id)projectKey
     token:(NSString *)token
 {
-    [api deleteTicket:ticketKey forProject:projectKey token:token];
+    ResponseProcessor * processor =
+        [DeleteTicketResponseProcessor processorWithBuilder:builder
+                                                  ticketKey:ticketKey
+                                                 projectKey:projectKey
+                                                   delegate:delegate];
+
+    id requestId =
+        [api deleteTicket:ticketKey forProject:projectKey token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Ticket bins
@@ -373,19 +382,15 @@
 #pragma mark Tickets -- deleting
 
 - (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
-    response:(NSData *)response token:(NSString *)token requestId:(id)requestId
+    response:(NSData *)xml token:(NSString *)token requestId:(id)requestId
 {
-    SEL sel = @selector(deletedTicket:forProject:);
-    [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
-        nil];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
-    token:(NSString *)token requestId:(id)requestId error:(NSError *)response
+    token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
-    SEL sel = @selector(failedToDeleteTicket:forProject:error:);
-    [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
-        response, nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark -- Ticket bins
