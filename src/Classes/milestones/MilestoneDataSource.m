@@ -118,13 +118,13 @@
         [delegate fetchDidEnd];
 }
 
-- (void)failedToFetchMilestonesForAllProjects:(NSError *)error
+- (void)failedToFetchMilestonesForAllProjects:(NSArray *)errors
 {
-    NSLog(@"Failed to retrieve milestones for project: %@.", error);
+    NSLog(@"Failed to retrieve milestones for project: %@.", errors);
 
     milestonesNeedUpdating = NO;  // should this be set to YES?
 
-    [delegate fetchFailedWithError:error];
+    [delegate fetchFailedWithErrors:errors];
 
     if (--pendingFetches == 0)
         [delegate fetchDidEnd];
@@ -145,13 +145,13 @@
         [delegate fetchDidEnd];
 }
 
-- (void)failedToFetchAllProjects:(NSError *)error
+- (void)failedToFetchAllProjects:(NSArray *)errors
 {
-    NSLog(@"Failed to retrieve milestones for project: %@.", error);
+    NSLog(@"Failed to retrieve milestones for project: %@.", errors);
 
     projectsNeedUpdating = NO;  // should this be set to YES?
 
-    [delegate fetchFailedWithError:error];
+    [delegate fetchFailedWithErrors:errors];
 
     if (--pendingFetches == 0)
         [delegate fetchDidEnd];
