@@ -144,11 +144,39 @@
     return [parser parse:xml];
 }
 
-- (NSArray *)parseUserIds:(NSData *)xml
+- (NSArray *)parseTicketUserKeys:(NSData *)xml
 {
     parser.className = @"NSNumber";
     parser.classElementType = @"ticket";
     parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"user-id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseUsers:(NSData *)xml
+{
+    parser.className = @"User";
+    parser.classElementType = @"user";
+    parser.classElementCollection = @"memberships";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"name",
+            @"job", @"job",
+            @"websiteLink", @"website",
+            @"avatarLink", @"avatar-url",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseUserKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"membership";
+    parser.classElementCollection = @"memberships";
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"number", @"user-id", nil];

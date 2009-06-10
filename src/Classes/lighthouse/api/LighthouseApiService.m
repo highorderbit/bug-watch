@@ -232,7 +232,14 @@
 
 - (void)fetchAllUsersForProject:(id)projectKey token:(NSString *)token
 {
-    [api fetchAllUsersForProject:projectKey token:token];
+    ResponseProcessor * processor =
+        [FetchUsersResponseProcessor processorWithBuilder:builder
+                                               projectKey:projectKey
+                                                 delegate:delegate];
+
+    id requestId = [api fetchAllUsersForProject:projectKey token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Projects
@@ -419,33 +426,13 @@
 - (void)allUsers:(NSData *)xml fetchedForProject:(id)projectKey
     token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * users = [self parseUsers:xml];
-    NSArray * userKeys = [self parseUserKeys:xml];
-
-    NSDictionary * allUsers =
-        [NSDictionary dictionaryWithObjects:users forKeys:userKeys];
-
-    SEL sel = @selector(allUsers:fetchedForProject:);
-    [self
-        invokeSelector:sel withTarget:delegate args:allUsers, projectKey, nil];
-
-    // post general notification
-    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
-    NSDictionary * userInfo =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-        allUsers, @"users",
-        projectKey, @"projectKey",
-        nil];
-    NSString * notificationName =
-        [[self class] usersRecevedForProjectNotificationName];
-    [nc postNotificationName:notificationName object:self userInfo:userInfo];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToFetchAllUsersForProject:(id)projectKey token:(NSString *)token
     requestId:(id)requestId error:(NSError *)error
 {
-    SEL sel = @selector(failedToFetchAllUsersForProject:error:);
-    [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark -- Projects
