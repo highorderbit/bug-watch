@@ -43,7 +43,7 @@
     creatorIds:(NSArray *)creatorIds;
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString page:(NSUInteger)page
-    object:(id)object error:(NSError *)error;
+    object:(id)object errors:(NSArray *)errors;
 
 #pragma mark Tickets -- creating
 

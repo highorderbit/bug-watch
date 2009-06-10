@@ -141,8 +141,18 @@
     withSearchString:(NSString *)searchString page:(NSUInteger)page
     object:(id)object token:(NSString *)token
 {
-    [api searchTicketsForProject:projectKey withSearchString:searchString
-        page:page object:object token:token];
+    SearchAllTicketsResponseProcessor * processor =
+        [SearchAllTicketsResponseProcessor processorWithBuilder:builder
+                                                     projectKey:projectKey
+                                                   searchString:searchString
+                                                           page:page
+                                                         object:object
+                                                       delegate:delegate];
+
+    id requestId = [api searchTicketsForProject:projectKey
+        withSearchString:searchString page:page object:object token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Tickets -- creating
@@ -317,22 +327,7 @@
     searchString:(NSString *)searchString page:(NSUInteger)page
     object:(id)object token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * ticketNumbers = [self parseTicketNumbers:xml];
-    NSArray * tickets = [self parseTickets:xml];
-    NSArray * metadata = [self parseTicketMetaData:xml];
-    NSArray * milestoneIds = [self parseTicketMilestoneIds:xml];
-    NSArray * projectIds = [self parseTicketProjectIds:xml];
-    NSArray * userIds = [self parseUserIds:xml];
-    NSArray * creatorIds = [self parseCreatorIds:xml];
-
-    // call delegate method manually since object might be nil
-    SEL sel = @selector(tickets:fetchedForProject:searchString:page:object:\
-        metadata:ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
-    if ([delegate respondsToSelector:sel])
-        [delegate tickets:tickets fetchedForProject:projectKey
-            searchString:searchString page:page object:object metadata:metadata
-            ticketNumbers:ticketNumbers milestoneIds:milestoneIds
-            projectIds:projectIds userIds:userIds creatorIds:creatorIds];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
@@ -340,11 +335,7 @@
     object:(id)object token:(NSString *)token requestId:(id)requestId
     error:(NSError *)error
 {
-    SEL sel = @selector(failedToSearchTicketsForProject:searchString:page:\
-        object:error:);
-    if ([delegate respondsToSelector:sel])
-        [delegate failedToSearchTicketsForProject:projectKey
-            searchString:searchString page:page object:object error:error];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark Tickets -- creating
