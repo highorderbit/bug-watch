@@ -38,6 +38,7 @@
 		0537C6C50FE0590F00D87E0B /* FetchMessagesResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C6C40FE0590F00D87E0B /* FetchMessagesResponseProcessor.m */; };
 		0537C6D20FE05B6800D87E0B /* FetchMessageCommentsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C6D10FE05B6800D87E0B /* FetchMessageCommentsResponseProcessor.m */; };
 		0537C6F00FE05FDB00D87E0B /* CreateMessageResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C6EF0FE05FDB00D87E0B /* CreateMessageResponseProcessor.m */; };
+		0537C6FD0FE062A900D87E0B /* EditMessageResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C6FC0FE062A900D87E0B /* EditMessageResponseProcessor.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -273,6 +274,8 @@
 		0537C6D10FE05B6800D87E0B /* FetchMessageCommentsResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetchMessageCommentsResponseProcessor.m; path = lighthouse/api/processors/FetchMessageCommentsResponseProcessor.m; sourceTree = "<group>"; };
 		0537C6EE0FE05FDB00D87E0B /* CreateMessageResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateMessageResponseProcessor.h; path = lighthouse/api/processors/CreateMessageResponseProcessor.h; sourceTree = "<group>"; };
 		0537C6EF0FE05FDB00D87E0B /* CreateMessageResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateMessageResponseProcessor.m; path = lighthouse/api/processors/CreateMessageResponseProcessor.m; sourceTree = "<group>"; };
+		0537C6FB0FE062A900D87E0B /* EditMessageResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditMessageResponseProcessor.h; path = lighthouse/api/processors/EditMessageResponseProcessor.h; sourceTree = "<group>"; };
+		0537C6FC0FE062A900D87E0B /* EditMessageResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditMessageResponseProcessor.m; path = lighthouse/api/processors/EditMessageResponseProcessor.m; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -704,6 +707,8 @@
 				0537C6D10FE05B6800D87E0B /* FetchMessageCommentsResponseProcessor.m */,
 				0537C6EE0FE05FDB00D87E0B /* CreateMessageResponseProcessor.h */,
 				0537C6EF0FE05FDB00D87E0B /* CreateMessageResponseProcessor.m */,
+				0537C6FB0FE062A900D87E0B /* EditMessageResponseProcessor.h */,
+				0537C6FC0FE062A900D87E0B /* EditMessageResponseProcessor.m */,
 			);
 			name = processors;
 			sourceTree = "<group>";
@@ -1558,6 +1563,7 @@
 				0537C6C50FE0590F00D87E0B /* FetchMessagesResponseProcessor.m in Sources */,
 				0537C6D20FE05B6800D87E0B /* FetchMessageCommentsResponseProcessor.m in Sources */,
 				0537C6F00FE05FDB00D87E0B /* CreateMessageResponseProcessor.m in Sources */,
+				0537C6FD0FE062A900D87E0B /* EditMessageResponseProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

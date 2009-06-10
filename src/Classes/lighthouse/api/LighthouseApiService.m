@@ -323,11 +323,17 @@
 - (void)editMessage:(id)messageKey forProject:(id)projectKey
     withDescription:(UpdateMessageDescription *)desc token:(NSString *)token
 {
-    id requestId = [[self class] nextRequestId];
-    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+    ResponseProcessor * processor =
+        [EditMessageResponseProcessor processorWithBuilder:builder
+                                                messageKey:messageKey
+                                                projectKey:projectKey
+                                               description:desc
+                                                  delegate:delegate];
 
-    [api editMessage:messageKey forProject:projectKey
+    id requestId = [api editMessage:messageKey forProject:projectKey
          description:[desc xmlDescription] object:requestId token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Messages -- adding comments
