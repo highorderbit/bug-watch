@@ -242,16 +242,16 @@
 
 #pragma mark LighthouseApiDelegate implementation
 
-- (void)tickets:(NSData *)data
-    fetchedForAllProjectsWithToken:(NSString *)token
+- (void)tickets:(NSData *)xml fetchedForAllProjectsWithToken:(NSString *)token
+    requestId:(id)requestId
 {
-    NSArray * ticketNumbers = [self parseTicketNumbers:data];
-    NSArray * tickets = [self parseTickets:data];
-    NSArray * metadata = [self parseTicketMetaData:data];
-    NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
-    NSArray * projectIds = [self parseTicketProjectIds:data];
-    NSArray * userIds = [self parseUserIds:data];
-    NSArray * creatorIds = [self parseCreatorIds:data];
+    NSArray * ticketNumbers = [self parseTicketNumbers:xml];
+    NSArray * tickets = [self parseTickets:xml];
+    NSArray * metadata = [self parseTicketMetaData:xml];
+    NSArray * milestoneIds = [self parseTicketMilestoneIds:xml];
+    NSArray * projectIds = [self parseTicketProjectIds:xml];
+    NSArray * userIds = [self parseUserIds:xml];
+    NSArray * creatorIds = [self parseCreatorIds:xml];
 
     SEL sel =
         @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
@@ -262,14 +262,14 @@
 }
 
 - (void)failedToFetchTicketsForAllProjects:(NSString *)token
-                                     error:(NSError *)error
+    requestId:(id)requestId error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchTicketsForAllProjects:);
     [self invokeSelector:sel withTarget:delegate args:error, nil];
 }
 
 - (void)details:(NSData *)xml fetchedForTicket:(id)ticketKey
-    inProject:(id)projectKey token:(NSString *)token
+    inProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
 {
     NSArray * ticketComments = [self parseTicketComments:xml];
     NSArray * authors = [self parseTicketCommentAuthors:xml];
@@ -280,7 +280,8 @@
 }
 
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
-    inProject:(id)projectKey token:(NSString *)token error:(NSError *)error
+    inProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error
 {
     SEL sel =
         @selector(failedToFetchTicketDetailsForTicket:inProject:token:error:);
@@ -288,17 +289,17 @@
         error, nil];
 }
 
-- (void)searchResults:(NSData *)data
+- (void)searchResults:(NSData *)xml
     fetchedForAllProjectsWithSearchString:(NSString *)searchString
-    page:(NSUInteger)page token:(NSString *)token
+    page:(NSUInteger)page token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * ticketNumbers = [self parseTicketNumbers:data];
-    NSArray * tickets = [self parseTickets:data];
-    NSArray * metadata = [self parseTicketMetaData:data];
-    NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
-    NSArray * projectIds = [self parseTicketProjectIds:data];
-    NSArray * userIds = [self parseUserIds:data];
-    NSArray * creatorIds = [self parseCreatorIds:data];
+    NSArray * ticketNumbers = [self parseTicketNumbers:xml];
+    NSArray * tickets = [self parseTickets:xml];
+    NSArray * metadata = [self parseTicketMetaData:xml];
+    NSArray * milestoneIds = [self parseTicketMilestoneIds:xml];
+    NSArray * projectIds = [self parseTicketProjectIds:xml];
+    NSArray * userIds = [self parseUserIds:xml];
+    NSArray * creatorIds = [self parseCreatorIds:xml];
 
     SEL sel = @selector(tickets:fetchedForSearchString:page:metadata:\
         ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
@@ -311,7 +312,8 @@
 }
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
-    page:(NSUInteger)page token:(NSString *)token error:(NSError *)error
+    page:(NSUInteger)page token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error
 {
     SEL sel = @selector(failedToSearchTicketsForAllProjects:page:error:);
 
@@ -320,17 +322,17 @@
             page:page error:error];
 }
 
-- (void)searchResults:(NSData *)data fetchedForProject:(id)projectKey
+- (void)searchResults:(NSData *)xml fetchedForProject:(id)projectKey
     searchString:(NSString *)searchString page:(NSUInteger)page
-    object:(id)object token:(NSString *)token
+    object:(id)object token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * ticketNumbers = [self parseTicketNumbers:data];
-    NSArray * tickets = [self parseTickets:data];
-    NSArray * metadata = [self parseTicketMetaData:data];
-    NSArray * milestoneIds = [self parseTicketMilestoneIds:data];
-    NSArray * projectIds = [self parseTicketProjectIds:data];
-    NSArray * userIds = [self parseUserIds:data];
-    NSArray * creatorIds = [self parseCreatorIds:data];
+    NSArray * ticketNumbers = [self parseTicketNumbers:xml];
+    NSArray * tickets = [self parseTickets:xml];
+    NSArray * metadata = [self parseTicketMetaData:xml];
+    NSArray * milestoneIds = [self parseTicketMilestoneIds:xml];
+    NSArray * projectIds = [self parseTicketProjectIds:xml];
+    NSArray * userIds = [self parseUserIds:xml];
+    NSArray * creatorIds = [self parseCreatorIds:xml];
 
     // call delegate method manually since object might be nil
     SEL sel = @selector(tickets:fetchedForProject:searchString:page:object:\
@@ -344,7 +346,8 @@
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString page:(NSUInteger)page
-    object:(id)object token:(NSString *)token error:(NSError *)error
+    object:(id)object token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error
 {
     SEL sel = @selector(failedToSearchTicketsForProject:searchString:page:\
         object:error:);
@@ -356,7 +359,7 @@
 #pragma mark Tickets -- creating
 
 - (void)ticketCreationDidBegin:(NSData *)xml forProject:(id)projectKey
-    object:(id)object token:(NSString *)token
+    object:(id)object token:(NSString *)token requestId:(id)requestId
 {
     NewTicketDescription * desc = [changeTicketRequests objectForKey:object];
     NSAssert1(desc, @"Did not find a pending ticket request for key: '%@'.",
@@ -370,7 +373,8 @@
 }
 
 - (void)failedToBeginTicketCreationForProject:(id)projectKey
-    object:(id)object token:(NSString *)token error:(NSError *)error
+    object:(id)object token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error
 {
     NewTicketDescription * desc = [changeTicketRequests objectForKey:object];
     NSAssert1(desc, @"Did not find a pending ticket request for key: '%@'.",
@@ -382,15 +386,16 @@
     [changeTicketRequests removeObjectForKey:object];
 }
 
-- (void)ticketCreated:(NSData *)data description:(NSString *)description
+- (void)ticketCreated:(NSData *)xml description:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
+    requestId:(id)requestId
 {
     ResponseProcessor * processor = [responseProcessors objectForKey:object];
 
     NSAssert1(processor, @"Did not find a response processor for key: '%@'.",
         object);
 
-    [processor process:data];
+    [processor process:xml];
     [responseProcessors removeObjectForKey:object];
 
     [changeTicketRequests removeObjectForKey:object];
@@ -398,7 +403,7 @@
 
 - (void)failedToCompleteTicketCreation:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
-    error:(NSError *)error
+    requestId:(id)requestId error:(NSError *)error
 {
     ResponseProcessor * processor = [responseProcessors objectForKey:object];
 
@@ -414,8 +419,8 @@
 #pragma mark Tickets -- editing
 
 - (void)editedTicket:(id)ticketKey forProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)requestId
-    response:(NSData *)xml token:(NSString *)token
+    withDescription:(NSString *)description object:(id)object
+    response:(NSData *)xml token:(NSString *)token requestId:(id)requestId
 {
     UpdateTicketDescription * updateTicketDescription =
         [changeTicketRequests objectForKey:requestId];
@@ -430,8 +435,8 @@
 }
 
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)requestId
-    token:(NSString *)token error:(NSError *)error
+    description:(NSString *)desc object:(id)object token:(NSString *)token
+    requestId:(id)requestId error:(NSError *)error
 {
     UpdateTicketDescription * updateTicketDescription =
         [changeTicketRequests objectForKey:requestId];
@@ -448,18 +453,15 @@
 #pragma mark Tickets -- deleting
 
 - (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
-    token:(NSString *)token response:(NSData *)xml
+    response:(NSData *)response token:(NSString *)token requestId:(id)requestId
 {
-    NSLog(@"Delete ticket response: '%@'.",
-        [[[NSString alloc] initWithData:xml encoding:4] autorelease]);
-
     SEL sel = @selector(deletedTicket:forProject:);
     [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
         nil];
 }
 
 - (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
-    token:(NSString *)token error:(NSError *)response
+    token:(NSString *)token requestId:(id)requestId error:(NSError *)response
 {
     SEL sel = @selector(failedToDeleteTicket:forProject:error:);
     [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
@@ -469,7 +471,7 @@
 #pragma mark -- Ticket bins
 
 - (void)ticketBins:(NSData *)xml fetchedForProject:(id)projectKey
-    token:(NSString *)token
+    token:(NSString *)token requestId:(id)requestId
 {
     NSArray * ticketBins = [self parseTicketBins:xml];
 
@@ -479,7 +481,7 @@
 }
 
 - (void)failedToFetchTicketBinsForProject:(id)projectKey
-    token:(NSString *)token error:(NSError *)error
+    token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchTicketBinsForProject:token:error:);
     [self invokeSelector:sel withTarget:delegate args:projectKey, token, error,
@@ -489,7 +491,7 @@
 #pragma mark -- Users
 
 - (void)allUsers:(NSData *)xml fetchedForProject:(id)projectKey
-    token:(NSString *)token
+    token:(NSString *)token requestId:(id)requestId
 {
     NSArray * users = [self parseUsers:xml];
     NSArray * userKeys = [self parseUserKeys:xml];
@@ -514,7 +516,7 @@
 }
 
 - (void)failedToFetchAllUsersForProject:(id)projectKey token:(NSString *)token
-    error:(NSError *)error
+    requestId:(id)requestId error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchAllUsersForProject:error:);
     [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
@@ -523,6 +525,7 @@
 #pragma mark -- Projects
 
 - (void)projects:(NSData *)xml fetchedForAllProjects:(NSString *)token
+    requestId:(id)requestId
 {
     NSArray * projects = [self parseProjects:xml];
     NSArray * projectKeys = [self parseProjectKeys:xml];
@@ -542,7 +545,8 @@
     [nc postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
-- (void)failedToFetchAllProjects:(NSString *)token error:(NSError *)error
+- (void)failedToFetchAllProjects:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchAllProjects:);
     [self invokeSelector:sel withTarget:delegate args:error, nil];
@@ -550,12 +554,12 @@
 
 #pragma mark -- Milestones
 
-- (void)milestones:(NSData *)data
-    fetchedForAllProjectsWithToken:(NSString *)token
+- (void)milestones:(NSData *)xml
+    fetchedForAllProjectsWithToken:(NSString *)token requestId:(id)requestId
 {
-    NSArray * milestones = [self parseMilestones:data];
-    NSArray * milestoneIds = [self parseMilestoneIds:data];
-    NSArray * projectIds = [self parseMilestoneProjectIds:data];
+    NSArray * milestones = [self parseMilestones:xml];
+    NSArray * milestoneIds = [self parseMilestoneIds:xml];
+    NSArray * projectIds = [self parseMilestoneProjectIds:xml];
 
     SEL sel =
         @selector(milestonesFetchedForAllProjects:milestoneIds:projectIds:);
@@ -578,7 +582,7 @@
 }
 
 - (void)failedToFetchMilestonesForAllProjects:(NSString *)token
-                                        error:(NSError *)error
+    requestId:(id)requestId error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchMilestonesForAllProjects:);
     [self invokeSelector:sel withTarget:delegate args:error, nil];
@@ -586,12 +590,12 @@
 
 #pragma mark -- Messages
 
--(void)messages:(NSData *)data fetchedForProject:(id)projectKey
-    token:(NSString *)token
+- (void)messages:(NSData *)xml fetchedForProject:(id)projectKey
+    token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * messages = [self parseMessages:data];
-    NSArray * messageKeys = [self parseMessageKeys:data];
-    NSArray * authorKeys = [self parseMessageAuthorKeys:data];
+    NSArray * messages = [self parseMessages:xml];
+    NSArray * messageKeys = [self parseMessageKeys:xml];
+    NSArray * authorKeys = [self parseMessageAuthorKeys:xml];
 
     SEL sel = @selector(messages:messageKeys:authorKeys:fetchedForProject:);
     [self invokeSelector:sel withTarget:delegate args:messages, messageKeys,
@@ -599,14 +603,14 @@
 }
 
 - (void)failedToFetchMessagesForProject:(id)projectKey token:(NSString *)token
-    error:(NSError *)error
+    requestId:(id)requestId error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchMessagesForProject:token:error:);
     [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
 }
 
 - (void)comments:(NSData *)xml fetchedForMessage:(id)messageKey
-      inProject:(id)projectKey token:(NSString *)token
+    inProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
 {
     NSArray * commentKeys = [self parseMessageCommentKeys:xml];
     NSArray * comments = [self parseMessageComments:xml];
@@ -619,7 +623,7 @@
 }
 
 - (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
-    token:(NSString *)token error:(NSError *)error
+    token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
     SEL sel = @selector(failedToFetchCommentsForMessage:inProject:error:);
     [self invokeSelector:sel withTarget:delegate args:messageKey, projectKey,
@@ -628,16 +632,16 @@
 
 #pragma mark Messages -- creating
 
-- (void)message:(NSData *)xml createdForProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)requestId
-    token:(NSString *)token
+- (void)message:(NSData *)response createdForProject:(id)projectKey
+    withDescription:(NSString *)description object:(id)object
+    token:(NSString *)token requestId:(id)requestId
 {
     NewMessageDescription * desc =
         [changeTicketRequests objectForKey:requestId];
     NSAssert1(desc, @"Did not find a pending message creation request for key: "
         "%@.", requestId);
 
-    NSArray * keys = [self parseMessageKeys:xml];
+    NSArray * keys = [self parseMessageKeys:response];
     NSAssert2(keys.count == 1, @"Expected 1 message ID, but received %d: %@.",
         keys.count, keys);
     id key = [keys lastObject];
@@ -650,8 +654,8 @@
 }
 
 - (void)failedToCreateMessageForProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)requestId
-    token:(NSString *)token error:(NSError *)error
+    withDescription:(NSString *)description object:(id)object
+    token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
     NewMessageDescription * desc =
         [changeTicketRequests objectForKey:requestId];
@@ -668,8 +672,8 @@
 #pragma mark Messages -- editing
 
 - (void)editedMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)requestId
-    token:(NSString *)token response:(NSData *)xml
+    description:(NSString *)description object:(id)object
+    token:(NSString *)token requestId:(id)requestId response:(NSData *)xml
 {
     UpdateMessageDescription * desc =
         [changeTicketRequests objectForKey:requestId];
@@ -684,8 +688,8 @@
 }
 
 - (void)failedToEditMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description object:requestId token:(NSString *)token
-    error:(NSError *)error
+    description:(NSString *)description object:(id)object
+    token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
     UpdateMessageDescription * desc =
         [changeTicketRequests objectForKey:requestId];
@@ -702,8 +706,8 @@
 #pragma mark Messages -- adding comments
 
 - (void)addedComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey object:(id)requestId token:(NSString *)token
-    response:(NSData *)xml
+    forProject:(id)projectKey object:(id)object token:(NSString *)token
+    requestId:(id)requestId response:(NSData *)xml
 {
     NewMessageCommentDescription * desc =
         [changeTicketRequests objectForKey:requestId];
@@ -728,8 +732,8 @@
 }
 
 - (void)failedToAddComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey object:(id)requestId token:(NSString *)token
-    error:(NSError *)error
+    forProject:(id)projectKey object:(id)object token:(NSString *)token
+    requestId:(id)requestId error:(NSError *)error
 {
     NewMessageCommentDescription * desc =
         [changeTicketRequests objectForKey:requestId];
