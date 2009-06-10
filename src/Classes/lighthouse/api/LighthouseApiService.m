@@ -125,7 +125,16 @@
 - (void)searchTicketsForAllProjects:(NSString *)searchString
     page:(NSUInteger)page token:(NSString *)token
 {
-    [api searchTicketsForAllProjects:searchString page:page token:token];
+    SearchAllTicketsResponseProcessor * processor =
+        [SearchAllTicketsResponseProcessor processorWithBuilder:builder
+                                                   searchString:searchString
+                                                           page:page
+                                                       delegate:delegate];
+
+    id requestId =
+        [api searchTicketsForAllProjects:searchString page:page token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 - (void)searchTicketsForProject:(id)projectKey
@@ -174,9 +183,6 @@
                        description:xmlDescription
                             object:nil
                              token:token];
-
-    // TODO: delete me
-    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
 
     [responseProcessors setObject:processor forKey:requestId];
 }
@@ -297,33 +303,14 @@
     fetchedForAllProjectsWithSearchString:(NSString *)searchString
     page:(NSUInteger)page token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * ticketNumbers = [self parseTicketNumbers:xml];
-    NSArray * tickets = [self parseTickets:xml];
-    NSArray * metadata = [self parseTicketMetaData:xml];
-    NSArray * milestoneIds = [self parseTicketMilestoneIds:xml];
-    NSArray * projectIds = [self parseTicketProjectIds:xml];
-    NSArray * userIds = [self parseUserIds:xml];
-    NSArray * creatorIds = [self parseCreatorIds:xml];
-
-    SEL sel = @selector(tickets:fetchedForSearchString:page:metadata:\
-        ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
-
-    if ([delegate respondsToSelector:sel])
-        [delegate tickets:tickets fetchedForSearchString:searchString
-            page:page metadata:metadata ticketNumbers:ticketNumbers
-            milestoneIds:milestoneIds projectIds:projectIds userIds:userIds
-            creatorIds:creatorIds];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     page:(NSUInteger)page token:(NSString *)token requestId:(id)requestId
     error:(NSError *)error
 {
-    SEL sel = @selector(failedToSearchTicketsForAllProjects:page:error:);
-
-    if ([delegate respondsToSelector:sel])
-        [delegate failedToSearchTicketsForAllProjects:searchString
-            page:page error:error];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 - (void)searchResults:(NSData *)xml fetchedForProject:(id)projectKey

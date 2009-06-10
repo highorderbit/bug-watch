@@ -33,7 +33,7 @@
     milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
     userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds;
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
-    page:(NSUInteger)page error:(NSError *)error;
+    page:(NSUInteger)page errors:(NSArray *)errors;
 
 - (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
     searchString:(NSString *)searchString page:(NSUInteger)page

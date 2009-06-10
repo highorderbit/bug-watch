@@ -29,6 +29,7 @@
 		0537C53E0FE0122D00D87E0B /* EditTicketResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C53D0FE0122D00D87E0B /* EditTicketResponseProcessor.m */; };
 		0537C58B0FE0249500D87E0B /* FetchAllTicketsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C58A0FE0249500D87E0B /* FetchAllTicketsResponseProcessor.m */; };
 		0537C5A40FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C5A30FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.m */; };
+		0537C5B90FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C5B80FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -246,6 +247,8 @@
 		0537C5940FE0286700D87E0B /* ResponseProcessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResponseProcessors.h; path = lighthouse/api/processors/ResponseProcessors.h; sourceTree = "<group>"; };
 		0537C5A20FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetchTicketDetailsResponseProcessor.h; path = lighthouse/api/processors/FetchTicketDetailsResponseProcessor.h; sourceTree = "<group>"; };
 		0537C5A30FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetchTicketDetailsResponseProcessor.m; path = lighthouse/api/processors/FetchTicketDetailsResponseProcessor.m; sourceTree = "<group>"; };
+		0537C5B70FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchAllTicketsResponseProcessor.h; path = lighthouse/api/processors/SearchAllTicketsResponseProcessor.h; sourceTree = "<group>"; };
+		0537C5B80FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchAllTicketsResponseProcessor.m; path = lighthouse/api/processors/SearchAllTicketsResponseProcessor.m; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -648,6 +651,7 @@
 		058ED3FC0FDED4CC00595604 /* processors */ = {
 			isa = PBXGroup;
 			children = (
+				0537C5940FE0286700D87E0B /* ResponseProcessors.h */,
 				058ED3F90FDED4C700595604 /* ResponseProcessor.h */,
 				058ED3FA0FDED4C700595604 /* ResponseProcessor.m */,
 				058ED3FD0FDED4E700595604 /* CreateTicketResponseProcessor.h */,
@@ -656,9 +660,10 @@
 				0537C53D0FE0122D00D87E0B /* EditTicketResponseProcessor.m */,
 				0537C5890FE0249500D87E0B /* FetchAllTicketsResponseProcessor.h */,
 				0537C58A0FE0249500D87E0B /* FetchAllTicketsResponseProcessor.m */,
-				0537C5940FE0286700D87E0B /* ResponseProcessors.h */,
 				0537C5A20FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.h */,
 				0537C5A30FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.m */,
+				0537C5B70FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.h */,
+				0537C5B80FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m */,
 			);
 			name = processors;
 			sourceTree = "<group>";
@@ -1504,6 +1509,7 @@
 				0537C53E0FE0122D00D87E0B /* EditTicketResponseProcessor.m in Sources */,
 				0537C58B0FE0249500D87E0B /* FetchAllTicketsResponseProcessor.m in Sources */,
 				0537C5A40FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.m in Sources */,
+				0537C5B90FE02C0A00D87E0B /* SearchAllTicketsResponseProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
