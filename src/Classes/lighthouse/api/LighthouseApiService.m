@@ -272,7 +272,14 @@
 
 - (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token
 {
-    [api fetchMessagesForProject:projectKey token:token];
+    ResponseProcessor * processor =
+        [FetchMessagesResponseProcessor processorWithBuilder:builder
+                                                  projectKey:projectKey
+                                                    delegate:delegate];
+
+    id requestId = [api fetchMessagesForProject:projectKey token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 - (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
@@ -480,20 +487,13 @@
 - (void)messages:(NSData *)xml fetchedForProject:(id)projectKey
     token:(NSString *)token requestId:(id)requestId
 {
-    NSArray * messages = [self parseMessages:xml];
-    NSArray * messageKeys = [self parseMessageKeys:xml];
-    NSArray * authorKeys = [self parseMessageAuthorKeys:xml];
-
-    SEL sel = @selector(messages:messageKeys:authorKeys:fetchedForProject:);
-    [self invokeSelector:sel withTarget:delegate args:messages, messageKeys,
-        authorKeys, projectKey, nil];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToFetchMessagesForProject:(id)projectKey token:(NSString *)token
     requestId:(id)requestId error:(NSError *)error
 {
-    SEL sel = @selector(failedToFetchMessagesForProject:token:error:);
-    [self invokeSelector:sel withTarget:delegate args:projectKey, error, nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 - (void)comments:(NSData *)xml fetchedForMessage:(id)messageKey

@@ -41,6 +41,13 @@
 - (NSArray *)parseMilestoneIds:(NSData *)xml;
 - (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
 
+- (NSArray *)parseMessages:(NSData *)xml;
+- (NSArray *)parseMessageKeys:(NSData *)xml;
+- (NSArray *)parseMessageAuthorKeys:(NSData *)xml;
+- (NSArray *)parseMessageCommentKeys:(NSData *)xml;
+- (NSArray *)parseMessageComments:(NSData *)xml;
+- (NSArray *)parseMessageCommentAuthorIds:(NSData *)xml;
+
 - (NSArray *)parseTicketBins:(NSData *)xml;
 
 @end

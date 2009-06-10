@@ -263,6 +263,83 @@
     return [parser parse:xml];
 }
 
+- (NSArray *)parseMessages:(NSData *)xml
+{
+    parser.className = @"Message";
+    parser.classElementType = @"message";
+    parser.classElementCollection = @"messages";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"title", @"title",
+            @"postedDate", @"created-at",
+            @"message", @"body",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"message";
+    parser.classElementCollection = @"messages";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageAuthorKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"message";
+    parser.classElementCollection = @"messages";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"user-id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageCommentKeys:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"comment";
+    parser.classElementCollection = @"comments";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageComments:(NSData *)xml
+{
+    parser.className = @"MessageResponse";
+    parser.classElementType = @"comment";
+    parser.classElementCollection = @"comments";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"text", @"body",
+            @"date", @"created-at",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMessageCommentAuthorIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"comment";
+    parser.classElementCollection = @"comments";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"", @"user-id", nil];
+
+    return [parser parse:xml];
+}
+
 - (NSArray *)parseTicketBins:(NSData *)xml
 {
     parser.className = @"TicketBin";

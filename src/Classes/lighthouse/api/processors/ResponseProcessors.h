@@ -15,4 +15,5 @@
 #import "FetchUsersResponseProcessor.h"
 #import "FetchProjectsResponseProcessor.h"
 #import "FetchMilestonesResponseProcessor.h"
+#import "FetchMessagesResponseProcessor.h"
 #import "FetchTicketBinsResponseProcessor.h"
