@@ -36,16 +36,10 @@
 
 #pragma mark Tickets -- creating
 
-- (void)ticketCreationDidBegin:(NSData *)xml forProject:(id)projectKey
-    object:(id)object token:(NSString *)token requestId:(id)requestId;
-- (void)failedToBeginTicketCreationForProject:(id)projectKey
-    object:(id)object token:(NSString *)token requestId:(id)requestId
-    error:(NSError *)error;
-
 - (void)ticketCreated:(NSData *)xml description:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     requestId:(id)requestId;
-- (void)failedToCompleteTicketCreation:(NSString *)description
+- (void)failedToCreateTicketWithDescription:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     requestId:(id)requestId error:(NSError *)error;
 

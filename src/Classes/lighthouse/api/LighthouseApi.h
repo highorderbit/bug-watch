@@ -41,12 +41,8 @@
 
 #pragma mark Tickets -- creating
 
-- (id)beginTicketCreationForProject:(id)projectKey object:(id)object
-    token:(NSString *)token;
-
-- (id)completeTicketCreationForProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token;
+- (id)createTicketForProject:(id)projectKey description:(NSString *)description
+    object:(id)object token:(NSString *)token;
 
 #pragma mark Tickets -- editing
 

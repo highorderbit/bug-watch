@@ -160,31 +160,8 @@
     return requestId;
 }
 
-- (id)beginTicketCreationForProject:(id)projectKey object:(id)object
-    token:(NSString *)token
-{
-    id requestId = [[self class] uniqueRequestId];
-
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/tickets/new.xml?_token=%@",
-        baseUrlString, projectKey, token];
-    SEL sel = @selector(handleBeginTicketCreationResponse:toRequest:object:);
-    NSDictionary * args =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-        token, @"token",
-        projectKey, @"projectKey",
-        object ? object : [NSNull null], @"object",
-        nil];
-    [arguments setObject:args forKey:requestId];
-
-    [self sendRequestToUrl:urlString callback:sel object:requestId];
-
-    return requestId;
-}
-
-- (id)completeTicketCreationForProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token
+- (id)createTicketForProject:(id)projectKey description:(NSString *)description
+    object:(id)object token:(NSString *)token
 {
     id requestId = [[self class] uniqueRequestId];
 
@@ -210,7 +187,7 @@
     [arguments setObject:args forKey:requestId];
 
     SEL sel =
-        @selector(handleCompleteTicketCreationResponse:toRequest:object:);
+        @selector(handleTicketCreationResponse:toRequest:object:);
     [dispatcher
         request:req isHandledBySelector:sel target:self object:requestId];
 
@@ -766,36 +743,9 @@
     [arguments removeObjectForKey:requestId];
 }
 
-- (void)handleBeginTicketCreationResponse:(id)response
-                                toRequest:(NSURLRequest *)request
-                                   object:(id)requestId
-{
-    NSDictionary * args = [arguments objectForKey:requestId];
-
-    NSString * token = [args objectForKey:@"token"];
-    id projectKey = [args objectForKey:@"projectKey"];
-    id userObject = [args objectForKey:@"object"];
-    userObject = [userObject isEqual:[NSNull null]] ? nil : userObject;
-
-    if ([response isKindOfClass:[NSError class]])
-        [delegate failedToBeginTicketCreationForProject:projectKey
-                                                 object:userObject
-                                                  token:token
-                                              requestId:requestId
-                                                  error:response];
-    else
-        [delegate ticketCreationDidBegin:response
-                              forProject:projectKey
-                                  object:userObject
-                                   token:token
-                               requestId:requestId];
-
-    [arguments removeObjectForKey:requestId];
-}
-
-- (void)handleCompleteTicketCreationResponse:(id)response
-                                   toRequest:(NSURLRequest *)request
-                                      object:(id)requestId
+- (void)handleTicketCreationResponse:(id)response
+                           toRequest:(NSURLRequest *)request
+                              object:(id)requestId
 {
     NSDictionary * args = [arguments objectForKey:requestId];
 
@@ -806,9 +756,9 @@
     object = [object isEqual:[NSNull null]] ? nil : object;
 
     if ([response isKindOfClass:[NSError class]])
-        [delegate failedToCompleteTicketCreation:description
-            forProject:projectKey object:object token:token requestId:requestId
-            error:response];
+        [delegate failedToCreateTicketWithDescription:description
+            forProject:projectKey object:object token:token
+            requestId:requestId error:response];
     else
         [delegate ticketCreated:response description:description
             forProject:projectKey object:object token:token

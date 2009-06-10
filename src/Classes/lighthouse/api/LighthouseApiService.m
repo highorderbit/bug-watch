@@ -134,12 +134,10 @@
     [responseProcessors setObject:processor forKey:requestId];
 
     NSString * creationXml = [desc xmlDescriptionForProject:projectKey];
-    [api completeTicketCreationForProject:projectKey
-                              description:creationXml
-                                   object:requestId
-                                    token:token];
-
-    //[api beginTicketCreationForProject:projectKey object:requestId token:token];
+    [api createTicketForProject:projectKey
+                    description:creationXml
+                         object:requestId
+                          token:token];
 }
 
 #pragma mark Tickets -- editing
@@ -358,34 +356,6 @@
 
 #pragma mark Tickets -- creating
 
-- (void)ticketCreationDidBegin:(NSData *)xml forProject:(id)projectKey
-    object:(id)object token:(NSString *)token requestId:(id)requestId
-{
-    NewTicketDescription * desc = [changeTicketRequests objectForKey:object];
-    NSAssert1(desc, @"Did not find a pending ticket request for key: '%@'.",
-        object);
-
-    NSString * creationXml = [desc xmlDescriptionForProject:projectKey];
-    [api completeTicketCreationForProject:projectKey
-                              description:creationXml
-                                   object:object
-                                    token:token];
-}
-
-- (void)failedToBeginTicketCreationForProject:(id)projectKey
-    object:(id)object token:(NSString *)token requestId:(id)requestId
-    error:(NSError *)error
-{
-    NewTicketDescription * desc = [changeTicketRequests objectForKey:object];
-    NSAssert1(desc, @"Did not find a pending ticket request for key: '%@'.",
-        object);
-
-    SEL sel = @selector(failedToCreateTicket:forProject:error:);
-    [self invokeSelector:sel withTarget:delegate args:desc, projectKey, error];
-
-    [changeTicketRequests removeObjectForKey:object];
-}
-
 - (void)ticketCreated:(NSData *)xml description:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     requestId:(id)requestId
@@ -401,7 +371,7 @@
     [changeTicketRequests removeObjectForKey:object];
 }
 
-- (void)failedToCompleteTicketCreation:(NSString *)description
+- (void)failedToCreateTicketWithDescription:(NSString *)description
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     requestId:(id)requestId error:(NSError *)error
 {
