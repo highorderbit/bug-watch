@@ -20,5 +20,6 @@
 #import "FetchMessageCommentsResponseProcessor.h"
 #import "CreateMessageResponseProcessor.h"
 #import "EditMessageResponseProcessor.h"
+#import "AddMessageCommentResponseProcessor.h"
 
 #import "FetchTicketBinsResponseProcessor.h"

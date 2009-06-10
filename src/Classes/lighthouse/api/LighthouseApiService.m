@@ -341,11 +341,17 @@
 - (void)addComment:(NewMessageCommentDescription *)desc toMessage:(id)messageKey
     forProject:(id)projectKey token:(NSString *)token
 {
-    id requestId = [[self class] nextRequestId];
-    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+    ResponseProcessor * processor =
+        [AddMessageCommentResponseProcessor processorWithBuilder:builder
+                                                      messageKey:messageKey
+                                                      projectKey:projectKey
+                                                     description:desc
+                                                        delegate:delegate];
 
-    [api addComment:[desc xmlDescription] toMessage:messageKey
+    id requestId = [api addComment:[desc xmlDescription] toMessage:messageKey
         forProject:projectKey object:requestId token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark LighthouseApiDelegate implementation
@@ -554,32 +560,14 @@
     description:(NSString *)description object:(id)object
     token:(NSString *)token requestId:(id)requestId response:(NSData *)xml
 {
-    UpdateMessageDescription * desc =
-        [changeTicketRequests objectForKey:requestId];
-    NSAssert1(desc, @"Did not find a pending update message request for key: "
-        "%@.", requestId);
-
-    SEL sel = @selector(editedMessage:forProject:describedBy:);
-    [self invokeSelector:sel withTarget:delegate args:messageKey,
-        projectKey, desc, nil];
-
-    [changeTicketRequests removeObjectForKey:requestId];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToEditMessage:(id)messageKey forProject:(id)projectKey
     description:(NSString *)description object:(id)object
     token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
-    UpdateMessageDescription * desc =
-        [changeTicketRequests objectForKey:requestId];
-    NSAssert1(desc, @"Did not find a pending update message request for key: "
-        "%@.", requestId);
-
-    SEL sel = @selector(failedToEditMessage:forProject:describedBy:error:);
-    [self invokeSelector:sel withTarget:delegate args:messageKey,
-        projectKey, desc, error, nil];
-
-    [changeTicketRequests removeObjectForKey:requestId];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark Messages -- adding comments
@@ -588,43 +576,14 @@
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     requestId:(id)requestId response:(NSData *)xml
 {
-    NewMessageCommentDescription * desc =
-        [changeTicketRequests objectForKey:requestId];
-    NSAssert1(desc, @"Did not find a pending new message comment request for "
-        "key: %@.", requestId);
-
-    NSArray * commentKeys = [self parseMessageCommentKeys:xml];
-    NSArray * comments = [self parseMessageComments:xml];
-    NSArray * authors = [self parseMessageCommentAuthorIds:xml];
-
-    NSAssert3(commentKeys.count == 1 && comments.count == 1 &&
-        authors.count == 1, @"Expected 1 new message comment, but got: %@, %@, "
-        "%@.", commentKeys, comments, authors);
-
-    SEL sel = @selector(comment:withKey:authorKey:addedToMessage:forProject:\
-        describedBy:);
-    [self invokeSelector:sel withTarget:delegate args:[comments lastObject],
-        [commentKeys lastObject], [authors lastObject], messageKey, projectKey,
-        desc, nil];
-
-    [changeTicketRequests removeObjectForKey:requestId];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToAddComment:(NSString *)comment toMessage:(id)messageKey
     forProject:(id)projectKey object:(id)object token:(NSString *)token
     requestId:(id)requestId error:(NSError *)error
 {
-    NewMessageCommentDescription * desc =
-        [changeTicketRequests objectForKey:requestId];
-    NSAssert1(desc, @"Did not find a pending new message comment request for "
-        "key: %@.", requestId);
-
-    SEL sel =
-        @selector(failedToAddCommentToMessage:forProject:describedBy:error:);
-    [self invokeSelector:sel withTarget:delegate args:messageKey, projectKey,
-        desc, error, nil];
-
-    [changeTicketRequests removeObjectForKey:requestId];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark Parsing XML
