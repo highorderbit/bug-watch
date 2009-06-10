@@ -18,5 +18,6 @@
 
 #import "FetchMessagesResponseProcessor.h"
 #import "FetchMessageCommentsResponseProcessor.h"
+#import "CreateMessageResponseProcessor.h"
 
 #import "FetchTicketBinsResponseProcessor.h"

@@ -304,11 +304,18 @@
 - (void)createMessage:(NewMessageDescription *)desc forProject:(id)projectKey
     token:(NSString *)token
 {
-    id requestId = [[self class] nextRequestId];
-    [changeTicketRequests setObject:[[desc copy] autorelease] forKey:requestId];
+    ResponseProcessor * processor =
+        [CreateMessageResponseProcessor processorWithBuilder:builder
+                                                  projectKey:projectKey
+                                                 description:desc
+                                                    delegate:delegate];
 
-    [api createMessageForProject:projectKey description:[desc xmlDescription]
-        object:requestId token:token];
+    id requestId = [api createMessageForProject:projectKey
+                                    description:[desc xmlDescription]
+                                         object:requestId
+                                          token:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Messages -- editing
@@ -521,41 +528,18 @@
 
 #pragma mark Messages -- creating
 
-- (void)message:(NSData *)response createdForProject:(id)projectKey
+- (void)message:(NSData *)xml createdForProject:(id)projectKey
     withDescription:(NSString *)description object:(id)object
     token:(NSString *)token requestId:(id)requestId
 {
-    NewMessageDescription * desc =
-        [changeTicketRequests objectForKey:requestId];
-    NSAssert1(desc, @"Did not find a pending message creation request for key: "
-        "%@.", requestId);
-
-    NSArray * keys = [self parseMessageKeys:response];
-    NSAssert2(keys.count == 1, @"Expected 1 message ID, but received %d: %@.",
-        keys.count, keys);
-    id key = [keys lastObject];
-
-    SEL sel = @selector(message:describedBy:createdForProject:);
-    [self invokeSelector:sel withTarget:delegate args:key, desc, projectKey,
-        nil];
-
-    [changeTicketRequests removeObjectForKey:requestId];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToCreateMessageForProject:(id)projectKey
     withDescription:(NSString *)description object:(id)object
     token:(NSString *)token requestId:(id)requestId error:(NSError *)error
 {
-    NewMessageDescription * desc =
-        [changeTicketRequests objectForKey:requestId];
-    NSAssert1(desc, @"Did not find a pending message creation request for key: "
-        "%@.", requestId);
-
-    SEL sel = @selector(failedToCreateMessageDescribedBy:forProject:error:);
-    [self invokeSelector:sel withTarget:delegate args:desc, projectKey, error,
-        nil];
-
-    [changeTicketRequests removeObjectForKey:requestId];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark Messages -- editing
