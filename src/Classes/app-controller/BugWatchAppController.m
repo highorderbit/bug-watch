@@ -35,6 +35,7 @@
 #import "ProjectSpecificTicketBinDSAdapter.h"
 #import "MessageDisplayProjectSetter.h"
 #import "MessageDisplayUserSetter.h"
+#import "MessagePersistenceStore.h"
 
 @interface BugWatchAppController (Private)
 
@@ -63,6 +64,7 @@
 + (NSString *)projectLevelTicketCachePlist;
 + (NSString *)projectCachePlist;
 + (NSString *)milestoneCachePlist;
++ (NSString *)messageCachePlist;
 + (NSString *)userCachePlist;
 
 @end
@@ -90,6 +92,8 @@
 
     [milestoneDisplayMgr release];
     [milestoneCacheSetter release];
+
+    [messageDisplayMgr release];
 
     [userCacheSetter release];
 
@@ -167,7 +171,13 @@
         [[[ProjectPersistenceStore alloc] init] autorelease];
     [projectPersistenceStore saveProjectCache:projectCacheSetter.cache
         toPlist:[[self class] projectCachePlist]];
-        
+    
+    MessageCache * messageCache = messageDisplayMgr.messageCache;
+    MessagePersistenceStore * messagePersistenceStore =
+        [[[MessagePersistenceStore alloc] init] autorelease];
+    [messagePersistenceStore saveMessageCache:messageCache
+        toPlist:[[self class] messageCachePlist]];
+
     UserPersistenceStore * userPersistenceStore =
         [[[UserPersistenceStore alloc] init] autorelease];
     [userPersistenceStore saveUserCache:userCacheSetter.cache
@@ -454,8 +464,14 @@
     dataSource.token = token;
     dataSourceService.delegate = dataSource;
 
-    MessageDisplayMgr * messageDisplayMgr =
-        [[[MessageDisplayMgr alloc] initWithMessageCache:nil
+    MessagePersistenceStore * persistenceStore =
+        [[[MessagePersistenceStore alloc] init] autorelease];
+    MessageCache * messageCache =
+        [persistenceStore loadMessageCacheWithPlist:
+        [[self class] messageCachePlist]];
+
+    messageDisplayMgr =
+        [[[MessageDisplayMgr alloc] initWithMessageCache:messageCache
         messageResponseCache:nil dataSource:dataSource
         networkAwareViewController:messagesNetAwareViewController
         messagesViewController:messagesViewController] autorelease];
@@ -576,6 +592,11 @@
 + (NSString *)milestoneCachePlist
 {
     return @"MilestoneCache";
+}
+
++ (NSString *)messageCachePlist
+{
+    return @"MessageCache";
 }
 
 + (NSString *)userCachePlist
