@@ -259,7 +259,13 @@
 
 - (void)fetchMilestonesForAllProjects:(NSString *)token
 {
-    [api fetchMilestonesForAllProjects:token];
+    ResponseProcessor * processor =
+        [FetchMilestonesResponseProcessor processorWithBuilder:builder
+                                                      delegate:delegate];
+
+    id requestId = [api fetchMilestonesForAllProjects:token];
+
+    [responseProcessors setObject:processor forKey:requestId];
 }
 
 #pragma mark Messages
@@ -460,35 +466,13 @@
 - (void)milestones:(NSData *)xml
     fetchedForAllProjectsWithToken:(NSString *)token requestId:(id)requestId
 {
-    NSArray * milestones = [self parseMilestones:xml];
-    NSArray * milestoneIds = [self parseMilestoneIds:xml];
-    NSArray * projectIds = [self parseMilestoneProjectIds:xml];
-
-    SEL sel =
-        @selector(milestonesFetchedForAllProjects:milestoneIds:projectIds:);
-    [self invokeSelector:sel withTarget:delegate args:milestones, milestoneIds,
-       projectIds, nil];
-
-    // post general notification
-    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
-    NSDictionary * userInfo =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-        milestones, @"milestones",
-        milestoneIds, @"milestoneKeys",
-        projectIds, @"projectKeys",
-        nil];
-    NSString * notificationName =
-        [[self class] milestonesReceivedForAllProjectsNotificationName];
-    [nc postNotificationName:notificationName
-                      object:self
-                    userInfo:userInfo];
+    [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToFetchMilestonesForAllProjects:(NSString *)token
     requestId:(id)requestId error:(NSError *)error
 {
-    SEL sel = @selector(failedToFetchMilestonesForAllProjects:);
-    [self invokeSelector:sel withTarget:delegate args:error, nil];
+    [self processErrorResponse:error toRequest:requestId];
 }
 
 #pragma mark -- Messages

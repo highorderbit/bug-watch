@@ -222,6 +222,47 @@
     return [parser parse:xml];
 }
 
+- (NSArray *)parseMilestones:(NSData *)xml
+{
+    parser.className = @"Milestone";
+    parser.classElementType = @"milestone";
+    parser.classElementCollection = @"milestones";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"name", @"title",
+            @"dueDate", @"due-on",
+            @"numOpenTickets", @"open-tickets-count",
+            @"numTickets", @"tickets-count",
+            @"goals", @"goals",
+            nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMilestoneIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"milestone";
+    parser.classElementCollection = @"milestones";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"id", nil];
+
+    return [parser parse:xml];
+}
+
+- (NSArray *)parseMilestoneProjectIds:(NSData *)xml
+{
+    parser.className = @"NSNumber";
+    parser.classElementType = @"milestone";
+    parser.classElementCollection = @"milestones";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"number", @"project-id", nil];
+
+    return [parser parse:xml];
+}
+
 - (NSArray *)parseTicketBins:(NSData *)xml
 {
     parser.className = @"TicketBin";

@@ -37,6 +37,10 @@
 - (NSArray *)parseProjects:(NSData *)xml;
 - (NSArray *)parseProjectKeys:(NSData *)xml;
 
+- (NSArray *)parseMilestones:(NSData *)xml;
+- (NSArray *)parseMilestoneIds:(NSData *)xml;
+- (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
+
 - (NSArray *)parseTicketBins:(NSData *)xml;
 
 @end

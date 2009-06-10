@@ -34,6 +34,7 @@
 		0537C5EC0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C5EB0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.m */; };
 		0537C63F0FE0498800D87E0B /* FetchUsersResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C63E0FE0498800D87E0B /* FetchUsersResponseProcessor.m */; };
 		0537C66D0FE053F400D87E0B /* FetchProjectsResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C66C0FE053F400D87E0B /* FetchProjectsResponseProcessor.m */; };
+		0537C69D0FE0580900D87E0B /* FetchMilestonesResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C69C0FE0580900D87E0B /* FetchMilestonesResponseProcessor.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -261,6 +262,8 @@
 		0537C63E0FE0498800D87E0B /* FetchUsersResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetchUsersResponseProcessor.m; path = lighthouse/api/processors/FetchUsersResponseProcessor.m; sourceTree = "<group>"; };
 		0537C66B0FE053F400D87E0B /* FetchProjectsResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetchProjectsResponseProcessor.h; path = lighthouse/api/processors/FetchProjectsResponseProcessor.h; sourceTree = "<group>"; };
 		0537C66C0FE053F400D87E0B /* FetchProjectsResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetchProjectsResponseProcessor.m; path = lighthouse/api/processors/FetchProjectsResponseProcessor.m; sourceTree = "<group>"; };
+		0537C69B0FE0580900D87E0B /* FetchMilestonesResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetchMilestonesResponseProcessor.h; path = lighthouse/api/processors/FetchMilestonesResponseProcessor.h; sourceTree = "<group>"; };
+		0537C69C0FE0580900D87E0B /* FetchMilestonesResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetchMilestonesResponseProcessor.m; path = lighthouse/api/processors/FetchMilestonesResponseProcessor.m; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -684,6 +687,8 @@
 				0537C63E0FE0498800D87E0B /* FetchUsersResponseProcessor.m */,
 				0537C66B0FE053F400D87E0B /* FetchProjectsResponseProcessor.h */,
 				0537C66C0FE053F400D87E0B /* FetchProjectsResponseProcessor.m */,
+				0537C69B0FE0580900D87E0B /* FetchMilestonesResponseProcessor.h */,
+				0537C69C0FE0580900D87E0B /* FetchMilestonesResponseProcessor.m */,
 			);
 			name = processors;
 			sourceTree = "<group>";
@@ -1534,6 +1539,7 @@
 				0537C5EC0FE0459500D87E0B /* FetchTicketBinsResponseProcessor.m in Sources */,
 				0537C63F0FE0498800D87E0B /* FetchUsersResponseProcessor.m in Sources */,
 				0537C66D0FE053F400D87E0B /* FetchProjectsResponseProcessor.m in Sources */,
+				0537C69D0FE0580900D87E0B /* FetchMilestonesResponseProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
