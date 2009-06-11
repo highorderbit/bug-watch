@@ -5,7 +5,6 @@
 #import "LighthouseApi.h"
 #import "WebServiceApi.h"
 #import "WebServiceResponseDispatcher.h"
-#import "RandomNumber.h"
 
 @interface LighthouseApi ()
 

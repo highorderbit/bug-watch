@@ -69,7 +69,6 @@
 		0537C8390FE0AA5300D87E0B /* NSDateLighthouseApiTypeConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8050FE0A95100D87E0B /* NSDateLighthouseApiTypeConverter.m */; };
 		0537C83A0FE0AA5300D87E0B /* NSNumberLighthouseApiTypeConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8070FE0A95200D87E0B /* NSNumberLighthouseApiTypeConverter.m */; };
 		0537C83B0FE0AA5300D87E0B /* TicketMetaData+LighthouseApiParsingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8090FE0A95200D87E0B /* TicketMetaData+LighthouseApiParsingAdditions.m */; };
-		0537C8D70FE0AC9400D87E0B /* RandomNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8D60FE0AC9400D87E0B /* RandomNumber.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -321,8 +320,6 @@
 		0537C8180FE0A9B400D87E0B /* UpdateMessageDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateMessageDescription.m; sourceTree = "<group>"; };
 		0537C8190FE0A9B400D87E0B /* UpdateTicketDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateTicketDescription.h; sourceTree = "<group>"; };
 		0537C81A0FE0A9B400D87E0B /* UpdateTicketDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTicketDescription.m; sourceTree = "<group>"; };
-		0537C8D50FE0AC9400D87E0B /* RandomNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RandomNumber.h; path = shared/RandomNumber.h; sourceTree = "<group>"; };
-		0537C8D60FE0AC9400D87E0B /* RandomNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RandomNumber.m; path = shared/RandomNumber.m; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -1021,8 +1018,6 @@
 				05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */,
 				0537C4EC0FDF1DB100D87E0B /* NSError+InstantiationAdditions.h */,
 				0537C4ED0FDF1DB100D87E0B /* NSError+InstantiationAdditions.m */,
-				0537C8D50FE0AC9400D87E0B /* RandomNumber.h */,
-				0537C8D60FE0AC9400D87E0B /* RandomNumber.m */,
 				91482CA90FC6254F002D10E8 /* ProjectSelectionViewController.h */,
 				91482CAA0FC6254F002D10E8 /* ProjectSelectionViewController.m */,
 			);
@@ -1666,7 +1661,6 @@
 				919892230FDD5C0A00A61099 /* MessageDisplayProjectSetter.m in Sources */,
 				919892380FDD75DF00A61099 /* MessageDataSource.m in Sources */,
 				919893CB0FE0275700A61099 /* MessagePersistenceStore.m in Sources */,
-				0537C8D70FE0AC9400D87E0B /* RandomNumber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
