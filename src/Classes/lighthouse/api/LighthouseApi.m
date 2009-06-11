@@ -25,8 +25,6 @@
     [api release];
     [dispatcher release];
 
-    [arguments release];
-
     [super dealloc];
 }
 
@@ -36,8 +34,6 @@
         baseUrlString = [aBaseUrlString copy];
         api = [[WebServiceApi alloc] initWithDelegate:self];
         dispatcher = [[WebServiceResponseDispatcher alloc] init];
-
-        arguments = [[NSMutableDictionary alloc] init];
     }
 
     return self;
@@ -290,8 +286,6 @@
         [delegate request:requestId failedWithError:response];
     else
         [delegate request:requestId succeededWithResponse:response];
-
-    [arguments removeObjectForKey:requestId];
 }
 
 #pragma mark WebSericeApiDelegate implementation

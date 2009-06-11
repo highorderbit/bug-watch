@@ -16,8 +16,6 @@
 
     WebServiceApi * api;
     WebServiceResponseDispatcher * dispatcher;
-
-    NSMutableDictionary * arguments;
 }
 
 @property (nonatomic, assign) id<LighthouseApiDelegate> delegate;
