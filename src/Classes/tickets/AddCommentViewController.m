@@ -78,4 +78,14 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)setAutocorrectionType:(UITextAutocorrectionType)autocorrectionType
+{
+    textView.autocorrectionType = autocorrectionType;
+}
+
+- (UITextAutocorrectionType)autocorrectionType
+{
+    return textView.autocorrectionType;
+}
+
 @end

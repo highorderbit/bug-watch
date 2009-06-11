@@ -173,6 +173,8 @@ static const NSInteger UNSET_KEY = 0;
         case kTitle:
             self.addCommentViewController.navigationItem.title =
                 @"Edit Title";
+            self.addCommentViewController.autocorrectionType =
+                UITextAutocorrectionTypeDefault;
             [self.navigationController
                 pushViewController:self.addCommentViewController
                 animated:YES];
@@ -184,6 +186,8 @@ static const NSInteger UNSET_KEY = 0;
         case kComment:
             self.addCommentViewController.navigationItem.title =
                 @"Add Comment";
+            self.addCommentViewController.autocorrectionType =
+                UITextAutocorrectionTypeDefault;
             [self.navigationController
                 pushViewController:self.addCommentViewController
                 animated:YES];
@@ -193,6 +197,8 @@ static const NSInteger UNSET_KEY = 0;
         case kDescription:
             self.addCommentViewController.navigationItem.title =
                 @"Edit Description";
+            self.addCommentViewController.autocorrectionType =
+                UITextAutocorrectionTypeDefault;
             [self.navigationController
                 pushViewController:self.addCommentViewController
                 animated:YES];
@@ -241,6 +247,8 @@ static const NSInteger UNSET_KEY = 0;
         case kTags:
             self.addCommentViewController.navigationItem.title =
                 @"Edit Tags";
+            self.addCommentViewController.autocorrectionType =
+                UITextAutocorrectionTypeNo;
             [self.navigationController
                 pushViewController:self.addCommentViewController
                 animated:YES];

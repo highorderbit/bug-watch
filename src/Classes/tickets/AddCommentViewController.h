@@ -18,6 +18,8 @@
 //    - (void)setText:(NSString *)text;
 @property(nonatomic) SEL action;
 
+@property (nonatomic, assign) UITextAutocorrectionType autocorrectionType;
+
 - (void)setTextViewText:(NSString *)text;
 
 @end
