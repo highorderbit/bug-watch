@@ -5,57 +5,17 @@
 #import "LighthouseApiService.h"
 #import "LighthouseApi.h"
 #import "LighthouseApiParser.h"
-#import "RandomNumber.h"
-#import "RegexKitLite.h"
 
 #import "BugWatchObjectBuilder.h"
-
 #import "ResponseProcessors.h"
 #import "CreateTicketResponseProcessor.h"
 #import "EditTicketResponseProcessor.h"
 
 @interface LighthouseApiService ()
 
-- (NSArray *)parseTickets:(NSData *)xml;
-- (NSArray *)parseTicketMetaData:(NSData *)xml;
-- (NSArray *)parseTicketNumbers:(NSData *)xml;
-- (NSArray *)parseTicketMilestoneIds:(NSData *)xml;
-- (NSArray *)parseTicketProjectIds:(NSData *)xml;
-
-- (NSArray *)parseProjects:(NSData *)xml;
-- (NSArray *)parseProjectKeys:(NSData *)xml;
-
-- (NSArray *)parseUsers:(NSData *)xml;
-- (NSArray *)parseUserKeys:(NSData *)xml;
-- (NSArray *)parseUserIds:(NSData *)xml;
-
-- (NSArray *)parseCreatorIds:(NSData *)xml;
-
-- (NSArray *)parseTicketComments:(NSData *)xml;
-- (NSArray *)parseTicketCommentAuthors:(NSData *)xml;
-- (NSArray *)parseTicketUrls:(NSData *)xml;
-
-- (NSArray *)parseMilestones:(NSData *)xml;
-- (NSArray *)parseMilestoneIds:(NSData *)xml;
-- (NSArray *)parseMilestoneProjectIds:(NSData *)xml;
-
-- (NSArray *)parseMessages:(NSData *)xml;
-- (NSArray *)parseMessageKeys:(NSData *)xml;
-- (NSArray *)parseMessageAuthorKeys:(NSData *)xml;
-- (NSArray *)parseMessageCommentKeys:(NSData *)xml;
-- (NSArray *)parseMessageComments:(NSData *)xml;
-- (NSArray *)parseMessageCommentAuthorIds:(NSData *)xml;
-
-- (NSArray *)parseTicketBins:(NSData *)xml;
-
-- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
-    args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
-
 - (void)trackProcessor:(ResponseProcessor *)processor forRequest:(id)requestId;
 - (void)processResponse:(NSData *)xml toRequest:(id)requestId;
 - (void)processErrorResponse:(NSError *)error toRequest:(id)requestId;
-
-+ (id)nextRequestId;
 
 @end
 
@@ -67,10 +27,8 @@
 {
     [api release];
 
-    [parser release];
     [builder release];
 
-    [changeTicketRequests release];
     [responseProcessors release];
 
     [super dealloc];
@@ -84,10 +42,9 @@
         api = [[LighthouseApi alloc] initWithBaseUrlString:aBaseUrlString];
         api.delegate = self;
 
-        parser = [[LighthouseApiParser alloc] init];
+        LighthouseApiParser * parser = [LighthouseApiParser parser];
         builder = [[BugWatchObjectBuilder alloc] initWithParser:parser];
 
-        changeTicketRequests = [[NSMutableDictionary alloc] init];
         responseProcessors = [[NSMutableDictionary alloc] init];
     }
 
@@ -583,349 +540,6 @@
     [self processErrorResponse:error toRequest:requestId];
 }
 
-#pragma mark Parsing XML
-
-- (NSArray *)parseTickets:(NSData *)xml
-{
-    parser.className = @"Ticket";
-    parser.classElementType = @"ticket";
-    parser.classElementCollection = @"tickets";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"description", @"title",
-            @"creationDate", @"created-at", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseTicketMetaData:(NSData *)xml
-{
-    parser.className = @"TicketMetaData";
-    parser.classElementType = @"ticket";
-    parser.classElementCollection = @"tickets";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"tags", @"tag",
-            @"state", @"state",
-            @"lastModifiedDate", @"updated-at", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseTicketNumbers:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"ticket";
-    parser.classElementCollection = @"tickets";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"number", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseTicketMilestoneIds:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"ticket";
-    parser.classElementCollection = @"tickets";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"milestone-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseTicketProjectIds:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"ticket";
-    parser.classElementCollection = @"tickets";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"project-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseUserIds:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"ticket";
-    parser.classElementCollection = @"tickets";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"user-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseCreatorIds:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"ticket";
-    parser.classElementCollection = @"tickets";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"creator-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseTicketComments:(NSData *)xml
-{
-    parser.className = @"TicketComment";
-    parser.classElementType = @"version";
-    parser.classElementCollection = @"versions";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"date", @"created-at",
-            @"text", @"body",
-            @"stateChangeDescription", @"diffable-attributes",
-            nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseTicketCommentAuthors:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"version";
-    parser.classElementCollection = @"versions";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"creator-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseTicketUrls:(NSData *)xml
-{
-    parser.className = @"NSString";
-    parser.classElementType = @"ticket";
-    parser.classElementCollection = @"tickets";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"string", @"url", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseProjects:(NSData *)xml
-{
-    parser.className = @"Project";
-    parser.classElementType = @"project";
-    parser.classElementCollection = @"projects";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"name", @"name",
-            nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseProjectKeys:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"project";
-    parser.classElementCollection = @"projects";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"", @"id",
-            nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseUsers:(NSData *)xml
-{
-    parser.className = @"User";
-    parser.classElementType = @"user";
-    parser.classElementCollection = @"memberships";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"name", @"name",
-            @"job", @"job",
-            @"websiteLink", @"website",
-            @"avatarLink", @"avatar-url",
-            nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseUserKeys:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"membership";
-    parser.classElementCollection = @"memberships";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"user-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMilestones:(NSData *)xml
-{
-    parser.className = @"Milestone";
-    parser.classElementType = @"milestone";
-    parser.classElementCollection = @"milestones";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"name", @"title",
-            @"dueDate", @"due-on",
-            @"numOpenTickets", @"open-tickets-count",
-            @"numTickets", @"tickets-count",
-            @"goals", @"goals",
-            nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMilestoneIds:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"milestone";
-    parser.classElementCollection = @"milestones";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMilestoneProjectIds:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"milestone";
-    parser.classElementCollection = @"milestones";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"project-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMessages:(NSData *)xml
-{
-    parser.className = @"Message";
-    parser.classElementType = @"message";
-    parser.classElementCollection = @"messages";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"title", @"title",
-            @"postedDate", @"created-at",
-            @"message", @"body",
-            nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMessageKeys:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"message";
-    parser.classElementCollection = @"messages";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"", @"id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMessageAuthorKeys:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"message";
-    parser.classElementCollection = @"messages";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"", @"user-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMessageCommentKeys:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"comment";
-    parser.classElementCollection = @"comments";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"", @"id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMessageComments:(NSData *)xml
-{
-    parser.className = @"MessageResponse";
-    parser.classElementType = @"comment";
-    parser.classElementCollection = @"comments";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"text", @"body",
-            @"date", @"created-at",
-            nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseMessageCommentAuthorIds:(NSData *)xml
-{
-    parser.className = @"NSNumber";
-    parser.classElementType = @"comment";
-    parser.classElementCollection = @"comments";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"", @"user-id", nil];
-
-    return [parser parse:xml];
-}
-
-- (NSArray *)parseTicketBins:(NSData *)xml
-{
-    parser.className = @"TicketBin";
-    parser.classElementType = @"ticket-bin";
-    parser.classElementCollection = @"ticket-bins";
-    parser.attributeMappings =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"name", @"name",
-            @"searchString", @"query",
-            @"ticketCount", @"tickets-count",
-            nil];
-
-    return [parser parse:xml];
-}
-
-#pragma mark Delegate helpers
-
-- (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
-    args:(id)firstArg, ...
-{
-    if ([target respondsToSelector:selector]) {
-        NSMethodSignature * sig = [target methodSignatureForSelector:selector];
-        NSInvocation * inv = [NSInvocation invocationWithMethodSignature:sig];
-        [inv setTarget:target];
-        [inv setSelector:selector];
-
-        va_list args;
-        va_start(args, firstArg);
-        NSInteger argIdx = 2;
-
-        for (id arg = firstArg; arg != nil; arg = va_arg(args, id), ++argIdx)
-            [inv setArgument:&arg atIndex:argIdx];
-
-        va_end(args);
-
-        [inv invoke];
-
-        return YES;
-    }
-
-    return NO;
-}
-
 #pragma mark Response processing helpers
 
 - (void)trackProcessor:(ResponseProcessor *)processor forRequest:(id)requestId
@@ -972,13 +586,6 @@
 + (NSString *)allProjectsReceivedNotificationName
 {
     return @"BugWatchAllProjectsReceivedNotification";
-}
-
-#pragma mark General helpers
-
-+ (id)nextRequestId
-{
-    return [RandomNumber randomNumber];
 }
 
 @end

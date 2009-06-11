@@ -34,6 +34,11 @@
 @synthesize classElementCollection;
 @synthesize obj, elementPath, elementValue, elementType, elements;
 
++ (id)parser
+{
+    return [[[[self class] alloc] init] autorelease];
+}
+
 - (void)dealloc
 {
     [className release];
@@ -49,6 +54,11 @@
     [elements release];
 
     [super dealloc];
+}
+
+- (id)init
+{
+    return (self = [super init]);
 }
 
 - (id)parse:(NSData *)xml

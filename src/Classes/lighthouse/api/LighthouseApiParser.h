@@ -25,6 +25,9 @@
 @property (nonatomic, copy) NSString * classElementType;
 @property (nonatomic, copy) NSString * classElementCollection;
 
++ (id)parser;
+- (id)init;
+
 - (id)parse:(NSData *)xml;
 
 @end

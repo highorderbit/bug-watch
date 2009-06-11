@@ -13,7 +13,7 @@
 #import "NewMessageCommentDescription.h"
 
 @class LighthouseApi;
-@class LighthouseApiParser, BugWatchObjectBuilder;
+@class BugWatchObjectBuilder;
 
 @interface LighthouseApiService : NSObject <LighthouseApiDelegate>
 {
@@ -21,10 +21,8 @@
 
     LighthouseApi * api;
 
-    LighthouseApiParser * parser;
     BugWatchObjectBuilder * builder;
 
-    NSMutableDictionary * changeTicketRequests;
     NSMutableDictionary * responseProcessors;
 }
 
