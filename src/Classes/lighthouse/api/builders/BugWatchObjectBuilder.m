@@ -124,7 +124,7 @@
     parser.classElementCollection = @"versions";
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
-            @"date", @"created-at",
+            @"date", @"updated-at",
             @"text", @"body",
             @"stateChangeDescription", @"diffable-attributes",
             nil];
@@ -322,7 +322,7 @@
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"text", @"body",
-            @"date", @"created-at",
+            @"date", @"updated-at",
             nil];
 
     return [parser parse:xml];
