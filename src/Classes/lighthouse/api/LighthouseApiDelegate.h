@@ -37,20 +37,19 @@
 #pragma mark Tickets -- creating
 
 - (void)ticketCreated:(NSData *)xml description:(NSString *)description
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
-    requestId:(id)requestId;
+    forProject:(id)projectKey token:(NSString *)token requestId:(id)requestId;
 - (void)failedToCreateTicketWithDescription:(NSString *)description
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
-    requestId:(id)requestId error:(NSError *)error;
+    forProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error;
 
 #pragma mark Tickets -- editing
 
 - (void)editedTicket:(id)ticketKey forProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)object
-    response:(NSData *)xml token:(NSString *)token requestId:(id)requestId;
+    withDescription:(NSString *)description response:(NSData *)xml
+    token:(NSString *)token requestId:(id)requestId;
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
-    description:(NSString *)desc object:(id)object token:(NSString *)token
-    requestId:(id)requestId error:(NSError *)error;
+    description:(NSString *)desc token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error;
 
 #pragma mark Tickets -- deleting
 
@@ -102,28 +101,28 @@
 #pragma mark Messages -- creating
 
 - (void)message:(NSData *)response createdForProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)object
-    token:(NSString *)token requestId:(id)requestId;
+    withDescription:(NSString *)description token:(NSString *)token
+    requestId:(id)requestId;
 - (void)failedToCreateMessageForProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)object
-    token:(NSString *)token requestId:(id)requestId error:(NSError *)error;
+    withDescription:(NSString *)description token:(NSString *)token
+    requestId:(id)requestId error:(NSError *)error;
 
 #pragma mark Messages -- editing
 
 - (void)editedMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token requestId:(id)requestId response:(NSData *)xml;
+    description:(NSString *)description token:(NSString *)token
+    requestId:(id)requestId response:(NSData *)xml;
 - (void)failedToEditMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token requestId:(id)requestId error:(NSError *)error;
+    description:(NSString *)description token:(NSString *)token
+    requestId:(id)requestId error:(NSError *)error;
 
 #pragma mark Messages -- adding comments
 
 - (void)addedComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
-    requestId:(id)requestId response:(NSData *)xml;
+    forProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
+    response:(NSData *)xml;
 - (void)failedToAddComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
-    requestId:(id)requestId error:(NSError *)error;
+    forProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error;
 
 @end

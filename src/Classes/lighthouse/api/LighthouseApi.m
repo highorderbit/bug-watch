@@ -161,7 +161,7 @@
 }
 
 - (id)createTicketForProject:(id)projectKey description:(NSString *)description
-    object:(id)object token:(NSString *)token
+    token:(NSString *)token
 {
     id requestId = [[self class] uniqueRequestId];
 
@@ -182,7 +182,6 @@
         token, @"token",
         projectKey, @"projectKey",
         description, @"description",
-        object ? object : [NSNull null], @"object",
         nil];
     [arguments setObject:args forKey:requestId];
 
@@ -199,8 +198,7 @@
 #pragma mark Tickets -- editing
 
 - (id)editTicket:(id)ticketKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token
+    description:(NSString *)description token:(NSString *)token
 {
     id requestId = [[self class] uniqueRequestId];
 
@@ -227,7 +225,6 @@
         ticketKey, @"ticketKey",
         projectKey, @"projectKey",
         description, @"description",
-        object, @"object",
         nil];
     [arguments setObject:args forKey:requestId];
 
@@ -413,8 +410,7 @@
 #pragma mark Messages -- creating
 
 - (id)createMessageForProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token
+    description:(NSString *)description token:(NSString *)token
 {
     id requestId = [[self class] uniqueRequestId];
 
@@ -435,7 +431,6 @@
         token, @"token",
         projectKey, @"projectKey",
         description, @"description",
-        object ? object : [NSNull null], @"object",
         nil];
     [arguments setObject:args forKey:requestId];
 
@@ -452,8 +447,7 @@
 #pragma mark Messages -- editing
 
 - (id)editMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token
+    description:(NSString *)description token:(NSString *)token
 {
     id requestId = [[self class] uniqueRequestId];
 
@@ -475,7 +469,6 @@
         messageKey, @"messageKey",
         projectKey, @"projectKey",
         description, @"description",
-        object ? object : [NSNull null], @"object",
         nil];
     [arguments setObject:args forKey:requestId];
 
@@ -491,7 +484,7 @@
 #pragma mark Messages -- adding comments
 
 - (id)addComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
+    forProject:(id)projectKey token:(NSString *)token
 {
     id requestId = [[self class] uniqueRequestId];
 
@@ -513,7 +506,6 @@
         messageKey, @"messageKey",
         projectKey, @"projectKey",
         comment, @"comment",
-        object ? object : [NSNull null], @"object",
         nil];
     [arguments setObject:args forKey:requestId];
 
@@ -632,17 +624,14 @@
     NSString * token = [args objectForKey:@"token"];
     id projectKey = [args objectForKey:@"projectKey"];
     NSString * description = [args objectForKey:@"description"];
-    id object = [args objectForKey:@"object"];
-    object = [object isEqual:[NSNull null]] ? nil : object;
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToCreateMessageForProject:projectKey
-            withDescription:description object:object token:token
-            requestId:requestId error:response];
+            withDescription:description token:token requestId:requestId
+            error:response];
     else
         [delegate message:response createdForProject:projectKey
-            withDescription:description object:object token:token
-            requestId:requestId];
+            withDescription:description token:token requestId:requestId];
 
     [arguments removeObjectForKey:requestId];
 }
@@ -657,17 +646,15 @@
     id messageKey = [args objectForKey:@"messageKey"];
     id projectKey = [args objectForKey:@"projectKey"];
     NSString * description = [args objectForKey:@"description"];
-    id object = [args objectForKey:@"object"];
-    object = [object isEqual:[NSNull null]] ? nil : object;
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToEditMessage:messageKey forProject:projectKey
-            description:description object:object token:token
-            requestId:requestId error:response];
+            description:description token:token requestId:requestId
+            error:response];
     else
         [delegate editedMessage:messageKey forProject:projectKey
-            description:description object:object token:token
-            requestId:requestId response:response];
+            description:description token:token requestId:requestId
+            response:response];
 
     [arguments removeObjectForKey:requestId];
 }
@@ -682,16 +669,14 @@
     id messageKey = [args objectForKey:@"messageKey"];
     id projectKey = [args objectForKey:@"projectKey"];
     NSString * comment = [args objectForKey:@"comment"];
-    id object = [args objectForKey:@"object"];
-    object = [object isEqual:[NSNull null]] ? nil : object;
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToAddComment:comment toMessage:messageKey
-            forProject:projectKey object:object token:token requestId:requestId
+            forProject:projectKey token:token requestId:requestId
             error:response];
     else
         [delegate addedComment:comment toMessage:messageKey
-            forProject:projectKey object:object token:token requestId:requestId
+            forProject:projectKey token:token requestId:requestId
             response:response];
 
     [arguments removeObjectForKey:requestId];
@@ -728,16 +713,16 @@
     NSString * searchString = [args objectForKey:@"searchString"];
     id projectKey = [args objectForKey:@"projectKey"];
     NSUInteger page = [[args objectForKey:@"page"] integerValue];
-    id obj = [args objectForKey:@"object"];
-    obj = [obj isEqual:[NSNull null]] ? nil : obj;
+    id object = [args objectForKey:@"object"];
+    object = [object isEqual:[NSNull null]] ? nil : object;
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToSearchTicketsForProject:projectKey
-            searchString:searchString page:page object:obj token:token
+            searchString:searchString page:page object:object token:token
             requestId:requestId error:response];
     else
         [delegate searchResults:response fetchedForProject:projectKey
-            searchString:searchString page:page object:obj token:token
+            searchString:searchString page:page object:object token:token
             requestId:requestId];
 
     [arguments removeObjectForKey:requestId];
@@ -752,17 +737,14 @@
     NSString * token = [args objectForKey:@"token"];
     id projectKey = [args objectForKey:@"projectKey"];
     NSString * description = [args objectForKey:@"description"];
-    id object = [args objectForKey:@"object"];
-    object = [object isEqual:[NSNull null]] ? nil : object;
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToCreateTicketWithDescription:description
-            forProject:projectKey object:object token:token
-            requestId:requestId error:response];
+            forProject:projectKey token:token requestId:requestId
+            error:response];
     else
         [delegate ticketCreated:response description:description
-            forProject:projectKey object:object token:token
-            requestId:requestId];
+            forProject:projectKey token:token requestId:requestId];
 
     [arguments removeObjectForKey:requestId];
 }
@@ -777,16 +759,15 @@
     id projectKey  = [args objectForKey:@"projectKey"];
     id ticketKey = [args objectForKey:@"ticketKey"];
     NSString * description = [args objectForKey:@"description"];
-    id object = [args objectForKey:@"object"];
 
     if ([response isKindOfClass:[NSError class]])
         [delegate failedToEditTicket:ticketKey forProject:projectKey
-            description:description object:object token:token
-            requestId:requestId error:response];
+            description:description token:token requestId:requestId
+            error:response];
     else
         [delegate editedTicket:ticketKey forProject:projectKey
-            withDescription:description object:object response:response
-            token:token requestId:requestId];
+            withDescription:description response:response token:token
+            requestId:requestId];
 
     [arguments removeObjectForKey:requestId];
 }

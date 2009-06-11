@@ -169,7 +169,6 @@
     NSString * creationXml = [desc xmlDescriptionForProject:projectKey];
     id requestId = [api createTicketForProject:projectKey
                                    description:creationXml
-                                        object:nil
                                          token:token];
 
     [responseProcessors setObject:processor forKey:requestId];
@@ -191,7 +190,6 @@
     id requestId = [api editTicket:ticketKey
                         forProject:projectKey
                        description:xmlDescription
-                            object:nil
                              token:token];
 
     [responseProcessors setObject:processor forKey:requestId];
@@ -312,7 +310,6 @@
 
     id requestId = [api createMessageForProject:projectKey
                                     description:[desc xmlDescription]
-                                         object:requestId
                                           token:token];
 
     [responseProcessors setObject:processor forKey:requestId];
@@ -331,7 +328,7 @@
                                                   delegate:delegate];
 
     id requestId = [api editMessage:messageKey forProject:projectKey
-         description:[desc xmlDescription] object:requestId token:token];
+         description:[desc xmlDescription] token:token];
 
     [responseProcessors setObject:processor forKey:requestId];
 }
@@ -349,7 +346,7 @@
                                                         delegate:delegate];
 
     id requestId = [api addComment:[desc xmlDescription] toMessage:messageKey
-        forProject:projectKey object:requestId token:token];
+        forProject:projectKey token:token];
 
     [responseProcessors setObject:processor forKey:requestId];
 }
@@ -413,15 +410,14 @@
 #pragma mark Tickets -- creating
 
 - (void)ticketCreated:(NSData *)xml description:(NSString *)description
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
-    requestId:(id)requestId
+    forProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
 {
     [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToCreateTicketWithDescription:(NSString *)description
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
-    requestId:(id)requestId error:(NSError *)error
+    forProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error
 {
     [self processErrorResponse:error toRequest:requestId];
 }
@@ -429,15 +425,15 @@
 #pragma mark Tickets -- editing
 
 - (void)editedTicket:(id)ticketKey forProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)object
-    response:(NSData *)xml token:(NSString *)token requestId:(id)requestId
+    withDescription:(NSString *)description response:(NSData *)xml
+    token:(NSString *)token requestId:(id)requestId
 {
     [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
-    description:(NSString *)desc object:(id)object token:(NSString *)token
-    requestId:(id)requestId error:(NSError *)error
+    description:(NSString *)desc token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error
 {
     [self processErrorResponse:error toRequest:requestId];
 }
@@ -541,15 +537,15 @@
 #pragma mark Messages -- creating
 
 - (void)message:(NSData *)xml createdForProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)object
-    token:(NSString *)token requestId:(id)requestId
+    withDescription:(NSString *)description token:(NSString *)token
+    requestId:(id)requestId
 {
     [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToCreateMessageForProject:(id)projectKey
-    withDescription:(NSString *)description object:(id)object
-    token:(NSString *)token requestId:(id)requestId error:(NSError *)error
+    withDescription:(NSString *)description token:(NSString *)token
+    requestId:(id)requestId error:(NSError *)error
 {
     [self processErrorResponse:error toRequest:requestId];
 }
@@ -557,15 +553,15 @@
 #pragma mark Messages -- editing
 
 - (void)editedMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token requestId:(id)requestId response:(NSData *)xml
+    description:(NSString *)description token:(NSString *)token
+    requestId:(id)requestId response:(NSData *)xml
 {
     [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToEditMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token requestId:(id)requestId error:(NSError *)error
+    description:(NSString *)description token:(NSString *)token
+    requestId:(id)requestId error:(NSError *)error
 {
     [self processErrorResponse:error toRequest:requestId];
 }
@@ -573,15 +569,15 @@
 #pragma mark Messages -- adding comments
 
 - (void)addedComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
-    requestId:(id)requestId response:(NSData *)xml
+    forProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
+    response:(NSData *)xml
 {
     [self processResponse:xml toRequest:requestId];
 }
 
 - (void)failedToAddComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey object:(id)object token:(NSString *)token
-    requestId:(id)requestId error:(NSError *)error
+    forProject:(id)projectKey token:(NSString *)token requestId:(id)requestId
+    error:(NSError *)error
 {
     [self processErrorResponse:error toRequest:requestId];
 }

@@ -42,13 +42,12 @@
 #pragma mark Tickets -- creating
 
 - (id)createTicketForProject:(id)projectKey description:(NSString *)description
-    object:(id)object token:(NSString *)token;
+    token:(NSString *)token;
 
 #pragma mark Tickets -- editing
 
 - (id)editTicket:(id)ticketKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token;
+    description:(NSString *)description token:(NSString *)token;
 
 #pragma mark Tickets -- deleting
 
@@ -80,17 +79,16 @@
 #pragma mark Messages -- creating
 
 - (id)createMessageForProject:(id)projectKey description:(NSString *)description
-    object:(id)object token:(NSString *)token;
+    token:(NSString *)token;
 
 #pragma mark Messages -- editing
 
 - (id)editMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description object:(id)object
-    token:(NSString *)token;
+    description:(NSString *)description token:(NSString *)token;
 
 #pragma mark Messages -- adding comments
 
 - (id)addComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey object:(id)object token:(NSString *)token;
+    forProject:(id)projectKey token:(NSString *)token;
 
 @end
