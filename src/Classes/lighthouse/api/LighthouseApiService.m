@@ -55,7 +55,7 @@
 
 - (void)fetchTicketsForAllProjects:(NSString *)token
 {
-    FetchAllTicketsResponseProcessor * processor =
+    ResponseProcessor * processor =
         [FetchAllTicketsResponseProcessor processorWithBuilder:builder
                                                       delegate:delegate];
 
@@ -67,7 +67,7 @@
 - (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
     token:(NSString *)token
 {
-    FetchTicketDetailsResponseProcessor * processor =
+    ResponseProcessor * processor =
         [FetchTicketDetailsResponseProcessor processorWithBuilder:builder
                                                         ticketKey:ticketKey
                                                        projectKey:projectKey
@@ -83,7 +83,7 @@
 - (void)searchTicketsForAllProjects:(NSString *)searchString
     page:(NSUInteger)page token:(NSString *)token
 {
-    SearchAllTicketsResponseProcessor * processor =
+    ResponseProcessor * processor =
         [SearchAllTicketsResponseProcessor processorWithBuilder:builder
                                                    searchString:searchString
                                                            page:page
@@ -99,7 +99,7 @@
     withSearchString:(NSString *)searchString page:(NSUInteger)page
     object:(id)object token:(NSString *)token
 {
-    SearchAllTicketsResponseProcessor * processor =
+    ResponseProcessor * processor =
         [SearchAllTicketsResponseProcessor processorWithBuilder:builder
                                                      projectKey:projectKey
                                                    searchString:searchString
@@ -118,7 +118,7 @@
 - (void)createNewTicket:(NewTicketDescription *)desc forProject:(id)projectKey
     token:(NSString *)token
 {
-    CreateTicketResponseProcessor * processor =
+    ResponseProcessor * processor =
         [CreateTicketResponseProcessor processorWithBuilder:builder
                                                 description:desc
                                                  projectKey:projectKey
@@ -137,7 +137,7 @@
 - (void)editTicket:(id)ticketKey forProject:(id)projectKey
     withDescription:(UpdateTicketDescription *)desc token:(NSString *)token
 {
-    EditTicketResponseProcessor * processor =
+    ResponseProcessor * processor =
         [EditTicketResponseProcessor processorWithBuilder:builder
                                                 ticketKey:ticketKey
                                                projectKey:projectKey
