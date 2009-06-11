@@ -8,7 +8,7 @@
 
 - (void)fetchDidBegin;
 - (void)fetchDidEnd;
-- (void)fetchFailedWithError:(NSError *)error;
+- (void)fetchFailedWithErrors:(NSArray *)errors;
 
 - (void)currentMilestonesForAllProjects:(NSArray *)milestones
                           milestoneKeys:(NSArray *)milestoneKeys

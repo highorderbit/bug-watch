@@ -175,9 +175,9 @@
     [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
 }
 
-- (void)fetchFailedWithError:(NSError *)error
+- (void)fetchFailedWithErrors:(NSArray *)errors
 {
-    NSLog(@"Failed to fetch milestiones: '%@'.", error);
+    NSLog(@"Failed to fetch milestiones: '%@'.", errors);
 }
 
 - (void)currentMilestonesForAllProjects:(NSArray *)someMilestones

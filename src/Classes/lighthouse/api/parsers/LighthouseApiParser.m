@@ -34,6 +34,11 @@
 @synthesize classElementCollection;
 @synthesize obj, elementPath, elementValue, elementType, elements;
 
++ (id)parser
+{
+    return [[[[self class] alloc] init] autorelease];
+}
+
 - (void)dealloc
 {
     [className release];
@@ -49,6 +54,11 @@
     [elements release];
 
     [super dealloc];
+}
+
+- (id)init
+{
+    return (self = [super init]);
 }
 
 - (id)parse:(NSData *)xml
@@ -95,13 +105,24 @@
     qualifiedName:(NSString *)qualifiedName
 {
     if (buildingObject)
-        if ([elementName isEqualToString:self.classElementType]) {
-            [self.elements addObject:self.obj];
-            buildingObject = NO;
-        } else
-            [self setValue:self.elementValue
-                   forPath:self.elementPath
-                    object:self.obj];
+        // HACK: Grabbing top level objects to support parsing errors, and I
+        // don't want to spend the time to refactor properly.
+        if (!attributeMappings) {
+            if ([elementName isEqualToString:self.classElementType]) {
+                [self setValue:self.elementValue
+                       forPath:self.elementPath
+                        object:self.obj];
+                [self.elements addObject:self.obj];
+            }
+        } else {
+            if ([elementName isEqualToString:self.classElementType]) {
+                [self.elements addObject:self.obj];
+                buildingObject = NO;
+            } else
+                [self setValue:self.elementValue
+                       forPath:self.elementPath
+                        object:self.obj];
+        }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)chars
@@ -124,7 +145,7 @@
 - (void)setValue:(NSString *)value forPath:(NSString *)path object:(id)object
 {
     NSString * key = [attributeMappings objectForKey:path];
-    if (key) {
+    if (key || !attributeMappings) {
         id val = [self convert:value toType:self.elementType];
 
         if ([[[self class] primitiveTypes] containsObject:self.className])

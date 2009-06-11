@@ -33,7 +33,6 @@
 #pragma mark LighthouseApiServiceDelegate implementation
 
 - (void)fetchedTicketBins:(NSArray *)ticketBins forProject:(id)projectKey
-    token:(NSString *)token
 {
     NSLog(@"Received ticket bins: %@", ticketBins);
     [delegate receivedTicketBinsFromDataSource:ticketBins];
