@@ -35,14 +35,14 @@
     return self;
 }
 
-- (void)setTicket:(Ticket *)ticket forKey:(id)key
+- (void)setTicket:(Ticket *)ticket forKey:(TicketKey *)key
 {
     [tickets setObject:ticket forKey:key];
 }
 
-- (Ticket *)ticketForKey:(id)key
+- (Ticket *)ticketForKey:(TicketKey *)key
 {
-    return [[tickets objectForKey:key] copy];
+    return [[[tickets objectForKey:key] copy] autorelease];
 }
 
 - (NSDictionary *)allTickets
@@ -50,14 +50,14 @@
     return [[tickets copy] autorelease];
 }
 
-- (void)setMetaData:(TicketMetaData *)someMetaData forKey:(id)key
+- (void)setMetaData:(TicketMetaData *)someMetaData forKey:(TicketKey *)key
 {
     [metaData setObject:someMetaData forKey:key];
 }
 
-- (TicketMetaData *)metaDataForKey:(id)key
+- (TicketMetaData *)metaDataForKey:(TicketKey *)key
 {
-    return [[metaData objectForKey:key] copy];
+    return [[[metaData objectForKey:key] copy] autorelease];
 }
 
 - (NSDictionary *)allMetaData
@@ -65,12 +65,12 @@
     return [[metaData copy] autorelease];
 }
 
-- (void)setCreatedByKey:(id)createdByKey forKey:(id)key
+- (void)setCreatedByKey:(id)createdByKey forKey:(TicketKey *)key
 {
     [createdByDict setObject:createdByKey forKey:key];
 }
 
-- (id)createdByKeyForKey:(id)key
+- (id)createdByKeyForKey:(TicketKey *)key
 {
     return [createdByDict objectForKey:key];
 }
@@ -80,12 +80,12 @@
     return [[createdByDict copy] autorelease];
 }
 
-- (void)setAssignedToKey:(id)assignedToKey forKey:(id)key
+- (void)setAssignedToKey:(id)assignedToKey forKey:(TicketKey *)key
 {
     [assignedToDict setObject:assignedToKey forKey:key];
 }
 
-- (id)assignedToKeyForKey:(id)key
+- (id)assignedToKeyForKey:(TicketKey *)key
 {
     return [assignedToDict objectForKey:key];
 }
@@ -95,12 +95,12 @@
     return [[assignedToDict copy] autorelease];
 }
 
-- (void)setMilestoneKey:(id)milestoneKey forKey:(id)key
+- (void)setMilestoneKey:(id)milestoneKey forKey:(TicketKey *)key
 {
     [milestoneDict setObject:milestoneKey forKey:key];
 }
 
-- (id)milestoneKeyForKey:(id)key
+- (id)milestoneKeyForKey:(TicketKey *)key
 {
     return [milestoneDict objectForKey:key];
 }
@@ -110,12 +110,12 @@
     return [[milestoneDict copy] autorelease];
 }
 
-- (void)setCommentKeys:(NSArray *)keys forKey:(id)key
+- (void)setCommentKeys:(NSArray *)keys forKey:(TicketKey *)key
 {
     [commentDict setObject:keys forKey:key];
 }
 
-- (NSArray *)commentKeysForKey:(id)key
+- (NSArray *)commentKeysForKey:(TicketKey *)key
 {
     return [commentDict objectForKey:key];
 }
@@ -134,6 +134,11 @@
     [milestoneDict addEntriesFromDictionary:aTicketCache.allMilestoneKeys];
     [commentDict addEntriesFromDictionary:aTicketCache.allCommentKeys];
     self.numPages = aTicketCache.numPages;
+}
+
+- (NSString *)description
+{
+    return [tickets description];
 }
 
 @end

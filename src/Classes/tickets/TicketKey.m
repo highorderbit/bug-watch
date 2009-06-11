@@ -8,16 +8,11 @@
 
 @synthesize projectKey, ticketNumber;
 
-- (void)dealloc
-{
-    [projectKey release];
-    [super dealloc];
-}
-
-- (id)initWithProjectKey:(id)aProjectKey ticketNumber:(NSUInteger)aTicketNumber
+- (id)initWithProjectKey:(NSUInteger)aProjectKey
+    ticketNumber:(NSUInteger)aTicketNumber
 {
     if (self = [super init]) {
-        projectKey = [aProjectKey retain];
+        projectKey = aProjectKey;
         ticketNumber = aTicketNumber;
     }
 
@@ -37,11 +32,15 @@
 - (BOOL)isEqual:(id)anObject
 {
     TicketKey * aTicketKey = (TicketKey *)anObject;
-    id aProjectKey = aTicketKey.projectKey;
+    NSUInteger aProjectKey = aTicketKey.projectKey;
     NSUInteger aTicketNumber = aTicketKey.ticketNumber;
 
-    return (projectKey == projectKey || [projectKey isEqual:aProjectKey])
-        && ticketNumber == aTicketNumber;
+    return projectKey == aProjectKey && ticketNumber == aTicketNumber;
+}
+
+- (NSUInteger)hash
+{
+    return [[self description] hash];
 }
 
 - (NSComparisonResult)compare:(TicketKey *)anotherTicketKey
@@ -55,7 +54,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"ticket key: %@, %d", projectKey,
+    return [NSString stringWithFormat:@"{%d, %d}", projectKey,
         ticketNumber];
 }
 

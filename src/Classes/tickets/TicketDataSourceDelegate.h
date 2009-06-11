@@ -12,5 +12,6 @@
 - (void)receivedTicketDetailsFromDataSource:(TicketCommentCache *)commentCache;
 - (void)createdTicketWithKey:(id)ticketKey;
 - (void)deletedTicketWithKey:(id)ticketKey;
+- (void)editedTicketWithKey:(id)ticketKey;
 
 @end

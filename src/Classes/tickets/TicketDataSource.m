@@ -57,7 +57,7 @@
 {
     [service
         fetchDetailsForTicket:[NSNumber numberWithInt:aTicketKey.ticketNumber]
-        inProject:aTicketKey.projectKey token:token];
+        inProject:[NSNumber numberWithInt:aTicketKey.projectKey] token:token];
 }
 
 - (void)createTicketWithDescription:(NewTicketDescription *)desc
@@ -73,9 +73,11 @@
         token:token];
 }
 
-- (void)deleteTicketWithKey:(id)key forProject:(id)projectKey
+- (void)deleteTicketWithKey:(NSUInteger)ticketNumber
+    forProject:(NSUInteger)projectKey
 {
-    [service deleteTicket:key forProject:projectKey token:token];
+    [service deleteTicket:[NSNumber numberWithInt:ticketNumber]
+        forProject:[NSNumber numberWithInt:projectKey] token:token];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
@@ -91,12 +93,15 @@
     // create ticket cache
     TicketCache * ticketCache = [[TicketCache alloc] init];
     for (int i = 0; i < [ticketNumbers count]; i++) {
-        NSNumber * number = [ticketNumbers objectAtIndex:i];
-        NSUInteger numberAsInt = [((NSNumber *)number) intValue];
-        id projectId = [projectIds objectAtIndex:i];
+        NSNumber * ticketNumber = [ticketNumbers objectAtIndex:i];
+        NSUInteger ticketNumberAsInt = [((NSNumber *)ticketNumber) intValue];
+        NSNumber * projectNumber = [projectIds objectAtIndex:i];
+        NSUInteger projectNumberAsInt = [((NSNumber *)projectNumber) intValue];
         id ticketKey =
             [[[TicketKey alloc]
-            initWithProjectKey:projectId ticketNumber:numberAsInt] autorelease];
+            initWithProjectKey:projectNumberAsInt
+            ticketNumber:ticketNumberAsInt]
+            autorelease];
 
         Ticket * ticket = [tickets objectAtIndex:i];
         TicketMetaData * metaData = [someMetaData objectAtIndex:i];
@@ -196,6 +201,21 @@
     error:(NSError *)error
 {}
 
+- (void)editedTicket:(id)ticketNum forProject:(id)projectKey
+    describedBy:(UpdateTicketDescription *)description
+{
+    TicketKey * ticketKey =
+        [[[TicketKey alloc]
+        initWithProjectKey:[projectKey intValue]
+        ticketNumber:[ticketNum intValue]]
+        autorelease];
+    [delegate editedTicketWithKey:ticketKey];
+}
+
+- (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
+    describedBy:(UpdateTicketDescription *)description error:(NSError *)error
+{}
+
 #pragma mark Readable strings from yaml helpers
 
 + (NSDictionary *)parseYaml:(NSString *)yaml
@@ -205,7 +225,6 @@
 
     for (NSString * line in lines) {
         NSArray * lineComps = [line componentsSeparatedByString:@":"];
-        NSLog(@"Line: %@", line);
         if ([lineComps count] > 1) {
             NSInteger count = [lineComps count];
             NSCharacterSet * charSet = [NSCharacterSet whitespaceCharacterSet];

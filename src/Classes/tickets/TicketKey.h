@@ -6,14 +6,15 @@
 
 @interface TicketKey : NSObject <NSCopying>
 {
-    id projectKey;
+    NSUInteger projectKey;
     NSUInteger ticketNumber;
 }
 
-@property (nonatomic, readonly) id projectKey;
+@property (nonatomic, readonly) NSUInteger projectKey;
 @property (nonatomic, readonly) NSUInteger ticketNumber;
 
-- (id)initWithProjectKey:(id)projectKey ticketNumber:(NSUInteger)ticketNumber;
+- (id)initWithProjectKey:(NSUInteger)projectKey
+    ticketNumber:(NSUInteger)ticketNumber;
 
 - (NSComparisonResult)compare:(TicketKey *)anotherTicketKey;
 

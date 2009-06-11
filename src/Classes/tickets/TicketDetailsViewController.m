@@ -150,6 +150,8 @@
 
     [self layoutView];
     [self.tableView reloadData];
+    NSLog(@"Updated details view with state %@",
+        [TicketMetaData descriptionForState:someMetaData.state]);
 }
 
 - (void)layoutView

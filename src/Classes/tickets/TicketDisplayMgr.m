@@ -116,6 +116,7 @@
 - (void)selectedTicketKey:(TicketKey *)key
 {
     NSLog(@"Ticket %@ selected", key);
+    self.activeProjectKey = [NSNumber numberWithInt:key.projectKey];
 
     self.detailsNetAwareViewController.title =
         [NSString stringWithFormat:@"Ticket %d", key.ticketNumber];
@@ -129,8 +130,7 @@
 
     [dataSource fetchTicketWithKey:key];
     self.detailsNetAwareViewController.cachedDataAvailable = !!commentCache;
-    [self.detailsNetAwareViewController
-        setUpdatingState:kConnectedAndUpdating];
+    [self.detailsNetAwareViewController setUpdatingState:kConnectedAndUpdating];
     self.detailsEditButton.enabled = NO;
 
     selectedTicketKey = key;
@@ -157,17 +157,17 @@
     NSNumber * ticketKey =
         [NSNumber numberWithInteger:selectedTicketKey.ticketNumber];
     [dataSource editTicketWithKey:ticketKey description:desc
-        forProject:selectedTicketKey.projectKey];
+        forProject:[NSNumber numberWithInt:selectedTicketKey.projectKey]];
 }
 
 - (void)displayTicketDetails:(TicketKey *)key
 {
     self.detailsEditButton.enabled = YES;
-            
+
     [self.detailsNetAwareViewController
         setUpdatingState:kConnectedAndNotUpdating];        
     self.detailsNetAwareViewController.cachedDataAvailable = YES;
-    
+
     Ticket * ticket = [self.ticketCache ticketForKey:key];
     TicketMetaData * metaData = [self.ticketCache metaDataForKey:key];
     id reportedByKey = [self.ticketCache createdByKeyForKey:key];
@@ -176,7 +176,7 @@
     NSString * assignedTo = [userDict objectForKey:assignedToKey];
     id milestoneKey = [self.ticketCache milestoneKeyForKey:key];
     NSString * milestone = [milestoneDict objectForKey:milestoneKey];
-    
+
     TicketCommentCache * commentCache =
         [recentHistoryCommentCache objectForKey:key];
     NSArray * commentKeys = [[commentCache allComments] allKeys];
@@ -334,8 +334,23 @@
     [self forceQueryRefresh];
 }
 
+- (void)editedTicketWithKey:(id)ticketKey
+{
+    NSLog(@"Edited ticket with key: %@", ticketKey);
+    [self enableEditView];
+    [self forceQueryRefresh];
+    if (self.wrapperController.navigationController.topViewController ==
+        self.detailsNetAwareViewController) {
+
+        [dataSource fetchTicketWithKey:ticketKey];
+        [self.detailsNetAwareViewController
+            setUpdatingState:kConnectedAndUpdating];
+    }
+}
+
 - (void)deletedTicketWithKey:(id)ticketKey
 {
+    [self.wrapperController.navigationController popViewControllerAnimated:NO];
     [self enableEditView];
     [self forceQueryRefresh];
 }
@@ -394,7 +409,7 @@
         NSNumber * ticketKey =
             [NSNumber numberWithInteger:selectedTicketKey.ticketNumber];
         [dataSource editTicketWithKey:ticketKey description:desc
-            forProject:selectedTicketKey.projectKey];
+            forProject:[NSNumber numberWithInt:selectedTicketKey.projectKey]];
         actionText = @"Editing ticket...";
     } else {
         NewTicketDescription * desc = [NewTicketDescription description];
@@ -420,10 +435,10 @@
 
 - (void)deleteTicketOnServer
 {
-    NSLog(@"Deleting ticket %@ on server...");
+    NSLog(@"Deleting ticket %@ on server...", selectedTicketKey);
     [self disableEditViewWithText:@"Deleting ticket..."];
-    [dataSource deleteTicketWithKey:selectedTicketKey
-        forProject:activeProjectKey];
+    [dataSource deleteTicketWithKey:selectedTicketKey.ticketNumber
+        forProject:selectedTicketKey.projectKey];
 }
 
 - (void)userDidSelectActiveProjectKey:(id)key
@@ -472,7 +487,7 @@
 
         detailsViewController = ticketDetailsViewController;
     }
-        
+
     return detailsViewController;
 }
 

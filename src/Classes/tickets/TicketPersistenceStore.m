@@ -162,7 +162,7 @@
 + (NSString *)stringFromTicketKey:(TicketKey *)ticketKey
 {   
     return ticketKey ?
-        [NSString stringWithFormat:@"%@%@%d",
+        [NSString stringWithFormat:@"%d%@%d",
         ticketKey.projectKey,
         [[self class] ticketKeySplitSequence], 
         ticketKey.ticketNumber] :
@@ -177,9 +177,7 @@
             [string componentsSeparatedByString:
             [[self class] ticketKeySplitSequence]];
 
-        NSString * projectKeyString = [components objectAtIndex:0];
-        id projectKey = projectKeyString == @"(null)" ? nil :
-            [NSNumber numberWithInt:[projectKeyString integerValue]];
+        NSUInteger projectKey = [[components objectAtIndex:0] integerValue];
         NSUInteger ticketNumber = [[components objectAtIndex:1] integerValue];
 
         ticketKey =
