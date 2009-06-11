@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="132"/>
+			<integer value="142"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -50,18 +50,18 @@
 			<object class="IBUITabBarController" id="1034742383">
 				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-				<object class="IBUINavigationController" key="IBUISelectedViewController" id="129528834">
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="164985303">
-						<string key="IBUITitle">Tickets</string>
+				<object class="IBUINavigationController" key="IBUISelectedViewController" id="149450542">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="974583727">
+						<string key="IBUITitle">Messages</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Bug.png</string>
+							<string key="NSResourceName">Thumbtack.png</string>
 						</object>
 						<reference key="IBUITabBar"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="1034742383"/>
 					<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-					<object class="IBUINavigationBar" key="IBUINavigationBar" id="924336537">
+					<object class="IBUINavigationBar" key="IBUINavigationBar" id="30544301">
 						<nil key="NSNextResponder"/>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrameSize">{0, 0}</string>
@@ -71,46 +71,16 @@
 					</object>
 					<object class="NSMutableArray" key="IBUIViewControllers">
 						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="IBUIViewController" id="360103391">
-							<object class="IBUINavigationItem" key="IBUINavigationItem" id="45198810">
+						<object class="IBUIViewController" id="984730409">
+							<object class="IBUINavigationItem" key="IBUINavigationItem" id="935392927">
 								<reference key="IBUINavigationBar"/>
-								<string key="IBUITitle">Tickets</string>
-								<object class="IBUITextField" key="IBUITitleView" id="618903335">
-									<reference key="NSNextResponder"/>
-									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{60, 7}, {201, 31}}</string>
-									<reference key="NSSuperview"/>
-									<bool key="IBUIOpaque">NO</bool>
-									<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-									<int key="IBUIContentVerticalAlignment">0</int>
-									<string key="IBUIText"/>
-									<int key="IBUIBorderStyle">3</int>
-									<string key="IBUIPlaceholder">Filter tickets</string>
-									<object class="NSColor" key="IBUITextColor">
-										<int key="NSColorSpace">3</int>
-										<bytes key="NSWhite">MAA</bytes>
-										<object class="NSColorSpace" key="NSCustomColorSpace">
-											<int key="NSID">2</int>
-										</object>
-									</object>
-									<object class="NSFont" key="IBUIFont">
-										<string key="NSName">Helvetica</string>
-										<double key="NSSize">1.600000e+01</double>
-										<int key="NSfFlags">16</int>
-									</object>
-									<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
-									<float key="IBUIMinimumFontSize">1.700000e+01</float>
-									<object class="IBUITextInputTraits" key="IBUITextInputTraits">
-										<int key="IBUIReturnKeyType">1</int>
-									</object>
-									<int key="IBUIClearButtonMode">1</int>
-								</object>
-								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="45651249">
+								<string key="IBUITitle">Messages</string>
+								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="479484297">
 									<int key="IBUIStyle">1</int>
-									<int key="IBUISystemItemIdentifier">4</int>
+									<int key="IBUISystemItemIdentifier">7</int>
 								</object>
 							</object>
-							<reference key="IBUIParentViewController" ref="129528834"/>
+							<reference key="IBUIParentViewController" ref="149450542"/>
 						</object>
 					</object>
 				</object>
@@ -146,7 +116,68 @@
 							</object>
 						</object>
 					</object>
-					<reference ref="129528834"/>
+					<object class="IBUINavigationController" id="129528834">
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="164985303">
+							<string key="IBUITitle">Tickets</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">Bug.png</string>
+							</object>
+							<reference key="IBUITabBar"/>
+						</object>
+						<reference key="IBUIParentViewController" ref="1034742383"/>
+						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+						<object class="IBUINavigationBar" key="IBUINavigationBar" id="924336537">
+							<nil key="NSNextResponder"/>
+							<int key="NSvFlags">256</int>
+							<string key="NSFrameSize">{0, 0}</string>
+							<bool key="IBUIOpaque">NO</bool>
+							<bool key="IBUIClipsSubviews">YES</bool>
+							<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						</object>
+						<object class="NSMutableArray" key="IBUIViewControllers">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIViewController" id="360103391">
+								<object class="IBUINavigationItem" key="IBUINavigationItem" id="45198810">
+									<string key="IBUITitle">Tickets</string>
+									<object class="IBUITextField" key="IBUITitleView" id="618903335">
+										<nil key="NSNextResponder"/>
+										<int key="NSvFlags">292</int>
+										<string key="NSFrame">{{60, 7}, {201, 31}}</string>
+										<bool key="IBUIOpaque">NO</bool>
+										<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+										<int key="IBUIContentVerticalAlignment">0</int>
+										<string key="IBUIText"/>
+										<int key="IBUIBorderStyle">3</int>
+										<string key="IBUIPlaceholder">Filter tickets</string>
+										<object class="NSColor" key="IBUITextColor">
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MAA</bytes>
+											<object class="NSColorSpace" key="NSCustomColorSpace">
+												<int key="NSID">2</int>
+											</object>
+										</object>
+										<object class="NSFont" key="IBUIFont">
+											<string key="NSName">Helvetica</string>
+											<double key="NSSize">1.600000e+01</double>
+											<int key="NSfFlags">16</int>
+										</object>
+										<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
+										<float key="IBUIMinimumFontSize">1.700000e+01</float>
+										<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+											<int key="IBUIReturnKeyType">1</int>
+										</object>
+										<int key="IBUIClearButtonMode">1</int>
+									</object>
+									<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="45651249">
+										<int key="IBUIStyle">1</int>
+										<int key="IBUISystemItemIdentifier">4</int>
+									</object>
+								</object>
+								<reference key="IBUIParentViewController" ref="129528834"/>
+							</object>
+						</object>
+					</object>
 					<object class="IBUINavigationController" id="205855552">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="168123443">
 							<string key="IBUITitle">Projects</string>
@@ -207,39 +238,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="IBUINavigationController" id="149450542">
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="974583727">
-							<string key="IBUITitle">Messages</string>
-							<object class="NSCustomResource" key="IBUIImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">Thumbtack.png</string>
-							</object>
-							<reference key="IBUITabBar"/>
-						</object>
-						<reference key="IBUIParentViewController" ref="1034742383"/>
-						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-						<object class="IBUINavigationBar" key="IBUINavigationBar" id="30544301">
-							<nil key="NSNextResponder"/>
-							<int key="NSvFlags">256</int>
-							<string key="NSFrameSize">{0, 0}</string>
-							<bool key="IBUIOpaque">NO</bool>
-							<bool key="IBUIClipsSubviews">YES</bool>
-							<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						</object>
-						<object class="NSMutableArray" key="IBUIViewControllers">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIViewController" id="984730409">
-								<object class="IBUINavigationItem" key="IBUINavigationItem" id="935392927">
-									<string key="IBUITitle">Messages</string>
-									<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="479484297">
-										<int key="IBUIStyle">1</int>
-										<int key="IBUISystemItemIdentifier">4</int>
-									</object>
-								</object>
-								<reference key="IBUIParentViewController" ref="149450542"/>
-							</object>
-						</object>
-					</object>
+					<reference ref="149450542"/>
 				</object>
 				<object class="IBUITabBar" key="IBUITabBar" id="795333663">
 					<nil key="NSNextResponder"/>

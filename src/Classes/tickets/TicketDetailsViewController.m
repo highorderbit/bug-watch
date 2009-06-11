@@ -22,6 +22,7 @@
 
 - (void)dealloc {
     [headerView release];
+    [footerView release];
     [metaDataView release];
     [gradientImage release];
     [numberLabel release];
@@ -41,6 +42,7 @@
 {
     [super viewDidLoad];
     self.tableView.tableHeaderView = headerView;
+    self.tableView.tableFooterView = footerView;
 }
 
 #pragma mark UITableViewDataSource implementation

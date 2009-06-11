@@ -12,7 +12,9 @@
 @interface TicketDataSource (Private)
 
 + (NSDictionary *)parseYaml:(NSString *)yaml;
-+ (NSString *)readableTextFromDiff:(NSDictionary *)diff;
++ (NSString *)readableTextFromDiffs:(NSArray *)diffs atIndex:(NSUInteger)index;
++ (NSString *)findNextValueForKey:(NSString *)key inDiffs:(NSArray *)diffs
+    fromIndex:(NSUInteger)index;
 
 @end
 
@@ -145,12 +147,18 @@
     
     TicketCommentCache * commentCache =
         [[[TicketCommentCache alloc] init] autorelease];
+    NSMutableArray * diffs = [NSMutableArray array];
     for (int i = 0; i < [details count]; i++) {
         TicketComment * comment = [details objectAtIndex:i];
         NSDictionary * diff =
             [[self class] parseYaml:comment.stateChangeDescription];
+        [diffs addObject:diff];
+    }
+
+    for (int i = 0; i < [details count]; i++) {
         NSString * stateChangeDescription =
-            [[self class] readableTextFromDiff:diff];
+            [[self class] readableTextFromDiffs:diffs atIndex:i];
+        TicketComment * comment = [details objectAtIndex:i];
         TicketComment * commentWithDiffText =
             [[[TicketComment alloc]
             initWithStateChangeDescription:stateChangeDescription
@@ -215,15 +223,34 @@
     return diff;
 }
 
-+ (NSString *)readableTextFromDiff:(NSDictionary *)diff
++ (NSString *)readableTextFromDiffs:(NSArray *)diffs atIndex:(NSUInteger)index
 {
+    NSDictionary * diff = [diffs objectAtIndex:index];
     NSMutableString * text = [NSMutableString stringWithCapacity:0];
+
     for (NSString * key in [diff allKeys]) {
         NSString * value = [diff objectForKey:key];
-        [text appendFormat:@"→ %@ changed from '%@'\n", key, value];
+        NSString * newValue =
+            [[self class]
+            findNextValueForKey:key inDiffs:diffs fromIndex:index + 1];
+        [text appendFormat:@"→ %@ changed from '%@' to '%@'\n", key, value,
+            newValue];
     }
 
     return text;
+}
+
++ (NSString *)findNextValueForKey:(NSString *)key inDiffs:(NSArray *)diffs
+    fromIndex:(NSUInteger)index
+{
+    NSString * nextValue = nil;
+
+    for (int i = index; i < [diffs count] && !nextValue; i++) {
+        NSDictionary * diff = [diffs objectAtIndex:i];
+        nextValue = [diff objectForKey:key];
+    }
+
+    return nextValue ? nextValue : @"";
 }
 
 @end

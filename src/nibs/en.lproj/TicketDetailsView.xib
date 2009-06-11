@@ -8,7 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="4"/>
+			<integer value="32"/>
+			<integer value="47"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -43,7 +44,7 @@
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<double key="IBUIContentInset.top">-3.000000e+02</double>
-				<double key="IBUIContentInset.bottom">0.000000e+00</double>
+				<double key="IBUIContentInset.bottom">-3.000000e+02</double>
 				<double key="IBUIContentInset.left">0.000000e+00</double>
 				<double key="IBUIContentInset.right">0.000000e+00</double>
 				<bool key="IBUIBouncesZoom">NO</bool>
@@ -234,7 +235,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="IBUIText">new</string>
-								<object class="NSFont" key="IBUIFont">
+								<object class="NSFont" key="IBUIFont" id="232915885">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">1.500000e+01</double>
 									<int key="NSfFlags">16</int>
@@ -259,6 +260,58 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 703}</string>
+				<reference key="NSSuperview"/>
+				<reference key="IBUIBackgroundColor" ref="9409569"/>
+				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+			</object>
+			<object class="IBUIView" id="1036489835">
+				<reference key="NSNextResponder"/>
+				<int key="NSvFlags">292</int>
+				<object class="NSMutableArray" key="NSSubviews">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="IBUIButton" id="447604348">
+						<reference key="NSNextResponder" ref="1036489835"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{9, 11}, {147, 37}}</string>
+						<reference key="NSSuperview" ref="1036489835"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<reference key="IBUIFont" ref="232915885"/>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Send in Email</string>
+						<reference key="IBUIHighlightedTitleColor" ref="9409569"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
+						</object>
+						<object class="NSColor" key="IBUINormalTitleShadowColor" id="547618793">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+					</object>
+					<object class="IBUIButton" id="159731665">
+						<reference key="NSNextResponder" ref="1036489835"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{164, 11}, {147, 37}}</string>
+						<reference key="NSSuperview" ref="1036489835"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<reference key="IBUIFont" ref="232915885"/>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Open in Safari</string>
+						<reference key="IBUIHighlightedTitleColor" ref="9409569"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="547618793"/>
+					</object>
+				</object>
+				<string key="NSFrameSize">{320, 360}</string>
 				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="9409569"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -363,6 +416,14 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 					</object>
 					<int key="connectionID">46</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">footerView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="1036489835"/>
+					</object>
+					<int key="connectionID">51</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -463,6 +524,27 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 						<reference key="object" ref="802865181"/>
 						<reference key="parent" ref="865007852"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">47</int>
+						<reference key="object" ref="1036489835"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="447604348"/>
+							<reference ref="159731665"/>
+						</object>
+						<reference key="parent" ref="957960031"/>
+						<string key="objectName">Footer</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">49</int>
+						<reference key="object" ref="447604348"/>
+						<reference key="parent" ref="1036489835"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">50</int>
+						<reference key="object" ref="159731665"/>
+						<reference key="parent" ref="1036489835"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -484,6 +566,10 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 					<string>39.IBPluginDependency</string>
 					<string>4.IBEditorWindowLastContentRect</string>
 					<string>4.IBPluginDependency</string>
+					<string>47.IBEditorWindowLastContentRect</string>
+					<string>47.IBPluginDependency</string>
+					<string>49.IBPluginDependency</string>
+					<string>50.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -501,7 +587,11 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{381, 80}, {320, 703}}</string>
+					<string>{{334, 131}, {320, 703}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{248, 319}, {320, 360}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -526,7 +616,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">46</int>
+			<int key="maxID">51</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -548,6 +638,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 							<string>assignedToLabel</string>
 							<string>dateLabel</string>
 							<string>descriptionLabel</string>
+							<string>footerView</string>
 							<string>gradientImage</string>
 							<string>headerView</string>
 							<string>messageLabel</string>
@@ -562,6 +653,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
+							<string>UIView</string>
 							<string>UIImageView</string>
 							<string>UIView</string>
 							<string>UILabel</string>

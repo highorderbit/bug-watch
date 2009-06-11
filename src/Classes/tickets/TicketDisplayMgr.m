@@ -17,6 +17,8 @@
 - (void)deleteTicketOnServer;
 - (void)disableEditViewWithText:(NSString *)text;
 - (void)enableEditView;
+- (void)updateDisplayIfDirty;
+- (void)updateTicketsViewController;
 
 @property (nonatomic, readonly) NSDictionary * milestonesForProject;
 @property (nonatomic, readonly) UIBarButtonItem * detailsEditButton;
@@ -68,10 +70,11 @@
 
         [self initDarkTransparentView];
         self.selectProject = YES;
-        firstTimeDisplayed = YES;
+        displayDirty = YES;
 
         recentHistoryCommentCache =
             [[RecentHistoryCache alloc] initWithCacheLimit:20];
+
     }
 
     return self;
@@ -199,35 +202,10 @@
 
 - (void)ticketsFilteredByFilterString:(NSString *)aFilterString
 {
-    NSDictionary * allTickets = [ticketCache allTickets];
     wrapperController.cachedDataAvailable = !!self.ticketCache;
 
-    if (self.ticketCache) {
-        NSDictionary * allAssignedToKeys = [self.ticketCache allAssignedToKeys];       
-
-        NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
-        for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
-            id userKey = [allAssignedToKeys objectForKey:ticketNumber];
-            id assignedTo = [userDict objectForKey:userKey];
-            if (assignedTo)
-                [assignedToDict setObject:assignedTo forKey:ticketNumber];
-        }
-
-        NSDictionary * allMilestoneKeys = [self.ticketCache allMilestoneKeys];
-        NSMutableDictionary * associatedMilestoneDict =
-            [NSMutableDictionary dictionary];
-        for (NSNumber * ticketNumber in [allMilestoneKeys allKeys]) {
-            id userKey = [allMilestoneKeys objectForKey:ticketNumber];
-            id milestone = [milestoneDict objectForKey:userKey];
-            if (milestone)
-                [associatedMilestoneDict setObject:milestone
-                    forKey:ticketNumber];
-        }
-
-        [ticketsViewController setTickets:allTickets
-            metaData:[ticketCache allMetaData] assignedToDict:assignedToDict
-            milestoneDict:associatedMilestoneDict page:ticketCache.numPages];
-    }
+    if (self.ticketCache)
+        [self updateTicketsViewController];
 
     if (![aFilterString isEqual:self.ticketCache.query]) {
         ticketCache.numPages = 1;
@@ -240,6 +218,43 @@
                 project:activeProjectKey];
     } else
         [wrapperController setUpdatingState:kConnectedAndNotUpdating];
+}
+
+- (void)updateTicketsViewController
+{
+    NSDictionary * allTickets = [ticketCache allTickets];
+    NSDictionary * allAssignedToKeys = [self.ticketCache allAssignedToKeys];       
+
+    NSMutableDictionary * assignedToDict = [NSMutableDictionary dictionary];
+    for (NSNumber * ticketNumber in [allAssignedToKeys allKeys]) {
+        id userKey = [allAssignedToKeys objectForKey:ticketNumber];
+        id assignedTo = [userDict objectForKey:userKey];
+        if (assignedTo)
+            [assignedToDict setObject:assignedTo forKey:ticketNumber];
+    }
+
+    NSDictionary * allMilestoneKeys = [self.ticketCache allMilestoneKeys];
+    NSMutableDictionary * associatedMilestoneDict =
+        [NSMutableDictionary dictionary];
+    for (NSNumber * ticketNumber in [allMilestoneKeys allKeys]) {
+        id userKey = [allMilestoneKeys objectForKey:ticketNumber];
+        id milestone = [milestoneDict objectForKey:userKey];
+        if (milestone)
+            [associatedMilestoneDict setObject:milestone
+                forKey:ticketNumber];
+    }
+
+    [ticketsViewController setTickets:allTickets
+        metaData:[ticketCache allMetaData] assignedToDict:assignedToDict
+        milestoneDict:associatedMilestoneDict page:ticketCache.numPages];
+}
+
+- (void)updateDisplayIfDirty
+{
+    if (displayDirty) {
+        [self forceQueryRefresh];
+        displayDirty = NO;
+    }
 }
 
 - (void)forceQueryRefresh
@@ -284,12 +299,7 @@
 
 - (void)networkAwareViewWillAppear
 {
-    if (firstTimeDisplayed)
-        [self forceQueryRefresh];
-    else
-        [self ticketsFilteredByFilterString:ticketCache.query];
-
-    firstTimeDisplayed = NO;
+    [self updateDisplayIfDirty];
 }
 
 #pragma mark TicketDataSourceDelegate implementation
@@ -518,7 +528,6 @@
     return projectSelectionViewController;
 }
 
-
 - (UINavigationController *)navController
 {
     return wrapperController.navigationController;
@@ -529,8 +538,7 @@
     NSDictionary * tempMilestoneDict = [aMilestoneDict copy];
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
-    
-    [self ticketsFilteredByFilterString:ticketCache.query];
+    [self updateTicketsViewController];
 }
 
 - (void)setProjectDict:(NSDictionary *)aProjectDict
@@ -538,8 +546,7 @@
     NSDictionary * tempProjectDict = [aProjectDict copy];
     [projectDict release];
     projectDict = tempProjectDict;
-    
-    [self ticketsFilteredByFilterString:ticketCache.query];
+    [self updateTicketsViewController];
 }
 
 - (void)setUserDict:(NSDictionary *)aUserDict
@@ -547,8 +554,7 @@
     NSDictionary * tempUserDict = [aUserDict copy];
     [userDict release];
     userDict = tempUserDict;
-
-    [self ticketsFilteredByFilterString:ticketCache.query];
+    [self updateTicketsViewController];
 }
 
 - (NSDictionary *)milestonesForProject

@@ -28,5 +28,8 @@
 
 - (void)setResponseKeys:(NSArray *)responseKeys forKey:(id)key;
 - (NSArray *)responseKeysForKey:(id)key;
+- (NSDictionary *)allResponses;
+
+- (void)merge:(MessageCache *)aMessageCache;
 
 @end

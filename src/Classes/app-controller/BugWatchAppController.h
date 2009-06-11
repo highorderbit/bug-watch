@@ -20,6 +20,7 @@
 #import "MilestoneDisplayMgr.h"
 #import "NewsFeedDisplayMgr.h"
 #import "MilestoneCache.h"
+#import "MessageDisplayMgr.h"
 
 @interface BugWatchAppController : NSObject
 {
@@ -41,14 +42,13 @@
 
     ProjectCacheSetter * projectCacheSetter;
 
-    MessageCache * messageCache;
-    MessageResponseCache * messageResponseCache;
-
     MilestoneDisplayMgr * milestoneDisplayMgr;
     MilestoneCacheSetter * milestoneCacheSetter;
-    
+
+    MessageDisplayMgr * messageDisplayMgr;
+
     UserCacheSetter * userCacheSetter;
-    
+
     LighthouseApiServiceFactory * lighthouseApiFactory;
 }
 

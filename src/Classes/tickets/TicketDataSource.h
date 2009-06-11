@@ -15,7 +15,7 @@
     NSString * token;
 }
 
-@property (nonatomic, retain) NSObject<TicketDataSourceDelegate> * delegate;
+@property (nonatomic, assign) NSObject<TicketDataSourceDelegate> * delegate;
 
 -(id)initWithService:(LighthouseApiService *)service;
 

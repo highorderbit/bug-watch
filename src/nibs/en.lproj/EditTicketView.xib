@@ -42,7 +42,7 @@
 			<object class="IBUITableView" id="502017675">
 				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
-				<string key="NSFrame">{{0, 44}, {320, 416}}</string>
+				<string key="NSFrameSize">{320, 416}</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MC4wMDk0MjYyMjQgMC4wMDk4NTk2ODIxIDAuMDEwMjA0MDc3IDAAA</bytes>
@@ -261,7 +261,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>EditTicketViewController</string>
 					<string>UIResponder</string>
-					<string>{{414, 767}, {320, 247}}</string>
+					<string>{{414, 440}, {320, 416}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

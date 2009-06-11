@@ -69,6 +69,7 @@
 		0537C8390FE0AA5300D87E0B /* NSDateLighthouseApiTypeConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8050FE0A95100D87E0B /* NSDateLighthouseApiTypeConverter.m */; };
 		0537C83A0FE0AA5300D87E0B /* NSNumberLighthouseApiTypeConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8070FE0A95200D87E0B /* NSNumberLighthouseApiTypeConverter.m */; };
 		0537C83B0FE0AA5300D87E0B /* TicketMetaData+LighthouseApiParsingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8090FE0A95200D87E0B /* TicketMetaData+LighthouseApiParsingAdditions.m */; };
+		0537C8D70FE0AC9400D87E0B /* RandomNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8D60FE0AC9400D87E0B /* RandomNumber.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -106,7 +107,6 @@
 		05D6A0050FB357C10081AE18 /* NSObject+RuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */; };
 		05DB80CB0FC33E7E0095AF32 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB80CA0FC33E7E0095AF32 /* User.m */; };
 		05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB81000FC343CD0095AF32 /* BugWatchAppController.m */; };
-		05DB82AC0FC49E310095AF32 /* RandomNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB82AB0FC49E310095AF32 /* RandomNumber.m */; };
 		05DB84EB0FC5CBC60095AF32 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB84EA0FC5CBC60095AF32 /* Project.m */; };
 		05DEB15A0FB0F15A0052888E /* MilestoneDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1590FB0F15A0052888E /* MilestoneDisplayMgr.m */; };
 		05DEB1D90FB106470052888E /* MilestoneHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DEB1D80FB106470052888E /* MilestoneHeaderView.m */; };
@@ -221,6 +221,10 @@
 		919677980FABC9A4004A5DE2 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 919677960FABC9A4004A5DE2 /* CommentTableViewCell.xib */; };
 		9196779B0FABC9BD004A5DE2 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */; };
 		919891CC0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */; };
+		919892200FDD5BF000A61099 /* MessageDisplayUserSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198921F0FDD5BF000A61099 /* MessageDisplayUserSetter.m */; };
+		919892230FDD5C0A00A61099 /* MessageDisplayProjectSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 919892220FDD5C0A00A61099 /* MessageDisplayProjectSetter.m */; };
+		919892380FDD75DF00A61099 /* MessageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 919892370FDD75DF00A61099 /* MessageDataSource.m */; };
+		919893CB0FE0275700A61099 /* MessagePersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 919893CA0FE0275700A61099 /* MessagePersistenceStore.m */; };
 		919C995F0FA25965002CF095 /* Projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C995E0FA25965002CF095 /* Projects.png */; };
 		919C996C0FA25E55002CF095 /* Thumbtack.png in Resources */ = {isa = PBXBuildFile; fileRef = 919C996B0FA25E55002CF095 /* Thumbtack.png */; };
 		91A85AB40FAF59A30084FBE1 /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91A85AB20FAF59A30084FBE1 /* AddCommentView.xib */; };
@@ -317,6 +321,8 @@
 		0537C8180FE0A9B400D87E0B /* UpdateMessageDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateMessageDescription.m; sourceTree = "<group>"; };
 		0537C8190FE0A9B400D87E0B /* UpdateTicketDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateTicketDescription.h; sourceTree = "<group>"; };
 		0537C81A0FE0A9B400D87E0B /* UpdateTicketDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTicketDescription.m; sourceTree = "<group>"; };
+		0537C8D50FE0AC9400D87E0B /* RandomNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RandomNumber.h; path = shared/RandomNumber.h; sourceTree = "<group>"; };
+		0537C8D60FE0AC9400D87E0B /* RandomNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RandomNumber.m; path = shared/RandomNumber.m; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -383,8 +389,6 @@
 		05DB80CA0FC33E7E0095AF32 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = users/User.m; sourceTree = "<group>"; };
 		05DB80FF0FC343CD0095AF32 /* BugWatchAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppController.h; path = "app-controller/BugWatchAppController.h"; sourceTree = "<group>"; };
 		05DB81000FC343CD0095AF32 /* BugWatchAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppController.m; path = "app-controller/BugWatchAppController.m"; sourceTree = "<group>"; };
-		05DB82AA0FC49E310095AF32 /* RandomNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RandomNumber.h; path = shared/RandomNumber.h; sourceTree = "<group>"; };
-		05DB82AB0FC49E310095AF32 /* RandomNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RandomNumber.m; path = shared/RandomNumber.m; sourceTree = "<group>"; };
 		05DB84E90FC5CBC60095AF32 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Project.h; path = projects/Project.h; sourceTree = "<group>"; };
 		05DB84EA0FC5CBC60095AF32 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Project.m; path = projects/Project.m; sourceTree = "<group>"; };
 		05DEB1580FB0F15A0052888E /* MilestoneDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDisplayMgr.h; path = Classes/milestones/MilestoneDisplayMgr.h; sourceTree = "<group>"; };
@@ -584,6 +588,16 @@
 		9196779A0FABC9BD004A5DE2 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentTableViewCell.m; path = tickets/CommentTableViewCell.m; sourceTree = "<group>"; };
 		919891CA0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectSpecificTicketBinDSAdapter.h; path = tickets/ProjectSpecificTicketBinDSAdapter.h; sourceTree = "<group>"; };
 		919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectSpecificTicketBinDSAdapter.m; path = tickets/ProjectSpecificTicketBinDSAdapter.m; sourceTree = "<group>"; };
+		9198921E0FDD5BF000A61099 /* MessageDisplayUserSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDisplayUserSetter.h; path = messages/MessageDisplayUserSetter.h; sourceTree = "<group>"; };
+		9198921F0FDD5BF000A61099 /* MessageDisplayUserSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDisplayUserSetter.m; path = messages/MessageDisplayUserSetter.m; sourceTree = "<group>"; };
+		919892210FDD5C0A00A61099 /* MessageDisplayProjectSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDisplayProjectSetter.h; path = messages/MessageDisplayProjectSetter.h; sourceTree = "<group>"; };
+		919892220FDD5C0A00A61099 /* MessageDisplayProjectSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDisplayProjectSetter.m; path = messages/MessageDisplayProjectSetter.m; sourceTree = "<group>"; };
+		919892360FDD75DF00A61099 /* MessageDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDataSource.h; path = messages/MessageDataSource.h; sourceTree = "<group>"; };
+		919892370FDD75DF00A61099 /* MessageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDataSource.m; path = messages/MessageDataSource.m; sourceTree = "<group>"; };
+		919892390FDD762400A61099 /* MessageDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDataSourceDelegate.h; path = messages/MessageDataSourceDelegate.h; sourceTree = "<group>"; };
+		919892D80FDECC5E00A61099 /* NewMessageViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewMessageViewControllerDelegate.h; path = messages/NewMessageViewControllerDelegate.h; sourceTree = "<group>"; };
+		919893C90FE0275700A61099 /* MessagePersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagePersistenceStore.h; path = messages/MessagePersistenceStore.h; sourceTree = "<group>"; };
+		919893CA0FE0275700A61099 /* MessagePersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagePersistenceStore.m; path = messages/MessagePersistenceStore.m; sourceTree = "<group>"; };
 		919C995E0FA25965002CF095 /* Projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Projects.png; sourceTree = "<group>"; };
 		919C996B0FA25E55002CF095 /* Thumbtack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbtack.png; sourceTree = "<group>"; };
 		91A85AB30FAF59A30084FBE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AddCommentView.xib; sourceTree = "<group>"; };
@@ -1007,8 +1021,8 @@
 				05F0F2860FB8D8DC00963F6E /* NSArray+IterationAdditions.m */,
 				0537C4EC0FDF1DB100D87E0B /* NSError+InstantiationAdditions.h */,
 				0537C4ED0FDF1DB100D87E0B /* NSError+InstantiationAdditions.m */,
-				05DB82AA0FC49E310095AF32 /* RandomNumber.h */,
-				05DB82AB0FC49E310095AF32 /* RandomNumber.m */,
+				0537C8D50FE0AC9400D87E0B /* RandomNumber.h */,
+				0537C8D60FE0AC9400D87E0B /* RandomNumber.m */,
 				91482CA90FC6254F002D10E8 /* ProjectSelectionViewController.h */,
 				91482CAA0FC6254F002D10E8 /* ProjectSelectionViewController.m */,
 			);
@@ -1256,6 +1270,16 @@
 				918885C20FB8B981009F5861 /* ResponseTableViewCell.m */,
 				918886010FB8D9F9009F5861 /* MessageResponseCache.h */,
 				918886020FB8D9F9009F5861 /* MessageResponseCache.m */,
+				9198921E0FDD5BF000A61099 /* MessageDisplayUserSetter.h */,
+				9198921F0FDD5BF000A61099 /* MessageDisplayUserSetter.m */,
+				919892210FDD5C0A00A61099 /* MessageDisplayProjectSetter.h */,
+				919892220FDD5C0A00A61099 /* MessageDisplayProjectSetter.m */,
+				919892360FDD75DF00A61099 /* MessageDataSource.h */,
+				919892370FDD75DF00A61099 /* MessageDataSource.m */,
+				919892390FDD762400A61099 /* MessageDataSourceDelegate.h */,
+				919892D80FDECC5E00A61099 /* NewMessageViewControllerDelegate.h */,
+				919893C90FE0275700A61099 /* MessagePersistenceStore.h */,
+				919893CA0FE0275700A61099 /* MessagePersistenceStore.m */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -1580,7 +1604,6 @@
 				914828800FC3554B002D10E8 /* TicketKey.m in Sources */,
 				05DB80CB0FC33E7E0095AF32 /* User.m in Sources */,
 				05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */,
-				05DB82AC0FC49E310095AF32 /* RandomNumber.m in Sources */,
 				91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */,
 				91482A770FC4C6A2002D10E8 /* UIState.m in Sources */,
 				91482A780FC4C6A2002D10E8 /* UIStatePersistenceStore.m in Sources */,
@@ -1639,6 +1662,11 @@
 				0537C81D0FE0A9B400D87E0B /* NewTicketDescription.m in Sources */,
 				0537C81E0FE0A9B400D87E0B /* UpdateMessageDescription.m in Sources */,
 				0537C81F0FE0A9B400D87E0B /* UpdateTicketDescription.m in Sources */,
+				919892200FDD5BF000A61099 /* MessageDisplayUserSetter.m in Sources */,
+				919892230FDD5C0A00A61099 /* MessageDisplayProjectSetter.m in Sources */,
+				919892380FDD75DF00A61099 /* MessageDataSource.m in Sources */,
+				919893CB0FE0275700A61099 /* MessagePersistenceStore.m in Sources */,
+				0537C8D70FE0AC9400D87E0B /* RandomNumber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

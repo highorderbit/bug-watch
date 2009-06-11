@@ -10,6 +10,7 @@
 @interface TicketDetailsViewController : UITableViewController
 {
     IBOutlet UIView * headerView;
+    IBOutlet UIView * footerView;
     IBOutlet UIView * metaDataView;
     IBOutlet UIImageView * gradientImage;
     IBOutlet UILabel * numberLabel;

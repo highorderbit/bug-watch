@@ -19,6 +19,7 @@
 - (void)dealloc
 {
     [headerView release];
+    [footerView release];
     [metaDataView release];
     [gradientImage release];
 
@@ -38,13 +39,8 @@
 {
     [super viewDidLoad];
     self.tableView.tableHeaderView = headerView;
+    self.tableView.tableFooterView = footerView;
     self.navigationItem.title = @"Message Info";
-    UIBarButtonItem * respondButton =
-        [[[UIBarButtonItem alloc]
-        initWithTitle:@"Respond" style:UIBarButtonItemStyleBordered target:nil
-        action:nil]
-        autorelease];
-    self.navigationItem.rightBarButtonItem = respondButton;
 }
 
 #pragma mark UITableViewDelegate implementation
