@@ -51,6 +51,7 @@
 - (BOOL)invokeSelector:(SEL)selector withTarget:(id)target
     args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
 
+- (void)trackProcessor:(ResponseProcessor *)processor forRequest:(id)requestId;
 - (void)processResponse:(NSData *)xml toRequest:(id)requestId;
 - (void)processErrorResponse:(NSError *)error toRequest:(id)requestId;
 
@@ -103,7 +104,7 @@
 
     id requestId = [api fetchTicketsForAllProjects:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 - (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
@@ -119,7 +120,7 @@
                                     inProject:projectKey
                                         token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 - (void)searchTicketsForAllProjects:(NSString *)searchString
@@ -134,7 +135,7 @@
     id requestId =
         [api searchTicketsForAllProjects:searchString page:page token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 - (void)searchTicketsForProject:(id)projectKey
@@ -152,7 +153,7 @@
     id requestId = [api searchTicketsForProject:projectKey
         withSearchString:searchString page:page object:object token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Tickets -- creating
@@ -171,7 +172,7 @@
                                    description:creationXml
                                          token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Tickets -- editing
@@ -192,7 +193,7 @@
                        description:xmlDescription
                              token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Tickets -- deleting
@@ -209,7 +210,7 @@
     id requestId =
         [api deleteTicket:ticketKey forProject:projectKey token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Ticket bins
@@ -223,7 +224,7 @@
 
     id requestId = [api fetchTicketBinsForProject:projectKey token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Users
@@ -237,7 +238,7 @@
 
     id requestId = [api fetchAllUsersForProject:projectKey token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Projects
@@ -250,7 +251,7 @@
 
     id requestId = [api fetchAllProjects:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Milestones
@@ -263,7 +264,7 @@
 
     id requestId = [api fetchMilestonesForAllProjects:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Messages
@@ -277,7 +278,7 @@
 
     id requestId = [api fetchMessagesForProject:projectKey token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 - (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
@@ -294,7 +295,7 @@
                                       inProject:projectKey
                                           token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Messages -- creating
@@ -312,7 +313,7 @@
                                     description:[desc xmlDescription]
                                           token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Messages -- editing
@@ -330,7 +331,7 @@
     id requestId = [api editMessage:messageKey forProject:projectKey
          description:[desc xmlDescription] token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Messages -- adding comments
@@ -348,7 +349,7 @@
     id requestId = [api addComment:[desc xmlDescription] toMessage:messageKey
         forProject:projectKey token:token];
 
-    [responseProcessors setObject:processor forKey:requestId];
+    [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark LighthouseApiDelegate implementation
@@ -926,6 +927,15 @@
 }
 
 #pragma mark Response processing helpers
+
+- (void)trackProcessor:(ResponseProcessor *)processor forRequest:(id)requestId
+{
+    NSAssert2([responseProcessors objectForKey:requestId] == nil,
+        @"Expected processor for request '%@' to be nil, but is: '%@'.",
+        requestId, [responseProcessors objectForKey:requestId]);
+
+    [responseProcessors setObject:processor forKey:requestId];
+}
 
 - (void)processResponse:(NSData *)xml toRequest:(id)requestId
 {
