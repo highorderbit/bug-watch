@@ -14,6 +14,8 @@ enum CredentialRows
 
 @interface LogInViewController ()
 
+@property (nonatomic, retain) UITableView * tableView;
+
 @property (nonatomic, retain) UIBarButtonItem * logInButton;
 @property (nonatomic, retain) UIBarButtonItem * cancelButton;
 
@@ -25,6 +27,7 @@ enum CredentialRows
 @property (nonatomic, retain) UITextField * usernameTextField;
 @property (nonatomic, retain) UITextField * passwordTextField;
 
+
 - (void)userDidSave;
 - (void)userDidCancel;
 
@@ -32,13 +35,17 @@ enum CredentialRows
 
 @implementation LogInViewController
 
-@synthesize delegate, logInButton, cancelButton;
+@synthesize delegate, tableView;
+@synthesize logInButton, cancelButton;
 @synthesize accountCell, usernameCell, passwordCell;
 @synthesize accountTextField, usernameTextField, passwordTextField;
 
 - (void)dealloc
 {
     self.delegate = nil;
+
+    self.tableView = nil;
+
     self.logInButton = nil;
     self.cancelButton = nil;
 
@@ -100,6 +107,17 @@ enum CredentialRows
     return nil;
 }
 
+- (NSString *)tableView:(UITableView *)tableView
+titleForFooterInSection:(NSInteger)section
+{
+    NSString * account = self.accountTextField.text;
+
+    if (account.length == 0)
+        account = self.accountTextField.placeholder;
+
+    return [NSString stringWithFormat:@"https://%@.lighthouseapp.com", account];
+}
+
 #pragma mark UITextFieldDelegate implementation
 
 - (BOOL)textField:(UITextField *)textField
@@ -110,10 +128,11 @@ enum CredentialRows
     NSString * username = self.usernameTextField.text;
     NSString * password = self.passwordTextField.text;
 
-    if (textField == self.accountTextField)
+    if (textField == self.accountTextField) {
         account = [account stringByReplacingCharactersInRange:range
                                                    withString:string];
-    else if (textField == self.usernameTextField)
+        [self.tableView reloadData];
+    } else if (textField == self.usernameTextField)
         username = [username stringByReplacingCharactersInRange:range
                                                      withString:string];
     else if (textField == self.passwordTextField)
@@ -128,6 +147,9 @@ enum CredentialRows
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
+    if (textField == self.accountTextField)
+        [self.tableView reloadData];
+
     logInButton.enabled = NO;
     return YES;
 }

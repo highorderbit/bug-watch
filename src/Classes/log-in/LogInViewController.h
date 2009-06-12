@@ -9,6 +9,8 @@
 {
     id<LogInViewControllerDelegate> delegate;
 
+    IBOutlet UITableView * tableView;
+
     IBOutlet UIBarButtonItem * logInButton;
     IBOutlet UIBarButtonItem * cancelButton;
 
