@@ -23,13 +23,19 @@
     return self;
 }
 
-- (void)fetchMessagesForProject:(id)projectKey
+- (void)fetchMessagesForProject:(NSNumber *)projectKey
 {
     [service fetchMessagesForProject:projectKey token:self.token];
 }
 
+- (void)fetchCommentsForMessage:(LighthouseKey *)messageKey
+{
+    [service fetchCommentsForMessage:[NSNumber numberWithInt:messageKey.key]
+        inProject:[NSNumber numberWithInt:messageKey.projectKey] token:token];
+}
+
 - (void)createMessageWithDescription:(NewMessageDescription *)desc
-    forProject:(id)projectKey
+    forProject:(NSNumber *)projectKey
 {
     [service createMessage:desc forProject:projectKey token:token];
 }
@@ -41,9 +47,14 @@
 {
     MessageCache * messageCache = [[[MessageCache alloc] init] autorelease];
     for (int i = 0; i < [messages count]; i++) {
-        id messageKey = [messageKeys objectAtIndex:i];
+        NSNumber * key = [messageKeys objectAtIndex:i];
+        LighthouseKey * messageKey =
+            [[[LighthouseKey alloc]
+            initWithProjectKey:[(NSNumber *)projectKey integerValue]
+            key:[key integerValue]]
+            autorelease];
         Message * message = [messages objectAtIndex:i];
-        id authorKey = [authorKeys objectAtIndex:i];
+        NSNumber * authorKey = [authorKeys objectAtIndex:i];
         [messageCache setMessage:message forKey:messageKey];
         [messageCache setProjectKey:projectKey forKey:messageKey];
         [messageCache setPostedByKey:authorKey forKey:messageKey];
@@ -63,6 +74,31 @@
 
 - (void)failedToCreateMessageDescribedBy:(NewMessageDescription *)desc
     forProject:(id)projectKey error:(NSError *)error
+{}
+
+- (void)comments:(NSArray *)comments commentKeys:(NSArray *)commentKeys
+    authorKeys:(NSArray *)authorKeys fetchedForMessage:(id)key
+    inProject:(id)projectKey
+{
+    MessageResponseCache * messageResponseCache =
+        [[[MessageResponseCache alloc] init] autorelease];
+    for (int i = 0; i < [comments count]; i++) {
+        NSNumber * commentKey = [commentKeys objectAtIndex:i];
+        MessageResponse * comment = [comments objectAtIndex:i];
+        NSNumber * authorKey = [authorKeys objectAtIndex:i];
+        [messageResponseCache setResponse:comment forKey:commentKey];
+        [messageResponseCache setAuthorKey:authorKey forKey:commentKey];
+    }
+    LighthouseKey * messageKey =
+        [[[LighthouseKey alloc]
+        initWithProjectKey:[(NSNumber *)projectKey integerValue]
+        key:[key integerValue]]
+        autorelease];
+    [delegate receivedComments:messageResponseCache forMessage:messageKey];
+}
+
+- (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
+    errors:(NSArray *)errors
 {}
 
 @end

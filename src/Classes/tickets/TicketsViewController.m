@@ -6,7 +6,7 @@
 #import "Ticket.h"
 #import "TicketMetaData.h"
 #import "TicketTableViewCell.h"
-#import "TicketKey.h"
+#import "LighthouseKey.h"
 #import "UIColor+BugWatchColors.h"
 
 @interface TicketsViewController (Private)
@@ -77,11 +77,11 @@
         cell = [nib objectAtIndex:0];
     }
 
-    TicketKey * ticketKey = [[self sortedKeys] objectAtIndex:indexPath.row];
+    LighthouseKey * ticketKey = [[self sortedKeys] objectAtIndex:indexPath.row];
     Ticket * ticket = [tickets objectForKey:ticketKey];
     TicketMetaData * ticketMetaData =
         [metaData objectForKey:ticketKey];
-    [cell setNumber:ticketKey.ticketNumber];
+    [cell setNumber:ticketKey.key];
     [cell setState:ticketMetaData.state];
     [cell setDescription:ticket.description];
     [cell setLastUpdatedDate:ticketMetaData.lastModifiedDate];
@@ -106,7 +106,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView
     willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+    LighthouseKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
 
     return !![resolvingDict objectForKey:key] ? nil : indexPath;
 }
@@ -114,14 +114,14 @@
 - (void)tableView:(UITableView *)aTableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+    LighthouseKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
     [delegate selectedTicketKey:key];
 }
 
 - (BOOL)tableView:(UITableView *)tableView
     canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+    LighthouseKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
     TicketMetaData * ticketMetaData = [metaData objectForKey:key];
 
     return ticketMetaData.state != kResolved;
@@ -132,7 +132,7 @@
     forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        TicketKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
+        LighthouseKey * key = [[self sortedKeys] objectAtIndex:indexPath.row];
         NSLog(@"Setting ticket state to resolved for ticket %@...", key);
         [resolvingDict setObject:self forKey:key];
         [delegate resolveTicketWithKey:key];

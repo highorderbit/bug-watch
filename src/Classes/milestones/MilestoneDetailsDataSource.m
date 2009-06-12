@@ -7,7 +7,7 @@
 #import "TicketCache.h"
 #import "MilestoneCache.h"
 #import "Milestone.h"
-#import "TicketKey.h"
+#import "LighthouseKey.h"
 #import "NSObject+RuntimeAdditions.h"
 
 @interface MilestoneDetailsDataSource ()
@@ -121,9 +121,9 @@
         NSUInteger projectIdAsInt = [projectId integerValue];
         NSNumber * number = [ticketNumbers objectAtIndex:i];
         NSUInteger numberAsInt = [number integerValue];
-        TicketKey * ticketKey =
-            [[[TicketKey alloc]
-            initWithProjectKey:projectIdAsInt ticketNumber:numberAsInt]
+        LighthouseKey * ticketKey =
+            [[[LighthouseKey alloc]
+            initWithProjectKey:projectIdAsInt key:numberAsInt]
             autorelease];
         Ticket * ticket = [tickets objectAtIndex:i];
         TicketMetaData * metaData = [metadata objectAtIndex:i];
@@ -198,7 +198,7 @@
     NSMutableDictionary * users = [NSMutableDictionary dictionary];
     NSMutableDictionary * creators = [NSMutableDictionary dictionary];
 
-    for (TicketKey * ticketKey in ticketNumbers) {
+    for (LighthouseKey * ticketKey in ticketNumbers) {
         Ticket * ticket = [ticketCache ticketForKey:ticketKey];
         TicketMetaData * metadata = [ticketCache metaDataForKey:ticketKey];
         id creatorKey = [ticketCache createdByKeyForKey:ticketKey];

@@ -19,8 +19,9 @@
 @property (nonatomic, copy) NSString * token;
 
 - (id)initWithService:(LighthouseApiService *)service;
-- (void)fetchMessagesForProject:(id)projectKey;
+- (void)fetchMessagesForProject:(NSNumber *)projectKey;
+- (void)fetchCommentsForMessage:(LighthouseKey *)messageKey;
 - (void)createMessageWithDescription:(NewMessageDescription *)desc
-    forProject:(id)projectKey;
+    forProject:(NSNumber *)projectKey;
 
 @end

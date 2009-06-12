@@ -28,12 +28,12 @@
     return self;
 }
 
-- (void)setMessage:(Message *)message forKey:(id)key
+- (void)setMessage:(Message *)message forKey:(LighthouseKey *)key
 {
     [messages setObject:message forKey:key];
 }
 
-- (Message *)messageForKey:(id)key
+- (Message *)messageForKey:(LighthouseKey *)key
 {
     return [messages objectForKey:key];
 }
@@ -43,12 +43,12 @@
     return [[messages copy] autorelease];
 }
 
-- (void)setProjectKey:(id)projectKey forKey:(id)key
+- (void)setProjectKey:(NSNumber *)projectKey forKey:(LighthouseKey *)key
 {
     [projectDict setObject:projectKey forKey:key];
 }
 
-- (id)projectKeyForKey:(id)key
+- (id)projectKeyForKey:(LighthouseKey *)key
 {
     return [projectDict objectForKey:key];
 }
@@ -58,12 +58,12 @@
     return [[projectDict copy] autorelease];
 }
 
-- (void)setPostedByKey:(id)postedByKey forKey:(id)key
+- (void)setPostedByKey:(NSNumber *)postedByKey forKey:(LighthouseKey *)key
 {
     [postedByDict setObject:postedByKey forKey:key];
 }
 
-- (id)postedByKeyForKey:(id)key
+- (id)postedByKeyForKey:(LighthouseKey *)key
 {
     return [postedByDict objectForKey:key];
 }
@@ -73,12 +73,12 @@
     return [[postedByDict copy] autorelease];
 }
 
-- (void)setResponseKeys:(NSArray *)responseKeys forKey:(id)key
+- (void)setResponseKeys:(NSArray *)responseKeys forKey:(LighthouseKey *)key
 {
     [responseDict setObject: responseKeys forKey:key];
 }
 
-- (NSArray *)responseKeysForKey:(id)key
+- (NSArray *)responseKeysForKey:(LighthouseKey *)key
 {
     return [responseDict objectForKey:key];    
 }
@@ -94,6 +94,11 @@
     [projectDict addEntriesFromDictionary:aMessageCache.allProjectKeys];
     [postedByDict addEntriesFromDictionary:aMessageCache.allPostedByKeys];
     [responseDict addEntriesFromDictionary:aMessageCache.allResponses];
+}
+
+- (NSString *)description
+{
+    return [messages description];
 }
 
 @end

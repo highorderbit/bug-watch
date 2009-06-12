@@ -17,15 +17,14 @@
 #import "TicketCommentCache.h"
 #import "ProjectSelectionViewController.h"
 #import "RecentHistoryCache.h"
-
-@class TicketKey;
+#import "LighthouseKey.h"
 
 @interface TicketDisplayMgr :
     NSObject <TicketsViewControllerDelegate,
     TicketDetailsViewControllerDelegate, NetworkAwareViewControllerDelegate,
     TicketDataSourceDelegate, TicketSearchMgrDelegate>
 {
-    TicketKey * selectedTicketKey;
+    LighthouseKey * selectedTicketKey;
 
     TicketCache * ticketCache;
     RecentHistoryCache * recentHistoryCommentCache;

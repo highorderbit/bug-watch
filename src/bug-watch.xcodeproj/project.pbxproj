@@ -161,7 +161,6 @@
 		913E45A90FAA7779000EB184 /* TextWithCountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 913E45A70FAA7779000EB184 /* TextWithCountTableViewCell.xib */; };
 		913E45AC0FAA7795000EB184 /* TextWithCountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45AB0FAA7795000EB184 /* TextWithCountTableViewCell.m */; };
 		913E45D60FAA8027000EB184 /* RoundedRectLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 913E45D50FAA8027000EB184 /* RoundedRectLabel.m */; };
-		914828800FC3554B002D10E8 /* TicketKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 9148287F0FC3554B002D10E8 /* TicketKey.m */; };
 		91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */; };
 		91482A770FC4C6A2002D10E8 /* UIState.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A740FC4C6A2002D10E8 /* UIState.m */; };
 		91482A780FC4C6A2002D10E8 /* UIStatePersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 91482A760FC4C6A2002D10E8 /* UIStatePersistenceStore.m */; };
@@ -250,6 +249,8 @@
 		91E1FC890FACC39300E86DDE /* EditTicketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC870FACC39300E86DDE /* EditTicketTableViewCell.xib */; };
 		91E1FCD20FACC42600E86DDE /* EditTicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E1FCD10FACC42600E86DDE /* EditTicketTableViewCell.m */; };
 		91E506800FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E5067F0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m */; };
+		91E507680FE2B90400BF41B4 /* LighthouseKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E507670FE2B90400BF41B4 /* LighthouseKey.m */; };
+		91E5076C0FE2B97300BF41B4 /* LighthouseKey+Serialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E5076B0FE2B97300BF41B4 /* LighthouseKey+Serialization.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -483,8 +484,6 @@
 		913E45AB0FAA7795000EB184 /* TextWithCountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextWithCountTableViewCell.m; path = projects/TextWithCountTableViewCell.m; sourceTree = "<group>"; };
 		913E45D40FAA8027000EB184 /* RoundedRectLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedRectLabel.h; path = shared/RoundedRectLabel.h; sourceTree = "<group>"; };
 		913E45D50FAA8027000EB184 /* RoundedRectLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectLabel.m; path = shared/RoundedRectLabel.m; sourceTree = "<group>"; };
-		9148287E0FC3554B002D10E8 /* TicketKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketKey.h; path = tickets/TicketKey.h; sourceTree = "<group>"; };
-		9148287F0FC3554B002D10E8 /* TicketKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketKey.m; path = tickets/TicketKey.m; sourceTree = "<group>"; };
 		91482A5C0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDispMgrMilestoneSetter.h; path = tickets/TicketDispMgrMilestoneSetter.h; sourceTree = "<group>"; };
 		91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDispMgrMilestoneSetter.m; path = tickets/TicketDispMgrMilestoneSetter.m; sourceTree = "<group>"; };
 		91482A730FC4C6A2002D10E8 /* UIState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIState.h; path = "app-controller/UIState.h"; sourceTree = "<group>"; };
@@ -643,6 +642,10 @@
 		91E1FCD10FACC42600E86DDE /* EditTicketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditTicketTableViewCell.m; path = tickets/EditTicketTableViewCell.m; sourceTree = "<group>"; };
 		91E5067E0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDisplayMgrFactory.h; path = messages/MessageDisplayMgrFactory.h; sourceTree = "<group>"; };
 		91E5067F0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDisplayMgrFactory.m; path = messages/MessageDisplayMgrFactory.m; sourceTree = "<group>"; };
+		91E507660FE2B90400BF41B4 /* LighthouseKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseKey.h; path = lighthouse/LighthouseKey.h; sourceTree = "<group>"; };
+		91E507670FE2B90400BF41B4 /* LighthouseKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseKey.m; path = lighthouse/LighthouseKey.m; sourceTree = "<group>"; };
+		91E5076A0FE2B97300BF41B4 /* LighthouseKey+Serialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LighthouseKey+Serialization.h"; path = "lighthouse/LighthouseKey+Serialization.h"; sourceTree = "<group>"; };
+		91E5076B0FE2B97300BF41B4 /* LighthouseKey+Serialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LighthouseKey+Serialization.m"; path = "lighthouse/LighthouseKey+Serialization.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1048,8 +1051,12 @@
 		05EFD7C10FA924D8001DFCFB /* lighthouse */ = {
 			isa = PBXGroup;
 			children = (
+				91E507660FE2B90400BF41B4 /* LighthouseKey.h */,
+				91E507670FE2B90400BF41B4 /* LighthouseKey.m */,
 				05DEB23C0FB2194E0052888E /* api */,
 				05DEB2160FB216CA0052888E /* news-feed */,
+				91E5076A0FE2B97300BF41B4 /* LighthouseKey+Serialization.h */,
+				91E5076B0FE2B97300BF41B4 /* LighthouseKey+Serialization.m */,
 			);
 			name = lighthouse;
 			sourceTree = "<group>";
@@ -1212,8 +1219,6 @@
 				91B15A2A0FBBC00A00C7412C /* TicketBinDataSource.h */,
 				91B15A2B0FBBC00A00C7412C /* TicketBinDataSource.m */,
 				91B15A2E0FBBC99400C7412C /* TicketBinDataSourceDelegate.h */,
-				9148287E0FC3554B002D10E8 /* TicketKey.h */,
-				9148287F0FC3554B002D10E8 /* TicketKey.m */,
 				91482A5C0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.h */,
 				91482A5D0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m */,
 				91482D400FC741F2002D10E8 /* AccountLevelTicketBinDataSource.h */,
@@ -1622,7 +1627,6 @@
 				05852BC20FBCF48F0025FCAE /* Milestone+SortAdditions.m in Sources */,
 				05A961820FBE13DB00CBDC68 /* MilestoneDetailsDisplayMgr.m in Sources */,
 				05A961850FBE142C00CBDC68 /* MilestoneDetailsDataSource.m in Sources */,
-				914828800FC3554B002D10E8 /* TicketKey.m in Sources */,
 				05DB80CB0FC33E7E0095AF32 /* User.m in Sources */,
 				05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */,
 				91482A5E0FC4B923002D10E8 /* TicketDispMgrMilestoneSetter.m in Sources */,
@@ -1691,6 +1695,8 @@
 				0537C90A0FE1B6D100D87E0B /* LogInDisplayMgr.m in Sources */,
 				0537C90D0FE1B6E000D87E0B /* LogInState.m in Sources */,
 				0537C99F0FE1CFA700D87E0B /* LogInViewController.m in Sources */,
+				91E507680FE2B90400BF41B4 /* LighthouseKey.m in Sources */,
+				91E5076C0FE2B97300BF41B4 /* LighthouseKey+Serialization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

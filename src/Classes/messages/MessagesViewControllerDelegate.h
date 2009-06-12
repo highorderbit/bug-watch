@@ -3,9 +3,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LighthouseKey.h"
 
 @protocol MessagesViewControllerDelegate
 
-- (void)selectedMessageKey:(id)key;
+- (void)selectedMessageKey:(LighthouseKey *)key;
 
 @end

@@ -54,8 +54,7 @@
 
     MessageDisplayMgr * messageDisplayMgr =
         [[[MessageDisplayMgr alloc] initWithMessageCache:cache
-        messageResponseCache:nil dataSource:dataSource
-        networkAwareViewController:wrapperController
+        dataSource:dataSource networkAwareViewController:wrapperController
         messagesViewController:messagesViewController] autorelease];
     messagesViewController.delegate = messageDisplayMgr;
     wrapperController.delegate = messageDisplayMgr;

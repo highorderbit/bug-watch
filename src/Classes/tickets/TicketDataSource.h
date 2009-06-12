@@ -6,7 +6,7 @@
 #import "TicketDataSourceDelegate.h"
 #import "LighthouseApiService.h"
 #import "LighthouseApiDelegate.h"
-#import "TicketKey.h"
+#import "LighthouseKey.h"
 
 @interface TicketDataSource : NSObject <LighthouseApiServiceDelegate>
 {
@@ -22,7 +22,7 @@
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page;
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
     project:(id)projectKey;
-- (void)fetchTicketWithKey:(TicketKey *)aTicketKey;
+- (void)fetchTicketWithKey:(LighthouseKey *)aTicketKey;
 
 - (void)createTicketWithDescription:(NewTicketDescription *)desc
     forProject:(id)projectKey;
