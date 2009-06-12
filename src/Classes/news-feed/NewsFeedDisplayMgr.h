@@ -26,6 +26,7 @@
 #pragma mark Initialization
 
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
-                  newsFeedDataSource:(NewsFeedDataSource *)dataSource;
+                  newsFeedDataSource:(NewsFeedDataSource *)dataSource
+                   leftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem;
 
 @end
