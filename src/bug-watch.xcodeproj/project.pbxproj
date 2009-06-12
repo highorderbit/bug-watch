@@ -69,6 +69,10 @@
 		0537C8390FE0AA5300D87E0B /* NSDateLighthouseApiTypeConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8050FE0A95100D87E0B /* NSDateLighthouseApiTypeConverter.m */; };
 		0537C83A0FE0AA5300D87E0B /* NSNumberLighthouseApiTypeConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8070FE0A95200D87E0B /* NSNumberLighthouseApiTypeConverter.m */; };
 		0537C83B0FE0AA5300D87E0B /* TicketMetaData+LighthouseApiParsingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8090FE0A95200D87E0B /* TicketMetaData+LighthouseApiParsingAdditions.m */; };
+		0537C90A0FE1B6D100D87E0B /* LogInDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C9090FE1B6D100D87E0B /* LogInDisplayMgr.m */; };
+		0537C90D0FE1B6E000D87E0B /* LogInState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C90C0FE1B6E000D87E0B /* LogInState.m */; };
+		0537C9840FE1C4F000D87E0B /* LogInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0537C9820FE1C4F000D87E0B /* LogInView.xib */; };
+		0537C99F0FE1CFA700D87E0B /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C99E0FE1CFA700D87E0B /* LogInViewController.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
@@ -321,6 +325,14 @@
 		0537C8180FE0A9B400D87E0B /* UpdateMessageDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateMessageDescription.m; sourceTree = "<group>"; };
 		0537C8190FE0A9B400D87E0B /* UpdateTicketDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateTicketDescription.h; sourceTree = "<group>"; };
 		0537C81A0FE0A9B400D87E0B /* UpdateTicketDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTicketDescription.m; sourceTree = "<group>"; };
+		0537C9080FE1B6D100D87E0B /* LogInDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInDisplayMgr.h; path = "log-in/LogInDisplayMgr.h"; sourceTree = "<group>"; };
+		0537C9090FE1B6D100D87E0B /* LogInDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInDisplayMgr.m; path = "log-in/LogInDisplayMgr.m"; sourceTree = "<group>"; };
+		0537C90B0FE1B6E000D87E0B /* LogInState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInState.h; path = "log-in/LogInState.h"; sourceTree = "<group>"; };
+		0537C90C0FE1B6E000D87E0B /* LogInState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInState.m; path = "log-in/LogInState.m"; sourceTree = "<group>"; };
+		0537C9830FE1C4F000D87E0B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LogInView.xib; sourceTree = "<group>"; };
+		0537C99D0FE1CFA700D87E0B /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInViewController.h; path = "log-in/LogInViewController.h"; sourceTree = "<group>"; };
+		0537C99E0FE1CFA700D87E0B /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInViewController.m; path = "log-in/LogInViewController.m"; sourceTree = "<group>"; };
+		0537C9C60FE1D1F800D87E0B /* LogInViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInViewControllerDelegate.h; path = "log-in/LogInViewControllerDelegate.h"; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -674,14 +686,6 @@
 			name = "xml-samples";
 			sourceTree = "<group>";
 		};
-		0537C7E80FE0A83100D87E0B /* publishers */ = {
-			isa = PBXGroup;
-			children = (
-				0537C7EB0FE0A89000D87E0B /* publishers */,
-			);
-			name = publishers;
-			sourceTree = "<group>";
-		};
 		0537C7EB0FE0A89000D87E0B /* publishers */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +737,20 @@
 			);
 			name = descriptions;
 			path = lighthouse/api/descriptions;
+			sourceTree = "<group>";
+		};
+		0537C9050FE1B69E00D87E0B /* log-in */ = {
+			isa = PBXGroup;
+			children = (
+				0537C9080FE1B6D100D87E0B /* LogInDisplayMgr.h */,
+				0537C9090FE1B6D100D87E0B /* LogInDisplayMgr.m */,
+				0537C90B0FE1B6E000D87E0B /* LogInState.h */,
+				0537C90C0FE1B6E000D87E0B /* LogInState.m */,
+				0537C99D0FE1CFA700D87E0B /* LogInViewController.h */,
+				0537C99E0FE1CFA700D87E0B /* LogInViewController.m */,
+				0537C9C60FE1D1F800D87E0B /* LogInViewControllerDelegate.h */,
+			);
+			name = "log-in";
 			sourceTree = "<group>";
 		};
 		0552136E0FAB555900626049 /* vendor */ = {
@@ -925,7 +943,7 @@
 				0537C7FE0FE0A95100D87E0B /* parsers */,
 				058ED4000FDEDB9700595604 /* builders */,
 				058ED3FC0FDED4CC00595604 /* processors */,
-				0537C7E80FE0A83100D87E0B /* publishers */,
+				0537C7EB0FE0A89000D87E0B /* publishers */,
 				0537C8100FE0A9B400D87E0B /* descriptions */,
 				052C5C8A0FB4A46E00C7A30C /* LighthouseApiService.h */,
 				052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */,
@@ -1041,6 +1059,7 @@
 			children = (
 				918887160FB9E6E1009F5861 /* persistence */,
 				05C870670FA77EDC0069BC72 /* app-controller */,
+				0537C9050FE1B69E00D87E0B /* log-in */,
 				05E636C00FA8C17D00F736A5 /* news-feed */,
 				9100C09E0FA8C87D003C2ECF /* tickets */,
 				913E45A60FAA7757000EB184 /* projects */,
@@ -1113,6 +1132,7 @@
 			isa = PBXGroup;
 			children = (
 				9100C0630FA8BF5B003C2ECF /* MainWindow.xib */,
+				0537C9820FE1C4F000D87E0B /* LogInView.xib */,
 				05E636BC0FA8C11C00F736A5 /* NewsFeedView.xib */,
 				05E637270FA8C8EB00F736A5 /* NewsFeedTableViewCell.xib */,
 				055212950FAA59B800626049 /* NewsFeedItemView.xib */,
@@ -1451,6 +1471,7 @@
 				91482CA70FC62349002D10E8 /* ProjectSelectionView.xib in Resources */,
 				914830710FCF10FF002D10E8 /* DeleteButtonBackground.png in Resources */,
 				914831940FCF5A24002D10E8 /* ResolveButtonBackground.png in Resources */,
+				0537C9840FE1C4F000D87E0B /* LogInView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1667,12 +1688,23 @@
 				919892380FDD75DF00A61099 /* MessageDataSource.m in Sources */,
 				919893CB0FE0275700A61099 /* MessagePersistenceStore.m in Sources */,
 				91E506800FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m in Sources */,
+				0537C90A0FE1B6D100D87E0B /* LogInDisplayMgr.m in Sources */,
+				0537C90D0FE1B6E000D87E0B /* LogInState.m in Sources */,
+				0537C99F0FE1CFA700D87E0B /* LogInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0537C9820FE1C4F000D87E0B /* LogInView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0537C9830FE1C4F000D87E0B /* en */,
+			);
+			name = LogInView.xib;
+			sourceTree = "<group>";
+		};
 		055212950FAA59B800626049 /* NewsFeedItemView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -34,6 +34,8 @@
 #import "ProjectDispMgrProjectSetter.h"
 #import "ProjectSpecificTicketBinDSAdapter.h"
 #import "MessagePersistenceStore.h"
+#import "LogInDisplayMgr.h"
+#import "LogInState.h"
 
 @interface BugWatchAppController (Private)
 
@@ -487,11 +489,23 @@
     addButton.action = @selector(createNewMessage);
 }
 
-#pragma mark News feed tabl initialization
+#pragma mark News feed tab initialization
 
 - (void)initNewsFeedTab
 {
-    // Note: this instantiation/initialization is temporary
+    // temporary instantiation of the log in state
+    LogInState * logInState = nil;
+    LogInDisplayMgr * logInDisplayMgr =
+        [[LogInDisplayMgr alloc] initWithLogInState:logInState
+                                 rootViewController:tabBarController];
+
+    UIBarButtonItem * logInButton =
+        [[[UIBarButtonItem alloc]
+        initWithTitle:NSLocalizedString(@"login.button.title", @"")
+                style:UIBarButtonItemStylePlain
+               target:logInDisplayMgr
+               action:@selector(logIn)] autorelease];
+
     LighthouseNewsFeedService * newsFeedService =
         [[[LighthouseNewsFeedService alloc] initWithBaseUrlString:
         @"http://highorderbit.lighthouseapp.com/events.atom"] autorelease];
@@ -507,10 +521,11 @@
     newsFeedDisplayMgr =
         [[NewsFeedDisplayMgr alloc]
         initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
-                        newsFeedDataSource:newsFeedDataSource];
+                        newsFeedDataSource:newsFeedDataSource
+                         leftBarButtonItem:logInButton];
 }
 
-#pragma mark Message tab initialization
+#pragma mark Milestone tab initialization
 
 - (void)initMilestonesTab
 {

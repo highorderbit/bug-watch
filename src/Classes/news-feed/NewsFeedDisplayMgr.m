@@ -36,6 +36,7 @@
 
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
                   newsFeedDataSource:(NewsFeedDataSource *)dataSource
+                   leftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem
 {
     if (self = [super init]) {
         networkAwareViewController = [navc retain];
@@ -59,6 +60,9 @@
         networkAwareViewController.navigationItem.rightBarButtonItem =
             refreshButton;
         [refreshButton release];
+
+        networkAwareViewController.navigationItem.leftBarButtonItem =
+            leftBarButtonItem;
     }
 
     return self;
