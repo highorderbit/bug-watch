@@ -11,7 +11,6 @@
 enum EditTicketTableSection
 {
     kEditTicketTitleSection,
-    kEditTicketCommentSection,
     kEditTicketStateSection,
     kEditTicketTagsSection
 };
@@ -19,7 +18,6 @@ enum EditTicketTableSection
 enum EditTicketCell
 {
     kTitle,
-    kDescription,
     kComment,
     kAssignedTo,
     kMilestone,
@@ -45,7 +43,7 @@ static const NSInteger UNSET_KEY = 0;
 @implementation EditTicketViewController
 
 @synthesize cancelButton, updateButton;
-@synthesize ticketDescription, message, comment, tags;
+@synthesize ticketDescription, comment, tags;
 @synthesize members, member;
 @synthesize milestones, milestone;
 @synthesize state;
@@ -63,7 +61,6 @@ static const NSInteger UNSET_KEY = 0;
     [itemSelectionTableViewController release];
 
     [ticketDescription release];
-    [message release];
     [comment release];
     [tags release];
     
@@ -102,7 +99,7 @@ static const NSInteger UNSET_KEY = 0;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -136,16 +133,18 @@ static const NSInteger UNSET_KEY = 0;
         case kTitle:
             [cell setKeyText:@"title"];
             break;
-        case kDescription:
-            [cell setKeyText:@"description"];
-            break;
         case kComment:
-            if (self.comment && ![self.comment isEqual:@""]) {
-                [cell setKeyText:@"comment"];
-                cell.keyOnly = NO;
+            if (edit) {
+                if (self.comment && ![self.comment isEqual:@""]) {
+                    [cell setKeyText:@"comment"];
+                    cell.keyOnly = NO;
+                } else {
+                    [cell setKeyText:@"add a comment"];
+                    cell.keyOnly = YES;
+                }
             } else {
-                [cell setKeyText:@"add a comment"];
-                cell.keyOnly = YES;
+                [cell setKeyText:@"description"];
+                cell.keyOnly = NO;
             }
             break;
         case kAssignedTo:
@@ -193,17 +192,6 @@ static const NSInteger UNSET_KEY = 0;
                 animated:YES];
             self.addCommentViewController.action = @selector(setComment:);
             [self.addCommentViewController setTextViewText:self.comment];
-            break;
-        case kDescription:
-            self.addCommentViewController.navigationItem.title =
-                @"Edit Description";
-            self.addCommentViewController.autocorrectionType =
-                UITextAutocorrectionTypeDefault;
-            [self.navigationController
-                pushViewController:self.addCommentViewController
-                animated:YES];
-            self.addCommentViewController.action = @selector(setMessage:);
-            [self.addCommentViewController setTextViewText:self.message];
             break;
         case kAssignedTo:
             self.itemSelectionTableViewController.navigationItem.title =
@@ -283,9 +271,6 @@ static const NSInteger UNSET_KEY = 0;
     for (int i = kEditTicketTitleSection; i < indexPath.section; i++)
         numRows += [self numRowsForSection:i];
 
-    if (!edit && indexPath.section >= kEditTicketCommentSection)
-        numRows++;
-
     return numRows;
 }
 
@@ -295,9 +280,6 @@ static const NSInteger UNSET_KEY = 0;
     switch(section) {
         case kEditTicketTitleSection:
             numRows = 2;
-            break;
-        case kEditTicketCommentSection:
-            numRows = self.edit ? 1 : 0;
             break;
         case kEditTicketStateSection:
             numRows = 3;
@@ -316,9 +298,6 @@ static const NSInteger UNSET_KEY = 0;
     switch(row) {
         case kTitle:
             value = self.ticketDescription;
-            break;
-        case kDescription:
-            value = self.message;
             break;
         case kComment:
             value = self.comment;
@@ -470,17 +449,6 @@ static const NSInteger UNSET_KEY = 0;
     updateButton.enabled =
         aTicketDescription && ![aTicketDescription isEqual:@""];
 
-    [self.tableView reloadData];
-}
-
-- (void)setMessage:(NSString *)aMessage
-{
-    NSLog(@"Set ticket description: '%@'", aMessage);
-
-    NSString * tempMessage = [aMessage copy];
-    [message release];
-    message = tempMessage;
-    
     [self.tableView reloadData];
 }
 

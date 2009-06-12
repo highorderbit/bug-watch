@@ -271,9 +271,9 @@
     TicketMetaData * metaData =
         [ticketCache metaDataForKey:selectedTicketKey];
     self.editTicketViewController.ticketDescription = ticket.description;
-    self.editTicketViewController.message = ticket.message;
     self.editTicketViewController.tags = metaData.tags;
     self.editTicketViewController.state = metaData.state;
+    self.editTicketViewController.comment = @"";
 
     self.editTicketViewController.member =
         [ticketCache assignedToKeyForKey:selectedTicketKey];
@@ -413,7 +413,7 @@
     } else {
         NewTicketDescription * desc = [NewTicketDescription description];
         desc.title = sender.ticketDescription;
-        desc.body = sender.message;
+        desc.body = sender.comment;
         if (sender.state != 0)
             desc.state = sender.state;
         if (sender.member &&
@@ -452,7 +452,7 @@
 - (void)prepareNewTicketView
 {
     self.editTicketViewController.ticketDescription = @"";
-    self.editTicketViewController.message = @"";
+    self.editTicketViewController.comment = @"";
     self.editTicketViewController.tags = @"";
     self.editTicketViewController.state = kNew;
 
