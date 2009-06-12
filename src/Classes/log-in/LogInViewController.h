@@ -11,6 +11,14 @@
 
     IBOutlet UIBarButtonItem * logInButton;
     IBOutlet UIBarButtonItem * cancelButton;
+
+    IBOutlet UITableViewCell * accountCell;
+    IBOutlet UITableViewCell * usernameCell;
+    IBOutlet UITableViewCell * passwordCell;
+
+    IBOutlet UITextField * accountTextField;
+    IBOutlet UITextField * usernameTextField;
+    IBOutlet UITextField * passwordTextField;
 }
 
 @property (nonatomic, assign) id<LogInViewControllerDelegate> delegate;

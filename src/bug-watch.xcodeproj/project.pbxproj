@@ -683,14 +683,6 @@
 			name = "xml-samples";
 			sourceTree = "<group>";
 		};
-		0537C7E80FE0A83100D87E0B /* publishers */ = {
-			isa = PBXGroup;
-			children = (
-				0537C7EB0FE0A89000D87E0B /* publishers */,
-			);
-			name = publishers;
-			sourceTree = "<group>";
-		};
 		0537C7EB0FE0A89000D87E0B /* publishers */ = {
 			isa = PBXGroup;
 			children = (
@@ -948,7 +940,7 @@
 				0537C7FE0FE0A95100D87E0B /* parsers */,
 				058ED4000FDEDB9700595604 /* builders */,
 				058ED3FC0FDED4CC00595604 /* processors */,
-				0537C7E80FE0A83100D87E0B /* publishers */,
+				0537C7EB0FE0A89000D87E0B /* publishers */,
 				0537C8100FE0A9B400D87E0B /* descriptions */,
 				052C5C8A0FB4A46E00C7A30C /* LighthouseApiService.h */,
 				052C5C8B0FB4A46E00C7A30C /* LighthouseApiService.m */,
