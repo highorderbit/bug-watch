@@ -6,6 +6,7 @@
 #import "Ticket.h"
 #import "TicketMetaData.h"
 #import "TicketComment.h"
+#import "TicketKey.h"
 
 @interface TicketCache : NSObject
 {
@@ -24,28 +25,28 @@
 @property (nonatomic, copy) NSString * query;
 @property (nonatomic, assign) NSUInteger numPages;
 
-- (void)setTicket:(Ticket *)ticket forKey:(id)key;
-- (Ticket *)ticketForKey:(id)key;
+- (void)setTicket:(Ticket *)ticket forKey:(TicketKey *)key;
+- (Ticket *)ticketForKey:(TicketKey *)key;
 - (NSDictionary *)allTickets;
 
-- (void)setMetaData:(TicketMetaData *)someMetaData forKey:(id)key;
-- (TicketMetaData *)metaDataForKey:(id)key;
+- (void)setMetaData:(TicketMetaData *)someMetaData forKey:(TicketKey *)key;
+- (TicketMetaData *)metaDataForKey:(TicketKey *)key;
 - (NSDictionary *)allMetaData;
 
-- (void)setCreatedByKey:(id)key forKey:(id)key;
-- (id)createdByKeyForKey:(id)key;
+- (void)setCreatedByKey:(id)key forKey:(TicketKey *)key;
+- (id)createdByKeyForKey:(TicketKey *)key;
 - (NSDictionary *)allCreatedByKeys;
 
-- (void)setAssignedToKey:(id)key forKey:(id)key;
-- (id)assignedToKeyForKey:(id)key;
+- (void)setAssignedToKey:(id)key forKey:(TicketKey *)key;
+- (id)assignedToKeyForKey:(TicketKey *)key;
 - (NSDictionary *)allAssignedToKeys;
 
-- (void)setMilestoneKey:(id)key forKey:(id)key;
-- (id)milestoneKeyForKey:(id)key;
+- (void)setMilestoneKey:(id)key forKey:(TicketKey *)key;
+- (id)milestoneKeyForKey:(TicketKey *)key;
 - (NSDictionary *)allMilestoneKeys;
 
-- (void)setCommentKeys:(NSArray *)keys forKey:(id)key;
-- (NSArray *)commentKeysForKey:(id)key;
+- (void)setCommentKeys:(NSArray *)keys forKey:(TicketKey *)key;
+- (NSArray *)commentKeysForKey:(TicketKey *)key;
 - (NSDictionary *)allCommentKeys;
 
 - (void)merge:(TicketCache *)aTicketCache;

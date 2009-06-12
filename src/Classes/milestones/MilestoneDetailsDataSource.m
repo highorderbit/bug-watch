@@ -117,12 +117,13 @@
         [NSMutableDictionary dictionaryWithCapacity:creatorIds.count];
 
     for (NSInteger i = 0, count = ticketNumbers.count; i < count; ++i) {
-        id projectId = [projectIds objectAtIndex:i];
+        NSNumber * projectId = [projectIds objectAtIndex:i];
+        NSUInteger projectIdAsInt = [projectId integerValue];
         NSNumber * number = [ticketNumbers objectAtIndex:i];
         NSUInteger numberAsInt = [number integerValue];
         TicketKey * ticketKey =
             [[[TicketKey alloc]
-            initWithProjectKey:projectId ticketNumber:numberAsInt]
+            initWithProjectKey:projectIdAsInt ticketNumber:numberAsInt]
             autorelease];
         Ticket * ticket = [tickets objectAtIndex:i];
         TicketMetaData * metaData = [metadata objectAtIndex:i];
