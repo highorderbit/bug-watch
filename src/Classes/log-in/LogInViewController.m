@@ -4,10 +4,22 @@
 
 #import "LogInViewController.h"
 
-static const int NUM_CREDENTIAL_ROWS = 3;
+static const int NUM_SECTIONS = 2;
+enum Sections
+{
+    kAccountSection,
+    kCredentialsSection
+};
+
+static const int NUM_ACCOUNT_ROWS = 1;
+enum AccountRows
+{
+    kAccountRow
+};
+
+static const int NUM_CREDENTIAL_ROWS = 2;
 enum CredentialRows
 {
-    kAccountRow,
     kUsernameRow,
     kPasswordRow
 };
@@ -26,7 +38,6 @@ enum CredentialRows
 @property (nonatomic, retain) UITextField * accountTextField;
 @property (nonatomic, retain) UITextField * usernameTextField;
 @property (nonatomic, retain) UITextField * passwordTextField;
-
 
 - (void)userDidSave;
 - (void)userDidCancel;
@@ -83,25 +94,44 @@ enum CredentialRows
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return NUM_SECTIONS;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-    return NUM_CREDENTIAL_ROWS;
+    NSInteger nrows = 0;
+
+    switch (section) {
+        case kAccountSection:
+            nrows = NUM_ACCOUNT_ROWS;
+            break;
+        case kCredentialsSection:
+            nrows = NUM_CREDENTIAL_ROWS;
+            break;
+    }
+
+    return nrows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case kAccountRow:
-            return self.accountCell;
-        case kUsernameRow:
-            return self.usernameCell;
-        case kPasswordRow:
-            return self.passwordCell;
+    switch (indexPath.section) {
+        case kAccountSection:
+            switch (indexPath.row) {
+                case kAccountRow:
+                    return self.accountCell;
+            }
+            break;
+        case kCredentialsSection:
+            switch (indexPath.row) {
+                case kUsernameRow:
+                    return self.usernameCell;
+                case kPasswordRow:
+                    return self.passwordCell;
+            }
+            break;
     }
 
     return nil;
@@ -110,12 +140,17 @@ enum CredentialRows
 - (NSString *)tableView:(UITableView *)tableView
 titleForFooterInSection:(NSInteger)section
 {
-    NSString * account = self.accountTextField.text;
+    if (section == kAccountSection) {
+        NSString * account = self.accountTextField.text;
 
-    if (account.length == 0)
-        account = self.accountTextField.placeholder;
+        if (account.length == 0)
+            account = self.accountTextField.placeholder;
 
-    return [NSString stringWithFormat:@"https://%@.lighthouseapp.com", account];
+        return [NSString stringWithFormat:@"https://%@.lighthouseapp.com",
+            account];
+    }
+
+    return nil;
 }
 
 #pragma mark UITextFieldDelegate implementation
@@ -138,7 +173,6 @@ titleForFooterInSection:(NSInteger)section
     else if (textField == self.passwordTextField)
         password = [password stringByReplacingCharactersInRange:range
                                                      withString:string];
-   
 
     logInButton.enabled = account.length && username.length && password.length;
 
