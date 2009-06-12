@@ -56,6 +56,8 @@
 @property (nonatomic, copy) id activeProjectKey;
 @property (nonatomic, assign) BOOL selectProject;
 
+@property (nonatomic, readonly) NetworkAwareViewController * wrapperController;
+
 - (id)initWithMessageCache:(MessageCache *)aMessageCache
     messageResponseCache:(MessageResponseCache *)aMessageResponseCache
     dataSource:(MessageDataSource *)aDataSource

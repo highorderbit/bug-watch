@@ -21,6 +21,7 @@
 #import "NewsFeedDisplayMgr.h"
 #import "MilestoneCache.h"
 #import "MessageDisplayMgr.h"
+#import "MessageDisplayMgrFactory.h"
 
 @interface BugWatchAppController : NSObject
 {
@@ -45,7 +46,9 @@
     MilestoneDisplayMgr * milestoneDisplayMgr;
     MilestoneCacheSetter * milestoneCacheSetter;
 
+    MessageDisplayMgrFactory * messageDisplayMgrFactory;
     MessageDisplayMgr * messageDisplayMgr;
+    MessageDisplayMgr * projectLevelMessageDisplayMgr;
 
     UserCacheSetter * userCacheSetter;
 

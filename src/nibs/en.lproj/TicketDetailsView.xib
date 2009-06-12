@@ -310,10 +310,21 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="547618793"/>
 					</object>
+					<object class="IBUIView" id="1046455614">
+						<reference key="NSNextResponder" ref="1036489835"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrameSize">{320, 1}</string>
+						<reference key="NSSuperview" ref="1036489835"/>
+						<reference key="IBUIBackgroundColor" ref="598956896"/>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+					</object>
 				</object>
 				<string key="NSFrameSize">{320, 360}</string>
 				<reference key="NSSuperview"/>
-				<reference key="IBUIBackgroundColor" ref="9409569"/>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MC45NDExNzY0NyAwLjk0MTE3NjQ3IDAuOTQxMTc2NDcAA</bytes>
+				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 			</object>
 		</object>
@@ -531,6 +542,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="447604348"/>
 							<reference ref="159731665"/>
+							<reference ref="1046455614"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
 						<string key="objectName">Footer</string>
@@ -543,6 +555,11 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 					<object class="IBObjectRecord">
 						<int key="objectID">50</int>
 						<reference key="object" ref="159731665"/>
+						<reference key="parent" ref="1036489835"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">52</int>
+						<reference key="object" ref="1046455614"/>
 						<reference key="parent" ref="1036489835"/>
 					</object>
 				</object>
@@ -570,6 +587,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 					<string>47.IBPluginDependency</string>
 					<string>49.IBPluginDependency</string>
 					<string>50.IBPluginDependency</string>
+					<string>52.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -589,7 +607,8 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{334, 131}, {320, 703}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{248, 319}, {320, 360}}</string>
+					<string>{{304, 294}, {320, 360}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -616,7 +635,7 @@ aXRlcwpibGFoIGJsYWggYmxhaCBibGFoA</string>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">51</int>
+			<int key="maxID">52</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -14,6 +14,7 @@
     [projectHomeViewController release];
 
     [ticketDisplayMgr release];
+    [messageDisplayMgr release];
 
     [projectCache release];
     [selectedProjectKey release];
@@ -23,12 +24,14 @@
 
 - (id)initWithProjectsViewController:(ProjectsViewController *)aViewController
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
-    ticketDisplayMgr:(TicketDisplayMgr *)aTicketDisplayMgr;
+    ticketDisplayMgr:(TicketDisplayMgr *)aTicketDisplayMgr
+    messageDisplayMgr:(MessageDisplayMgr *)aMessageDisplayMgr
 {
     if (self = [super init]) {
         projectsViewController = [aViewController retain];
         wrapperController = [aWrapperController retain];
         ticketDisplayMgr = [aTicketDisplayMgr retain];
+        messageDisplayMgr = [aMessageDisplayMgr retain];
     }
 
     return self;
@@ -52,6 +55,7 @@
 
     self.projectHomeViewController.navigationItem.title = project.name;
     ticketDisplayMgr.activeProjectKey = key;
+    messageDisplayMgr.activeProjectKey = key;
 }
 
 #pragma mark ProjectHomeViewControllerDelegate implementation
@@ -64,6 +68,11 @@
         case kProjectTickets:
             [self.navController
                 pushViewController:self.ticketsNetAwareViewController
+                animated:YES];
+            break;
+        case kProjectMessages:
+            [self.navController
+                pushViewController:self.messagesNetAwareViewController
                 animated:YES];
             break;
     }
@@ -91,6 +100,11 @@
 - (NetworkAwareViewController *)ticketsNetAwareViewController
 {
     return ticketDisplayMgr.wrapperController;
+}
+
+- (NetworkAwareViewController *)messagesNetAwareViewController
+{
+    return messageDisplayMgr.wrapperController;
 }
 
 - (void)setProjectCache:(ProjectCache *)aProjectCache

@@ -17,7 +17,7 @@
 @implementation MessageDisplayMgr
 
 @synthesize messageCache, userDict, projectDict, activeProjectKey,
-    selectProject;
+    selectProject, wrapperController;
 
 - (void)dealloc
 {
@@ -335,6 +335,14 @@
     [userDict release];
     userDict = tempUserDict;
     [self displayCachedMessages];
+}
+
+- (void)setActiveProjectKey:(id)anActiveProjectKey
+{
+    [anActiveProjectKey retain];
+    [activeProjectKey release];
+    activeProjectKey = anActiveProjectKey;
+    displayDirty = YES;
 }
 
 @end

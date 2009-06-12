@@ -245,6 +245,7 @@
 		91E1FC860FACBBBE00E86DDE /* TextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC850FACBBBE00E86DDE /* TextField.png */; };
 		91E1FC890FACC39300E86DDE /* EditTicketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E1FC870FACC39300E86DDE /* EditTicketTableViewCell.xib */; };
 		91E1FCD20FACC42600E86DDE /* EditTicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E1FCD10FACC42600E86DDE /* EditTicketTableViewCell.m */; };
+		91E506800FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E5067F0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -628,6 +629,8 @@
 		91E1FC880FACC39300E86DDE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EditTicketTableViewCell.xib; sourceTree = "<group>"; };
 		91E1FCD00FACC42600E86DDE /* EditTicketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditTicketTableViewCell.h; path = tickets/EditTicketTableViewCell.h; sourceTree = "<group>"; };
 		91E1FCD10FACC42600E86DDE /* EditTicketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditTicketTableViewCell.m; path = tickets/EditTicketTableViewCell.m; sourceTree = "<group>"; };
+		91E5067E0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageDisplayMgrFactory.h; path = messages/MessageDisplayMgrFactory.h; sourceTree = "<group>"; };
+		91E5067F0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageDisplayMgrFactory.m; path = messages/MessageDisplayMgrFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1275,6 +1278,8 @@
 				919892D80FDECC5E00A61099 /* NewMessageViewControllerDelegate.h */,
 				919893C90FE0275700A61099 /* MessagePersistenceStore.h */,
 				919893CA0FE0275700A61099 /* MessagePersistenceStore.m */,
+				91E5067E0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.h */,
+				91E5067F0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m */,
 			);
 			name = messages;
 			sourceTree = "<group>";
@@ -1661,6 +1666,7 @@
 				919892230FDD5C0A00A61099 /* MessageDisplayProjectSetter.m in Sources */,
 				919892380FDD75DF00A61099 /* MessageDataSource.m in Sources */,
 				919893CB0FE0275700A61099 /* MessagePersistenceStore.m in Sources */,
+				91E506800FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

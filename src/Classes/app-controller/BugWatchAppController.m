@@ -33,8 +33,6 @@
 #import "AllUserUpdatePublisher.h"
 #import "ProjectDispMgrProjectSetter.h"
 #import "ProjectSpecificTicketBinDSAdapter.h"
-#import "MessageDisplayProjectSetter.h"
-#import "MessageDisplayUserSetter.h"
 #import "MessagePersistenceStore.h"
 
 @interface BugWatchAppController (Private)
@@ -93,7 +91,9 @@
     [milestoneDisplayMgr release];
     [milestoneCacheSetter release];
 
+    [messageDisplayMgrFactory release];
     [messageDisplayMgr release];
+    [projectLevelMessageDisplayMgr release];
 
     [userCacheSetter release];
 
@@ -117,6 +117,9 @@
         [[TicketSearchMgrFactory alloc] init];
     ticketDisplayMgrFactory =
         [[TicketDisplayMgrFactory alloc] initWithApiToken:token
+        lighthouseApiFactory:lighthouseApiFactory];
+    messageDisplayMgrFactory =
+        [[MessageDisplayMgrFactory alloc] initWithApiToken:token
         lighthouseApiFactory:lighthouseApiFactory];
 
     [self initSharedStateListeners];
@@ -422,6 +425,24 @@
         parentView:parentView ticketBinDataSource:projSpecificTicketBinDS];
     projectLevelTicketDisplayMgr.selectProject = NO;
     projSpecificTicketBinDS.ticketDisplayMgr = projectLevelTicketDisplayMgr;
+    
+    NetworkAwareViewController * messagesWrapperController =
+        [[[NetworkAwareViewController alloc] init] autorelease];
+    messagesWrapperController.navigationItem.title = @"Messages";
+    projectLevelMessageDisplayMgr =
+        [messageDisplayMgrFactory createMessageDisplayMgrWithCache:nil
+        wrapperController:messagesWrapperController];
+    projectLevelMessageDisplayMgr.selectProject = NO;
+
+    UIBarButtonItem * composeMessageButton =
+        [[[UIBarButtonItem alloc]
+        initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:nil
+        action:nil]
+        autorelease];
+    composeMessageButton.target = projectLevelMessageDisplayMgr;
+    composeMessageButton.action = @selector(createNewMessage);
+    messagesWrapperController.navigationItem.rightBarButtonItem =
+        composeMessageButton;
 
     ProjectsViewController * projectsViewController =
         [[[ProjectsViewController alloc]
@@ -433,7 +454,9 @@
         [[[ProjectDisplayMgr alloc]
         initWithProjectsViewController:projectsViewController
         networkAwareViewController:projectsNetAwareViewController
-        ticketDisplayMgr:projectLevelTicketDisplayMgr] autorelease];
+        ticketDisplayMgr:projectLevelTicketDisplayMgr
+        messageDisplayMgr:projectLevelMessageDisplayMgr]
+        autorelease];
     projectsViewController.delegate = projectDisplayMgr;
     
     ProjectDispMgrProjectSetter * projectSetter =
@@ -448,22 +471,6 @@
 
 - (void)initMessagesTab
 {
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
-
-    MessagesViewController * messagesViewController =
-        [[MessagesViewController alloc]
-        initWithNibName:@"MessagesView" bundle:nil];
-    messagesNetAwareViewController.targetViewController =
-        messagesViewController;
-
-    LighthouseApiService * dataSourceService =
-        [lighthouseApiFactory createLighthouseApiService];
-    MessageDataSource * dataSource =
-        [[[MessageDataSource alloc] initWithService:dataSourceService]
-        autorelease];
-    dataSource.token = token;
-    dataSourceService.delegate = dataSource;
-
     MessagePersistenceStore * persistenceStore =
         [[[MessagePersistenceStore alloc] init] autorelease];
     MessageCache * messageCache =
@@ -471,39 +478,8 @@
         [[self class] messageCachePlist]];
 
     messageDisplayMgr =
-        [[[MessageDisplayMgr alloc] initWithMessageCache:messageCache
-        messageResponseCache:nil dataSource:dataSource
-        networkAwareViewController:messagesNetAwareViewController
-        messagesViewController:messagesViewController] autorelease];
-    messagesViewController.delegate = messageDisplayMgr;
-    messagesNetAwareViewController.delegate = messageDisplayMgr;
-    dataSource.delegate = messageDisplayMgr;
-
-    // intentionally not autoreleasing either of the following objects
-    MessageDisplayProjectSetter * projectSetter =
-        [[MessageDisplayProjectSetter alloc]
-        initWithMessageDisplayMgr:messageDisplayMgr];
-    // just create, no need to assign a variable
-    [[ProjectUpdatePublisher alloc]
-        initWithListener:projectSetter
-        action:@selector(fetchedAllProjects:projectKeys:)];
-
-    MessageDisplayUserSetter * userSetter =
-        [[MessageDisplayUserSetter alloc]
-        initWithMessageDisplayMgr:messageDisplayMgr];
-    LighthouseApiService * userSetterService =
-        [lighthouseApiFactory createLighthouseApiService];
-    UserSetAggregator * userSetAggregator =
-        [[UserSetAggregator alloc]
-        initWithApiService:userSetterService token:token];
-    [[AllUserUpdatePublisher alloc]
-        initWithListener:userSetter
-        action:@selector(fetchedAllUsers:)];
-
-    userSetterService.delegate = userSetAggregator;
-    [[ProjectUpdatePublisher alloc]
-        initWithListener:userSetAggregator
-        action:@selector(fetchedAllProjects:projectKeys:)];
+        [messageDisplayMgrFactory createMessageDisplayMgrWithCache:messageCache
+        wrapperController:messagesNetAwareViewController];
 
     UIBarButtonItem * addButton =
         messagesNetAwareViewController.navigationItem.rightBarButtonItem;
