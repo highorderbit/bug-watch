@@ -23,3 +23,5 @@
 #import "AddMessageCommentResponseProcessor.h"
 
 #import "FetchTicketBinsResponseProcessor.h"
+
+#import "LogInResponseProcessor.h"

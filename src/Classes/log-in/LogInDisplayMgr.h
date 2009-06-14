@@ -5,10 +5,13 @@
 #import <Foundation/Foundation.h>
 #import "LogInState.h"
 #import "LogInViewControllerDelegate.h"
+#import "LighthouseAccountAuthenticatorDelegate.h"
 
 @class LogInViewController;
 
-@interface LogInDisplayMgr : NSObject <LogInViewControllerDelegate>
+@interface LogInDisplayMgr :
+    NSObject
+    <LogInViewControllerDelegate, LighthouseAccountAuthenticatorDelegate>
 {
     LogInState * logInState;
 
