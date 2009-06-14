@@ -58,6 +58,7 @@
 {
     [rootViewController presentModalViewController:self.logInViewController
                                           animated:YES];
+    [self.logInViewController promptForLogIn];
 }
 
 - (void)beginLogOut
@@ -114,6 +115,8 @@
 {
     NSLog(@"Failed to authenticate user with credentials: '%@', errors: '%@'.",
         credentials, errors);
+
+    [self.logInViewController promptForLogIn];
 
     NSString * title = NSLocalizedString(@"login.failed.alert.title", @"");
     NSString * message = [[errors lastObject] localizedDescription];

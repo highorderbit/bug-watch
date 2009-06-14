@@ -42,6 +42,10 @@ enum CredentialRows
 - (void)userDidSave;
 - (void)userDidCancel;
 
+- (void)resetForm;
+- (void)enableForm;
+- (void)disableForm;
+
 @end
 
 @implementation LogInViewController
@@ -83,11 +87,11 @@ enum CredentialRows
     self.cancelButton.action = @selector(userDidCancel);
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
-    [self.accountTextField becomeFirstResponder];
+    [self resetForm];
 }
 
 #pragma mark UITableViewDelegate implementation
@@ -211,10 +215,22 @@ titleForFooterInSection:(NSInteger)section
     return NO;
 }
 
+- (void)promptForLogIn
+{
+    [self enableForm];
+    [self.accountTextField becomeFirstResponder];
+}
+
 #pragma mark Handling user actions
 
 - (void)userDidSave
 {
+    [self.accountTextField resignFirstResponder];
+    [self.usernameTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+
+    [self disableForm];
+
     [delegate userDidProvideAccount:self.accountTextField.text
                            username:self.usernameTextField.text
                            password:self.passwordTextField.text];
@@ -223,6 +239,35 @@ titleForFooterInSection:(NSInteger)section
 - (void)userDidCancel
 {
     [delegate userDidCancel];
+}
+
+#pragma mark Helper functions
+
+- (void)resetForm
+{
+    self.accountTextField.text = @"";
+    self.usernameTextField.text = @"";
+    self.passwordTextField.text = @"";
+}
+
+- (void)enableForm
+{
+    self.logInButton.enabled = YES;
+    self.cancelButton.enabled = YES;
+
+    self.accountTextField.enabled = YES;
+    self.usernameTextField.enabled = YES;
+    self.passwordTextField.enabled = YES;
+}
+
+- (void)disableForm
+{
+    self.logInButton.enabled = NO;
+    self.cancelButton.enabled = NO;
+
+    self.accountTextField.enabled = NO;
+    self.usernameTextField.enabled = NO;
+    self.passwordTextField.enabled = NO;
 }
 
 @end

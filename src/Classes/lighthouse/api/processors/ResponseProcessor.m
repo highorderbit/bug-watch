@@ -44,7 +44,7 @@
 
         // HACK: This seems to be the response the Lighthouse API provides
         // when authentication fails.
-        if (errorStrings.count == 1 && [[errorStrings lastObject] length] == 0) {
+        if (errorStrings.count == 1 && ![[errorStrings lastObject] length]) {
             NSError * error = [NSError errorWithLocalizedDescription:
                 NSLocalizedString(@"lighthouse.auth.failed", @"")];
             [errors addObject:error];
