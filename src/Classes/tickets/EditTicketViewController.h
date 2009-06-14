@@ -18,7 +18,6 @@
     ItemSelectionTableViewController * itemSelectionTableViewController;
 
     NSString * ticketDescription;
-    NSString * message;
     NSString * comment;
     NSString * tags;
 
@@ -55,7 +54,6 @@
     ItemSelectionTableViewController * itemSelectionTableViewController;
 
 @property (nonatomic, copy) NSString * ticketDescription;
-@property (nonatomic, copy) NSString * message;
 @property (nonatomic, copy) NSString * comment;
 @property (nonatomic, copy) NSString * tags;
 

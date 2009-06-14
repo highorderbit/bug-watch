@@ -5,6 +5,8 @@
 #import "MessagePersistenceStore.h"
 #import "Message.h"
 #import "PlistUtils.h"
+#import "LighthouseKey.h"
+#import "LighthouseKey+Serialization.h"
 
 @interface MessagePersistenceStore (Private)
 
@@ -45,7 +47,8 @@
         [dict objectForKey:[[self class] responseDictKey]];
 
     for (NSString * keyAsString in [messages allKeys]) {
-        NSNumber * key = [NSNumber numberWithInt:[keyAsString intValue]];
+        LighthouseKey * key =
+            [LighthouseKey lighthouseKeyFromString:keyAsString];
         NSDictionary * messageFieldsDict =
             [messages objectForKey:keyAsString];
         Message * message =
@@ -78,29 +81,33 @@
     NSMutableDictionary * responseDict = [NSMutableDictionary dictionary];
 
     NSDictionary * allMessages = [messageCache allMessages];
-    for (NSNumber * key in [allMessages allKeys]) {
+    for (LighthouseKey * key in [allMessages allKeys]) {
         Message * message = [allMessages objectForKey:key];
         NSDictionary * messageFieldDict =
             [[self class] dictionaryFromMessage:message];
-        [messages setObject:messageFieldDict forKey:[key description]];
+        [messages setObject:messageFieldDict
+            forKey:[LighthouseKey stringFromLighthouseKey:key]];
     }
 
     NSDictionary * allProjectKeys = [messageCache allProjectKeys];
-    for (NSNumber * key in [allProjectKeys allKeys]) {
+    for (LighthouseKey * key in [allProjectKeys allKeys]) {
         NSNumber * projectKey = [allProjectKeys objectForKey:key];
-        [projectDict setObject:projectKey forKey:[key description]];
+        [projectDict setObject:projectKey
+            forKey:[LighthouseKey stringFromLighthouseKey:key]];
     }
 
     NSDictionary * allPostedByKeys = [messageCache allPostedByKeys];
-    for (NSNumber * key in [allPostedByKeys allKeys]) {
+    for (LighthouseKey * key in [allPostedByKeys allKeys]) {
         NSNumber * postedByKey = [allPostedByKeys objectForKey:key];
-        [postedByDict setObject:postedByKey forKey:[key description]];
+        [postedByDict setObject:postedByKey
+            forKey:[LighthouseKey stringFromLighthouseKey:key]];
     }
 
     NSDictionary * allResponses = [messageCache allResponses];
-    for (NSNumber * key in [allResponses allKeys]) {
+    for (LighthouseKey * key in [allResponses allKeys]) {
         NSArray * responseKeys = [allResponses objectForKey:key];
-        [responseDict setObject:responseKeys forKey:[key description]];
+        [responseDict setObject:responseKeys
+            forKey:[LighthouseKey stringFromLighthouseKey:key]];
     }
 
     [dict setObject:messages forKey:[[self class] messagesKey]];

@@ -8,6 +8,7 @@
 
 - (void)initDarkTransparentView;
 - (void)displayCachedMessages;
+- (void)displayMessageDetails:(LighthouseKey *)key;
 - (void)disableEditViewWithText:(NSString *)text;
 - (void)enableEditView;
 - (void)updateDisplayIfDirty;
@@ -22,13 +23,14 @@
 - (void)dealloc
 {
     [messageCache release];
-    [responseCache release];
+    [recentHistoryResponseCache release];
     [dataSource release];
     [messagesViewController release];
     [wrapperController release];
 
     [newMessageViewController release];
     [detailsViewController release];
+    [detailsNetAwareViewController release];
 
     [userDict release];
     [projectDict release];
@@ -42,14 +44,12 @@
 }
 
 - (id)initWithMessageCache:(MessageCache *)aMessageCache
-    messageResponseCache:(MessageResponseCache *)aMessageResponseCache
     dataSource:(MessageDataSource *)aDataSource
     networkAwareViewController:(NetworkAwareViewController *)aWrapperController
     messagesViewController:(MessagesViewController *)aMessagesViewController
 {
     if (self = [super init]) {
         messageCache = [aMessageCache retain];
-        responseCache = [aMessageResponseCache retain];
         dataSource = [aDataSource retain];
         wrapperController = [aWrapperController retain];
         messagesViewController = [aMessagesViewController retain];
@@ -60,6 +60,9 @@
         displayDirty = YES;
 
         [self initDarkTransparentView];
+
+        recentHistoryResponseCache =
+            [[RecentHistoryCache alloc] initWithCacheLimit:20];
     }
 
     return self;
@@ -161,11 +164,31 @@
     }
 }
 
-- (void)selectedMessageKey:(id)key
+- (void)selectedMessageKey:(LighthouseKey *)key
 {
     NSLog(@"Message %@ selected", key);
-    [self.navController
-        pushViewController:self.detailsViewController animated:YES];
+    [self.navController pushViewController:self.detailsNetAwareViewController
+        animated:YES];
+
+    MessageResponseCache * responseCache =
+        [recentHistoryResponseCache objectForKey:key];
+
+    if (responseCache)
+        [self displayMessageDetails:key];
+
+    [dataSource fetchCommentsForMessage:key];
+    self.detailsNetAwareViewController.cachedDataAvailable = !!responseCache;
+    [self.detailsNetAwareViewController setUpdatingState:kConnectedAndUpdating];
+}
+
+- (void)displayMessageDetails:(LighthouseKey *)key
+{
+    [self.detailsNetAwareViewController
+        setUpdatingState:kConnectedAndNotUpdating];        
+    self.detailsNetAwareViewController.cachedDataAvailable = YES;
+
+    MessageResponseCache * responseCache =
+        [recentHistoryResponseCache objectForKey:key];
 
     Message * message = [messageCache messageForKey:key];
     NSString * postedBy =
@@ -209,7 +232,15 @@
     resetCache = NO;
 }
 
-- (void)createdMessageWithKey:(id)key
+- (void)receivedComments:(MessageResponseCache *)cache
+    forMessage:(LighthouseKey *)messageKey
+{
+    NSLog(@"Received comments for message: %@", cache);
+    [recentHistoryResponseCache setObject:cache forKey:messageKey];
+    [self displayMessageDetails:messageKey];
+}
+    
+- (void)createdMessageWithKey:(LighthouseKey *)key
 {
     [self enableEditView];
     [self showAllMessages];
@@ -251,7 +282,7 @@
         animated:YES];
 }
 
-- (void)userDidSelectActiveProjectKey:(id)key
+- (void)userDidSelectActiveProjectKey:(NSNumber *)key
 {
     NSLog(@"User selected project %@ for message editing", key);
     self.activeProjectKey = key;
@@ -316,6 +347,18 @@
     return detailsViewController;
 }
 
+- (NetworkAwareViewController *)detailsNetAwareViewController
+{
+    if (!detailsNetAwareViewController) {
+        detailsNetAwareViewController =
+            [[NetworkAwareViewController alloc]
+            initWithTargetViewController:self.detailsViewController];
+        detailsNetAwareViewController.navigationItem.title = @"Message Details";
+    }
+
+    return detailsNetAwareViewController;
+}
+
 - (UINavigationController *)navController
 {
     return wrapperController.navigationController;
@@ -337,7 +380,7 @@
     [self displayCachedMessages];
 }
 
-- (void)setActiveProjectKey:(id)anActiveProjectKey
+- (void)setActiveProjectKey:(NSNumber *)anActiveProjectKey
 {
     [anActiveProjectKey retain];
     [activeProjectKey release];

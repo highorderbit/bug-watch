@@ -3,12 +3,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TicketKey.h"
+#import "LighthouseKey.h"
 
 @protocol TicketsViewControllerDelegate
 
-- (void)selectedTicketKey:(TicketKey *)key;
+- (void)selectedTicketKey:(LighthouseKey *)key;
 - (void)loadMoreTickets;
-- (void)resolveTicketWithKey:(TicketKey *)key;
+- (void)resolveTicketWithKey:(LighthouseKey *)key;
 
 @end

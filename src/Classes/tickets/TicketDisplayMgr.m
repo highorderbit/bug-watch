@@ -5,7 +5,7 @@
 #import "TicketDisplayMgr.h"
 #import "NewTicketDescription.h"
 #import "UpdateTicketDescription.h"
-#import "TicketKey.h"
+#import "LighthouseKey.h"
 
 @interface TicketDisplayMgr (Private)
 
@@ -13,7 +13,7 @@
 - (void)initDarkTransparentView;
 - (void)userDidSelectActiveProjectKey:(id)key;
 - (void)prepareNewTicketView;
-- (void)displayTicketDetails:(TicketKey *)key;
+- (void)displayTicketDetails:(LighthouseKey *)key;
 - (void)deleteTicketOnServer;
 - (void)disableEditViewWithText:(NSString *)text;
 - (void)enableEditView;
@@ -74,7 +74,6 @@
 
         recentHistoryCommentCache =
             [[RecentHistoryCache alloc] initWithCacheLimit:20];
-
     }
 
     return self;
@@ -113,13 +112,13 @@
 
 #pragma mark TicketsViewControllerDelegate implementation
 
-- (void)selectedTicketKey:(TicketKey *)key
+- (void)selectedTicketKey:(LighthouseKey *)key
 {
     NSLog(@"Ticket %@ selected", key);
     self.activeProjectKey = [NSNumber numberWithInt:key.projectKey];
 
     self.detailsNetAwareViewController.title =
-        [NSString stringWithFormat:@"Ticket %d", key.ticketNumber];
+        [NSString stringWithFormat:@"Ticket %d", key.key];
     [self.navController
         pushViewController:self.detailsNetAwareViewController animated:YES];
 
@@ -150,17 +149,17 @@
             page:pageToLoad project:activeProjectKey];
 }
 
-- (void)resolveTicketWithKey:(TicketKey *)key
+- (void)resolveTicketWithKey:(LighthouseKey *)key
 {
     UpdateTicketDescription * desc = [UpdateTicketDescription description];
     desc.state = kResolved;
     NSNumber * ticketKey =
-        [NSNumber numberWithInteger:selectedTicketKey.ticketNumber];
+        [NSNumber numberWithInteger:selectedTicketKey.key];
     [dataSource editTicketWithKey:ticketKey description:desc
         forProject:[NSNumber numberWithInt:selectedTicketKey.projectKey]];
 }
 
-- (void)displayTicketDetails:(TicketKey *)key
+- (void)displayTicketDetails:(LighthouseKey *)key
 {
     self.detailsEditButton.enabled = YES;
 
@@ -194,7 +193,7 @@
         [commentAuthors setObject:commentAuthor forKey:commentKey];
     }
 
-    [self.detailsViewController setTicketNumber:key.ticketNumber
+    [self.detailsViewController setTicketNumber:key.key
         ticket:ticket metaData:metaData reportedBy:reportedBy
         assignedTo:assignedTo milestone:milestone comments:comments
         commentAuthors:commentAuthors];
@@ -272,9 +271,9 @@
     TicketMetaData * metaData =
         [ticketCache metaDataForKey:selectedTicketKey];
     self.editTicketViewController.ticketDescription = ticket.description;
-    self.editTicketViewController.message = ticket.message;
     self.editTicketViewController.tags = metaData.tags;
     self.editTicketViewController.state = metaData.state;
+    self.editTicketViewController.comment = @"";
 
     self.editTicketViewController.member =
         [ticketCache assignedToKeyForKey:selectedTicketKey];
@@ -407,14 +406,14 @@
         desc.tags = sender.tags;
 
         NSNumber * ticketKey =
-            [NSNumber numberWithInteger:selectedTicketKey.ticketNumber];
+            [NSNumber numberWithInteger:selectedTicketKey.key];
         [dataSource editTicketWithKey:ticketKey description:desc
             forProject:[NSNumber numberWithInt:selectedTicketKey.projectKey]];
         actionText = @"Editing ticket...";
     } else {
         NewTicketDescription * desc = [NewTicketDescription description];
         desc.title = sender.ticketDescription;
-        desc.body = sender.message;
+        desc.body = sender.comment;
         if (sender.state != 0)
             desc.state = sender.state;
         if (sender.member &&
@@ -437,7 +436,7 @@
 {
     NSLog(@"Deleting ticket %@ on server...", selectedTicketKey);
     [self disableEditViewWithText:@"Deleting ticket..."];
-    [dataSource deleteTicketWithKey:selectedTicketKey.ticketNumber
+    [dataSource deleteTicketWithKey:selectedTicketKey.key
         forProject:selectedTicketKey.projectKey];
 }
 
@@ -453,7 +452,7 @@
 - (void)prepareNewTicketView
 {
     self.editTicketViewController.ticketDescription = @"";
-    self.editTicketViewController.message = @"";
+    self.editTicketViewController.comment = @"";
     self.editTicketViewController.tags = @"";
     self.editTicketViewController.state = kNew;
 

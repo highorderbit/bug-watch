@@ -53,10 +53,10 @@
         page:page object:nil token:token];
 }
 
-- (void)fetchTicketWithKey:(TicketKey *)aTicketKey
+- (void)fetchTicketWithKey:(LighthouseKey *)aTicketKey
 {
     [service
-        fetchDetailsForTicket:[NSNumber numberWithInt:aTicketKey.ticketNumber]
+        fetchDetailsForTicket:[NSNumber numberWithInt:aTicketKey.key]
         inProject:[NSNumber numberWithInt:aTicketKey.projectKey] token:token];
 }
 
@@ -98,9 +98,9 @@
         NSNumber * projectNumber = [projectIds objectAtIndex:i];
         NSUInteger projectNumberAsInt = [((NSNumber *)projectNumber) intValue];
         id ticketKey =
-            [[[TicketKey alloc]
+            [[[LighthouseKey alloc]
             initWithProjectKey:projectNumberAsInt
-            ticketNumber:ticketNumberAsInt]
+            key:ticketNumberAsInt]
             autorelease];
 
         Ticket * ticket = [tickets objectAtIndex:i];
@@ -204,10 +204,10 @@
 - (void)editedTicket:(id)ticketNum forProject:(id)projectKey
     describedBy:(UpdateTicketDescription *)description
 {
-    TicketKey * ticketKey =
-        [[[TicketKey alloc]
+    LighthouseKey * ticketKey =
+        [[[LighthouseKey alloc]
         initWithProjectKey:[projectKey intValue]
-        ticketNumber:[ticketNum intValue]]
+        key:[ticketNum intValue]]
         autorelease];
     [delegate editedTicketWithKey:ticketKey];
 }

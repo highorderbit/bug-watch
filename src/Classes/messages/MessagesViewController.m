@@ -48,7 +48,7 @@
         cell = [nib objectAtIndex:0];
     }
 
-    id messageKey = [self.sortedKeys objectAtIndex:indexPath.row];
+    LighthouseKey * messageKey = [self.sortedKeys objectAtIndex:indexPath.row];
     Message * message = [messages objectForKey:messageKey];
     [cell setTitleText:message.title];
     [cell setCommentText:message.message];
@@ -70,7 +70,7 @@
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id messageKey = [self.sortedKeys objectAtIndex:indexPath.row];
+    LighthouseKey * messageKey = [self.sortedKeys objectAtIndex:indexPath.row];
     [delegate selectedMessageKey:messageKey];
 }
 

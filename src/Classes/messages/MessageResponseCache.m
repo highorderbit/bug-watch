@@ -23,24 +23,29 @@
     return self;
 }
 
-- (void)setResponse:(MessageResponse *)response forKey:(id)key
+- (void)setResponse:(MessageResponse *)response forKey:(NSNumber *)key
 {
     [responses setObject:response forKey:key];
 }
 
-- (MessageResponse *)responseForKey:(id)key
+- (MessageResponse *)responseForKey:(NSNumber *)key
 {
     return [responses objectForKey:key];
 }
 
-- (void)setAuthorKey:(id)authorKey forKey:(id)responseKey
+- (void)setAuthorKey:(NSNumber *)authorKey forKey:(NSNumber *)responseKey
 {
     [responseAuthors setObject:authorKey forKey:responseKey];
 }
 
-- (id)authorKeyForKey:(id)responseKey
+- (NSNumber *)authorKeyForKey:(NSNumber *)responseKey
 {
     return [responseAuthors objectForKey:responseKey];
+}
+
+- (NSString *)description
+{
+    return [responses description];
 }
 
 @end

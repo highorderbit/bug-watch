@@ -4,10 +4,13 @@
 
 #import <Foundation/Foundation.h>
 #import "MessageCache.h"
+#import "MessageResponseCache.h"
 
 @protocol MessageDataSourceDelegate
 
 - (void)receivedMessagesFromDataSource:(MessageCache *)aMessageCache;
-- (void)createdMessageWithKey:(id)key;
+- (void)receivedComments:(MessageResponseCache *)cache
+    forMessage:(LighthouseKey *)messageKey;
+- (void)createdMessageWithKey:(LighthouseKey *)key;
 
 @end

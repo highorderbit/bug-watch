@@ -35,12 +35,12 @@
     return self;
 }
 
-- (void)setTicket:(Ticket *)ticket forKey:(TicketKey *)key
+- (void)setTicket:(Ticket *)ticket forKey:(LighthouseKey *)key
 {
     [tickets setObject:ticket forKey:key];
 }
 
-- (Ticket *)ticketForKey:(TicketKey *)key
+- (Ticket *)ticketForKey:(LighthouseKey *)key
 {
     return [[[tickets objectForKey:key] copy] autorelease];
 }
@@ -50,12 +50,12 @@
     return [[tickets copy] autorelease];
 }
 
-- (void)setMetaData:(TicketMetaData *)someMetaData forKey:(TicketKey *)key
+- (void)setMetaData:(TicketMetaData *)someMetaData forKey:(LighthouseKey *)key
 {
     [metaData setObject:someMetaData forKey:key];
 }
 
-- (TicketMetaData *)metaDataForKey:(TicketKey *)key
+- (TicketMetaData *)metaDataForKey:(LighthouseKey *)key
 {
     return [[[metaData objectForKey:key] copy] autorelease];
 }
@@ -65,12 +65,12 @@
     return [[metaData copy] autorelease];
 }
 
-- (void)setCreatedByKey:(id)createdByKey forKey:(TicketKey *)key
+- (void)setCreatedByKey:(id)createdByKey forKey:(LighthouseKey *)key
 {
     [createdByDict setObject:createdByKey forKey:key];
 }
 
-- (id)createdByKeyForKey:(TicketKey *)key
+- (id)createdByKeyForKey:(LighthouseKey *)key
 {
     return [createdByDict objectForKey:key];
 }
@@ -80,12 +80,12 @@
     return [[createdByDict copy] autorelease];
 }
 
-- (void)setAssignedToKey:(id)assignedToKey forKey:(TicketKey *)key
+- (void)setAssignedToKey:(id)assignedToKey forKey:(LighthouseKey *)key
 {
     [assignedToDict setObject:assignedToKey forKey:key];
 }
 
-- (id)assignedToKeyForKey:(TicketKey *)key
+- (id)assignedToKeyForKey:(LighthouseKey *)key
 {
     return [assignedToDict objectForKey:key];
 }
@@ -95,12 +95,12 @@
     return [[assignedToDict copy] autorelease];
 }
 
-- (void)setMilestoneKey:(id)milestoneKey forKey:(TicketKey *)key
+- (void)setMilestoneKey:(id)milestoneKey forKey:(LighthouseKey *)key
 {
     [milestoneDict setObject:milestoneKey forKey:key];
 }
 
-- (id)milestoneKeyForKey:(TicketKey *)key
+- (id)milestoneKeyForKey:(LighthouseKey *)key
 {
     return [milestoneDict objectForKey:key];
 }
@@ -110,12 +110,12 @@
     return [[milestoneDict copy] autorelease];
 }
 
-- (void)setCommentKeys:(NSArray *)keys forKey:(TicketKey *)key
+- (void)setCommentKeys:(NSArray *)keys forKey:(LighthouseKey *)key
 {
     [commentDict setObject:keys forKey:key];
 }
 
-- (NSArray *)commentKeysForKey:(TicketKey *)key
+- (NSArray *)commentKeysForKey:(LighthouseKey *)key
 {
     return [commentDict objectForKey:key];
 }

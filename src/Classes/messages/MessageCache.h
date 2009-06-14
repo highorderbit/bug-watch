@@ -5,6 +5,7 @@
 #import <Foundation/Foundation.h>
 #import "Message.h"
 #import "MessageResponse.h"
+#import "LighthouseKey.h"
 
 @interface MessageCache : NSObject
 {
@@ -14,20 +15,20 @@
     NSMutableDictionary * responseDict;
 }
 
-- (void)setMessage:(Message *)message forKey:(id)key;
-- (Message *)messageForKey:(id)key;
+- (void)setMessage:(Message *)message forKey:(LighthouseKey *)key;
+- (Message *)messageForKey:(LighthouseKey *)key;
 - (NSDictionary *)allMessages;
 
-- (void)setProjectKey:(id)key forKey:(id)key;
-- (id)projectKeyForKey:(id)key;
+- (void)setProjectKey:(NSNumber *)key forKey:(LighthouseKey *)key;
+- (id)projectKeyForKey:(LighthouseKey *)key;
 - (NSDictionary *)allProjectKeys;
 
-- (void)setPostedByKey:(id)key forKey:(id)key;
-- (id)postedByKeyForKey:(id)key;
+- (void)setPostedByKey:(NSNumber *)key forKey:(LighthouseKey *)key;
+- (id)postedByKeyForKey:(LighthouseKey *)key;
 - (NSDictionary *)allPostedByKeys;
 
-- (void)setResponseKeys:(NSArray *)responseKeys forKey:(id)key;
-- (NSArray *)responseKeysForKey:(id)key;
+- (void)setResponseKeys:(NSArray *)responseKeys forKey:(LighthouseKey *)key;
+- (NSArray *)responseKeysForKey:(LighthouseKey *)key;
 - (NSDictionary *)allResponses;
 
 - (void)merge:(MessageCache *)aMessageCache;

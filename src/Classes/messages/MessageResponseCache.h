@@ -11,10 +11,10 @@
     NSMutableDictionary * responseAuthors;
 }
 
-- (void)setResponse:(MessageResponse *)response forKey:(id)key;
-- (MessageResponse *)responseForKey:(id)key;
+- (void)setResponse:(MessageResponse *)response forKey:(NSNumber *)key;
+- (MessageResponse *)responseForKey:(NSNumber *)key;
 
-- (void)setAuthorKey:(id)authorKey forKey:(id)responseKey;
-- (id)authorKeyForKey:(id)responseKey;
+- (void)setAuthorKey:(NSNumber *)authorKey forKey:(NSNumber *)responseKey;
+- (NSNumber *)authorKeyForKey:(NSNumber *)responseKey;
 
 @end
