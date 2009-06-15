@@ -75,9 +75,8 @@
                                          credentials:credentials
                                             delegate:delegate];
 
-    // TODO: Change this to "fetchAllProjects" or something else with a
-    // small payload.
-    id requestId = [api fetchTicketsForAllProjects];
+    // call a method with a small payload
+    id requestId = [api fetchAllProjects];
 
     [apis setObject:api forKey:requestId];
     [processors setObject:processor forKey:requestId];
