@@ -7,5 +7,6 @@
 @protocol NewsFeedDataSourceDelegate
 
 - (void)newsFeedUpdated:(NSArray *)newsFeed;
+- (void)failedToUpdateNewsFeed:(NSError *)error;
 
 @end

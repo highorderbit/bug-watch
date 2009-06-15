@@ -73,7 +73,7 @@
 
 - (void)failedToFetchNewsFeed:(NSError *)error
 {
-    // TODO: implement me
+    [delegate failedToUpdateNewsFeed:error];
 }
 
 #pragma mark Accessors
