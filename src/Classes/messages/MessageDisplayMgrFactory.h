@@ -8,12 +8,11 @@
 
 @interface MessageDisplayMgrFactory : NSObject
 {
-    NSString * apiToken;
     LighthouseApiServiceFactory * lighthouseApiFactory;
 }
 
-- (id)initWithApiToken:(NSString *)apiToken
-    lighthouseApiFactory:(LighthouseApiServiceFactory *)lighthouseApiFactory;
+- (id)initWithLighthouseApiFactory:
+    (LighthouseApiServiceFactory *)lighthouseApiFactory;
 
 - (MessageDisplayMgr *)createMessageDisplayMgrWithCache:(MessageCache *)cache
     wrapperController:(NetworkAwareViewController *)wrapperController;

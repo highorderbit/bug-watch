@@ -9,7 +9,6 @@
 @interface UserSetAggregator : NSObject <LighthouseApiServiceDelegate>
 {
     LighthouseApiService * service;
-    NSString * token;
 
     NSUInteger outstandingRequests;
     NSMutableDictionary * users;
@@ -17,8 +16,7 @@
 
 @property (nonatomic, retain) NSMutableDictionary * users;
 
-- (id)initWithApiService:(LighthouseApiService *)service
-    token:(NSString *)token;
+- (id)initWithApiService:(LighthouseApiService *)service;
 
 - (void)fetchedAllProjects:(NSArray *)projects projectKeys:(NSArray *)keys;
 

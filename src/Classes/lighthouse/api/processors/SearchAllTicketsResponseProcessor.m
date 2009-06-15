@@ -121,13 +121,13 @@
 {
     if (projectKey) {
         SEL sel = @selector(failedToSearchTicketsForProject:searchString:page:\
-            object:error:);
+            object:errors:);
         if ([delegate respondsToSelector:sel])
             [delegate failedToSearchTicketsForProject:projectKey
                 searchString:searchString page:page object:object
                 errors:errors];
     } else {
-        SEL sel = @selector(failedToSearchTicketsForAllProjects:page:error:);
+        SEL sel = @selector(failedToSearchTicketsForAllProjects:page:errors:);
         if ([delegate respondsToSelector:sel])
             [delegate failedToSearchTicketsForAllProjects:searchString
                                                      page:page

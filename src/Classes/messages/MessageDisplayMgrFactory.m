@@ -20,18 +20,15 @@
 
 - (void)dealloc
 {
-    [apiToken release];
     [lighthouseApiFactory release];
     [super dealloc];
 }
 
-- (id)initWithApiToken:(NSString *)anApiToken
-    lighthouseApiFactory:(LighthouseApiServiceFactory *)aLighthouseApiFactory
+- (id)initWithLighthouseApiFactory:
+    (LighthouseApiServiceFactory *)aLighthouseApiFactory
 {
-    if (self = [super init]) {
-        apiToken = [anApiToken copy];
+    if (self = [super init])
         lighthouseApiFactory = [aLighthouseApiFactory retain];
-    }
 
     return self;
 }
@@ -49,7 +46,6 @@
     MessageDataSource * dataSource =
         [[[MessageDataSource alloc] initWithService:dataSourceService]
         autorelease];
-    dataSource.token = apiToken;
     dataSourceService.delegate = dataSource;
 
     MessageDisplayMgr * messageDisplayMgr =
@@ -87,7 +83,7 @@
         [lighthouseApiFactory createLighthouseApiService];
     UserSetAggregator * userSetAggregator =
         [[UserSetAggregator alloc]
-        initWithApiService:userSetterService token:apiToken];
+        initWithApiService:userSetterService];
     [[AllUserUpdatePublisher alloc]
         initWithListener:userSetter
         action:@selector(fetchedAllUsers:)];

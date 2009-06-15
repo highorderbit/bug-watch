@@ -4,26 +4,53 @@
 
 #import "LighthouseApiServiceFactory.h"
 
+@interface LighthouseApiServiceFactory ()
+
+@property (nonatomic, copy) NSString * lighthouseDomain;
+@property (nonatomic, copy) NSString * lighthouseScheme;
+
+@end
+
 @implementation LighthouseApiServiceFactory
+
+@synthesize lighthouseDomain, lighthouseScheme;
 
 - (void)dealloc
 {
-    [baseUrl release];
+    self.lighthouseDomain = nil;
+    self.lighthouseScheme = nil;
     [super dealloc];
 }
 
-- (id)initWithBaseUrl:(NSString *)aBaseUrl
+- (id)initWithLighthouseDomain:(NSString *)domain scheme:(NSString *)scheme
 {
-    if (self = [super init])
-        baseUrl = [aBaseUrl copy];
+    if (self = [super init]) {
+        self.lighthouseDomain = domain;
+        self.lighthouseScheme = scheme;
+    }
 
     return self;
 }
 
 - (LighthouseApiService *)createLighthouseApiService
 {
-    return [[[LighthouseApiService alloc]
-        initWithBaseUrlString:baseUrl] autorelease];
+    LighthouseUrlBuilder * urlBuilder =
+        [LighthouseUrlBuilder builderWithLighthouseDomain:lighthouseDomain
+                                                   scheme:lighthouseScheme];
+
+    // temporary
+    static NSString * account = @"highorderbit";
+    static NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
+    LighthouseCredentials * credentials =
+            [[LighthouseCredentials alloc] initWithAccount:account token:token];
+
+    LighthouseApiService * service =
+        [[LighthouseApiService alloc] initWithUrlBuilder:urlBuilder
+                                             credentials:credentials];
+
+    [credentials release];
+
+    return [service autorelease];
 }
 
 @end

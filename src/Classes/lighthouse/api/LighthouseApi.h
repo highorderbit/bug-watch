@@ -13,8 +13,6 @@
 {
     id<LighthouseApiDelegate> delegate;
 
-    NSString * baseUrlString;
-
     LighthouseUrlBuilder * urlBuilder;
     LighthouseCredentials * credentials;
 
@@ -30,74 +28,74 @@
 + (id)apiWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
             credentials:(LighthouseCredentials *)someCredentials;
 
-- (id)initWithBaseUrlString:(NSString *)aBaseUrlString;
 - (id)initWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
              credentials:(LighthouseCredentials *)someCredentials;
 
 #pragma mark Tickets -- retrieving and searching
 
-- (id)fetchTicketsForAllProjects:(NSString *)token;
 - (id)fetchTicketsForAllProjects;
 
-- (id)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
-    token:(NSString *)token;
+- (id)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey;
 
 - (id)searchTicketsForAllProjects:(NSString *)searchString
-    page:(NSUInteger)page token:(NSString *)token;
+                             page:(NSUInteger)page;
 - (id)searchTicketsForProject:(id)projectKey
-    withSearchString:(NSString *)searchString page:(NSUInteger)page
-    object:(id)object token:(NSString *)token;
+             withSearchString:(NSString *)searchString
+                         page:(NSUInteger)page
+                       object:(id)object;
 
 #pragma mark Tickets -- creating
 
-- (id)createTicketForProject:(id)projectKey description:(NSString *)description
-    token:(NSString *)token;
+- (id)createTicketForProject:(id)projectKey
+                 description:(NSString *)description;
 
 #pragma mark Tickets -- editing
 
-- (id)editTicket:(id)ticketKey forProject:(id)projectKey
-    description:(NSString *)description token:(NSString *)token;
+- (id)editTicket:(id)ticketKey
+      forProject:(id)projectKey
+     description:(NSString *)description;
 
 #pragma mark Tickets -- deleting
 
-- (id)deleteTicket:(id)ticketKey forProject:(id)projectKey
-    token:(NSString *)token;
+- (id)deleteTicket:(id)ticketKey
+        forProject:(id)projectKey;
 
 #pragma mark Ticket bins
 
-- (id)fetchTicketBinsForProject:(id)projectKey token:(NSString *)token;
+- (id)fetchTicketBinsForProject:(id)projectKey;
 
 #pragma mark Users
 
-- (id)fetchAllUsersForProject:(id)projectKey token:(NSString *)token;
+- (id)fetchAllUsersForProject:(id)projectKey;
 
 #pragma mark Projects
 
-- (id)fetchAllProjects:(NSString *)token;
+- (id)fetchAllProjects;
 
 #pragma mark Milestones
 
-- (id)fetchMilestonesForAllProjects:(NSString *)token;
+- (id)fetchMilestonesForAllProjects;
 
 #pragma mark Messages
 
-- (id)fetchMessagesForProject:(id)projectKey token:(NSString *)token;
-- (id)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
-    token:(NSString *)token;
+- (id)fetchMessagesForProject:(id)projectKey;
+- (id)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey;
 
 #pragma mark Messages -- creating
 
-- (id)createMessageForProject:(id)projectKey description:(NSString *)description
-    token:(NSString *)token;
+- (id)createMessageForProject:(id)projectKey
+                  description:(NSString *)description;
 
 #pragma mark Messages -- editing
 
-- (id)editMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description token:(NSString *)token;
+- (id)editMessage:(id)messageKey
+       forProject:(id)projectKey
+      description:(NSString *)description;
 
 #pragma mark Messages -- adding comments
 
-- (id)addComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey token:(NSString *)token;
+- (id)addComment:(NSString *)comment
+       toMessage:(id)messageKey
+      forProject:(id)projectKey;
 
 @end

@@ -12,11 +12,9 @@
 {
     NSObject<MessageDataSourceDelegate> * delegate;
     LighthouseApiService * service;
-    NSString * token;
 }
 
 @property (nonatomic, assign) NSObject<MessageDataSourceDelegate> * delegate;
-@property (nonatomic, copy) NSString * token;
 
 - (id)initWithService:(LighthouseApiService *)service;
 - (void)fetchMessagesForProject:(NSNumber *)projectKey;

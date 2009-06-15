@@ -23,18 +23,15 @@
 
 - (void)dealloc
 {
-    [apiToken release];
     [lighthouseApiFactory release];
     [super dealloc];
 }
 
-- (id)initWithApiToken:(NSString *)anApiToken
-    lighthouseApiFactory:(LighthouseApiServiceFactory *)aLighthouseApiFactory
+- (id)initWithLighthouseApiFactory:
+    (LighthouseApiServiceFactory *)aLighthouseApiFactory
 {
-    if (self = [super init]) {
-        apiToken = [anApiToken copy];
+    if (self = [super init])
         lighthouseApiFactory = [aLighthouseApiFactory retain];
-    }
 
     return self;
 }
@@ -106,8 +103,7 @@
     LighthouseApiService * userSetterService =
         [lighthouseApiFactory createLighthouseApiService];
     UserSetAggregator * userSetAggregator =
-        [[UserSetAggregator alloc]
-        initWithApiService:userSetterService token:apiToken];
+        [[UserSetAggregator alloc] initWithApiService:userSetterService];
     [[AllUserUpdatePublisher alloc]
         initWithListener:userSetter
         action:@selector(fetchedAllUsers:)];

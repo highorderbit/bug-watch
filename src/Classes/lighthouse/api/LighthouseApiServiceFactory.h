@@ -7,10 +7,11 @@
 
 @interface LighthouseApiServiceFactory : NSObject
 {
-    NSString * baseUrl;
+    NSString * lighthouseDomain;
+    NSString * lighthouseScheme;
 }
 
-- (id)initWithBaseUrl:(NSString *)baseUrl;
+- (id)initWithLighthouseDomain:(NSString *)domain scheme:(NSString *)scheme;
 
 - (LighthouseApiService *)createLighthouseApiService;
 

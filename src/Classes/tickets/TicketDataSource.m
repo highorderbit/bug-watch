@@ -26,58 +26,53 @@
 {
     [delegate release];
     [service release];
-    [token release];
     [super dealloc];
 }
 
 -(id)initWithService:(LighthouseApiService *)aService
 {
-    if (self = [super init]) {
+    if (self = [super init])
         service = [aService retain];
-        // TEMPORARY
-        token = [@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" retain];
-    }
 
     return self;
 }
 
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
 {
-    [service searchTicketsForAllProjects:aFilterString page:page token:token];
+    [service searchTicketsForAllProjects:aFilterString page:page];
 }
 
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
     project:(id)projectKey
 {
     [service searchTicketsForProject:projectKey withSearchString:aFilterString
-        page:page object:nil token:token];
+        page:page object:nil];
 }
 
 - (void)fetchTicketWithKey:(LighthouseKey *)aTicketKey
 {
     [service
         fetchDetailsForTicket:[NSNumber numberWithInt:aTicketKey.key]
-        inProject:[NSNumber numberWithInt:aTicketKey.projectKey] token:token];
+        inProject:[NSNumber numberWithInt:aTicketKey.projectKey]];
 }
 
 - (void)createTicketWithDescription:(NewTicketDescription *)desc
     forProject:(id)projectKey
 {
-    [service createNewTicket:desc forProject:projectKey token:token];
+    [service createNewTicket:desc forProject:projectKey];
 }
 
 - (void)editTicketWithKey:(id)key description:(UpdateTicketDescription *)desc
     forProject:(id)projectKey
 {    
-    [service editTicket:key forProject:projectKey withDescription:desc
-        token:token];
+    [service editTicket:key forProject:projectKey withDescription:desc];
 }
 
 - (void)deleteTicketWithKey:(NSUInteger)ticketNumber
     forProject:(NSUInteger)projectKey
 {
     [service deleteTicket:[NSNumber numberWithInt:ticketNumber]
-        forProject:[NSNumber numberWithInt:projectKey] token:token];
+        forProject:[NSNumber numberWithInt:projectKey]];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
