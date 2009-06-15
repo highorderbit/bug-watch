@@ -7,25 +7,22 @@
 @implementation Ticket
 
 @synthesize description;
-@synthesize message;
 @synthesize creationDate;
 @synthesize link;
 
 - (void)dealloc
 {
     [description release];
-    [message release];
     [creationDate release];
     [link release];
     [super dealloc];
 }
 
-- (id)initWithDescription:(NSString *)aDescription message:(NSString*)aMessage
+- (id)initWithDescription:(NSString *)aDescription
     creationDate:(NSDate *)aCreationDate link:(NSString *)aLink
 {
     if (self = [super init]) {
         description = [aDescription copy];
-        message = [aMessage copy];
         creationDate = [aCreationDate copy];
         link = [aLink copy];
     }

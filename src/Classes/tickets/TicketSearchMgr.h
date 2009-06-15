@@ -8,6 +8,8 @@
 #import "TicketBinDataSourceDelegate.h"
 #import "TicketBinDataSource.h"
 
+static const NSUInteger SEARCH_FIELD_WIDTH = 250;
+
 @interface TicketSearchMgr :
     NSObject
     <UITextFieldDelegate, TicketBinDataSourceDelegate,

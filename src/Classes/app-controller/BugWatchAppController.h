@@ -19,6 +19,7 @@
 #import "NetworkAwareViewController.h"
 #import "MilestoneDisplayMgr.h"
 #import "NewsFeedDisplayMgr.h"
+#import "ProjectDisplayMgr.h"
 #import "MilestoneCache.h"
 #import "MessageDisplayMgr.h"
 #import "MessageDisplayMgrFactory.h"
@@ -41,6 +42,7 @@
     TicketDisplayMgr * projectLevelTicketDisplayMgr;
     TicketSearchMgrFactory * ticketSearchMgrFactory;
 
+    ProjectDisplayMgr * projectDisplayMgr;
     ProjectCacheSetter * projectCacheSetter;
 
     MilestoneDisplayMgr * milestoneDisplayMgr;

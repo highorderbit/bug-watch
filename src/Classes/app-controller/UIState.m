@@ -6,6 +6,6 @@
 
 @implementation UIState
 
-@synthesize selectedTab;
+@synthesize selectedTab, selectedProject, selectedProjectTab;
 
 @end

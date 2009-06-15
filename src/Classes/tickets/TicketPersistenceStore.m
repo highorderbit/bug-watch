@@ -167,8 +167,6 @@
         if (ticket.description)
             [dict setObject:ticket.description
                 forKey:[[self class] descriptionKey]];
-        if (ticket.message)
-            [dict setObject:ticket.message forKey:[[self class] messageKey]];
         if (ticket.creationDate)
             [dict setObject:ticket.creationDate
                 forKey:[[self class] creationDateKey]];
@@ -187,15 +185,13 @@
     if (dict) {
         NSString * description =
             [dict objectForKey:[[self class] descriptionKey]];
-        NSString * message = [dict objectForKey:[[self class] messageKey]];
         NSDate * creationDate =
             [dict objectForKey:[[self class] creationDateKey]];
         NSString * link = [dict objectForKey:[[self class] linkKey]];
 
         ticket =
             [[[Ticket alloc]
-            initWithDescription:description message:message
-            creationDate:creationDate link:link]
+            initWithDescription:description creationDate:creationDate link:link]
             autorelease];
     } else
         ticket = nil;

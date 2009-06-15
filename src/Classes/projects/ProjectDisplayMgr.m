@@ -6,7 +6,7 @@
 
 @implementation ProjectDisplayMgr
 
-@synthesize projectCache, selectedProjectKey;
+@synthesize projectCache, selectedProjectKey, selectedTab;
 
 - (void)dealloc
 {
@@ -32,6 +32,7 @@
         wrapperController = [aWrapperController retain];
         ticketDisplayMgr = [aTicketDisplayMgr retain];
         messageDisplayMgr = [aMessageDisplayMgr retain];
+        self.selectedTab = PROJECT_TAB_UNSELECTED;
     }
 
     return self;
@@ -40,6 +41,16 @@
 #pragma mark ProjectsViewControllerDelegate implementation
 
 - (void)selectedProjectKey:(id)key
+{
+    [self presentSelectedProjectKey:key animated:YES];
+}
+
+- (void)deselectedProject
+{
+    self.selectedProjectKey = 0;
+}
+
+- (void)presentSelectedProjectKey:(id)key animated:(BOOL)animated
 {
     NSLog(@"Project %@ selected", key);
 
@@ -51,7 +62,7 @@
     self.projectHomeViewController.navigationItem.title = project.name;
 
     [self.navController pushViewController:self.projectHomeViewController
-        animated:YES];
+        animated:animated];
 
     self.projectHomeViewController.navigationItem.title = project.name;
     ticketDisplayMgr.activeProjectKey = key;
@@ -62,18 +73,29 @@
 
 - (void)selectedTab:(NSUInteger)tabIndex
 {
+    [self presentSelectedTab:tabIndex animated:YES];
+}
+
+- (void)deselectedTab
+{
+    selectedTab = PROJECT_TAB_UNSELECTED;
+}
+
+- (void)presentSelectedTab:(NSUInteger)tabIndex animated:(BOOL)animated
+{
     NSLog(@"Selected project tab %d", tabIndex);
+    selectedTab = tabIndex;
 
     switch(tabIndex) {
         case kProjectTickets:
             [self.navController
                 pushViewController:self.ticketsNetAwareViewController
-                animated:YES];
+                animated:animated];
             break;
         case kProjectMessages:
             [self.navController
                 pushViewController:self.messagesNetAwareViewController
-                animated:YES];
+                animated:animated];
             break;
     }
 }

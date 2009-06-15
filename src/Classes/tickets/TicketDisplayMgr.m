@@ -6,6 +6,7 @@
 #import "NewTicketDescription.h"
 #import "UpdateTicketDescription.h"
 #import "LighthouseKey.h"
+#import "TicketSearchMgr.h"
 
 @interface TicketDisplayMgr (Private)
 
@@ -19,6 +20,7 @@
 - (void)enableEditView;
 - (void)updateDisplayIfDirty;
 - (void)updateTicketsViewController;
+- (void)correctSearchViewSize;
 
 @property (nonatomic, readonly) NSDictionary * milestonesForProject;
 @property (nonatomic, readonly) UIBarButtonItem * detailsEditButton;
@@ -298,7 +300,23 @@
 
 - (void)networkAwareViewWillAppear
 {
+    NSLog(@"Tickets view did appear.");
+
+    // hack to account for odd behavior
+    [self performSelector:@selector(correctSearchViewSize) withObject:nil
+        afterDelay:0.4];
+
     [self updateDisplayIfDirty];
+}
+
+// hack to account for odd behavior
+- (void)correctSearchViewSize
+{
+    UINavigationItem * navItem = self.wrapperController.navigationItem;
+    UIView * searchView = navItem.titleView;
+    CGRect searchViewFrame = searchView.frame;
+    searchViewFrame.size.width = SEARCH_FIELD_WIDTH;
+    searchView.frame = searchViewFrame;
 }
 
 #pragma mark TicketDataSourceDelegate implementation

@@ -10,6 +10,12 @@
 
 @synthesize delegate;
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [delegate deselectedTab];
+}
+
 #pragma mark TableViewDataSource implementation
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

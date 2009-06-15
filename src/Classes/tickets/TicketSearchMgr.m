@@ -118,7 +118,7 @@
     }
 
     CGRect frame = searchField.frame;
-    frame.size.width = 250;
+    frame.size.width = SEARCH_FIELD_WIDTH;
     searchField.frame = frame;
 
     if (animated)
@@ -149,7 +149,7 @@
         forView:searchField cache:YES];
 
     CGRect frame = searchField.frame;
-    frame.size.width = 252;
+    frame.size.width = SEARCH_FIELD_WIDTH;
     searchField.frame = frame;
 
     [UIView commitAnimations];
