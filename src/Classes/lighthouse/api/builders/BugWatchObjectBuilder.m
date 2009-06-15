@@ -50,7 +50,9 @@
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"description", @"title",
-            @"creationDate", @"created-at", nil];
+            @"creationDate", @"created-at",
+            @"link", @"url",
+            nil];
 
     return [parser parse:xml];
 }
@@ -273,6 +275,7 @@
             @"title", @"title",
             @"postedDate", @"created-at",
             @"message", @"body",
+            @"link", @"url",
             nil];
 
     return [parser parse:xml];

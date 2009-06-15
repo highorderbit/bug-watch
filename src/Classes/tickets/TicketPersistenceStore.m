@@ -30,6 +30,7 @@
 + (NSString *)descriptionKey;
 + (NSString *)messageKey;
 + (NSString *)creationDateKey;
++ (NSString *)linkKey;
 
 + (NSString *)tagsKey;
 + (NSString *)stateKey;
@@ -171,6 +172,9 @@
         if (ticket.creationDate)
             [dict setObject:ticket.creationDate
                 forKey:[[self class] creationDateKey]];
+        if (ticket.link)
+            [dict setObject:ticket.link
+                forKey:[[self class] linkKey]];
     } else
         dict = nil;
     
@@ -186,11 +190,12 @@
         NSString * message = [dict objectForKey:[[self class] messageKey]];
         NSDate * creationDate =
             [dict objectForKey:[[self class] creationDateKey]];
+        NSString * link = [dict objectForKey:[[self class] linkKey]];
 
         ticket =
             [[[Ticket alloc]
             initWithDescription:description message:message
-            creationDate:creationDate]
+            creationDate:creationDate link:link]
             autorelease];
     } else
         ticket = nil;
@@ -299,6 +304,11 @@
 + (NSString *)creationDateKey
 {
     return @"creationDate";
+}
+
++ (NSString *)linkKey
+{
+    return @"link";
 }
 
 + (NSString *)tagsKey

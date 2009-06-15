@@ -16,6 +16,7 @@
 + (NSString *)postedDateKey;
 + (NSString *)titleKey;
 + (NSString *)messageKey;
++ (NSString *)linkKey;
 
 + (NSString *)messagesKey;
 + (NSString *)projectDictKey;
@@ -131,6 +132,8 @@
         [dict setObject:message.title forKey:[[self class] titleKey]];
     if (message.message)
         [dict setObject:message.message forKey:[[self class] messageKey]];
+    if (message.link)
+        [dict setObject:message.link forKey:[[self class] linkKey]];
 
     return dict;
 }
@@ -140,9 +143,10 @@
     NSDate * postedDate = [dict objectForKey:[[self class] postedDateKey]];
     NSString * title = [dict objectForKey:[[self class] titleKey]];
     NSString * message = [dict objectForKey:[[self class] messageKey]];
+    NSString * link = [dict objectForKey:[[self class] linkKey]];
 
     return [[[Message alloc]
-        initWithPostedDate:postedDate title:title message:message]
+        initWithPostedDate:postedDate title:title message:message link:link]
         autorelease];
 }
 
@@ -161,6 +165,11 @@
 + (NSString *)messageKey
 {
     return @"message";
+}
+
++ (NSString *)linkKey
+{
+    return @"link";
 }
 
 + (NSString *)messagesKey

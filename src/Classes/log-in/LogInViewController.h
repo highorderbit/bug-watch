@@ -25,4 +25,6 @@
 
 @property (nonatomic, assign) id<LogInViewControllerDelegate> delegate;
 
+- (void)promptForLogIn;
+
 @end

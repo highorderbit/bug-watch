@@ -4,6 +4,9 @@
 
 #import "LogInDisplayMgr.h"
 #import "LogInViewController.h"
+#import "LighthouseAccountAuthenticator.h"
+#import "LighthouseCredentials.h"
+#import "UIAlertView+InstantiationAdditions.h"
 
 @interface LogInDisplayMgr ()
 
@@ -55,6 +58,7 @@
 {
     [rootViewController presentModalViewController:self.logInViewController
                                           animated:YES];
+    [self.logInViewController promptForLogIn];
 }
 
 - (void)beginLogOut
@@ -70,6 +74,18 @@
 {
     NSLog(@"User provided account: '%@', username: '%@', password: '********'.",
         account, username);
+
+    LighthouseAccountAuthenticator * authenticator =
+        [[LighthouseAccountAuthenticator alloc]
+        initWithLighthouseDomain:@"lighthouseapp.com" scheme:@"https"];
+    authenticator.delegate = self;
+
+    LighthouseCredentials * credentials =
+        [[LighthouseCredentials alloc] initWithAccount:account
+                                              username:username
+                                              password:password];
+
+    [authenticator authenticateCredentials:credentials];
 }
 
 - (void)userDidCancel
@@ -81,6 +97,33 @@
 
 - (void)promptForLogOutConfirmation
 {
+}
+
+#pragma mark LighthouseAccountAuthenticatorDelegate implementation
+
+- (void)authenticatedAccount:(LighthouseCredentials *)credentials
+{
+    NSLog(@"User successfully authenticated credentials: '%@'.", credentials);
+
+    [rootViewController dismissModalViewControllerAnimated:YES];
+
+    // notify delegate that log in is successful
+}
+
+- (void)failedToAuthenticateAccount:(LighthouseCredentials *)credentials
+                             errors:(NSArray *)errors
+{
+    NSLog(@"Failed to authenticate user with credentials: '%@', errors: '%@'.",
+        credentials, errors);
+
+    [self.logInViewController promptForLogIn];
+
+    NSString * title = NSLocalizedString(@"login.failed.alert.title", @"");
+    NSString * message = [[errors lastObject] localizedDescription];
+    
+    UIAlertView * alert = [UIAlertView simpleAlertViewWithTitle:title
+                                                        message:message];
+    [alert show];
 }
 
 #pragma mark Accessors

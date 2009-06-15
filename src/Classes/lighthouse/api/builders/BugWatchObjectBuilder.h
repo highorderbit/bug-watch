@@ -3,8 +3,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class LighthouseApiParser;
+#import "LighthouseApiParser.h"
 
 @interface BugWatchObjectBuilder : NSObject
 {

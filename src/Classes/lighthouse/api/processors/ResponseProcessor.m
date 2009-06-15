@@ -42,10 +42,17 @@
         NSMutableArray * errors =
             [NSMutableArray arrayWithCapacity:errorStrings.count];
 
-        for (NSString * msg in errorStrings) {
-            NSError * error = [NSError errorWithLocalizedDescription:msg];
+        // HACK: This seems to be the response the Lighthouse API provides
+        // when authentication fails.
+        if (errorStrings.count == 1 && ![[errorStrings lastObject] length]) {
+            NSError * error = [NSError errorWithLocalizedDescription:
+                NSLocalizedString(@"lighthouse.auth.failed", @"")];
             [errors addObject:error];
-        }
+        } else
+            for (NSString * msg in errorStrings) {
+                NSError * error = [NSError errorWithLocalizedDescription:msg];
+                [errors addObject:error];
+            }
 
         [self processErrors:errors foundInResponse:xml];
     } else

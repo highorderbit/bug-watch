@@ -5,6 +5,7 @@
 #import "LighthouseApi.h"
 #import "WebServiceApi.h"
 #import "WebServiceResponseDispatcher.h"
+#import "LighthouseUrlBuilder.h"
 
 @interface LighthouseApi ()
 
@@ -15,11 +16,21 @@
 
 @implementation LighthouseApi
 
-@synthesize delegate;
+@synthesize delegate, credentials;
+
++ (id)apiWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
+            credentials:(LighthouseCredentials *)someCredentials
+{
+    id obj = [[[self class] alloc] initWithUrlBuilder:aUrlBuilder
+                                          credentials:someCredentials];
+    return [obj autorelease];
+}
 
 - (void)dealloc
 {
     [baseUrlString release];
+    [urlBuilder release];
+    [credentials release];
 
     [api release];
     [dispatcher release];
@@ -38,6 +49,20 @@
     return self;
 }
 
+- (id)initWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
+             credentials:(LighthouseCredentials *)someCredentials
+{
+    if (self = [super init]) {
+        urlBuilder = [aUrlBuilder copy];
+        self.credentials = someCredentials;
+
+        api = [[WebServiceApi alloc] initWithDelegate:self];
+        dispatcher = [[WebServiceResponseDispatcher alloc] init];
+    }
+
+    return self;
+}
+
 #pragma mark Tickets
 
 - (id)fetchTicketsForAllProjects:(NSString *)token
@@ -47,6 +72,14 @@
         token];
 
     return [self sendRequestToUrl:urlString];
+}
+
+- (id)fetchTicketsForAllProjects
+{
+    NSURL * url = [urlBuilder urlForPath:@"tickets.xml"];
+    url = [credentials authenticateUrl:url];
+
+    return [self sendRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (id)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey

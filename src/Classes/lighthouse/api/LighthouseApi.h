@@ -5,8 +5,9 @@
 #import <Foundation/Foundation.h>
 #import "LighthouseApiDelegate.h"
 #import "WebServiceApiDelegate.h"
+#import "LighthouseCredentials.h"
 
-@class WebServiceApi, WebServiceResponseDispatcher;
+@class LighthouseUrlBuilder, WebServiceApi, WebServiceResponseDispatcher;
 
 @interface LighthouseApi : NSObject <WebServiceApiDelegate>
 {
@@ -14,19 +15,29 @@
 
     NSString * baseUrlString;
 
+    LighthouseUrlBuilder * urlBuilder;
+    LighthouseCredentials * credentials;
+
     WebServiceApi * api;
     WebServiceResponseDispatcher * dispatcher;
 }
 
 @property (nonatomic, assign) id<LighthouseApiDelegate> delegate;
+@property (nonatomic, copy) LighthouseCredentials * credentials;
 
 #pragma mark Initialization
 
++ (id)apiWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
+            credentials:(LighthouseCredentials *)someCredentials;
+
 - (id)initWithBaseUrlString:(NSString *)aBaseUrlString;
+- (id)initWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
+             credentials:(LighthouseCredentials *)someCredentials;
 
 #pragma mark Tickets -- retrieving and searching
 
 - (id)fetchTicketsForAllProjects:(NSString *)token;
+- (id)fetchTicketsForAllProjects;
 
 - (id)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
     token:(NSString *)token;
