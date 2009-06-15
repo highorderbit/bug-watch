@@ -16,6 +16,8 @@
 
 @implementation MessageDetailsViewController
 
+@synthesize authorName, date, title, comment, link;
+
 - (void)dealloc
 {
     [headerView release];
@@ -31,6 +33,8 @@
 
     [responses release];
     [responseAuthors release];
+    [title release];
+    [comment release];
 
     [super dealloc];
 }
@@ -100,9 +104,9 @@
 {
     id responseKey = [[responses allKeys] objectAtIndex:indexPath.row];
     MessageResponse * response = [responses objectForKey:responseKey];
-    NSString * comment = response.text;
+    NSString * aComment = response.text;
 
-    return [ResponseTableViewCell heightForContent:comment];
+    return [ResponseTableViewCell heightForContent:aComment];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView
@@ -113,11 +117,17 @@
 
 #pragma mark MessageDetailsViewController implementation
 
-- (void)setAuthorName:(NSString *)authorName date:(NSDate *)date
-    projectName:(NSString *)projectName title:(NSString *)title
-    comment:(NSString *)comment responses:(NSDictionary *)someResponses
-    responseAuthors:(NSDictionary *)someResponseAuthors
+- (void)setAuthorName:(NSString *)anAuthorName date:(NSDate *)aDate
+    projectName:(NSString *)projectName title:(NSString *)aTitle
+    comment:(NSString *)aComment responses:(NSDictionary *)someResponses
+    responseAuthors:(NSDictionary *)someResponseAuthors link:(NSString *)aLink
 {
+    self.authorName = anAuthorName;
+    self.date = aDate;
+    self.title = aTitle;
+    self.comment = aComment;
+    self.link = aLink;
+
     authorLabel.text = authorName;
     dateLabel.text = [date shortDescription];
     projectLabel.text = projectName;
@@ -180,6 +190,42 @@
 
     // necessary to reset header height allocation for table view
     self.tableView.tableHeaderView = headerView;
+}
+
+#pragma mark Action button implementation
+
+- (IBAction)sendInEmail:(id)sender
+{
+    NSLog(@"Sending message details email...");
+
+    NSString * subject =
+        [NSString stringWithFormat:@"Lighthouse Message: %@", self.title];
+    NSMutableString * body = [NSMutableString stringWithCapacity:0];
+    [body appendFormat:@"\nDetails:\n"];
+    [body appendFormat:@"\n%@", self.title];
+    if (self.comment)
+        [body appendFormat:@"\n%@", self.comment];
+    [body appendFormat:@"\n\nOriginally posted by %@ on %@.", self.authorName,
+        [self.date shortDateAndTimeDescription]];
+
+    NSString * urlString =
+        [[NSString stringWithFormat:@"mailto:?subject=%@&body=%@", subject,
+        body]
+        stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSURL * url = [[NSURL alloc] initWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
+    [url release];
+}
+
+- (IBAction)openInBrowser:(id)sender
+{
+    NSLog(@"Opening message details in browser...");
+
+    NSString * webAddress = self.link;
+    NSURL * url = [[NSURL alloc] initWithString:webAddress];
+    [[UIApplication sharedApplication] openURL:url];
+    [url release];
 }
 
 @end

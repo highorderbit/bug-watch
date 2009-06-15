@@ -208,7 +208,7 @@
 
     [self.detailsViewController setAuthorName:postedBy date:message.postedDate
         projectName:project title:message.title comment:message.message
-        responses:responses responseAuthors:responseAuthors];
+        responses:responses responseAuthors:responseAuthors link:message.link];
 }
 
 #pragma mark NetworkAwareViewControllerDelegate

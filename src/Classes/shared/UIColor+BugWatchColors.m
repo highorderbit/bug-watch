@@ -9,7 +9,7 @@
 
 + (UIColor *)bugWatchBlueColor
 {
-    return [UIColor colorWithRed:0 green:.3 blue:.7 alpha:1];
+    return [UIColor colorWithRed:0 green:.4 blue:.8 alpha:1];
 }
 
 + (UIColor *)bugWatchGrayColor
