@@ -41,8 +41,7 @@
                              page:(NSUInteger)page;
 - (id)searchTicketsForProject:(id)projectKey
              withSearchString:(NSString *)searchString
-                         page:(NSUInteger)page
-                       object:(id)object;
+                         page:(NSUInteger)page;
 
 #pragma mark Tickets -- creating
 
