@@ -63,7 +63,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"Cell";
+    static NSString * cellIdentifier = @"ResponseTableViewCell";
     
     ResponseTableViewCell * cell =
         (ResponseTableViewCell *)
@@ -96,7 +96,10 @@
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section
 {
-    return [[responses allKeys] count] > 0 ? @"Responses" : nil;
+    NSString * responsesSectionHeader =
+        NSLocalizedString(@"messagedetails.view.responsesheading", @"");
+
+    return [[responses allKeys] count] > 0 ? responsesSectionHeader : nil;
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView
@@ -198,14 +201,20 @@
 {
     NSLog(@"Sending message details email...");
 
+    NSString * subjectFormatString =
+        NSLocalizedString(@"messagedetails.view.email.subject", @"");
     NSString * subject =
-        [NSString stringWithFormat:@"Lighthouse Message: %@", self.title];
+        [NSString stringWithFormat:subjectFormatString, self.title];
     NSMutableString * body = [NSMutableString stringWithCapacity:0];
-    [body appendFormat:@"\nDetails:\n"];
+    NSString * detailsString =
+        NSLocalizedString(@"messagedetails.view.email.details", @"");
+    [body appendFormat:detailsString];
     [body appendFormat:@"\n%@", self.title];
     if (self.comment)
         [body appendFormat:@"\n%@", self.comment];
-    [body appendFormat:@"\n\nOriginally posted by %@ on %@.", self.authorName,
+    NSString * postedByFormatString =
+        NSLocalizedString(@"messagedetails.view.email.postedby", @"");
+    [body appendFormat:postedByFormatString, self.authorName,
         [self.date shortDateAndTimeDescription]];
 
     NSString * urlString =
