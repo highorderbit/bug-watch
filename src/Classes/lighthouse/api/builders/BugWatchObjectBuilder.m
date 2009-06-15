@@ -275,6 +275,7 @@
             @"title", @"title",
             @"postedDate", @"created-at",
             @"message", @"body",
+            @"link", @"url",
             nil];
 
     return [parser parse:xml];

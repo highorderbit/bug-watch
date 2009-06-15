@@ -9,6 +9,7 @@
 @property (nonatomic, copy) NSDate * postedDate;
 @property (nonatomic, copy) NSString * title;
 @property (nonatomic, copy) NSString * message;
+@property (nonatomic, copy) NSString * link;
 
 @end
 
@@ -17,22 +18,25 @@
 @synthesize postedDate;
 @synthesize title;
 @synthesize message;
+@synthesize link;
 
 - (void)dealloc
 {
-    [postedDate release];
-    [title release];
-    [message release];
+    self.postedDate = nil;
+    self.title = nil;
+    self.message = nil;
+    self.link = nil;
     [super dealloc];
 }
 
 - (id)initWithPostedDate:(NSDate *)aPostedDate title:(NSString *)aTitle
-    message:(NSString *)aMessage
+    message:(NSString *)aMessage link:(NSString *)aLink
 {
     if (self = [super init]) {
         self.postedDate = aPostedDate;
         self.title = aTitle;
         self.message = aMessage;
+        self.link = aLink;
     }
 
     return self;
@@ -46,7 +50,8 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"Message '%@', posted date: '%@', "
-        "message: '%@'", self.title, self.postedDate, self.message];
+        "message: '%@', link: '%@'.", self.title, self.postedDate, self.message,
+        self.link];
 }
 
 - (NSComparisonResult)compare:(Message *)anotherMessage
