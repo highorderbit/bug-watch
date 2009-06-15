@@ -10,7 +10,6 @@
 #import "TicketComment.h"
 #import "MilestoneDetailsDataSource.h"
 #import "MilestoneDetailsDisplayMgr.h"
-#import "ProjectDisplayMgr.h"
 #import "LighthouseApiService.h"
 #import "MilestoneDataSource.h"
 #import "MessageDisplayMgr.h"
@@ -88,6 +87,7 @@
     [projectLevelTicketDisplayMgr release];
     [ticketSearchMgrFactory release];
 
+    [projectDisplayMgr release];
     [projectCacheSetter release];
 
     [milestoneDisplayMgr release];
@@ -139,12 +139,23 @@
     [self initNewsFeedTab];
     [self initMilestonesTab];
 
+    [[self class] loadSharedStatesFromPersistence];
+
     UIStatePersistenceStore * uiStatePersistenceStore =
         [[[UIStatePersistenceStore alloc] init] autorelease];
     UIState * uiState = [uiStatePersistenceStore load];
     tabBarController.selectedIndex = uiState.selectedTab;
-
-    [[self class] loadSharedStatesFromPersistence];
+    if (uiState.selectedProject != 0) {
+        NSNumber * selectedProjectKey =
+            [NSNumber numberWithInt:uiState.selectedProject];
+        projectDisplayMgr.selectedProjectKey = selectedProjectKey;
+        [projectDisplayMgr presentSelectedProjectKey:selectedProjectKey
+            animated:NO];
+            
+        if (uiState.selectedProjectTab != PROJECT_TAB_UNSELECTED)
+            [projectDisplayMgr presentSelectedTab:uiState.selectedProjectTab
+                animated:NO];
+    }
 }
 
 - (void)persistState
@@ -192,6 +203,8 @@
         [[[UIStatePersistenceStore alloc] init] autorelease];
     UIState * uiState = [[[UIState alloc] init] autorelease];
     uiState.selectedTab = tabBarController.selectedIndex;
+    uiState.selectedProject = [projectDisplayMgr.selectedProjectKey intValue];
+    uiState.selectedProjectTab = projectDisplayMgr.selectedTab;
     [uiStatePersistenceStore save:uiState];
 }
 
@@ -452,7 +465,7 @@
     projectsNetAwareViewController.targetViewController =
         projectsViewController;
 
-    ProjectDisplayMgr * projectDisplayMgr =
+    projectDisplayMgr =
         [[[ProjectDisplayMgr alloc]
         initWithProjectsViewController:projectsViewController
         networkAwareViewController:projectsNetAwareViewController

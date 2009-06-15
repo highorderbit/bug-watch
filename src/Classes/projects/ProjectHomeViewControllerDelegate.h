@@ -8,5 +8,6 @@
 @protocol ProjectHomeViewControllerDelegate
 
 - (void)selectedTab:(NSUInteger)tab;
+- (void)deselectedTab;
 
 @end

@@ -12,6 +12,8 @@
 #import "TicketDisplayMgr.h"
 #import "MessageDisplayMgr.h"
 
+static const NSInteger PROJECT_TAB_UNSELECTED = -1;
+
 @interface ProjectDisplayMgr :
     NSObject <ProjectsViewControllerDelegate, ProjectHomeViewControllerDelegate>
 {
@@ -24,12 +26,8 @@
 
     ProjectCache * projectCache;    
     id selectedProjectKey;
+    NSInteger selectedTab;
 }
-
-- (id)initWithProjectsViewController:(ProjectsViewController *)aViewController
-    networkAwareViewController:(NetworkAwareViewController *)wrapperController
-    ticketDisplayMgr:(TicketDisplayMgr *)ticketDisplayMgr
-    messageDisplayMgr:(MessageDisplayMgr *)messageDisplayMgr;
 
 @property (readonly) ProjectHomeViewController * projectHomeViewController;
 @property (readonly) UINavigationController * navController;
@@ -40,5 +38,14 @@
     
 @property (nonatomic, retain) ProjectCache * projectCache;
 @property (nonatomic, copy) id selectedProjectKey;
+@property (nonatomic, assign) NSInteger selectedTab;
+
+- (id)initWithProjectsViewController:(ProjectsViewController *)aViewController
+    networkAwareViewController:(NetworkAwareViewController *)wrapperController
+    ticketDisplayMgr:(TicketDisplayMgr *)ticketDisplayMgr
+    messageDisplayMgr:(MessageDisplayMgr *)messageDisplayMgr;
+    
+- (void)presentSelectedTab:(NSUInteger)tabIndex animated:(BOOL)animated;
+- (void)presentSelectedProjectKey:(id)key animated:(BOOL)animated;
 
 @end
