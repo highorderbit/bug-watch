@@ -505,9 +505,22 @@
                target:logInDisplayMgr
                action:@selector(logIn)] autorelease];
 
+    // TEMPORARY
+    NSString * domain = @"lighthouseapp.com"; 
+    NSString * scheme = @"https";
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
+    // TEMPORARY
+
+    LighthouseUrlBuilder * builder =
+        [LighthouseUrlBuilder builderWithLighthouseDomain:domain
+                                                   scheme:scheme];
+    LighthouseCredentials * credentials =
+        [[LighthouseCredentials alloc] initWithAccount:@"highorderbit"
+                                                 token:token];
+
     LighthouseNewsFeedService * newsFeedService =
-        [[[LighthouseNewsFeedService alloc] initWithBaseUrlString:
-        @"http://highorderbit.lighthouseapp.com/events.atom"] autorelease];
+        [[LighthouseNewsFeedService alloc] initWithUrlBuilder:builder
+                                                  credentials:credentials];
     NewsFeedPersistenceStore * newsFeedPersistenceStore =
         [[[NewsFeedPersistenceStore alloc] init] autorelease];
     NSArray * newsItemCache =
@@ -517,11 +530,15 @@
         [[NewsFeedDataSource alloc]
         initWithNewsFeedService:newsFeedService cache:newsItemCache];
 
+    [newsFeedService release];
+
     newsFeedDisplayMgr =
         [[NewsFeedDisplayMgr alloc]
         initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
                         newsFeedDataSource:newsFeedDataSource
                          leftBarButtonItem:logInButton];
+
+    [newsFeedDataSource release];
 }
 
 #pragma mark Milestone tab initialization

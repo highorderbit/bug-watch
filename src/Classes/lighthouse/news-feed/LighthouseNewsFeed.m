@@ -8,21 +8,26 @@
 
 @implementation LighthouseNewsFeed
 
-@synthesize delegate;
+@synthesize delegate, credentials;
 
 - (void)dealloc
 {
-    [baseUrlString release];
+    [urlBuilder release];
+    [credentials release];
+
     [api release];
     [dispatcher release];
 
     [super dealloc];
 }
 
-- (id)initWithBaseUrlString:(NSString *)aBaseUrlString
+- (id)initWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
+             credentials:(LighthouseCredentials *)someCredentials
 {
     if (self = [super init]) {
-        baseUrlString = [aBaseUrlString copy];
+        urlBuilder = [aUrlBuilder copy];
+        self.credentials = someCredentials;
+
         api = [[WebServiceApi alloc] initWithDelegate:self];
         dispatcher = [[WebServiceResponseDispatcher alloc] init];
     }
@@ -30,32 +35,28 @@
     return self;
 }
 
-- (void)fetchNewsFeed:(NSString *)token
+- (void)fetchNewsFeed
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@?_token=%@", baseUrlString, token];
-    NSURL * url = [NSURL URLWithString:urlString];
+    NSURL * url = [urlBuilder urlForPath:@"events.atom"];
+    url = [credentials authenticateUrl:url];
     NSURLRequest * req = [NSURLRequest requestWithURL:url];
 
-    NSDictionary * args =
-        [NSDictionary dictionaryWithObjectsAndKeys:token, @"token", nil];
     SEL sel = @selector(handleNewsFeedResponse:toRequest:object:);
-
-    [dispatcher request:req isHandledBySelector:sel target:self object:args];
+    [dispatcher request:req isHandledBySelector:sel target:self object:nil];
 
     [api sendRequest:req];
 }
 
 #pragma mark Handling news feed responses
 
-- (void)handleNewsFeedResponse:(id)response toRequest:(NSURLRequest *)request
-    object:(id)object
+- (void)handleNewsFeedResponse:(id)response
+                     toRequest:(NSURLRequest *)request
+                        object:(id)object
 {
-    NSString * token = [object objectForKey:@"token"];
     if ([response isKindOfClass:[NSError class]])
-        [delegate failedToFetchNewsFeedForToken:token error:response];
+        [delegate failedToFetchNewsFeed:response];
     else
-        [delegate newsFeed:response fetchedForToken:token];
+        [delegate fetchedNewsFeed:response];
 }
 
 #pragma mark WebSericeApiDelegate implementation

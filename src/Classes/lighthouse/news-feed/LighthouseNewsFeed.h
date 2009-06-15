@@ -5,6 +5,8 @@
 #import <Foundation/Foundation.h>
 #import "WebServiceApiDelegate.h"
 #import "LighthouseNewsFeedDelegate.h"
+#import "LighthouseUrlBuilder.h"
+#import "LighthouseCredentials.h"
 
 @class WebServiceApi, WebServiceResponseDispatcher;
 
@@ -12,20 +14,23 @@
 {
     id<LighthouseNewsFeedDelegate> delegate;
 
-    NSString * baseUrlString;
+    LighthouseUrlBuilder * urlBuilder;
+    LighthouseCredentials * credentials;
 
     WebServiceApi * api;
     WebServiceResponseDispatcher * dispatcher;
 }
 
 @property (nonatomic, assign) id<LighthouseNewsFeedDelegate> delegate;
+@property (nonatomic, copy) LighthouseCredentials * credentials;
 
 #pragma mark Initialization
 
-- (id)initWithBaseUrlString:(NSString *)aBaseUrlString;
+- (id)initWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
+             credentials:(LighthouseCredentials *)someCredentials;
 
 #pragma mark Fetching news feeds
 
-- (void)fetchNewsFeed:(NSString *)token;
+- (void)fetchNewsFeed;
 
 @end

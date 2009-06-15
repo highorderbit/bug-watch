@@ -6,6 +6,7 @@
 
 @protocol LighthouseNewsFeedServiceDelegate
 
-- (void)newsFeed:(NSArray *)newsFeed fetchedForToken:(NSString *)token;
+- (void)fetchedNewsFeed:(NSArray *)newsFeed;
+- (void)failedToFetchNewsFeed:(NSError *)error;
 
 @end
