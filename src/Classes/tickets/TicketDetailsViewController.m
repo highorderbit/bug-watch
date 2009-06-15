@@ -279,7 +279,7 @@
 {
     NSLog(@"Opening ticket details in browser...");
 
-    NSString * webAddress = @"http://lighthouseapp.com/";
+    NSString * webAddress = self.ticket.link;
     NSURL * url = [[NSURL alloc] initWithString:webAddress];
     [[UIApplication sharedApplication] openURL:url];
     [url release];

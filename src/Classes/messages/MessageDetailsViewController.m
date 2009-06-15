@@ -16,7 +16,7 @@
 
 @implementation MessageDetailsViewController
 
-@synthesize authorName, date, title, comment;
+@synthesize authorName, date, title, comment, link;
 
 - (void)dealloc
 {
@@ -120,12 +120,13 @@
 - (void)setAuthorName:(NSString *)anAuthorName date:(NSDate *)aDate
     projectName:(NSString *)projectName title:(NSString *)aTitle
     comment:(NSString *)aComment responses:(NSDictionary *)someResponses
-    responseAuthors:(NSDictionary *)someResponseAuthors
+    responseAuthors:(NSDictionary *)someResponseAuthors link:(NSString *)aLink
 {
     self.authorName = anAuthorName;
     self.date = aDate;
     self.title = aTitle;
     self.comment = aComment;
+    self.link = aLink;
 
     authorLabel.text = authorName;
     dateLabel.text = [date shortDescription];
@@ -221,7 +222,7 @@
 {
     NSLog(@"Opening message details in browser...");
 
-    NSString * webAddress = @"http://lighthouseapp.com/";
+    NSString * webAddress = self.link;
     NSURL * url = [[NSURL alloc] initWithString:webAddress];
     [[UIApplication sharedApplication] openURL:url];
     [url release];
