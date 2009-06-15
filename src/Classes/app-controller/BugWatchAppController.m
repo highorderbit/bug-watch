@@ -109,20 +109,21 @@
 - (void)start
 {
     // TEMPORARY
-    NSString * baseServiceUrl = @"https://highorderbit.lighthouseapp.com/"; 
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
+    NSString * domain = @"lighthouseapp.com"; 
+    NSString * scheme = @"https";
     // TEMPORARY
 
     lighthouseApiFactory =
-        [[LighthouseApiServiceFactory alloc] initWithBaseUrl:baseServiceUrl];
+        [[LighthouseApiServiceFactory alloc]
+        initWithLighthouseDomain:domain scheme:scheme];
     ticketSearchMgrFactory =
         [[TicketSearchMgrFactory alloc] init];
     ticketDisplayMgrFactory =
-        [[TicketDisplayMgrFactory alloc] initWithApiToken:token
-        lighthouseApiFactory:lighthouseApiFactory];
+        [[TicketDisplayMgrFactory alloc]
+        initWithLighthouseApiFactory:lighthouseApiFactory];
     messageDisplayMgrFactory =
-        [[MessageDisplayMgrFactory alloc] initWithApiToken:token
-        lighthouseApiFactory:lighthouseApiFactory];
+        [[MessageDisplayMgrFactory alloc]
+        initWithLighthouseApiFactory:lighthouseApiFactory];
 
     [self initSharedStateListeners];
 
@@ -130,8 +131,8 @@
     LighthouseApiService * service =
         [[lighthouseApiFactory createLighthouseApiService] retain];
 
-    [service fetchMilestonesForAllProjects:token];
-    [service fetchAllProjects:token];
+    [service fetchMilestonesForAllProjects];
+    [service fetchAllProjects];
 
     [self initTicketsTab];
     [self initProjectsTab];
@@ -424,10 +425,8 @@
 
     LighthouseApiService * ticketBinService =
         [lighthouseApiFactory createLighthouseApiService];
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3"; // TEMPORARY
     TicketBinDataSource * ticketBinDataSource =
-        [[TicketBinDataSource alloc] initWithService:ticketBinService
-        token:token];
+        [[TicketBinDataSource alloc] initWithService:ticketBinService];
     ticketBinService.delegate = ticketBinDataSource;
     ProjectSpecificTicketBinDSAdapter * projSpecificTicketBinDS =
         [[ProjectSpecificTicketBinDSAdapter alloc]
@@ -519,9 +518,22 @@
                target:logInDisplayMgr
                action:@selector(logIn)] autorelease];
 
+    // TEMPORARY
+    NSString * domain = @"lighthouseapp.com"; 
+    NSString * scheme = @"https";
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
+    // TEMPORARY
+
+    LighthouseUrlBuilder * builder =
+        [LighthouseUrlBuilder builderWithLighthouseDomain:domain
+                                                   scheme:scheme];
+    LighthouseCredentials * credentials =
+        [[LighthouseCredentials alloc] initWithAccount:@"highorderbit"
+                                                 token:token];
+
     LighthouseNewsFeedService * newsFeedService =
-        [[[LighthouseNewsFeedService alloc] initWithBaseUrlString:
-        @"http://highorderbit.lighthouseapp.com/events.atom"] autorelease];
+        [[LighthouseNewsFeedService alloc] initWithUrlBuilder:builder
+                                                  credentials:credentials];
     NewsFeedPersistenceStore * newsFeedPersistenceStore =
         [[[NewsFeedPersistenceStore alloc] init] autorelease];
     NSArray * newsItemCache =
@@ -531,11 +543,15 @@
         [[NewsFeedDataSource alloc]
         initWithNewsFeedService:newsFeedService cache:newsItemCache];
 
+    [newsFeedService release];
+
     newsFeedDisplayMgr =
         [[NewsFeedDisplayMgr alloc]
         initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
                         newsFeedDataSource:newsFeedDataSource
                          leftBarButtonItem:logInButton];
+
+    [newsFeedDataSource release];
 }
 
 #pragma mark Milestone tab initialization

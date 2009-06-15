@@ -17,6 +17,7 @@
 - (id)initWithLighthouseDomain:(NSString *)domain scheme:(NSString *)scheme;
 
 - (NSURL *)urlForPath:(NSString *)path;
+- (NSURL *)urlForPath:(NSString *)path allArgs:(NSArray *)args;
 - (NSURL *)urlForPath:(NSString *)path
                  args:(id)firstArg, ... NS_REQUIRES_NIL_TERMINATION;
 

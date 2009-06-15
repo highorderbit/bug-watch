@@ -53,7 +53,7 @@
     return [self urlForPath:path args:nil];
 }
 
-- (NSURL *)urlForPath:(NSString *)path args:(id)firstArg, ...
+- (NSURL *)urlForPath:(NSString *)path allArgs:(NSArray *)args
 {
     NSMutableString * urlString = [lighthouseDomain mutableCopy];
 
@@ -63,12 +63,8 @@
     [urlString appendString:@"/"];
     [urlString appendString:path];
 
-    va_list args;
-    va_start(args, firstArg);
-    NSInteger argIdx = 2;
-
     BOOL name = YES, first = YES;
-    for (id arg = firstArg; arg != nil; arg = va_arg(args, id), ++argIdx) {
+    for (id arg in args) {
         [urlString
             appendFormat:@"%@%@", name ? first ? @"?" : @"&" : @"=", arg];
 
@@ -76,9 +72,22 @@
         if (first) first = NO;
     }
 
+    return [NSURL URLWithString:urlString];
+}
+
+- (NSURL *)urlForPath:(NSString *)path args:(id)firstArg, ...
+{
+    NSMutableArray * allArgs = [NSMutableArray array];
+
+    va_list args;
+    va_start(args, firstArg);
+
+    for (id arg = firstArg; arg != nil; arg = va_arg(args, id))
+        [allArgs addObject:arg];
+
     va_end(args);
 
-    return [NSURL URLWithString:urlString];
+    return [self urlForPath:path allArgs:allArgs];
 }
 
 @end

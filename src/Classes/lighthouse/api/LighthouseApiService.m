@@ -36,10 +36,17 @@
 
 #pragma mark Initialization
 
-- (id)initWithBaseUrlString:(NSString *)aBaseUrlString
+- (id)initWithUrlBuilder:(LighthouseUrlBuilder *)urlBuilder
+{
+    return [self initWithUrlBuilder:urlBuilder credentials:nil];
+}
+
+- (id)initWithUrlBuilder:(LighthouseUrlBuilder *)urlBuilder
+             credentials:(LighthouseCredentials *)credentials
 {
     if (self = [super init]) {
-        api = [[LighthouseApi alloc] initWithBaseUrlString:aBaseUrlString];
+        api = [[LighthouseApi alloc] initWithUrlBuilder:urlBuilder
+                                            credentials:credentials];
         api.delegate = self;
 
         LighthouseApiParser * parser = [LighthouseApiParser parser];
@@ -51,21 +58,27 @@
     return self;
 }
 
+#pragma mark Work with credentials
+
+- (void)setCredentials:(LighthouseCredentials *)credentials
+{
+    api.credentials = credentials;
+}
+
 #pragma mark Tickets -- searching
 
-- (void)fetchTicketsForAllProjects:(NSString *)token
+- (void)fetchTicketsForAllProjects
 {
     ResponseProcessor * processor =
         [FetchAllTicketsResponseProcessor processorWithBuilder:builder
                                                       delegate:delegate];
 
-    id requestId = [api fetchTicketsForAllProjects:token];
+    id requestId = [api fetchTicketsForAllProjects];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 - (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
-    token:(NSString *)token
 {
     ResponseProcessor * processor =
         [FetchTicketDetailsResponseProcessor processorWithBuilder:builder
@@ -74,14 +87,13 @@
                                                          delegate:delegate];
 
     id requestId = [api fetchDetailsForTicket:ticketKey
-                                    inProject:projectKey
-                                        token:token];
+                                    inProject:projectKey];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 - (void)searchTicketsForAllProjects:(NSString *)searchString
-    page:(NSUInteger)page token:(NSString *)token
+                               page:(NSUInteger)page
 {
     ResponseProcessor * processor =
         [SearchAllTicketsResponseProcessor processorWithBuilder:builder
@@ -89,15 +101,15 @@
                                                            page:page
                                                        delegate:delegate];
 
-    id requestId =
-        [api searchTicketsForAllProjects:searchString page:page token:token];
+    id requestId = [api searchTicketsForAllProjects:searchString page:page];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 - (void)searchTicketsForProject:(id)projectKey
-    withSearchString:(NSString *)searchString page:(NSUInteger)page
-    object:(id)object token:(NSString *)token
+               withSearchString:(NSString *)searchString
+                           page:(NSUInteger)page
+                         object:(id)object
 {
     ResponseProcessor * processor =
         [SearchAllTicketsResponseProcessor processorWithBuilder:builder
@@ -108,7 +120,9 @@
                                                        delegate:delegate];
 
     id requestId = [api searchTicketsForProject:projectKey
-        withSearchString:searchString page:page object:object token:token];
+                               withSearchString:searchString
+                                           page:page
+                                         object:object];
 
     [self trackProcessor:processor forRequest:requestId];
 }
@@ -116,7 +130,6 @@
 #pragma mark Tickets -- creating
 
 - (void)createNewTicket:(NewTicketDescription *)desc forProject:(id)projectKey
-    token:(NSString *)token
 {
     ResponseProcessor * processor =
         [CreateTicketResponseProcessor processorWithBuilder:builder
@@ -126,16 +139,16 @@
 
     NSString * creationXml = [desc xmlDescriptionForProject:projectKey];
     id requestId = [api createTicketForProject:projectKey
-                                   description:creationXml
-                                         token:token];
+                                   description:creationXml];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Tickets -- editing
 
-- (void)editTicket:(id)ticketKey forProject:(id)projectKey
-    withDescription:(UpdateTicketDescription *)desc token:(NSString *)token
+- (void)editTicket:(id)ticketKey
+        forProject:(id)projectKey
+   withDescription:(UpdateTicketDescription *)desc
 {
     ResponseProcessor * processor =
         [EditTicketResponseProcessor processorWithBuilder:builder
@@ -147,8 +160,7 @@
     NSString * xmlDescription = [desc xmlDescriptionForProject:projectKey];
     id requestId = [api editTicket:ticketKey
                         forProject:projectKey
-                       description:xmlDescription
-                             token:token];
+                       description:xmlDescription];
 
     [self trackProcessor:processor forRequest:requestId];
 }
@@ -156,7 +168,6 @@
 #pragma mark Tickets -- deleting
 
 - (void)deleteTicket:(id)ticketKey forProject:(id)projectKey
-    token:(NSString *)token
 {
     ResponseProcessor * processor =
         [DeleteTicketResponseProcessor processorWithBuilder:builder
@@ -164,93 +175,89 @@
                                                  projectKey:projectKey
                                                    delegate:delegate];
 
-    id requestId =
-        [api deleteTicket:ticketKey forProject:projectKey token:token];
+    id requestId = [api deleteTicket:ticketKey forProject:projectKey];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Ticket bins
 
-- (void)fetchTicketBinsForProject:(id)projectKey token:(NSString *)token
+- (void)fetchTicketBinsForProject:(id)projectKey
 {
     ResponseProcessor * processor =
         [FetchTicketBinsResponseProcessor processorWithBuilder:builder
                                                     projectKey:projectKey
                                                       delegate:delegate];
 
-    id requestId = [api fetchTicketBinsForProject:projectKey token:token];
+    id requestId = [api fetchTicketBinsForProject:projectKey];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Users
 
-- (void)fetchAllUsersForProject:(id)projectKey token:(NSString *)token
+- (void)fetchAllUsersForProject:(id)projectKey
 {
     ResponseProcessor * processor =
         [FetchUsersResponseProcessor processorWithBuilder:builder
                                                projectKey:projectKey
                                                  delegate:delegate];
 
-    id requestId = [api fetchAllUsersForProject:projectKey token:token];
+    id requestId = [api fetchAllUsersForProject:projectKey];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Projects
 
-- (void)fetchAllProjects:(NSString *)token
+- (void)fetchAllProjects
 {
     ResponseProcessor * processor =
         [FetchProjectsResponseProcessor processorWithBuilder:builder
                                                     delegate:delegate];
 
-    id requestId = [api fetchAllProjects:token];
+    id requestId = [api fetchAllProjects];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Milestones
 
-- (void)fetchMilestonesForAllProjects:(NSString *)token
+- (void)fetchMilestonesForAllProjects
 {
     ResponseProcessor * processor =
         [FetchMilestonesResponseProcessor processorWithBuilder:builder
                                                       delegate:delegate];
 
-    id requestId = [api fetchMilestonesForAllProjects:token];
+    id requestId = [api fetchMilestonesForAllProjects];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Messages
 
-- (void)fetchMessagesForProject:(id)projectKey token:(NSString *)token
+- (void)fetchMessagesForProject:(id)projectKey
 {
     ResponseProcessor * processor =
         [FetchMessagesResponseProcessor processorWithBuilder:builder
                                                   projectKey:projectKey
                                                     delegate:delegate];
 
-    id requestId = [api fetchMessagesForProject:projectKey token:token];
+    id requestId = [api fetchMessagesForProject:projectKey];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 - (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
-    token:(NSString *)token
 {
     ResponseProcessor * processor =
-        [FetchMessageCommentsResponseProcessor
-            processorWithBuilder:builder
-                      messageKey:messageKey
-                      projectKey:projectKey
-                        delegate:delegate];
+        [FetchMessageCommentsResponseProcessor processorWithBuilder:builder
+                                                         messageKey:messageKey
+                                                         projectKey:projectKey
+                                                           delegate:delegate];
 
     id requestId = [api fetchCommentsForMessage:messageKey
-                                      inProject:projectKey
-                                          token:token];
+                                      inProject:projectKey];
 
     [self trackProcessor:processor forRequest:requestId];
 }
@@ -258,7 +265,6 @@
 #pragma mark Messages -- creating
 
 - (void)createMessage:(NewMessageDescription *)desc forProject:(id)projectKey
-    token:(NSString *)token
 {
     ResponseProcessor * processor =
         [CreateMessageResponseProcessor processorWithBuilder:builder
@@ -267,16 +273,16 @@
                                                     delegate:delegate];
 
     id requestId = [api createMessageForProject:projectKey
-                                    description:[desc xmlDescription]
-                                          token:token];
+                                    description:[desc xmlDescription]];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Messages -- editing
 
-- (void)editMessage:(id)messageKey forProject:(id)projectKey
-    withDescription:(UpdateMessageDescription *)desc token:(NSString *)token
+- (void)editMessage:(id)messageKey
+         forProject:(id)projectKey
+    withDescription:(UpdateMessageDescription *)desc
 {
     ResponseProcessor * processor =
         [EditMessageResponseProcessor processorWithBuilder:builder
@@ -285,16 +291,18 @@
                                                description:desc
                                                   delegate:delegate];
 
-    id requestId = [api editMessage:messageKey forProject:projectKey
-         description:[desc xmlDescription] token:token];
+    id requestId = [api editMessage:messageKey
+                         forProject:projectKey
+                        description:[desc xmlDescription]];
 
     [self trackProcessor:processor forRequest:requestId];
 }
 
 #pragma mark Messages -- adding comments
 
-- (void)addComment:(NewMessageCommentDescription *)desc toMessage:(id)messageKey
-    forProject:(id)projectKey token:(NSString *)token
+- (void)addComment:(NewMessageCommentDescription *)desc
+         toMessage:(id)messageKey
+        forProject:(id)projectKey
 {
     ResponseProcessor * processor =
         [AddMessageCommentResponseProcessor processorWithBuilder:builder
@@ -303,8 +311,9 @@
                                                      description:desc
                                                         delegate:delegate];
 
-    id requestId = [api addComment:[desc xmlDescription] toMessage:messageKey
-        forProject:projectKey token:token];
+    id requestId = [api addComment:[desc xmlDescription]
+                         toMessage:messageKey
+                        forProject:projectKey];
 
     [self trackProcessor:processor forRequest:requestId];
 }

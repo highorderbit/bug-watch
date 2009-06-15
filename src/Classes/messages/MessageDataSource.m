@@ -6,12 +6,11 @@
 
 @implementation MessageDataSource
 
-@synthesize delegate, token;
+@synthesize delegate;
 
 - (void)dealloc
 {
     [service release];
-    [token release];
     [super dealloc];
 }
 
@@ -25,19 +24,19 @@
 
 - (void)fetchMessagesForProject:(NSNumber *)projectKey
 {
-    [service fetchMessagesForProject:projectKey token:self.token];
+    [service fetchMessagesForProject:projectKey];
 }
 
 - (void)fetchCommentsForMessage:(LighthouseKey *)messageKey
 {
     [service fetchCommentsForMessage:[NSNumber numberWithInt:messageKey.key]
-        inProject:[NSNumber numberWithInt:messageKey.projectKey] token:token];
+        inProject:[NSNumber numberWithInt:messageKey.projectKey]];
 }
 
 - (void)createMessageWithDescription:(NewMessageDescription *)desc
     forProject:(NSNumber *)projectKey
 {
-    [service createMessage:desc forProject:projectKey token:token];
+    [service createMessage:desc forProject:projectKey];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
@@ -63,7 +62,7 @@
     [delegate receivedMessagesFromDataSource:messageCache];
 }
 
-- (void)failedToFetchMessagesForProject:(id)projectKey error:(NSError *)error
+- (void)failedToFetchMessagesForProject:(id)projectKey errors:(NSArray *)errors
 {}
 
 - (void)message:(id)messageKey describedBy:(NewMessageDescription *)desc
@@ -73,7 +72,7 @@
 }
 
 - (void)failedToCreateMessageDescribedBy:(NewMessageDescription *)desc
-    forProject:(id)projectKey error:(NSError *)error
+    forProject:(id)projectKey errors:(NSArray *)errors
 {}
 
 - (void)comments:(NSArray *)comments commentKeys:(NSArray *)commentKeys

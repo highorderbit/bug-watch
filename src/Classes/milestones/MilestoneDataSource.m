@@ -57,9 +57,6 @@
 
 - (BOOL)fetchMilestonesIfNecessary
 {
-    // temporary
-    static NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
-
     SEL sel =
         @selector(currentMilestonesForAllProjects:milestoneKeys:projectKeys:);
     [self updateDelegateWithCacheUsingSelector:sel];
@@ -68,12 +65,12 @@
         [delegate fetchDidBegin];
 
         if (projectsNeedUpdating) {
-            [service fetchAllProjects:token];
+            [service fetchAllProjects];
             ++pendingFetches;
         }
 
         if (milestonesNeedUpdating) {
-            [service fetchMilestonesForAllProjects:token];
+            [service fetchMilestonesForAllProjects];
             ++pendingFetches;
         }
     }

@@ -11,23 +11,20 @@
 - (void)dealloc
 {
     [service release];
-    [token release];
     [super dealloc];
 }
 
-- (id)initWithService:(LighthouseApiService *)aService token:(NSString *)aToken
+- (id)initWithService:(LighthouseApiService *)aService
 {
-    if (self = [super init]) {
+    if (self = [super init])
         service = [aService retain];
-        token = [aToken retain];
-    }
 
     return self;
 }
 
 - (void)fetchAllTicketBinsForProject:(id)projectKey
 {
-    [service fetchTicketBinsForProject:projectKey token:token];
+    [service fetchTicketBinsForProject:projectKey];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation

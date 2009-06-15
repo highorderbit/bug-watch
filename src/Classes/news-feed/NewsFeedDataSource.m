@@ -51,7 +51,7 @@
 - (BOOL)fetchNewsFeedIfNecessary
 {
     if (needsUpdating)
-        [service fetchNewsFeed:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3"/* TEMPORARY */];
+        [service fetchNewsFeed];
 
     return needsUpdating;
 }
@@ -64,11 +64,16 @@
 
 #pragma mark LighthouseNewsFeedServiceDelegate implementation
 
-- (void)newsFeed:(NSArray *)newsFeed fetchedForToken:(NSString *)token
+- (void)fetchedNewsFeed:(NSArray *)newsFeed
 {
     needsUpdating = NO;
     [self setCache:newsFeed];
     [delegate newsFeedUpdated:newsFeed];
+}
+
+- (void)failedToFetchNewsFeed:(NSError *)error
+{
+    [delegate failedToUpdateNewsFeed:error];
 }
 
 #pragma mark Accessors

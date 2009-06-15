@@ -20,11 +20,12 @@
 
 #pragma mark Initialization
 
-- (id)initWithBaseUrlString:(NSString *)baseUrlString
+- (id)initWithUrlBuilder:(LighthouseUrlBuilder *)urlBuilder
+             credentials:(LighthouseCredentials *)credentials
 {
     if (self = [super init]) {
-        newsFeed =
-            [[LighthouseNewsFeed alloc] initWithBaseUrlString:baseUrlString];
+        newsFeed = [[LighthouseNewsFeed alloc] initWithUrlBuilder:urlBuilder
+                                                      credentials:credentials];
         newsFeed.delegate = self;
 
         parser = [[LighthouseNewsFeedParser alloc] init];
@@ -33,23 +34,29 @@
     return self;
 }
 
+- (void)setCredentials:(LighthouseCredentials *)credentials
+{
+    newsFeed.credentials = credentials;
+}
+
 #pragma mark Refreshing the news feed
 
-- (void)fetchNewsFeed:(NSString *)token
+- (void)fetchNewsFeed
 {
-    [newsFeed fetchNewsFeed:token];
+    [newsFeed fetchNewsFeed];
 }
 
 #pragma mark LightHouseNewsFeedDelegate implementation
 
-- (void)newsFeed:(NSData *)rawFeed fetchedForToken:(NSString *)token
+- (void)fetchedNewsFeed:(NSData *)rawFeed
 {
     NSArray * parsedFeed = [parser parse:rawFeed];
-    [delegate newsFeed:parsedFeed fetchedForToken:token];
+    [delegate fetchedNewsFeed:parsedFeed];
 }
 
-- (void)failedToFetchNewsFeedForToken:(NSString *)token error:(NSError *)error
+- (void)failedToFetchNewsFeed:(NSError *)error
 {
+    [delegate failedToFetchNewsFeed:error];
 }
 
 @end

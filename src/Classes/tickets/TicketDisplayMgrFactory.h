@@ -9,12 +9,11 @@
 
 @interface TicketDisplayMgrFactory : NSObject
 {
-    NSString * apiToken;
     LighthouseApiServiceFactory * lighthouseApiFactory;
 }
 
-- (id)initWithApiToken:(NSString *)apiToken
-    lighthouseApiFactory:(LighthouseApiServiceFactory *)lighthouseApiFactory;
+- (id)initWithLighthouseApiFactory:
+    (LighthouseApiServiceFactory *)lighthouseApiFactory;
 
 - (TicketDisplayMgr *)createTicketDisplayMgrWithCache:(TicketCache *)ticketCache
     wrapperController:(NetworkAwareViewController *)wrapperController

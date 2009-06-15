@@ -12,17 +12,13 @@
 - (void)dealloc
 {
     [service release];
-    [token release];
     [super dealloc];
 }
 
 - (id)initWithApiService:(LighthouseApiService *)aService
-    token:(NSString *)aToken
 {
-    if (self = [super init]) {
+    if (self = [super init])
         service = [aService retain];
-        token = [aToken retain];
-    }
 
     return self;
 }
@@ -34,7 +30,7 @@
     outstandingRequests = [keys count];
 
     for (id key in keys)
-        [service fetchAllUsersForProject:key token:token];
+        [service fetchAllUsersForProject:key];
 }
 
 - (void)allUsers:(NSDictionary *)projectUsers fetchedForProject:(id)projectKey

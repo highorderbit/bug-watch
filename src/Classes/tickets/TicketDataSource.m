@@ -26,58 +26,53 @@
 {
     [delegate release];
     [service release];
-    [token release];
     [super dealloc];
 }
 
 -(id)initWithService:(LighthouseApiService *)aService
 {
-    if (self = [super init]) {
+    if (self = [super init])
         service = [aService retain];
-        // TEMPORARY
-        token = [@"6998f7ed27ced7a323b256d83bd7fec98167b1b3" retain];
-    }
 
     return self;
 }
 
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
 {
-    [service searchTicketsForAllProjects:aFilterString page:page token:token];
+    [service searchTicketsForAllProjects:aFilterString page:page];
 }
 
 - (void)fetchTicketsWithQuery:(NSString *)aFilterString page:(NSUInteger)page
     project:(id)projectKey
 {
     [service searchTicketsForProject:projectKey withSearchString:aFilterString
-        page:page object:nil token:token];
+        page:page object:nil];
 }
 
 - (void)fetchTicketWithKey:(LighthouseKey *)aTicketKey
 {
     [service
         fetchDetailsForTicket:[NSNumber numberWithInt:aTicketKey.key]
-        inProject:[NSNumber numberWithInt:aTicketKey.projectKey] token:token];
+        inProject:[NSNumber numberWithInt:aTicketKey.projectKey]];
 }
 
 - (void)createTicketWithDescription:(NewTicketDescription *)desc
     forProject:(id)projectKey
 {
-    [service createNewTicket:desc forProject:projectKey token:token];
+    [service createNewTicket:desc forProject:projectKey];
 }
 
 - (void)editTicketWithKey:(id)key description:(UpdateTicketDescription *)desc
     forProject:(id)projectKey
 {    
-    [service editTicket:key forProject:projectKey withDescription:desc
-        token:token];
+    [service editTicket:key forProject:projectKey withDescription:desc];
 }
 
 - (void)deleteTicketWithKey:(NSUInteger)ticketNumber
     forProject:(NSUInteger)projectKey
 {
     [service deleteTicket:[NSNumber numberWithInt:ticketNumber]
-        forProject:[NSNumber numberWithInt:projectKey] token:token];
+        forProject:[NSNumber numberWithInt:projectKey]];
 }
 
 #pragma mark LighthouseApiServiceDelegate implementation
@@ -124,7 +119,7 @@
 }
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
-    page:(NSUInteger)page error:(NSError *)error
+    page:(NSUInteger)page errors:(NSArray *)errors
 {}
 
 - (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
@@ -142,7 +137,7 @@
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString page:(NSUInteger)page
-    object:(id)object error:(NSError *)error
+    object:(id)object errors:(NSArray *)errors
 {}
 
 - (void)details:(NSArray *)details authors:(NSArray *)authors
@@ -179,7 +174,7 @@
 }
 
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
-    inProject:(id)projectKey error:(NSError *)error
+    inProject:(id)projectKey errors:(NSArray *)errors
 {}
 
 - (void)ticket:(id)ticketKey describedBy:(NewTicketDescription *)description
@@ -189,7 +184,7 @@
 }
 
 - (void)failedToCreateNewTicketDescribedBy:(NewTicketDescription *)description
-    forProject:(id)projectKey error:(NSError *)error
+    forProject:(id)projectKey errors:(NSArray *)errors
 {}
 
 - (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
@@ -198,7 +193,7 @@
 }
 
 - (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
-    error:(NSError *)error
+    errors:(NSArray *)errors
 {}
 
 - (void)editedTicket:(id)ticketNum forProject:(id)projectKey
@@ -213,7 +208,7 @@
 }
 
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
-    describedBy:(UpdateTicketDescription *)description error:(NSError *)error
+    describedBy:(UpdateTicketDescription *)description errors:(NSArray *)errors
 {}
 
 #pragma mark Readable strings from yaml helpers

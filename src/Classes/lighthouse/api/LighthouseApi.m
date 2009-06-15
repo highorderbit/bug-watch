@@ -6,10 +6,16 @@
 #import "WebServiceApi.h"
 #import "WebServiceResponseDispatcher.h"
 #import "LighthouseUrlBuilder.h"
+#import "NSString+UrlEncodingAdditions.h"
 
 @interface LighthouseApi ()
 
-- (id)sendRequestToUrl:(NSString *)urlString;
+- (id)sendRequestToPath:(NSString *)path;
+- (id)sendRequestToPath:(NSString *)path args:(id)firstArg, ...
+    NS_REQUIRES_NIL_TERMINATION;
+
+- (id)sendRequestToUrlString:(NSString *)urlString;
+- (id)sendRequestToUrl:(NSURL *)url;
 - (id)sendRequest:(NSURLRequest *)request;
 
 @end
@@ -28,7 +34,6 @@
 
 - (void)dealloc
 {
-    [baseUrlString release];
     [urlBuilder release];
     [credentials release];
 
@@ -36,17 +41,6 @@
     [dispatcher release];
 
     [super dealloc];
-}
-
-- (id)initWithBaseUrlString:(NSString *)aBaseUrlString
-{
-    if (self = [super init]) {
-        baseUrlString = [aBaseUrlString copy];
-        api = [[WebServiceApi alloc] initWithDelegate:self];
-        dispatcher = [[WebServiceResponseDispatcher alloc] init];
-    }
-
-    return self;
 }
 
 - (id)initWithUrlBuilder:(LighthouseUrlBuilder *)aUrlBuilder
@@ -65,76 +59,62 @@
 
 #pragma mark Tickets
 
-- (id)fetchTicketsForAllProjects:(NSString *)token
-{
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@tickets.xml?_token=%@", baseUrlString,
-        token];
-
-    return [self sendRequestToUrl:urlString];
-}
-
 - (id)fetchTicketsForAllProjects
 {
-    NSURL * url = [urlBuilder urlForPath:@"tickets.xml"];
-    url = [credentials authenticateUrl:url];
-
-    return [self sendRequest:[NSURLRequest requestWithURL:url]];
+    return [self sendRequestToPath:@"tickets.xml"];
 }
 
 - (id)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
-    token:(NSString *)token
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/tickets/%@.xml?_token=%@",
-        baseUrlString, projectKey, ticketKey, token];
-
-    return [self sendRequestToUrl:urlString];
+    return [self sendRequestToPath:
+        [NSString stringWithFormat:@"projects/%@/tickets/%@.xml",
+            projectKey, ticketKey]];
 }
 
 - (id)searchTicketsForAllProjects:(NSString *)searchString
-    page:(NSUInteger)page token:(NSString *)token
+                             page:(NSUInteger)aPage
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@tickets.xml?q=%@&page=%u&_token=%@",
-        baseUrlString,
-        [searchString
-            stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-        page,
-        token];
+    NSNumber * page = [NSNumber numberWithInteger:aPage];
 
-    return [self sendRequestToUrl:urlString];
+    if (searchString.length == 0)
+        return [self sendRequestToPath:@"tickets.xml" args:@"page", page, nil];
+    else {
+        NSString * encodedSearchString = [searchString urlEncodedString];
+        return [self sendRequestToPath:@"tickets.xml"
+                                  args:@"q", encodedSearchString,
+                                       @"page", page, nil];
+    }
 }
 
 - (id)searchTicketsForProject:(id)projectKey
-    withSearchString:(NSString *)searchString page:(NSUInteger)page
-    object:(id)object token:(NSString *)token
+             withSearchString:(NSString *)searchString
+                         page:(NSUInteger)aPage
+                       object:(id)object
 {
-    NSString * urlString =
-        [NSString
-            stringWithFormat:
-            @"%@projects/%@/tickets.xml?q=%@&page=%u&_token=%@",
-        baseUrlString,
-        projectKey,
-        [searchString
-            stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-        page,
-        token];
+    NSNumber * page = [NSNumber numberWithInteger:aPage];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/tickets.xml", projectKey];
 
-    return [self sendRequestToUrl:urlString];
+    if (searchString.length == 0)
+        return [self sendRequestToPath:path args:@"page", page, nil];
+    else {
+        NSString * encodedSearchString = [searchString urlEncodedString];
+        return [self sendRequestToPath:path args:@"q", encodedSearchString,
+           @"page", page, nil];
+    }
 }
 
 - (id)createTicketForProject:(id)projectKey description:(NSString *)description
-    token:(NSString *)token
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/tickets.xml?_token=%@",
-        baseUrlString, projectKey, token];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/tickets.xml", projectKey];
+    NSURL * url = [urlBuilder urlForPath:path];
+    url = [credentials authenticateUrl:url];
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
+
     NSData * encodedDescription =
         [description dataUsingEncoding:NSUTF8StringEncoding];
 
-    NSMutableURLRequest * req =
-        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:encodedDescription];
     [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
@@ -144,22 +124,24 @@
 
 #pragma mark Tickets -- editing
 
-- (id)editTicket:(id)ticketKey forProject:(id)projectKey
-    description:(NSString *)description token:(NSString *)token
+- (id)editTicket:(id)ticketKey
+      forProject:(id)projectKey
+     description:(NSString *)description
 {
     NSAssert(ticketKey, @"Ticket key cannot be nil.");
     NSAssert(projectKey, @"Project key cannot be nil.");
     NSAssert(description, @"Description cannot be nil.");
-    NSAssert(token, @"Token cannot be nil.");
 
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/tickets/%@.xml?_token=%@",
-        baseUrlString, projectKey, ticketKey, token];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/tickets/%@.xml",
+        projectKey, ticketKey];
+    NSURL * url = [urlBuilder urlForPath:path];
+    url = [credentials authenticateUrl:url];
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
+
     NSData * encodedDescription =
         [description dataUsingEncoding:NSUTF8StringEncoding];
 
-    NSMutableURLRequest * req =
-        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     [req setHTTPMethod:@"PUT"];
     [req setHTTPBody:encodedDescription];
     [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
@@ -170,14 +152,14 @@
 #pragma mark Tickets -- deleting
 
 - (id)deleteTicket:(id)ticketKey forProject:(id)projectKey
-    token:(NSString *)token
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/tickets/%@.xml?_token=%@",
-        baseUrlString, projectKey, ticketKey, token];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/tickets/%@.xml", projectKey,
+        ticketKey];
+    NSURL * url = [urlBuilder urlForPath:path];
+    url = [credentials authenticateUrl:url];
 
-    NSMutableURLRequest * req =
-        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"DELETE"];
 
     return [self sendRequest:req];
@@ -185,82 +167,70 @@
 
 #pragma mark Ticket Bins
 
-- (id)fetchTicketBinsForProject:(id)projectKey token:(NSString *)token
+- (id)fetchTicketBinsForProject:(id)projectKey
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/bins.xml?_token=%@",
-        baseUrlString, projectKey, token];
-
-    return [self sendRequestToUrl:urlString];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/bins.xml", projectKey];
+    return [self sendRequestToPath:path];
 }
 
 #pragma mark Users
 
-- (id)fetchAllUsersForProject:(id)projectKey token:(NSString *)token
+- (id)fetchAllUsersForProject:(id)projectKey
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/memberships.xml?_token=%@",
-        baseUrlString, projectKey, token];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/memberships.xml",
+        projectKey];
 
-    return [self sendRequestToUrl:urlString];
+    return [self sendRequestToPath:path];
 }
 
 #pragma mark Projects
 
-- (id)fetchAllProjects:(NSString *)token
+- (id)fetchAllProjects
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects.xml?_token=%@",
-        baseUrlString, token];
-
-    return [self sendRequestToUrl:urlString];
+    return [self sendRequestToPath:@"projects.xml"];
 }
 
 #pragma mark Milestones
 
-- (id)fetchMilestonesForAllProjects:(NSString *)token
+- (id)fetchMilestonesForAllProjects
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@milestones.xml?_token=%@", baseUrlString,
-        token];
-
-    return [self sendRequestToUrl:urlString];
+    return [self sendRequestToPath:@"milestones.xml"];
 }
 
 #pragma mark Messages
 
-- (id)fetchMessagesForProject:(id)projectKey token:(NSString *)token
+- (id)fetchMessagesForProject:(id)projectKey
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/messages.xml?_token=%@",
-        baseUrlString, projectKey, token];
-
-    return [self sendRequestToUrl:urlString];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/messages.xml", projectKey];
+    return [self sendRequestToPath:path];
 }
 
 - (id)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
-    token:(NSString *)token
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/messages/%@.xml?_token=%@",
-        baseUrlString, projectKey, messageKey, token];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/messages/%@.xml", projectKey,
+        messageKey];
 
-    return [self sendRequestToUrl:urlString];
+    return [self sendRequestToPath:path];
 }
 
 #pragma mark Messages -- creating
 
 - (id)createMessageForProject:(id)projectKey
-    description:(NSString *)description token:(NSString *)token
+                  description:(NSString *)description
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/messages.xml?_token=%@",
-        baseUrlString, projectKey, token];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/messages.xml", projectKey];
+    NSURL * url = [urlBuilder urlForPath:path];
+    url = [credentials authenticateUrl:url];
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
+
     NSData * encodedDescription =
         [description dataUsingEncoding:NSUTF8StringEncoding];
 
-    NSMutableURLRequest * req =
-        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:encodedDescription];
     [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
@@ -270,17 +240,20 @@
 
 #pragma mark Messages -- editing
 
-- (id)editMessage:(id)messageKey forProject:(id)projectKey
-    description:(NSString *)description token:(NSString *)token
+- (id)editMessage:(id)messageKey
+       forProject:(id)projectKey
+      description:(NSString *)description
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/messages/%@.xml?_token=%@",
-        baseUrlString, projectKey, messageKey, token];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/messages/%@.xml", projectKey,
+        messageKey];
+    NSURL * url = [urlBuilder urlForPath:path];
+    url = [credentials authenticateUrl:url];
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
+
     NSData * encodedDescription =
         [description dataUsingEncoding:NSUTF8StringEncoding];
 
-    NSMutableURLRequest * req =
-        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     [req setHTTPMethod:@"PUT"];
     [req setHTTPBody:encodedDescription];
     [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
@@ -290,17 +263,20 @@
 
 #pragma mark Messages -- adding comments
 
-- (id)addComment:(NSString *)comment toMessage:(id)messageKey
-    forProject:(id)projectKey token:(NSString *)token
+- (id)addComment:(NSString *)comment
+       toMessage:(id)messageKey
+      forProject:(id)projectKey
 {
-    NSString * urlString =
-        [NSString stringWithFormat:@"%@projects/%@/messages/%@/comments.xml?"
-        "_token=%@", baseUrlString, projectKey, messageKey, token];
+    NSString * path =
+        [NSString stringWithFormat:@"projects/%@/messages/%@/comments.xml",
+        projectKey, messageKey];
+    NSURL * url = [urlBuilder urlForPath:path];
+    url = [credentials authenticateUrl:url];
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:url];
+
     NSData * encodedDescription =
         [comment dataUsingEncoding:NSUTF8StringEncoding];
 
-    NSMutableURLRequest * req =
-        [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:encodedDescription];
     [req setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
@@ -336,12 +312,37 @@
 
 #pragma mark Request dispatching helpers
 
-- (id)sendRequestToUrl:(NSString *)urlString
+- (id)sendRequestToPath:(NSString *)path
 {
-    NSURL * url = [NSURL URLWithString:urlString];
-    NSURLRequest * req = [NSURLRequest requestWithURL:url];
+    return [self sendRequestToPath:path args:nil];
+}
 
-    return [self sendRequest:req];
+- (id)sendRequestToPath:(NSString *)path args:(id)firstArg, ...
+{
+    NSMutableArray * args = [NSMutableArray array];
+
+    va_list list;
+    va_start(list, firstArg);
+
+    for (id arg = firstArg; arg != nil; arg = va_arg(list, id))
+        [args addObject:arg];
+
+    va_end(list);
+
+    NSURL * url = [urlBuilder urlForPath:path allArgs:args];
+    url = [credentials authenticateUrl:url];
+
+    return [self sendRequestToUrl:url];
+}
+
+- (id)sendRequestToUrl:(NSURL *)url
+{
+    return [self sendRequest:[NSURLRequest requestWithURL:url]];
+}
+
+- (id)sendRequestToUrlString:(NSString *)urlString
+{
+    return [self sendRequestToUrl:[NSURL URLWithString:urlString]];
 }
 
 - (id)sendRequest:(NSURLRequest *)request

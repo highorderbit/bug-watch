@@ -3,8 +3,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LightHouseNewsFeedDelegate.h"
-#import "LightHouseNewsFeedServiceDelegate.h"
+#import "LighthouseNewsFeedDelegate.h"
+#import "LighthouseNewsFeedServiceDelegate.h"
+
+#import "LighthouseUrlBuilder.h"
+#import "LighthouseCredentials.h"
 
 @class LighthouseNewsFeed, LighthouseNewsFeedParser;
 
@@ -20,10 +23,11 @@
 
 #pragma mark Initialization
 
-- (id)initWithBaseUrlString:(NSString *)baseUrlString;
+- (id)initWithUrlBuilder:(LighthouseUrlBuilder *)urlBuilder
+             credentials:(LighthouseCredentials *)credentials;
 
 #pragma mark Refreshing the news feed
 
-- (void)fetchNewsFeed:(NSString *)token;
+- (void)fetchNewsFeed;
 
 @end

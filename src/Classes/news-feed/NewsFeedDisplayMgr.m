@@ -8,6 +8,7 @@
 #import "NewsFeedItemViewController.h"
 #import "NewsFeedDataSource.h"
 #import "NetworkAwareViewController.h"
+#import "UIAlertView+InstantiationAdditions.h"
 
 @interface NewsFeedDisplayMgr ()
 
@@ -110,6 +111,23 @@
 
     [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
     [networkAwareViewController setCachedDataAvailable:YES];
+}
+
+- (void)failedToUpdateNewsFeed:(NSError *)error
+{
+    NSLog(@"Failed to update news feed: %@.", error);
+
+    NSString * title =
+        NSLocalizedString(@"newsfeed.update.failed.alert.title", @"");
+    NSString * message = error.localizedDescription;
+
+    UIAlertView * alertView =
+        [UIAlertView simpleAlertViewWithTitle:title message:message];
+    [alertView show];
+
+    [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
+    [networkAwareViewController
+        setCachedDataAvailable:!!newsFeedViewController.newsItems];
 }
 
 #pragma mark Accessors

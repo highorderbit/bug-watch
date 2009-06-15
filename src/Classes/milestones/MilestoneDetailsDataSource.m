@@ -79,13 +79,10 @@
                                            searchString:searchString];
     else {
         [delegate fetchDidBegin];
-        [service
-            searchTicketsForProject:self.projectKey
-            withSearchString:searchString
-            page:1
-            object:milestoneKey
-            token:@"6998f7ed27ced7a323b256d83bd7fec98167b1b3"];
-
+        [service searchTicketsForProject:self.projectKey
+                        withSearchString:searchString
+                                    page:1
+                                  object:milestoneKey];
     }
 
     return !!ticketNumbers;
@@ -169,13 +166,14 @@
 }
 
 - (void)failedToSearchTicketsForProject:(id)aProjectKey
-    searchString:(NSString *)searchString error:(NSError *)error
+                           searchString:(NSString *)searchString
+                                 errors:(NSArray *)errors
 {
     NSLog(@"Failed to search for milestone details: '%@', '%@', '%@'.",
-        aProjectKey, searchString, error);
+        aProjectKey, searchString, errors);
 
     [delegate failedToSearchTicketsForProject:aProjectKey
-        searchString:searchString error:error];
+        searchString:searchString errors:errors];
 
     [delegate fetchDidEnd];
 }

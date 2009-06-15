@@ -60,13 +60,18 @@
 
 - (NSURL *)authenticateUrl:(NSURL *)url
 {
-    NSString * args = [url parameterString];
     NSMutableString * urlString = [[url absoluteString] mutableCopy];
 
-    if (args.length > 0)
-        [urlString appendFormat:@"&_token=%@", token];
-    else
+    NSRange where = [urlString rangeOfString:
+        [url.scheme stringByAppendingString:@"://"]];
+    [urlString insertString:[account stringByAppendingString:@"."]
+                    atIndex:where.length];
+
+    where = [urlString rangeOfString:@"?"];
+    if (where.location == NSNotFound && where.length == 0)
         [urlString appendFormat:@"?_token=%@", token];
+    else
+        [urlString appendFormat:@"&_token=%@", token];
 
     return [NSURL URLWithString:urlString];
 }

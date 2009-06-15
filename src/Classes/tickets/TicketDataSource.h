@@ -12,7 +12,6 @@
 {
     NSObject<TicketDataSourceDelegate> * delegate;
     LighthouseApiService * service;
-    NSString * token;
 }
 
 @property (nonatomic, assign) NSObject<TicketDataSourceDelegate> * delegate;
