@@ -248,6 +248,9 @@ titleForFooterInSection:(NSInteger)section
     self.accountTextField.text = @"";
     self.usernameTextField.text = @"";
     self.passwordTextField.text = @"";
+
+    // force redrawing of the account section's footer
+    [self.tableView reloadData];
 }
 
 - (void)enableForm
