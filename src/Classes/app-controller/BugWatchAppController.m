@@ -36,6 +36,7 @@
 #import "MessagePersistenceStore.h"
 #import "LogInDisplayMgr.h"
 #import "LogInState.h"
+#import "InfoPlistConfigReader.h"
 
 @interface BugWatchAppController (Private)
 
@@ -58,6 +59,9 @@
 + (void)broadcastMilestoneCache:(MilestoneCache *)cache;
 + (void)broadcastProjectCache:(ProjectCache *)cache;
 + (void)broadcastUserCache:(UserCache *)cache;
+
++ (NSString *)lighthouseDomain;
++ (NSString *)lighthouseScheme;
 
 + (NSString *)newsFeedCachePlist;
 + (NSString *)ticketCachePlist;
@@ -108,10 +112,8 @@
 
 - (void)start
 {
-    // TEMPORARY
-    NSString * domain = @"lighthouseapp.com"; 
-    NSString * scheme = @"https";
-    // TEMPORARY
+    NSString * domain = [[self class] lighthouseDomain];
+    NSString * scheme = [[self class] lighthouseScheme];
 
     lighthouseApiFactory =
         [[LighthouseApiServiceFactory alloc]
@@ -492,11 +494,19 @@
 
 - (void)initNewsFeedTab
 {
+    NSString * domain = [[self class] lighthouseDomain];
+    NSString * scheme = [[self class] lighthouseScheme];
+    // TEMPORARY
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
+    // TEMPORARY
+
     // temporary instantiation of the log in state
     LogInState * logInState = nil;
     LogInDisplayMgr * logInDisplayMgr =
         [[LogInDisplayMgr alloc] initWithLogInState:logInState
-                                 rootViewController:tabBarController];
+                                 rootViewController:tabBarController
+                                   lighthouseDomain:domain
+                                   lighthouseScheme:scheme];
 
     UIBarButtonItem * logInButton =
         [[[UIBarButtonItem alloc]
@@ -504,12 +514,6 @@
                 style:UIBarButtonItemStylePlain
                target:logInDisplayMgr
                action:@selector(logIn)] autorelease];
-
-    // TEMPORARY
-    NSString * domain = @"lighthouseapp.com"; 
-    NSString * scheme = @"https";
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
-    // TEMPORARY
 
     LighthouseUrlBuilder * builder =
         [LighthouseUrlBuilder builderWithLighthouseDomain:domain
@@ -572,6 +576,20 @@
         initWithNetworkAwareViewController:milestonesNetworkAwareViewController
         milestoneDataSource:milestoneDataSource
         milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
+}
+
+#pragma mark Configuration values
+
++ (NSString *)lighthouseDomain
+{
+    InfoPlistConfigReader * configReader = [InfoPlistConfigReader reader];
+    return [configReader valueForKey:@"LighthouseDomain"];
+}
+
++ (NSString *)lighthouseScheme
+{
+    InfoPlistConfigReader * configReader = [InfoPlistConfigReader reader];
+    return [configReader valueForKey:@"LighthouseScheme"];
 }
 
 #pragma mark String constants

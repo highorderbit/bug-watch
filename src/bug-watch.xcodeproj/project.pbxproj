@@ -77,6 +77,7 @@
 		054FCF540FE4778700834323 /* NSString+UrlEncodingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 054FCF530FE4778700834323 /* NSString+UrlEncodingAdditions.m */; };
 		054FCFA40FE482FE00834323 /* LogInResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 054FCFA30FE482FE00834323 /* LogInResponseProcessor.m */; };
 		054FD0220FE59AE900834323 /* UIAlertView+InstantiationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 054FD0210FE59AE900834323 /* UIAlertView+InstantiationAdditions.m */; };
+		054FD2350FE7091000834323 /* InfoPlistConfigReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 054FD2340FE7091000834323 /* InfoPlistConfigReader.m */; };
 		0552127B0FAA4C2700626049 /* NewsFeedDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */; };
 		055212940FAA599600626049 /* NewsFeedItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055212930FAA599600626049 /* NewsFeedItemViewController.m */; };
 		055212970FAA59B800626049 /* NewsFeedItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055212950FAA59B800626049 /* NewsFeedItemView.xib */; };
@@ -347,6 +348,9 @@
 		054FCFA50FE589AC00834323 /* LighthouseAccountAuthenticatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseAccountAuthenticatorDelegate.h; path = lighthouse/authentication/LighthouseAccountAuthenticatorDelegate.h; sourceTree = "<group>"; };
 		054FD0200FE59AE900834323 /* UIAlertView+InstantiationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+InstantiationAdditions.h"; path = "shared/UIAlertView+InstantiationAdditions.h"; sourceTree = "<group>"; };
 		054FD0210FE59AE900834323 /* UIAlertView+InstantiationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+InstantiationAdditions.m"; path = "shared/UIAlertView+InstantiationAdditions.m"; sourceTree = "<group>"; };
+		054FD2320FE7091000834323 /* ConfigReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigReader.h; path = configuration/ConfigReader.h; sourceTree = "<group>"; };
+		054FD2330FE7091000834323 /* InfoPlistConfigReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoPlistConfigReader.h; path = configuration/InfoPlistConfigReader.h; sourceTree = "<group>"; };
+		054FD2340FE7091000834323 /* InfoPlistConfigReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoPlistConfigReader.m; path = configuration/InfoPlistConfigReader.m; sourceTree = "<group>"; };
 		055212790FAA4C2700626049 /* NewsFeedDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedDisplayMgr.h; path = "news-feed/NewsFeedDisplayMgr.h"; sourceTree = "<group>"; };
 		0552127A0FAA4C2700626049 /* NewsFeedDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedDisplayMgr.m; path = "news-feed/NewsFeedDisplayMgr.m"; sourceTree = "<group>"; };
 		0552127C0FAA4D1700626049 /* NewsFeedViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedViewControllerDelegate.h; path = "news-feed/NewsFeedViewControllerDelegate.h"; sourceTree = "<group>"; };
@@ -775,6 +779,16 @@
 			name = "log-in";
 			sourceTree = "<group>";
 		};
+		054FD2310FE708FF00834323 /* configuration */ = {
+			isa = PBXGroup;
+			children = (
+				054FD2320FE7091000834323 /* ConfigReader.h */,
+				054FD2330FE7091000834323 /* InfoPlistConfigReader.h */,
+				054FD2340FE7091000834323 /* InfoPlistConfigReader.m */,
+			);
+			name = configuration;
+			sourceTree = "<group>";
+		};
 		0552136E0FAB555900626049 /* vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1091,10 +1105,10 @@
 			isa = PBXGroup;
 			children = (
 				059FE2E20FE2E7C5009E96BF /* authentication */,
-				91E507660FE2B90400BF41B4 /* LighthouseKey.h */,
-				91E507670FE2B90400BF41B4 /* LighthouseKey.m */,
 				05DEB23C0FB2194E0052888E /* api */,
 				05DEB2160FB216CA0052888E /* news-feed */,
+				91E507660FE2B90400BF41B4 /* LighthouseKey.h */,
+				91E507670FE2B90400BF41B4 /* LighthouseKey.m */,
 				91E5076A0FE2B97300BF41B4 /* LighthouseKey+Serialization.h */,
 				91E5076B0FE2B97300BF41B4 /* LighthouseKey+Serialization.m */,
 			);
@@ -1115,6 +1129,7 @@
 				917DE3FA0FB37A3F00BF2015 /* messages */,
 				05EFD7C10FA924D8001DFCFB /* lighthouse */,
 				05C870720FA77FCC0069BC72 /* web-service */,
+				054FD2310FE708FF00834323 /* configuration */,
 				05E637760FA8D35100F736A5 /* shared */,
 				0552136E0FAB555900626049 /* vendor */,
 			);
@@ -1743,6 +1758,7 @@
 				054FD0220FE59AE900834323 /* UIAlertView+InstantiationAdditions.m in Sources */,
 				91E507680FE2B90400BF41B4 /* LighthouseKey.m in Sources */,
 				91E5076C0FE2B97300BF41B4 /* LighthouseKey+Serialization.m in Sources */,
+				054FD2350FE7091000834323 /* InfoPlistConfigReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

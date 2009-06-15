@@ -54,6 +54,7 @@ enum CredentialRows
 @synthesize logInButton, cancelButton;
 @synthesize accountCell, usernameCell, passwordCell;
 @synthesize accountTextField, usernameTextField, passwordTextField;
+@synthesize lighthouseDomain, lighthouseScheme;
 
 - (void)dealloc
 {
@@ -71,6 +72,9 @@ enum CredentialRows
     self.accountTextField = nil;
     self.usernameTextField = nil;
     self.passwordTextField = nil;
+
+    self.lighthouseDomain = nil;
+    self.lighthouseScheme = nil;
 
     [super dealloc];
 }
@@ -150,8 +154,8 @@ titleForFooterInSection:(NSInteger)section
         if (account.length == 0)
             account = self.accountTextField.placeholder;
 
-        return [NSString stringWithFormat:@"https://%@.lighthouseapp.com",
-            account];
+        return [NSString stringWithFormat:@"%@://%@.%@", self.lighthouseScheme,
+            account, self.lighthouseDomain];
     }
 
     return nil;

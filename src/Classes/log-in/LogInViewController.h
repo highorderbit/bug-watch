@@ -21,9 +21,15 @@
     IBOutlet UITextField * accountTextField;
     IBOutlet UITextField * usernameTextField;
     IBOutlet UITextField * passwordTextField;
+
+    NSString * lighthouseDomain;
+    NSString * lighthouseScheme;
 }
 
 @property (nonatomic, assign) id<LogInViewControllerDelegate> delegate;
+
+@property (nonatomic, copy) NSString * lighthouseDomain;
+@property (nonatomic, copy) NSString * lighthouseScheme;
 
 - (void)promptForLogIn;
 
