@@ -64,11 +64,11 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TicketTableViewCell";
+    static NSString * cellIdentifier = @"TicketTableViewCell";
     
     TicketTableViewCell * cell =
         (TicketTableViewCell *)
-        [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         NSArray * nib =
             [[NSBundle mainBundle] loadNibNamed:@"TicketTableViewCell"

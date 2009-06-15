@@ -26,15 +26,28 @@
 
     NSDictionary * comments;
     NSDictionary * commentAuthors;
+    NSUInteger ticketNumber;
+    Ticket * ticket;
+    NSString * milestoneName;
+    NSString * reportedByName;
+    NSString * assignedToName;
 }
 
 @property (nonatomic, retain)
     NSObject<TicketDetailsViewControllerDelegate> * delegate;
+
+@property (nonatomic, retain) Ticket * ticket;
+@property (nonatomic, copy) NSString * milestoneName;
+@property (nonatomic, copy) NSString * reportedByName;
+@property (nonatomic, copy) NSString * assignedToName;
 
 - (void)setTicketNumber:(NSUInteger)aNumber
     ticket:(Ticket *)aTicket metaData:(TicketMetaData *)someMetaData
     reportedBy:(NSString *)reportedBy assignedTo:(NSString *)assignedTo
     milestone:(NSString *)milestone comments:(NSDictionary *)someComments
     commentAuthors:(NSDictionary *)someCommentAuthors;
+    
+- (IBAction)sendInEmail:(id)sender;
+- (IBAction)openInBrowser:(id)sender;
 
 @end

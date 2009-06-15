@@ -18,7 +18,7 @@
 
 @implementation TicketDetailsViewController
 
-@synthesize delegate;
+@synthesize delegate, ticket, milestoneName, reportedByName, assignedToName;
 
 - (void)dealloc {
     [headerView release];
@@ -33,8 +33,14 @@
     [assignedToLabel release];
     [milestoneLabel release];
     [messageLabel release];
+
     [comments release];
     [commentAuthors release];
+    [ticket release];
+    [milestoneName release];
+    [reportedByName release];
+    [assignedToName release];
+
     [super dealloc];
 }
 
@@ -119,6 +125,12 @@
     milestone:(NSString *)milestone comments:(NSDictionary * )someComments
     commentAuthors:(NSDictionary *)someCommentAuthors
 {
+    ticketNumber = aNumber;
+    self.ticket = aTicket;
+    self.milestoneName = milestone;
+    self.reportedByName = reportedBy;
+    self.assignedToName = assignedTo;
+
     self.navigationItem.title =
         [NSString stringWithFormat:@"Ticket %d", aNumber];
     numberLabel.text = [NSString stringWithFormat:@"# %d", aNumber];
@@ -212,7 +224,8 @@
 
     CGRect headerViewFrame = headerView.frame;
     NSInteger headerViewOffset =
-        ![messageLabel.text isEqual:@""] ? COMMENT_PADDING : -1 * COMMENT_PADDING;
+        ![messageLabel.text isEqual:@""] ?
+        COMMENT_PADDING : -1 * COMMENT_PADDING;
     headerViewFrame.size.height =
         messageLabelFrame.origin.y + messageLabelFrame.size.height +
         headerViewOffset;
@@ -225,6 +238,51 @@
 - (NSArray *)sortedKeys
 {
     return [[comments allKeys] sortedArrayUsingSelector:@selector(compare:)];
+}
+
+#pragma mark Action button implementation
+
+- (IBAction)sendInEmail:(id)sender
+{
+    NSLog(@"Sending ticket details email...");
+
+    NSString * subject =
+        [NSString stringWithFormat:@"Lighthouse Ticket #%d: %@", ticketNumber,
+        self.ticket.description];
+    NSMutableString * body = [NSMutableString stringWithCapacity:0];
+    [body appendFormat:@"\nDetails:\n"];
+    [body appendFormat:@"\nTicket #%d: %@\n", ticketNumber,
+        self.ticket.description];
+    TicketComment * firstComment =
+        [comments objectForKey:[[self sortedKeys] objectAtIndex:0]];
+    if (firstComment.text)
+        [body appendFormat:@"\n%@\n", firstComment.text];
+    if (self.milestoneName)
+        [body appendFormat:@"\nMilestone: %@", self.milestoneName];
+    [body appendFormat:@"\nReported by: %@", self.reportedByName];
+    if (self.assignedToName)
+        [body appendFormat:@"\nAssigned to: %@", self.assignedToName];
+    [body appendFormat:@"\nCreated: %@",
+        [self.ticket.creationDate shortDateAndTimeDescription]];
+
+    NSString * urlString =
+        [[NSString stringWithFormat:@"mailto:?subject=%@&body=%@", subject,
+        body]
+        stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSURL * url = [[NSURL alloc] initWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
+    [url release];
+}
+
+- (IBAction)openInBrowser:(id)sender
+{
+    NSLog(@"Opening ticket details in browser...");
+
+    NSString * webAddress = @"http://lighthouseapp.com/";
+    NSURL * url = [[NSURL alloc] initWithString:webAddress];
+    [[UIApplication sharedApplication] openURL:url];
+    [url release];
 }
 
 @end

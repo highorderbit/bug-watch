@@ -19,11 +19,23 @@
     
     NSDictionary * responses;
     NSDictionary * responseAuthors;
+    NSString * authorName;
+    NSDate * date;
+    NSString * title;
+    NSString * comment;
 }
+
+@property (nonatomic, copy) NSString * authorName;
+@property (nonatomic, copy) NSDate * date;
+@property (nonatomic, copy) NSString * title;
+@property (nonatomic, copy) NSString * comment;
 
 - (void)setAuthorName:(NSString *)authorName date:(NSDate *)date
     projectName:(NSString *)projectName title:(NSString *)title
     comment:(NSString *)comment responses:(NSDictionary *)someResponses
     responseAuthors:(NSDictionary *)someResponseAuthors;
+
+- (IBAction)sendInEmail:(id)sender;
+- (IBAction)openInBrowser:(id)sender;
 
 @end

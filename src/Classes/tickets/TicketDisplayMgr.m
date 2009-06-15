@@ -458,7 +458,7 @@
 
     self.editTicketViewController.member = [NSNumber numberWithInt:0];
     self.editTicketViewController.members = [[userDict copy] autorelease];
-    
+
     self.editTicketViewController.milestone = [NSNumber numberWithInt:0];
     self.editTicketViewController.milestones = self.milestonesForProject;
 
