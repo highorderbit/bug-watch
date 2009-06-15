@@ -153,7 +153,7 @@
 }
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
-    searchString:(NSString *)searchString error:(NSError *)error
+    searchString:(NSString *)searchString errors:(NSArray *)errors
 {
 }
 

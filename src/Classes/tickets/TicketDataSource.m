@@ -119,7 +119,7 @@
 }
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
-    page:(NSUInteger)page error:(NSError *)error
+    page:(NSUInteger)page errors:(NSArray *)errors
 {}
 
 - (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
@@ -137,7 +137,7 @@
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString page:(NSUInteger)page
-    object:(id)object error:(NSError *)error
+    object:(id)object errors:(NSArray *)errors
 {}
 
 - (void)details:(NSArray *)details authors:(NSArray *)authors
@@ -174,7 +174,7 @@
 }
 
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
-    inProject:(id)projectKey error:(NSError *)error
+    inProject:(id)projectKey errors:(NSArray *)errors
 {}
 
 - (void)ticket:(id)ticketKey describedBy:(NewTicketDescription *)description
@@ -184,7 +184,7 @@
 }
 
 - (void)failedToCreateNewTicketDescribedBy:(NewTicketDescription *)description
-    forProject:(id)projectKey error:(NSError *)error
+    forProject:(id)projectKey errors:(NSArray *)errors
 {}
 
 - (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
@@ -193,7 +193,7 @@
 }
 
 - (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
-    error:(NSError *)error
+    errors:(NSArray *)errors
 {}
 
 - (void)editedTicket:(id)ticketNum forProject:(id)projectKey
@@ -208,7 +208,7 @@
 }
 
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
-    describedBy:(UpdateTicketDescription *)description error:(NSError *)error
+    describedBy:(UpdateTicketDescription *)description errors:(NSArray *)errors
 {}
 
 #pragma mark Readable strings from yaml helpers

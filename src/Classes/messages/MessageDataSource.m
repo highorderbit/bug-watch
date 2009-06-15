@@ -62,7 +62,7 @@
     [delegate receivedMessagesFromDataSource:messageCache];
 }
 
-- (void)failedToFetchMessagesForProject:(id)projectKey error:(NSError *)error
+- (void)failedToFetchMessagesForProject:(id)projectKey errors:(NSArray *)errors
 {}
 
 - (void)message:(id)messageKey describedBy:(NewMessageDescription *)desc
@@ -72,7 +72,7 @@
 }
 
 - (void)failedToCreateMessageDescribedBy:(NewMessageDescription *)desc
-    forProject:(id)projectKey error:(NSError *)error
+    forProject:(id)projectKey errors:(NSArray *)errors
 {}
 
 - (void)comments:(NSArray *)comments commentKeys:(NSArray *)commentKeys

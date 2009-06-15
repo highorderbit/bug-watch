@@ -166,13 +166,14 @@
 }
 
 - (void)failedToSearchTicketsForProject:(id)aProjectKey
-    searchString:(NSString *)searchString error:(NSError *)error
+                           searchString:(NSString *)searchString
+                                 errors:(NSArray *)errors
 {
     NSLog(@"Failed to search for milestone details: '%@', '%@', '%@'.",
-        aProjectKey, searchString, error);
+        aProjectKey, searchString, errors);
 
     [delegate failedToSearchTicketsForProject:aProjectKey
-        searchString:searchString error:error];
+        searchString:searchString errors:errors];
 
     [delegate fetchDidEnd];
 }
