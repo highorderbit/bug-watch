@@ -34,6 +34,11 @@
     return self;
 }
 
+- (LighthouseCredentials *)credentials
+{
+    return newsFeed.credentials;
+}
+
 - (void)setCredentials:(LighthouseCredentials *)credentials
 {
     newsFeed.credentials = credentials;

@@ -520,10 +520,6 @@
 {
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
-    // TEMPORARY
-    NSString * account = @"highorderbit";
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
-    // TEMPORARY
 
     // temporary instantiation of the log in state
     LogInState * logInState = nil;
@@ -543,13 +539,10 @@
     LighthouseUrlBuilder * builder =
         [LighthouseUrlBuilder builderWithLighthouseDomain:domain
                                                    scheme:scheme];
-    LighthouseCredentials * cdtls =
-        [[LighthouseCredentials alloc] initWithAccount:account
-                                                 token:token];
 
     LighthouseNewsFeedService * newsFeedService =
         [[LighthouseNewsFeedService alloc] initWithUrlBuilder:builder
-                                                  credentials:cdtls];
+                                                  credentials:credentials];
     NewsFeedPersistenceStore * newsFeedPersistenceStore =
         [[[NewsFeedPersistenceStore alloc] init] autorelease];
     NSArray * newsItemCache =
@@ -614,14 +607,12 @@
 
 + (NSString *)lighthouseDomain
 {
-    InfoPlistConfigReader * configReader = [InfoPlistConfigReader reader];
-    return [configReader valueForKey:@"LighthouseDomain"];
+    return [[InfoPlistConfigReader reader] valueForKey:@"LighthouseDomain"];
 }
 
 + (NSString *)lighthouseScheme
 {
-    InfoPlistConfigReader * configReader = [InfoPlistConfigReader reader];
-    return [configReader valueForKey:@"LighthouseScheme"];
+    return [[InfoPlistConfigReader reader] valueForKey:@"LighthouseScheme"];
 }
 
 #pragma mark String constants

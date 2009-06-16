@@ -4,6 +4,7 @@
 
 #import "NewsFeedDataSource.h"
 #import "LighthouseNewsFeedService.h"
+#import "LighthouseCredentials.h"
 
 @interface NewsFeedDataSource (Private)
 
@@ -26,7 +27,7 @@
 #pragma mark Initialization
 
 - (id)initWithNewsFeedService:(LighthouseNewsFeedService *)aService
-    cache:(NSArray *)aCache
+                        cache:(NSArray *)aCache
 {
     if (self = [super init]) {
         service = [aService retain];
@@ -77,6 +78,16 @@
 }
 
 #pragma mark Accessors
+
+- (LighthouseCredentials *)credentials
+{
+    return [service credentials];
+}
+
+- (void)setCredentials:(LighthouseCredentials *)credentials
+{
+    [service setCredentials:credentials];
+}
 
 - (void)setCache:(NSArray *)aCache
 {

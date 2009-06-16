@@ -26,6 +26,11 @@
 - (id)initWithUrlBuilder:(LighthouseUrlBuilder *)urlBuilder
              credentials:(LighthouseCredentials *)credentials;
 
+#pragma mark Changing user credentials
+
+- (LighthouseCredentials *)credentials;
+- (void)setCredentials:(LighthouseCredentials *)credentials;
+
 #pragma mark Refreshing the news feed
 
 - (void)fetchNewsFeed;

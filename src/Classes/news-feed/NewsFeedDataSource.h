@@ -6,7 +6,7 @@
 #import "NewsFeedDataSourceDelegate.h"
 #import "LighthouseNewsFeedServiceDelegate.h"
 
-@class LighthouseNewsFeedService;
+@class LighthouseNewsFeedService, LighthouseCredentials;
 
 @interface NewsFeedDataSource : NSObject <LighthouseNewsFeedServiceDelegate>
 {
@@ -34,5 +34,10 @@
 
 - (BOOL)fetchNewsFeedIfNecessary;
 - (void)refreshNewsFeed;
+
+#pragma mark Updating credentials
+
+- (LighthouseCredentials *)credentials;
+- (void)setCredentials:(LighthouseCredentials *)credentials;
 
 @end
