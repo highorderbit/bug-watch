@@ -10,7 +10,8 @@
 
 @interface LogInDisplayMgr :
     NSObject
-    <LogInViewControllerDelegate, LighthouseAccountAuthenticatorDelegate>
+    <LogInViewControllerDelegate, LighthouseAccountAuthenticatorDelegate,
+     UIActionSheetDelegate>
 {
     LighthouseCredentials * credentials;
 
@@ -27,5 +28,9 @@
          lighthouseScheme:(NSString *)aLighthouseScheme;
 
 - (void)logIn;
+
+#pragma mark Notification names
+
++ (NSString *)credentialsChangedNotificationName;
 
 @end

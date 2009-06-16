@@ -45,7 +45,6 @@
 
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
                       newsFeedDataSource:(NewsFeedDataSource *)dataSource
-                       leftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem
 {
     if (self = [super init]) {
         networkAwareViewController = [navc retain];
@@ -60,9 +59,6 @@
 
         newsFeedDataSource = [dataSource retain];
         newsFeedDataSource.delegate = self;
-
-        networkAwareViewController.navigationItem.leftBarButtonItem =
-            leftBarButtonItem;
 
         credentialsUpdatePublisher =
             [[CredentialsUpdatePublisher alloc]
@@ -169,7 +165,7 @@
         [self userDidRequestRefresh];
         [self addRefreshButtonItem];
     } else {
-        [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
+        [networkAwareViewController setUpdatingState:kDisconnected];
         [networkAwareViewController setNoConnectionText:
             NSLocalizedString(@"loggedout.nodata.text", @"")];
         [self removeRefreshButtonItem];

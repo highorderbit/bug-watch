@@ -62,6 +62,8 @@
 + (NSString *)lighthouseDomain;
 + (NSString *)lighthouseScheme;
 
+- (NSString *)logInButtonTitle;
+
 + (NSString *)newsFeedCachePlist;
 + (NSString *)ticketCachePlist;
 + (NSString *)projectLevelTicketCachePlist;
@@ -537,10 +539,12 @@
 
     UIBarButtonItem * logInButton =
         [[[UIBarButtonItem alloc]
-        initWithTitle:NSLocalizedString(@"login.button.title", @"")
+        initWithTitle:[self logInButtonTitle]
                 style:UIBarButtonItemStylePlain
                target:logInDisplayMgr
                action:@selector(logIn)] autorelease];
+    newsFeedNetworkAwareViewController.navigationItem.leftBarButtonItem =
+        logInButton;
 
     LighthouseUrlBuilder * builder =
         [LighthouseUrlBuilder builderWithLighthouseDomain:domain
@@ -563,8 +567,7 @@
     newsFeedDisplayMgr =
         [[NewsFeedDisplayMgr alloc]
         initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
-                        newsFeedDataSource:newsFeedDataSource
-                         leftBarButtonItem:logInButton];
+                        newsFeedDataSource:newsFeedDataSource];
 
     [newsFeedDataSource release];
 }
@@ -607,6 +610,9 @@
 - (void)credentialsChanged:(LighthouseCredentials *)someCredentials
 {
     self.credentials = someCredentials;
+
+    newsFeedNetworkAwareViewController.navigationItem.leftBarButtonItem.title =
+        [self logInButtonTitle];
 }
 
 #pragma mark Configuration values
@@ -619,6 +625,13 @@
 + (NSString *)lighthouseScheme
 {
     return [[InfoPlistConfigReader reader] valueForKey:@"LighthouseScheme"];
+}
+
+- (NSString *)logInButtonTitle
+{
+    return credentials ?
+        NSLocalizedString(@"logout.button.title", @"") :
+        NSLocalizedString(@"login.button.title", @"");
 }
 
 #pragma mark String constants

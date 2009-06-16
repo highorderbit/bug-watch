@@ -15,6 +15,8 @@
 
 - (void)promptForLogOutConfirmation;
 
+- (void)sendCredentialsChangedNotification;
+
 @property (nonatomic, copy) LighthouseCredentials * credentials;
 @property (nonatomic, retain) LogInViewController * logInViewController;
 @property (nonatomic, retain) UIViewController * rootViewController;
@@ -107,6 +109,32 @@
 
 - (void)promptForLogOutConfirmation
 {
+    NSString * title = NSLocalizedString(@"logout.confirm.title", @"");
+    NSString * cancel = NSLocalizedString(@"logout.confirm.cancel.text", @"");
+    NSString * confirm = NSLocalizedString(@"logout.confirm.logout.text", @"");
+
+    UIActionSheet * sheet =
+        [[UIActionSheet alloc] initWithTitle:title
+                                    delegate:self
+                           cancelButtonTitle:cancel
+                      destructiveButtonTitle:confirm
+                           otherButtonTitles:nil];
+    [sheet showInView:rootViewController.view];
+}
+
+#pragma mark UIAlertSheetDelegate implementation
+
+- (void)actionSheet:(UIActionSheet *)sheet
+clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"User clicked button at index: %d.", buttonIndex);
+
+    if (buttonIndex == 0) {  // user really wants to log out
+        self.credentials = nil;
+        [self sendCredentialsChangedNotification];
+    }
+
+    [sheet autorelease];
 }
 
 #pragma mark LighthouseAccountAuthenticatorDelegate implementation
@@ -119,6 +147,7 @@
     [rootViewController dismissModalViewControllerAnimated:YES];
 
     self.credentials = someCredentials;
+    [self sendCredentialsChangedNotification];
 }
 
 - (void)failedToAuthenticateAccount:(LighthouseCredentials *)someCredentials
@@ -137,6 +166,18 @@
     [alert show];
 }
 
+- (void)sendCredentialsChangedNotification
+{
+    // notify the system that the 'logged in' credentials have changed
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSMutableDictionary * userInfo = [NSMutableDictionary dictionary];
+    if (self.credentials)
+        [userInfo setObject:self.credentials forKey:@"credentials"];
+    NSString * notificationName =
+        [[self class] credentialsChangedNotificationName];
+    [nc postNotificationName:notificationName object:self userInfo:userInfo];
+}
+
 #pragma mark Accessors
 
 - (LogInViewController *)logInViewController
@@ -151,6 +192,13 @@
     }
 
     return logInViewController;
+}
+
+#pragma mark Notification names
+
++ (NSString *)credentialsChangedNotificationName
+{
+    return @"CredentialsChangedNotification";
 }
 
 @end

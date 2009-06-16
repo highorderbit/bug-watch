@@ -7,13 +7,15 @@
 
 @interface CredentialsUpdatePublisher : AbstractUpdatePublisher
 {
+    id listener;
+    SEL action;
 }
 
 //
 // The selector provided should have the same arguments as:
 //   - (void)credentialsChanged:(LighthouseCredentials *)credentials;
 //
-+ (id)publisherWithListener:(id)listener action:(SEL)action;
-- (id)initWithListener:(id)listener action:(SEL)action;
++ (id)publisherWithListener:(id)aListener action:(SEL)anAction;
+- (id)initWithListener:(id)aListener action:(SEL)anAction;
 
 @end

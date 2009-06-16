@@ -29,8 +29,7 @@
 #pragma mark Initialization
 
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
-                  newsFeedDataSource:(NewsFeedDataSource *)dataSource
-                   leftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem;
+                  newsFeedDataSource:(NewsFeedDataSource *)dataSource;
 
 #pragma mark Changing user credentials
 
