@@ -312,7 +312,7 @@
 
     // hack to account for odd behavior
     [self performSelector:@selector(correctSearchViewSize) withObject:nil
-        afterDelay:0.4];
+        afterDelay:0.5];
 
     [self updateDisplayIfDirty];
 }
