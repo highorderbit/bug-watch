@@ -13,6 +13,8 @@
     NSDictionary * projectDict;
     NSDictionary * numResponsesDict;
     NSObject<MessagesViewControllerDelegate> * delegate;
+
+    NSArray * sortedKeyCache;
 }
 
 - (void)setMessages:(NSDictionary *)someMessages
@@ -20,9 +22,10 @@
     projectDict:(NSDictionary *)aProjectDict
     numResponsesDict:(NSDictionary *)aNumResponsesDict;
 
-@property (nonatomic, retain)
+@property (nonatomic, assign)
     NSObject<MessagesViewControllerDelegate> * delegate;
 
 @property (nonatomic, readonly) NSArray * sortedKeys;
+@property (nonatomic, retain) NSArray * sortedKeyCache;
 
 @end
