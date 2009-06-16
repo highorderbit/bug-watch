@@ -97,6 +97,8 @@
     [cell setCommentText:comment.text];
 
     NSString * authorName = [commentAuthors objectForKey:commentKey];
+    // in case author dictionary is incomplete or not set
+    authorName = authorName ? authorName : @"...";
     [cell setAuthorName:authorName];
 
     return cell;
@@ -128,6 +130,19 @@
     milestone:(NSString *)milestone comments:(NSDictionary * )someComments
     commentAuthors:(NSDictionary *)someCommentAuthors
 {
+    if (!aTicket)
+        [NSException raise:@"NilTicketArgument"
+            format:@"'ticket' cannot be nil"];
+    if (!someMetaData)
+        [NSException raise:@"NilMetadataArgument"
+            format:@"'metadata' cannot be nil"];
+    if (!reportedBy)
+        [NSException raise:@"NilReportedByArgument"
+            format:@"'reportedBy' cannot be nil"];
+    if (!someComments)
+        [NSException raise:@"NilCommentsArgument"
+            format:@"'comments' cannot be nil"];
+
     ticketNumber = aNumber;
     self.ticket = aTicket;
     self.milestoneName = milestone;
@@ -144,11 +159,10 @@
     dateLabel.text = [aTicket.creationDate shortDescription];
     NSString * noneString = NSLocalizedString(@"ticketdetails.view.none", @"");
     descriptionLabel.text = aTicket.description;
-    NSString * reportedByText = reportedBy ? reportedBy : noneString;
     NSString * reportedByFormatString =
         NSLocalizedString(@"ticketdetails.view.reportedby", @"");
     reportedByLabel.text =
-        [NSString stringWithFormat:reportedByFormatString, reportedByText];
+        [NSString stringWithFormat:reportedByFormatString, reportedBy];
     NSString * assignedToText = assignedTo ? assignedTo : noneString;
     NSString * assignedToFormatString =
         NSLocalizedString(@"ticketdetails.view.assignedto", @"");

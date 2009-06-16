@@ -187,6 +187,10 @@
     NSMutableDictionary * comments = [NSMutableDictionary dictionary];
     for (id commentKey in commentKeys) {
         TicketComment * comment = [commentCache commentForKey:commentKey];
+        if (!comment)
+            [NSException raise:@"MissingTicketComment"
+                format:@"Unable to find ticket comment for key %@",
+                commentKey];
         [comments setObject:comment forKey:commentKey];
     }
 
@@ -195,7 +199,8 @@
         NSString * userKey =
             [commentCache authorKeyForCommentKey:commentKey];
         NSString * commentAuthor = [userDict objectForKey:userKey];
-        [commentAuthors setObject:commentAuthor forKey:commentKey];
+        if (commentAuthor)
+            [commentAuthors setObject:commentAuthor forKey:commentKey];
     }
 
     [self.detailsViewController setTicketNumber:key.key
