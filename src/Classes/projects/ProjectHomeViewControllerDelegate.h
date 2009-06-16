@@ -9,5 +9,6 @@
 
 - (void)selectedTab:(NSUInteger)tab;
 - (void)deselectedTab;
+- (void)deselectedProject;
 
 @end

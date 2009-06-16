@@ -33,6 +33,7 @@
         ticketDisplayMgr = [aTicketDisplayMgr retain];
         messageDisplayMgr = [aMessageDisplayMgr retain];
         self.selectedTab = PROJECT_TAB_UNSELECTED;
+        changedProject = NO;
     }
 
     return self;
@@ -47,7 +48,15 @@
 
 - (void)deselectedProject
 {
+    NSLog(@"Deselected project.");
+
     self.selectedProjectKey = 0;
+
+    // clear data specific to previous project
+    ticketDisplayMgr.ticketCache = nil;
+    messageDisplayMgr.messageCache = nil;
+
+    changedProject = YES;
 }
 
 - (void)presentSelectedProjectKey:(id)key animated:(BOOL)animated
@@ -61,12 +70,18 @@
     // controller -- seems to fix some UI glitches
     self.projectHomeViewController.navigationItem.title = project.name;
 
-    [self.navController pushViewController:self.projectHomeViewController
-        animated:animated];
-
     self.projectHomeViewController.navigationItem.title = project.name;
     ticketDisplayMgr.activeProjectKey = key;
     messageDisplayMgr.activeProjectKey = key;
+    if (changedProject) {
+        [ticketDisplayMgr ticketsFilteredByFilterString:@""];
+        [messageDisplayMgr showAllMessages];
+    }
+
+    [self.navController pushViewController:self.projectHomeViewController
+        animated:animated];
+
+    changedProject = NO;
 }
 
 #pragma mark ProjectHomeViewControllerDelegate implementation

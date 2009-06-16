@@ -8,5 +8,6 @@
 @protocol MessagesViewControllerDelegate
 
 - (void)selectedMessageKey:(LighthouseKey *)key;
+- (void)showAllMessages;
 
 @end

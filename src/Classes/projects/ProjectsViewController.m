@@ -16,12 +16,6 @@
     [super dealloc];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [delegate deselectedProject];
-}
-
 #pragma mark UITableViewDataSource implementationp
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

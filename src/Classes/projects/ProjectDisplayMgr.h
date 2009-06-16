@@ -27,6 +27,8 @@ static const NSInteger PROJECT_TAB_UNSELECTED = -1;
     ProjectCache * projectCache;    
     id selectedProjectKey;
     NSInteger selectedTab;
+    
+    BOOL changedProject;
 }
 
 @property (readonly) ProjectHomeViewController * projectHomeViewController;

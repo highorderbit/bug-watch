@@ -16,6 +16,14 @@
     [delegate deselectedTab];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([self.navigationController.viewControllers count] == 2)
+        [delegate deselectedProject];
+}
+
 #pragma mark TableViewDataSource implementation
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
