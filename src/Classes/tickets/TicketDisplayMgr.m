@@ -104,7 +104,8 @@
     
     CGRect loadingLabelFrame = CGRectMake(21, 120, 280, 65);
     loadingLabel = [[UILabel alloc] initWithFrame:loadingLabelFrame];
-    loadingLabel.text = @"Creating ticket...";
+    loadingLabel.text =
+        NSLocalizedString(@"ticketdisplaymgr.creatingticket", @"");
     loadingLabel.textAlignment = UITextAlignmentCenter;
     loadingLabel.font = [UIFont boldSystemFontOfSize:20];
     loadingLabel.textColor = [UIColor whiteColor];
@@ -118,9 +119,11 @@
 {
     NSLog(@"Ticket %@ selected", key);
     self.activeProjectKey = [NSNumber numberWithInt:key.projectKey];
-
+    
+    NSString * titleFormatString =
+        NSLocalizedString(@"ticketdisplaymgr.title", @"");
     self.detailsNetAwareViewController.title =
-        [NSString stringWithFormat:@"Ticket %d", key.key];
+        [NSString stringWithFormat:titleFormatString, key.key];
     [self.navController
         pushViewController:self.detailsNetAwareViewController animated:YES];
 
@@ -427,7 +430,7 @@
             [NSNumber numberWithInteger:selectedTicketKey.key];
         [dataSource editTicketWithKey:ticketKey description:desc
             forProject:[NSNumber numberWithInt:selectedTicketKey.projectKey]];
-        actionText = @"Editing ticket...";
+        actionText = NSLocalizedString(@"ticketdisplaymgr.editingticket", @"");
     } else {
         NewTicketDescription * desc = [NewTicketDescription description];
         desc.title = sender.ticketDescription;
@@ -444,7 +447,7 @@
 
         [dataSource createTicketWithDescription:desc
             forProject:activeProjectKey];
-        actionText = @"Creating ticket...";
+        actionText = NSLocalizedString(@"ticketdisplaymgr.creatingticket", @"");
     }
     
     [self disableEditViewWithText:actionText];
@@ -516,7 +519,8 @@
             initWithTargetViewController:self.detailsViewController];
         UIBarButtonItem * editButton =
             [[[UIBarButtonItem alloc] init] autorelease];
-        editButton.title = @"Edit";
+        editButton.title =
+            NSLocalizedString(@"ticketdisplaymgr.editbutton", @"");
         editButton.target = self;
         editButton.action = @selector(editTicket);
         [detailsNetAwareViewController.navigationItem
