@@ -3,6 +3,7 @@
 //
 
 #import "LighthouseCredentialsPersistenceStore.h"
+#import "PlistUtils.h"
 
 @implementation LighthouseCredentialsPersistenceStore
 
@@ -26,10 +27,8 @@
 {
     if (credentials)
         [credentials saveToPlist:plist];
-    else {
-        // do something else here, like maybe delete the plist file if it
-        // exists
-    }
+    else
+        [PlistUtils removePlist:plist];
 }
 
 @end

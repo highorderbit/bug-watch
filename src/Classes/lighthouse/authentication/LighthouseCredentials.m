@@ -211,7 +211,6 @@
     return [obj autorelease];
 }
 
-
 - (id)initWithAccount:(NSString *)anAccount
              username:(NSString *)aUsername
              password:(NSString *)aPassword
