@@ -17,10 +17,15 @@
 
     LogInViewController * logInViewController;
     UIViewController * rootViewController;
+
+    NSString * lighthouseDomain;
+    NSString * lighthouseScheme;
 }
 
 - (id)initWithLogInState:(LogInState *)aLogInState
-      rootViewController:(UIViewController *)aRootViewController;
+      rootViewController:(UIViewController *)aRootViewController
+        lighthouseDomain:(NSString *)aLighthouseDomain
+        lighthouseScheme:(NSString *)aLighthouseScheme;
 
 - (void)logIn;
 

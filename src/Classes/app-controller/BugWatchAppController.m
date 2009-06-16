@@ -35,8 +35,9 @@
 #import "MessagePersistenceStore.h"
 #import "LogInDisplayMgr.h"
 #import "LogInState.h"
+#import "InfoPlistConfigReader.h"
 
-@interface BugWatchAppController (Private)
+@interface BugWatchAppController ()
 
 - (void)initTicketsTab;
 - (TicketDisplayMgr *)createTicketDispMgr:(TicketCache *)ticketCache
@@ -58,6 +59,9 @@
 + (void)broadcastProjectCache:(ProjectCache *)cache;
 + (void)broadcastUserCache:(UserCache *)cache;
 
++ (NSString *)lighthouseDomain;
++ (NSString *)lighthouseScheme;
+
 + (NSString *)newsFeedCachePlist;
 + (NSString *)ticketCachePlist;
 + (NSString *)projectLevelTicketCachePlist;
@@ -66,9 +70,13 @@
 + (NSString *)messageCachePlist;
 + (NSString *)userCachePlist;
 
+@property (nonatomic, copy) LighthouseCredentials * credentials;
+
 @end
 
 @implementation BugWatchAppController
+
+@synthesize credentials;
 
 - (void)dealloc
 {
@@ -101,6 +109,9 @@
 
     [lighthouseApiFactory release];
 
+    [credentials release];
+    [credentialsUpdatePublisher release];
+
     [super dealloc];
 }
 
@@ -108,10 +119,12 @@
 
 - (void)start
 {
-    // TEMPORARY
-    NSString * domain = @"lighthouseapp.com"; 
-    NSString * scheme = @"https";
-    // TEMPORARY
+    NSString * domain = [[self class] lighthouseDomain];
+    NSString * scheme = [[self class] lighthouseScheme];
+
+    credentialsUpdatePublisher =
+        [[CredentialsUpdatePublisher alloc]
+        initWithListener:self action:@selector(credentialsChanged:)];
 
     lighthouseApiFactory =
         [[LighthouseApiServiceFactory alloc]
@@ -505,11 +518,20 @@
 
 - (void)initNewsFeedTab
 {
+    NSString * domain = [[self class] lighthouseDomain];
+    NSString * scheme = [[self class] lighthouseScheme];
+    // TEMPORARY
+    NSString * account = @"highorderbit";
+    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
+    // TEMPORARY
+
     // temporary instantiation of the log in state
     LogInState * logInState = nil;
     LogInDisplayMgr * logInDisplayMgr =
         [[LogInDisplayMgr alloc] initWithLogInState:logInState
-                                 rootViewController:tabBarController];
+                                 rootViewController:tabBarController
+                                   lighthouseDomain:domain
+                                   lighthouseScheme:scheme];
 
     UIBarButtonItem * logInButton =
         [[[UIBarButtonItem alloc]
@@ -518,22 +540,16 @@
                target:logInDisplayMgr
                action:@selector(logIn)] autorelease];
 
-    // TEMPORARY
-    NSString * domain = @"lighthouseapp.com"; 
-    NSString * scheme = @"https";
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
-    // TEMPORARY
-
     LighthouseUrlBuilder * builder =
         [LighthouseUrlBuilder builderWithLighthouseDomain:domain
                                                    scheme:scheme];
-    LighthouseCredentials * credentials =
-        [[LighthouseCredentials alloc] initWithAccount:@"highorderbit"
+    LighthouseCredentials * cdtls =
+        [[LighthouseCredentials alloc] initWithAccount:account
                                                  token:token];
 
     LighthouseNewsFeedService * newsFeedService =
         [[LighthouseNewsFeedService alloc] initWithUrlBuilder:builder
-                                                  credentials:credentials];
+                                                  credentials:cdtls];
     NewsFeedPersistenceStore * newsFeedPersistenceStore =
         [[[NewsFeedPersistenceStore alloc] init] autorelease];
     NSArray * newsItemCache =
@@ -585,6 +601,27 @@
         initWithNetworkAwareViewController:milestonesNetworkAwareViewController
         milestoneDataSource:milestoneDataSource
         milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
+}
+
+#pragma mark Log in/log out notifications
+
+- (void)credentialsChanged:(LighthouseCredentials *)someCredentials
+{
+    self.credentials = someCredentials;
+}
+
+#pragma mark Configuration values
+
++ (NSString *)lighthouseDomain
+{
+    InfoPlistConfigReader * configReader = [InfoPlistConfigReader reader];
+    return [configReader valueForKey:@"LighthouseDomain"];
+}
+
++ (NSString *)lighthouseScheme
+{
+    InfoPlistConfigReader * configReader = [InfoPlistConfigReader reader];
+    return [configReader valueForKey:@"LighthouseScheme"];
 }
 
 #pragma mark String constants

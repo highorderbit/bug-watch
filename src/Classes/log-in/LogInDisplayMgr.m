@@ -19,26 +19,37 @@
 @property (nonatomic, retain) LogInViewController * logInViewController;
 @property (nonatomic, retain) UIViewController * rootViewController;
 
+@property (nonatomic, copy) NSString * lighthouseDomain;
+@property (nonatomic, copy) NSString * lighthouseScheme;
+
 @end
 
 @implementation LogInDisplayMgr
 
 @synthesize logInState, logInViewController, rootViewController;
+@synthesize lighthouseDomain, lighthouseScheme;
 
 - (void)dealloc
 {
     self.logInState = nil;
     self.logInViewController = nil;
     self.rootViewController = nil;
+    self.lighthouseDomain = nil;
+    self.lighthouseScheme = nil;
     [super dealloc];
 }
 
 - (id)initWithLogInState:(LogInState *)aLogInState
       rootViewController:(UIViewController *)aRootViewController
+        lighthouseDomain:(NSString *)aLighthouseDomain
+        lighthouseScheme:(NSString *)aLighthouseScheme
 {
     if (self = [super init]) {
         self.logInState = aLogInState;
         self.rootViewController = aRootViewController;
+
+        self.lighthouseDomain = aLighthouseDomain;
+        self.lighthouseScheme = aLighthouseScheme;
     }
 
     return self;
@@ -77,7 +88,7 @@
 
     LighthouseAccountAuthenticator * authenticator =
         [[LighthouseAccountAuthenticator alloc]
-        initWithLighthouseDomain:@"lighthouseapp.com" scheme:@"https"];
+        initWithLighthouseDomain:lighthouseDomain scheme:lighthouseScheme];
     authenticator.delegate = self;
 
     LighthouseCredentials * credentials =
@@ -135,6 +146,8 @@
             [[LogInViewController alloc] initWithNibName:@"LogInView"
                                                   bundle:nil];
         logInViewController.delegate = self;
+        logInViewController.lighthouseDomain = lighthouseDomain;
+        logInViewController.lighthouseScheme = lighthouseScheme;
     }
 
     return logInViewController;

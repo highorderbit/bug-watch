@@ -89,7 +89,6 @@
 - (id)searchTicketsForProject:(id)projectKey
              withSearchString:(NSString *)searchString
                          page:(NSUInteger)aPage
-                       object:(id)object
 {
     NSNumber * page = [NSNumber numberWithInteger:aPage];
     NSString * path =

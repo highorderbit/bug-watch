@@ -121,8 +121,7 @@
 
     id requestId = [api searchTicketsForProject:projectKey
                                withSearchString:searchString
-                                           page:page
-                                         object:object];
+                                           page:page];
 
     [self trackProcessor:processor forRequest:requestId];
 }
