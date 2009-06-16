@@ -37,7 +37,7 @@
 #import "LogInState.h"
 #import "InfoPlistConfigReader.h"
 
-@interface BugWatchAppController (Private)
+@interface BugWatchAppController ()
 
 - (void)initTicketsTab;
 - (TicketDisplayMgr *)createTicketDispMgr:(TicketCache *)ticketCache
@@ -70,9 +70,13 @@
 + (NSString *)messageCachePlist;
 + (NSString *)userCachePlist;
 
+@property (nonatomic, copy) LighthouseCredentials * credentials;
+
 @end
 
 @implementation BugWatchAppController
+
+@synthesize credentials;
 
 - (void)dealloc
 {
@@ -105,6 +109,9 @@
 
     [lighthouseApiFactory release];
 
+    [credentials release];
+    [credentialsUpdatePublisher release];
+
     [super dealloc];
 }
 
@@ -114,6 +121,10 @@
 {
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
+
+    credentialsUpdatePublisher =
+        [[CredentialsUpdatePublisher alloc]
+        initWithListener:self action:@selector(credentialsChanged:)];
 
     lighthouseApiFactory =
         [[LighthouseApiServiceFactory alloc]
@@ -510,6 +521,7 @@
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
     // TEMPORARY
+    NSString * account = @"highorderbit";
     NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
     // TEMPORARY
 
@@ -531,13 +543,13 @@
     LighthouseUrlBuilder * builder =
         [LighthouseUrlBuilder builderWithLighthouseDomain:domain
                                                    scheme:scheme];
-    LighthouseCredentials * credentials =
-        [[LighthouseCredentials alloc] initWithAccount:@"highorderbit"
+    LighthouseCredentials * cdtls =
+        [[LighthouseCredentials alloc] initWithAccount:account
                                                  token:token];
 
     LighthouseNewsFeedService * newsFeedService =
         [[LighthouseNewsFeedService alloc] initWithUrlBuilder:builder
-                                                  credentials:credentials];
+                                                  credentials:cdtls];
     NewsFeedPersistenceStore * newsFeedPersistenceStore =
         [[[NewsFeedPersistenceStore alloc] init] autorelease];
     NSArray * newsItemCache =
@@ -589,6 +601,13 @@
         initWithNetworkAwareViewController:milestonesNetworkAwareViewController
         milestoneDataSource:milestoneDataSource
         milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
+}
+
+#pragma mark Log in/log out notifications
+
+- (void)credentialsChanged:(LighthouseCredentials *)someCredentials
+{
+    self.credentials = someCredentials;
 }
 
 #pragma mark Configuration values

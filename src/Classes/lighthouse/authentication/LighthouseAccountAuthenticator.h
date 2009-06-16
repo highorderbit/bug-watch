@@ -30,4 +30,8 @@
 
 - (void)authenticateCredentials:(LighthouseCredentials *)credentials;
 
+#pragma mark Notification names
+
++ (NSString *)credentialsChangedNotificationName;
+
 @end

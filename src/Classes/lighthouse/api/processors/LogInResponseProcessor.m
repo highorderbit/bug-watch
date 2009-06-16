@@ -4,6 +4,7 @@
 
 #import "LogInResponseProcessor.h"
 #import "LighthouseCredentials.h"
+#import "LighthouseAccountAuthenticator.h"
 
 @interface LogInResponseProcessor ()
 
@@ -53,6 +54,15 @@
     [self invokeSelector:sel
               withTarget:self.delegate
                     args:self.credentials, nil];
+
+    // notify the system that the 'logged in' credentials have changed
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSDictionary * userInfo =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        self.credentials, @"credentials", nil];
+    NSString * notificationName =
+        [LighthouseAccountAuthenticator credentialsChangedNotificationName];
+    [nc postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
 - (void)processErrors:(NSArray *)errors foundInResponse:(NSData *)xml

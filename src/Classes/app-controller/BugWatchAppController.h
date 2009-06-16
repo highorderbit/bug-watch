@@ -23,6 +23,8 @@
 #import "MilestoneCache.h"
 #import "MessageDisplayMgr.h"
 #import "MessageDisplayMgrFactory.h"
+#import "LighthouseCredentials.h"
+#import "CredentialsUpdatePublisher.h"
 
 @interface BugWatchAppController : NSObject
 {
@@ -55,6 +57,9 @@
     UserCacheSetter * userCacheSetter;
 
     LighthouseApiServiceFactory * lighthouseApiFactory;
+
+    LighthouseCredentials * credentials;
+    CredentialsUpdatePublisher * credentialsUpdatePublisher;
 }
 
 - (void)start;
