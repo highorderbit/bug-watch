@@ -3,17 +3,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LogInState.h"
 #import "LogInViewControllerDelegate.h"
 #import "LighthouseAccountAuthenticatorDelegate.h"
 
-@class LogInViewController;
+@class LighthouseCredentials, LogInViewController;
 
 @interface LogInDisplayMgr :
     NSObject
     <LogInViewControllerDelegate, LighthouseAccountAuthenticatorDelegate>
 {
-    LogInState * logInState;
+    LighthouseCredentials * credentials;
 
     LogInViewController * logInViewController;
     UIViewController * rootViewController;
@@ -22,10 +21,10 @@
     NSString * lighthouseScheme;
 }
 
-- (id)initWithLogInState:(LogInState *)aLogInState
-      rootViewController:(UIViewController *)aRootViewController
-        lighthouseDomain:(NSString *)aLighthouseDomain
-        lighthouseScheme:(NSString *)aLighthouseScheme;
+- (id)initWithCredentials:(LighthouseCredentials *)someCredentials
+       rootViewController:(UIViewController *)aRootViewController
+         lighthouseDomain:(NSString *)aLighthouseDomain
+         lighthouseScheme:(NSString *)aLighthouseScheme;
 
 - (void)logIn;
 

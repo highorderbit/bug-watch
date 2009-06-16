@@ -34,8 +34,8 @@
 #import "ProjectSpecificTicketBinDSAdapter.h"
 #import "MessagePersistenceStore.h"
 #import "LogInDisplayMgr.h"
-#import "LogInState.h"
 #import "InfoPlistConfigReader.h"
+#import "LighthouseCredentialsPersistenceStore.h"
 
 @interface BugWatchAppController ()
 
@@ -69,6 +69,7 @@
 + (NSString *)milestoneCachePlist;
 + (NSString *)messageCachePlist;
 + (NSString *)userCachePlist;
++ (NSString *)credentialsPlist;
 
 @property (nonatomic, copy) LighthouseCredentials * credentials;
 
@@ -121,6 +122,10 @@
 {
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
+
+    self.credentials = (LighthouseCredentials *)
+        [[LighthouseCredentialsPersistenceStore store]
+        loadWithPlist:[[self class] credentialsPlist]];
 
     credentialsUpdatePublisher =
         [[CredentialsUpdatePublisher alloc]
@@ -175,6 +180,9 @@
 - (void)persistState
 {
     NSLog(@"Persisting state...");
+
+    [[LighthouseCredentialsPersistenceStore store]
+        saveCredentials:credentials toPlist:[[self class] credentialsPlist]];
 
     NewsFeedPersistenceStore * newsFeedPersistenceStore =
         [[[NewsFeedPersistenceStore alloc] init] autorelease];
@@ -521,13 +529,11 @@
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
 
-    // temporary instantiation of the log in state
-    LogInState * logInState = nil;
     LogInDisplayMgr * logInDisplayMgr =
-        [[LogInDisplayMgr alloc] initWithLogInState:logInState
-                                 rootViewController:tabBarController
-                                   lighthouseDomain:domain
-                                   lighthouseScheme:scheme];
+        [[LogInDisplayMgr alloc] initWithCredentials:credentials
+                                  rootViewController:tabBarController
+                                    lighthouseDomain:domain
+                                    lighthouseScheme:scheme];
 
     UIBarButtonItem * logInButton =
         [[[UIBarButtonItem alloc]
@@ -650,6 +656,11 @@
 + (NSString *)userCachePlist
 {
     return @"UserCache";
+}
+
++ (NSString *)credentialsPlist
+{
+    return @"LighthouseCredentials";
 }
 
 @end
