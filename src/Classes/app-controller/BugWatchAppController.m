@@ -34,8 +34,8 @@
 #import "ProjectSpecificTicketBinDSAdapter.h"
 #import "MessagePersistenceStore.h"
 #import "LogInDisplayMgr.h"
-#import "LogInState.h"
 #import "InfoPlistConfigReader.h"
+#import "LighthouseCredentialsPersistenceStore.h"
 
 @interface BugWatchAppController ()
 
@@ -62,6 +62,8 @@
 + (NSString *)lighthouseDomain;
 + (NSString *)lighthouseScheme;
 
+- (NSString *)logInButtonTitle;
+
 + (NSString *)newsFeedCachePlist;
 + (NSString *)ticketCachePlist;
 + (NSString *)projectLevelTicketCachePlist;
@@ -69,6 +71,7 @@
 + (NSString *)milestoneCachePlist;
 + (NSString *)messageCachePlist;
 + (NSString *)userCachePlist;
++ (NSString *)credentialsPlist;
 
 @property (nonatomic, copy) LighthouseCredentials * credentials;
 
@@ -121,6 +124,10 @@
 {
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
+
+    self.credentials = (LighthouseCredentials *)
+        [[LighthouseCredentialsPersistenceStore store]
+        loadWithPlist:[[self class] credentialsPlist]];
 
     credentialsUpdatePublisher =
         [[CredentialsUpdatePublisher alloc]
@@ -175,6 +182,9 @@
 - (void)persistState
 {
     NSLog(@"Persisting state...");
+
+    [[LighthouseCredentialsPersistenceStore store]
+        saveCredentials:credentials toPlist:[[self class] credentialsPlist]];
 
     NewsFeedPersistenceStore * newsFeedPersistenceStore =
         [[[NewsFeedPersistenceStore alloc] init] autorelease];
@@ -520,36 +530,29 @@
 {
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
-    // TEMPORARY
-    NSString * account = @"highorderbit";
-    NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
-    // TEMPORARY
 
-    // temporary instantiation of the log in state
-    LogInState * logInState = nil;
     LogInDisplayMgr * logInDisplayMgr =
-        [[LogInDisplayMgr alloc] initWithLogInState:logInState
-                                 rootViewController:tabBarController
-                                   lighthouseDomain:domain
-                                   lighthouseScheme:scheme];
+        [[LogInDisplayMgr alloc] initWithCredentials:credentials
+                                  rootViewController:tabBarController
+                                    lighthouseDomain:domain
+                                    lighthouseScheme:scheme];
 
     UIBarButtonItem * logInButton =
         [[[UIBarButtonItem alloc]
-        initWithTitle:NSLocalizedString(@"login.button.title", @"")
+        initWithTitle:[self logInButtonTitle]
                 style:UIBarButtonItemStylePlain
                target:logInDisplayMgr
                action:@selector(logIn)] autorelease];
+    newsFeedNetworkAwareViewController.navigationItem.leftBarButtonItem =
+        logInButton;
 
     LighthouseUrlBuilder * builder =
         [LighthouseUrlBuilder builderWithLighthouseDomain:domain
                                                    scheme:scheme];
-    LighthouseCredentials * cdtls =
-        [[LighthouseCredentials alloc] initWithAccount:account
-                                                 token:token];
 
     LighthouseNewsFeedService * newsFeedService =
         [[LighthouseNewsFeedService alloc] initWithUrlBuilder:builder
-                                                  credentials:cdtls];
+                                                  credentials:credentials];
     NewsFeedPersistenceStore * newsFeedPersistenceStore =
         [[[NewsFeedPersistenceStore alloc] init] autorelease];
     NSArray * newsItemCache =
@@ -564,8 +567,7 @@
     newsFeedDisplayMgr =
         [[NewsFeedDisplayMgr alloc]
         initWithNetworkAwareViewController:newsFeedNetworkAwareViewController
-                        newsFeedDataSource:newsFeedDataSource
-                         leftBarButtonItem:logInButton];
+                        newsFeedDataSource:newsFeedDataSource];
 
     [newsFeedDataSource release];
 }
@@ -608,20 +610,28 @@
 - (void)credentialsChanged:(LighthouseCredentials *)someCredentials
 {
     self.credentials = someCredentials;
+
+    newsFeedNetworkAwareViewController.navigationItem.leftBarButtonItem.title =
+        [self logInButtonTitle];
 }
 
 #pragma mark Configuration values
 
 + (NSString *)lighthouseDomain
 {
-    InfoPlistConfigReader * configReader = [InfoPlistConfigReader reader];
-    return [configReader valueForKey:@"LighthouseDomain"];
+    return [[InfoPlistConfigReader reader] valueForKey:@"LighthouseDomain"];
 }
 
 + (NSString *)lighthouseScheme
 {
-    InfoPlistConfigReader * configReader = [InfoPlistConfigReader reader];
-    return [configReader valueForKey:@"LighthouseScheme"];
+    return [[InfoPlistConfigReader reader] valueForKey:@"LighthouseScheme"];
+}
+
+- (NSString *)logInButtonTitle
+{
+    return credentials ?
+        NSLocalizedString(@"logout.button.title", @"") :
+        NSLocalizedString(@"login.button.title", @"");
 }
 
 #pragma mark String constants
@@ -659,6 +669,11 @@
 + (NSString *)userCachePlist
 {
     return @"UserCache";
+}
+
++ (NSString *)credentialsPlist
+{
+    return @"LighthouseCredentials";
 }
 
 @end

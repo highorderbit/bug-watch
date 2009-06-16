@@ -121,11 +121,4 @@
     [dict removeObjectForKey:requestId];
 }
 
-#pragma mark Notification names
-
-+ (NSString *)credentialsChangedNotificationName
-{
-    return @"CredentialsChangedNotification";
-}
-
 @end

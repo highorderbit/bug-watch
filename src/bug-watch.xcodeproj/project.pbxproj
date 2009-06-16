@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05222D7C0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 05222D7B0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.m */; };
 		052C59290FB364CE00C7A30C /* NSDate+LighthouseStringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E637780FA8D36500F736A5 /* NSDate+LighthouseStringHelpers.m */; };
 		052C592B0FB364DC00C7A30C /* NSDate+StringHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E6377C0FA8D36500F736A5 /* NSDate+StringHelpers.m */; };
 		052C59CB0FB3916300C7A30C /* ticket.xml in Resources */ = {isa = PBXBuildFile; fileRef = 052C59CA0FB3916300C7A30C /* ticket.xml */; };
@@ -70,7 +71,6 @@
 		0537C83A0FE0AA5300D87E0B /* NSNumberLighthouseApiTypeConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8070FE0A95200D87E0B /* NSNumberLighthouseApiTypeConverter.m */; };
 		0537C83B0FE0AA5300D87E0B /* TicketMetaData+LighthouseApiParsingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C8090FE0A95200D87E0B /* TicketMetaData+LighthouseApiParsingAdditions.m */; };
 		0537C90A0FE1B6D100D87E0B /* LogInDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C9090FE1B6D100D87E0B /* LogInDisplayMgr.m */; };
-		0537C90D0FE1B6E000D87E0B /* LogInState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C90C0FE1B6E000D87E0B /* LogInState.m */; };
 		0537C9840FE1C4F000D87E0B /* LogInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0537C9820FE1C4F000D87E0B /* LogInView.xib */; };
 		0537C99F0FE1CFA700D87E0B /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537C99E0FE1CFA700D87E0B /* LogInViewController.m */; };
 		0544B4CA0FB270C900E78FBC /* Milestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736790FAFB97100059D20 /* Milestone.m */; };
@@ -262,6 +262,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05222D7A0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LighthouseCredentialsPersistenceStore.h; path = "log-in/LighthouseCredentialsPersistenceStore.h"; sourceTree = "<group>"; };
+		05222D7B0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseCredentialsPersistenceStore.m; path = "log-in/LighthouseCredentialsPersistenceStore.m"; sourceTree = "<group>"; };
 		052C59CA0FB3916300C7A30C /* ticket.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ticket.xml; path = "test/xml-samples/ticket.xml"; sourceTree = "<group>"; };
 		052C5B8F0FB3AD6600C7A30C /* tickets.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tickets.xml; path = "test/xml-samples/tickets.xml"; sourceTree = "<group>"; };
 		052C5C1A0FB490F100C7A30C /* milestone.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = milestone.xml; path = "test/xml-samples/milestone.xml"; sourceTree = "<group>"; };
@@ -336,8 +338,6 @@
 		0537C81A0FE0A9B400D87E0B /* UpdateTicketDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTicketDescription.m; sourceTree = "<group>"; };
 		0537C9080FE1B6D100D87E0B /* LogInDisplayMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInDisplayMgr.h; path = "log-in/LogInDisplayMgr.h"; sourceTree = "<group>"; };
 		0537C9090FE1B6D100D87E0B /* LogInDisplayMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInDisplayMgr.m; path = "log-in/LogInDisplayMgr.m"; sourceTree = "<group>"; };
-		0537C90B0FE1B6E000D87E0B /* LogInState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInState.h; path = "log-in/LogInState.h"; sourceTree = "<group>"; };
-		0537C90C0FE1B6E000D87E0B /* LogInState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInState.m; path = "log-in/LogInState.m"; sourceTree = "<group>"; };
 		0537C9830FE1C4F000D87E0B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LogInView.xib; sourceTree = "<group>"; };
 		0537C99D0FE1CFA700D87E0B /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInViewController.h; path = "log-in/LogInViewController.h"; sourceTree = "<group>"; };
 		0537C99E0FE1CFA700D87E0B /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInViewController.m; path = "log-in/LogInViewController.m"; sourceTree = "<group>"; };
@@ -775,11 +775,11 @@
 			children = (
 				0537C9080FE1B6D100D87E0B /* LogInDisplayMgr.h */,
 				0537C9090FE1B6D100D87E0B /* LogInDisplayMgr.m */,
-				0537C90B0FE1B6E000D87E0B /* LogInState.h */,
-				0537C90C0FE1B6E000D87E0B /* LogInState.m */,
 				0537C99D0FE1CFA700D87E0B /* LogInViewController.h */,
 				0537C99E0FE1CFA700D87E0B /* LogInViewController.m */,
 				0537C9C60FE1D1F800D87E0B /* LogInViewControllerDelegate.h */,
+				05222D7A0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.h */,
+				05222D7B0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.m */,
 			);
 			name = "log-in";
 			sourceTree = "<group>";
@@ -1753,7 +1753,6 @@
 				919893CB0FE0275700A61099 /* MessagePersistenceStore.m in Sources */,
 				91E506800FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m in Sources */,
 				0537C90A0FE1B6D100D87E0B /* LogInDisplayMgr.m in Sources */,
-				0537C90D0FE1B6E000D87E0B /* LogInState.m in Sources */,
 				0537C99F0FE1CFA700D87E0B /* LogInViewController.m in Sources */,
 				059FE2E50FE2E7ED009E96BF /* LighthouseAccountAuthenticator.m in Sources */,
 				059FE2E80FE2F365009E96BF /* LighthouseCredentials.m in Sources */,
@@ -1765,6 +1764,7 @@
 				91E5076C0FE2B97300BF41B4 /* LighthouseKey+Serialization.m in Sources */,
 				054FD2350FE7091000834323 /* InfoPlistConfigReader.m in Sources */,
 				054FD2B30FE718D400834323 /* CredentialsUpdatePublisher.m in Sources */,
+				05222D7C0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

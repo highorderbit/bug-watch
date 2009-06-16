@@ -9,11 +9,16 @@
 #import "NewsFeedDataSource.h"
 #import "NetworkAwareViewController.h"
 #import "UIAlertView+InstantiationAdditions.h"
+#import "LighthouseCredentials.h"
+#import "CredentialsUpdatePublisher.h"
 
 @interface NewsFeedDisplayMgr ()
 
 @property (nonatomic, retain) NewsFeedItemViewController *
     newsFeedItemViewController;
+
+- (void)addRefreshButtonItem;
+- (void)removeRefreshButtonItem;
 
 @end
 
@@ -30,14 +35,16 @@
 
     [networkAwareViewController release];
 
+    [credentialsUpdatePublisher release];
+
     [super dealloc];
 }
+
 
 #pragma mark Initialization
 
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
-                  newsFeedDataSource:(NewsFeedDataSource *)dataSource
-                   leftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem
+                      newsFeedDataSource:(NewsFeedDataSource *)dataSource
 {
     if (self = [super init]) {
         networkAwareViewController = [navc retain];
@@ -53,17 +60,21 @@
         newsFeedDataSource = [dataSource retain];
         newsFeedDataSource.delegate = self;
 
-        UIBarButtonItem * refreshButton =
-            [[UIBarButtonItem alloc]
-            initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-            target:self
-            action:@selector(userDidRequestRefresh)];
-        networkAwareViewController.navigationItem.rightBarButtonItem =
-            refreshButton;
-        [refreshButton release];
+        credentialsUpdatePublisher =
+            [[CredentialsUpdatePublisher alloc]
+            initWithListener:self action:@selector(setCredentials:)];
 
-        networkAwareViewController.navigationItem.leftBarButtonItem =
-            leftBarButtonItem;
+        if ([self credentials]) {
+            [self addRefreshButtonItem];
+            [networkAwareViewController setNoConnectionText:
+                NSLocalizedString(@"nodata.noconnection.text", @"")];
+        } else {
+            [self removeRefreshButtonItem];
+            [networkAwareViewController setNoConnectionText:
+                NSLocalizedString(@"loggedout.nodata.text", @"")];
+            [networkAwareViewController setCachedDataAvailable:NO];
+            [networkAwareViewController setUpdatingState:kDisconnected];
+        }
     }
 
     return self;
@@ -73,15 +84,18 @@
 
 - (void)networkAwareViewWillAppear
 {
-    NSArray * items = [newsFeedDataSource currentNewsFeed];
-    newsFeedViewController.newsItems = items;
-    [networkAwareViewController setCachedDataAvailable:!!items];
+    if ([self credentials]) {
+        NSArray * items = [newsFeedDataSource currentNewsFeed];
+        newsFeedViewController.newsItems = items;
+        [networkAwareViewController setCachedDataAvailable:!!items];
 
-    BOOL updating = [newsFeedDataSource fetchNewsFeedIfNecessary];
-    if (updating)
-        [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
-    else
-        [networkAwareViewController setUpdatingState:kConnectedAndNotUpdating];
+        BOOL updating = [newsFeedDataSource fetchNewsFeedIfNecessary];
+        if (updating)
+            [networkAwareViewController setUpdatingState:kConnectedAndUpdating];
+        else
+            [networkAwareViewController
+                setUpdatingState:kConnectedAndNotUpdating];
+    }
 }
 
 #pragma mark NewsFeedViewControllerDelegate implementation
@@ -132,6 +146,32 @@
 
 #pragma mark Accessors
 
+- (LighthouseCredentials *)credentials
+{
+    return [newsFeedDataSource credentials];
+}
+
+- (void)setCredentials:(LighthouseCredentials *)credentials
+{
+    [newsFeedDataSource setCredentials:credentials];
+
+    [networkAwareViewController setCachedDataAvailable:NO];
+    if (credentials) {
+        [networkAwareViewController
+            setNoConnectionText:
+            NSLocalizedString(@"nodata.noconnection.text", @"")];
+
+        [newsFeedDataSource setCredentials:credentials];
+        [self userDidRequestRefresh];
+        [self addRefreshButtonItem];
+    } else {
+        [networkAwareViewController setUpdatingState:kDisconnected];
+        [networkAwareViewController setNoConnectionText:
+            NSLocalizedString(@"loggedout.nodata.text", @"")];
+        [self removeRefreshButtonItem];
+    }
+}
+
 - (NewsFeedItemViewController *)newsFeedItemViewController
 {
     if (!newsFeedItemViewController) {
@@ -141,6 +181,25 @@
     }
 
     return newsFeedItemViewController;
+}
+
+- (void)addRefreshButtonItem
+{
+    if (!networkAwareViewController.navigationItem.rightBarButtonItem) {
+        UIBarButtonItem * refreshButton =
+            [[UIBarButtonItem alloc]
+            initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                 target:self
+                                 action:@selector(userDidRequestRefresh)];
+        networkAwareViewController.navigationItem.rightBarButtonItem =
+            refreshButton;
+        [refreshButton release];
+    }
+}
+
+- (void)removeRefreshButtonItem
+{
+    networkAwareViewController.navigationItem.rightBarButtonItem = nil;
 }
 
 @end

@@ -18,5 +18,6 @@
 + (NSArray *) getArrayFromPlist:(NSString *)plist;
 + (void) saveArray:(NSArray *)array toPlist:(NSString *)plist;
 + (void) removePlistAndCopyDefaultFromBundle:(NSString *)plist;
++ (void)removePlist:(NSString *)plist;
 
 @end

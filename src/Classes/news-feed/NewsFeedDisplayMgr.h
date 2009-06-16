@@ -10,6 +10,7 @@
 @class NewsFeedViewController, NewsFeedItemViewController;
 @class NewsFeedDataSource;
 @class NetworkAwareViewController;
+@class LighthouseCredentials, CredentialsUpdatePublisher;
 
 @interface NewsFeedDisplayMgr :
     NSObject <NewsFeedViewControllerDelegate, NewsFeedDataSourceDelegate,
@@ -21,12 +22,18 @@
     NewsFeedItemViewController * newsFeedItemViewController;
 
     NewsFeedDataSource * newsFeedDataSource;
+
+    CredentialsUpdatePublisher * credentialsUpdatePublisher;
 }
 
 #pragma mark Initialization
 
 - (id)initWithNetworkAwareViewController:(NetworkAwareViewController *)navc
-                  newsFeedDataSource:(NewsFeedDataSource *)dataSource
-                   leftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem;
+                  newsFeedDataSource:(NewsFeedDataSource *)dataSource;
+
+#pragma mark Changing user credentials
+
+- (LighthouseCredentials *)credentials;
+- (void)setCredentials:(LighthouseCredentials *)credentials;
 
 @end

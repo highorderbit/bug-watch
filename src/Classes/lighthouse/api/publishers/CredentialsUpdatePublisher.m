@@ -3,24 +3,40 @@
 //
 
 #import "CredentialsUpdatePublisher.h"
-#import "LighthouseAccountAuthenticator.h"
+#import "LogInDisplayMgr.h"
+
+@interface CredentialsUpdatePublisher ()
+
+@property (nonatomic, assign) id listener;
+@property (nonatomic, assign) SEL action;
+
+@end
 
 @implementation CredentialsUpdatePublisher
 
-+ (id)publisherWithListener:(id)listener action:(SEL)action
+@synthesize listener, action;
+
++ (id)publisherWithListener:(id)aListener action:(SEL)anAction
 {
-    id obj = [[[self class] alloc] initWithListener:listener action:action];
+    id obj = [[[self class] alloc] initWithListener:aListener action:anAction];
     return [obj autorelease];
 }
 
 - (void)dealloc
 {
+    self.listener = nil;
+    self.action = nil;
     [super dealloc];
 }
 
-- (id)initWithListener:(id)listener action:(SEL)action
+- (id)initWithListener:(id)aListener action:(SEL)anAction
 {
-    return (self = [super initWithListener:listener action:action]);
+    if (self = [super initWithListener:aListener action:anAction]) {
+        self.listener = aListener;
+        self.action = anAction;
+    }
+
+    return self;
 }
 
 #pragma mark Receiving notifications
@@ -30,16 +46,14 @@
     NSDictionary * info = notification.userInfo;
 
     id credentials = [info objectForKey:@"credentials"];
-    NSArray * args = [NSArray arrayWithObject:credentials];
-
-    [self notifyListener:args];
+    [self.listener performSelector:self.action withObject:credentials];
 }
 
 #pragma mark Subscribing for notifications
 
 - (NSString *)notificationName
 {
-    return [LighthouseAccountAuthenticator credentialsChangedNotificationName];
+    return [LogInDisplayMgr credentialsChangedNotificationName];
 }
 
 @end

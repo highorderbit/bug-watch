@@ -15,7 +15,9 @@
 
 - (void)promptForLogOutConfirmation;
 
-@property (nonatomic, copy) LogInState * logInState;
+- (void)sendCredentialsChangedNotification;
+
+@property (nonatomic, copy) LighthouseCredentials * credentials;
 @property (nonatomic, retain) LogInViewController * logInViewController;
 @property (nonatomic, retain) UIViewController * rootViewController;
 
@@ -26,12 +28,12 @@
 
 @implementation LogInDisplayMgr
 
-@synthesize logInState, logInViewController, rootViewController;
+@synthesize credentials, logInViewController, rootViewController;
 @synthesize lighthouseDomain, lighthouseScheme;
 
 - (void)dealloc
 {
-    self.logInState = nil;
+    self.credentials = nil;
     self.logInViewController = nil;
     self.rootViewController = nil;
     self.lighthouseDomain = nil;
@@ -39,13 +41,14 @@
     [super dealloc];
 }
 
-- (id)initWithLogInState:(LogInState *)aLogInState
-      rootViewController:(UIViewController *)aRootViewController
-        lighthouseDomain:(NSString *)aLighthouseDomain
-        lighthouseScheme:(NSString *)aLighthouseScheme
+- (id)initWithCredentials:(LighthouseCredentials *)someCredentials
+       rootViewController:(UIViewController *)aRootViewController
+         lighthouseDomain:(NSString *)aLighthouseDomain
+         lighthouseScheme:(NSString *)aLighthouseScheme
 {
     if (self = [super init]) {
-        self.logInState = aLogInState;
+        self.credentials = someCredentials;
+
         self.rootViewController = aRootViewController;
 
         self.lighthouseDomain = aLighthouseDomain;
@@ -57,9 +60,7 @@
 
 - (void)logIn
 {
-    NSLog(@"User tapped log in button.");
-
-    if (logInState)
+    if (self.credentials)
         [self beginLogOut];
     else
         [self beginLogIn];
@@ -91,12 +92,12 @@
         initWithLighthouseDomain:lighthouseDomain scheme:lighthouseScheme];
     authenticator.delegate = self;
 
-    LighthouseCredentials * credentials =
+    LighthouseCredentials * attemptedCredentials =
         [[LighthouseCredentials alloc] initWithAccount:account
                                               username:username
                                               password:password];
 
-    [authenticator authenticateCredentials:credentials];
+    [authenticator authenticateCredentials:attemptedCredentials];
 }
 
 - (void)userDidCancel
@@ -108,24 +109,52 @@
 
 - (void)promptForLogOutConfirmation
 {
+    NSString * title = NSLocalizedString(@"logout.confirm.title", @"");
+    NSString * cancel = NSLocalizedString(@"logout.confirm.cancel.text", @"");
+    NSString * confirm = NSLocalizedString(@"logout.confirm.logout.text", @"");
+
+    UIActionSheet * sheet =
+        [[UIActionSheet alloc] initWithTitle:title
+                                    delegate:self
+                           cancelButtonTitle:cancel
+                      destructiveButtonTitle:confirm
+                           otherButtonTitles:nil];
+    [sheet showInView:rootViewController.view];
+}
+
+#pragma mark UIAlertSheetDelegate implementation
+
+- (void)actionSheet:(UIActionSheet *)sheet
+clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"User clicked button at index: %d.", buttonIndex);
+
+    if (buttonIndex == 0) {  // user really wants to log out
+        self.credentials = nil;
+        [self sendCredentialsChangedNotification];
+    }
+
+    [sheet autorelease];
 }
 
 #pragma mark LighthouseAccountAuthenticatorDelegate implementation
 
-- (void)authenticatedAccount:(LighthouseCredentials *)credentials
+- (void)authenticatedAccount:(LighthouseCredentials *)someCredentials
 {
-    NSLog(@"User successfully authenticated credentials: '%@'.", credentials);
+    NSLog(@"User successfully authenticated credentials: '%@'.",
+        someCredentials);
 
     [rootViewController dismissModalViewControllerAnimated:YES];
 
-    // notify delegate that log in is successful
+    self.credentials = someCredentials;
+    [self sendCredentialsChangedNotification];
 }
 
-- (void)failedToAuthenticateAccount:(LighthouseCredentials *)credentials
+- (void)failedToAuthenticateAccount:(LighthouseCredentials *)someCredentials
                              errors:(NSArray *)errors
 {
     NSLog(@"Failed to authenticate user with credentials: '%@', errors: '%@'.",
-        credentials, errors);
+        someCredentials, errors);
 
     [self.logInViewController promptForLogIn];
 
@@ -135,6 +164,18 @@
     UIAlertView * alert = [UIAlertView simpleAlertViewWithTitle:title
                                                         message:message];
     [alert show];
+}
+
+- (void)sendCredentialsChangedNotification
+{
+    // notify the system that the 'logged in' credentials have changed
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSMutableDictionary * userInfo = [NSMutableDictionary dictionary];
+    if (self.credentials)
+        [userInfo setObject:self.credentials forKey:@"credentials"];
+    NSString * notificationName =
+        [[self class] credentialsChangedNotificationName];
+    [nc postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
 #pragma mark Accessors
@@ -151,6 +192,13 @@
     }
 
     return logInViewController;
+}
+
+#pragma mark Notification names
+
++ (NSString *)credentialsChangedNotificationName
+{
+    return @"CredentialsChangedNotification";
 }
 
 @end

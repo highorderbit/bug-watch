@@ -4,6 +4,7 @@
 
 #import "LighthouseCredentials.h"
 #import "NSString+UrlEncodingAdditions.h"
+#import "PlistUtils.h"
 
 @interface NSString (URLEncodingAdditions)
 
@@ -18,6 +19,24 @@
     return
         [self stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 }
+
+@end
+
+@interface LighthouseCredentials (PlistAdditions)
+
++ (NSString *)accountKey;
++ (NSString *)tokenKey;
++ (NSString *)usernameKey;
++ (NSString *)passwordKey;
+
+@end
+
+@implementation LighthouseCredentials (PlistAdditions)
+
++ (NSString *)accountKey    { return @"account"; }
++ (NSString *)tokenKey      { return @"token"; }
++ (NSString *)usernameKey   { return @"username"; }
++ (NSString *)passwordKey   { return @"password"; }
 
 @end
 
@@ -74,6 +93,17 @@
         [urlString appendFormat:@"&_token=%@", token];
 
     return [NSURL URLWithString:urlString];
+}
+
+- (void)saveToPlist:(NSString *)plist
+{
+    NSDictionary * dictionary =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        account, [[self class] accountKey],
+        token, [[self class] tokenKey],
+        nil];
+
+    [PlistUtils saveDictionary:dictionary toPlist:plist];
 }
 
 @end
@@ -149,9 +179,37 @@
     return authenticatedUrl;
 }
 
+- (void)saveToPlist:(NSString *)plist
+{
+    NSDictionary * dictionary =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+        account, [[self class] accountKey],
+        username, [[self class] usernameKey],
+        password, [[self class] passwordKey],
+        nil];
+
+    [PlistUtils saveDictionary:dictionary toPlist:plist];
+}
+
 @end
 
 @implementation LighthouseCredentials
+
++ (id)credentialsWithAccount:(NSString *)anAccount
+                    username:(NSString *)aUsername
+                    password:(NSString *)aPassword
+{
+    id obj = [[[self class] alloc] initWithAccount:anAccount
+                                          username:aUsername
+                                          password:aPassword];
+    return [obj autorelease];
+}
+
++ (id)credentialsWithAccount:(NSString *)anAccount token:(NSString *)aToken
+{
+    id obj = [[[self class] alloc] initWithAccount:anAccount token:aToken];
+    return [obj autorelease];
+}
 
 - (id)initWithAccount:(NSString *)anAccount
              username:(NSString *)aUsername
@@ -194,6 +252,35 @@
 - (NSURL *)authenticateUrl:(NSURL *)url
 {
     return [impl authenticateUrl:url];
+}
+
+- (void)saveToPlist:(NSString *)plist
+{
+    [impl saveToPlist:plist];
+}
+
++ (id)loadFromPlist:(NSString *)plist
+{
+    NSDictionary * d = [PlistUtils getDictionaryFromPlist:plist];
+
+    if (d) {
+        NSString * accnt = [d objectForKey:[[self class] accountKey]];
+        NSString * tokn = [d objectForKey:[[self class] tokenKey]];
+        NSString * user = [d objectForKey:[[self class] usernameKey]];
+        NSString * pass = [d objectForKey:[[self class] passwordKey]];
+
+        NSAssert((tokn && tokn.length) || (user && user.length),
+            @"Saved credentials are in an inconsistent state.");
+
+        if (tokn && tokn.length > 0)
+            return [[self class] credentialsWithAccount:accnt token:tokn];
+        else
+            return [[self class] credentialsWithAccount:accnt
+                                               username:user
+                                               password:pass];
+    }
+
+    return nil;
 }
 
 @end

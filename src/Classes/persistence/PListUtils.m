@@ -165,4 +165,19 @@
     }    
 }
 
++ (void)removePlist:(NSString *)plist
+{
+    NSString * fullPath = [PlistUtils fullDocumentPathForPlist:plist];
+
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    BOOL fileExists = [fileManager fileExistsAtPath:fullPath];
+    if (fileExists) {
+        NSError * error = nil;
+        BOOL fileRemoved = [fileManager removeItemAtPath:fullPath error:&error];
+
+        if (!fileRemoved)
+            NSLog([error description]);
+    }
+}
+
 @end
