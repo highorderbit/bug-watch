@@ -17,7 +17,7 @@
 
 @implementation TicketsViewController
 
-@synthesize delegate, headerView;
+@synthesize delegate, headerView, sortedKeyCache;
 
 - (void)dealloc
 {
@@ -35,6 +35,8 @@
     [loadMoreButton release];
     [currentPagesLabel release];
     [noMorePagesLabel release];
+    
+    [sortedKeyCache release];
 
     [super dealloc];
 }
@@ -166,6 +168,8 @@
     milestoneDict:(NSDictionary *)aMilestoneDict
     page:(NSUInteger)page
 {
+    self.sortedKeyCache = nil;
+
     NSDictionary * tempTickets = [someTickets copy];
     [tickets release];
     tickets = tempTickets;
@@ -211,7 +215,11 @@
 
 - (NSArray *)sortedKeys
 {
-    return [metaData keysSortedByValueUsingSelector:@selector(compare:)];
+    if (!self.sortedKeyCache)
+        self.sortedKeyCache =
+            [metaData keysSortedByValueUsingSelector:@selector(compare:)];
+
+    return sortedKeyCache;
 }
 
 - (IBAction)loadMoreTickets:(id)sender
