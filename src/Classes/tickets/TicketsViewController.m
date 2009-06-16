@@ -169,15 +169,15 @@
     NSDictionary * tempTickets = [someTickets copy];
     [tickets release];
     tickets = tempTickets;
-    
+
     NSDictionary * tempMetaData = [someMetaData copy];
     [metaData release];
     metaData = tempMetaData;
-    
+
     NSDictionary * tempAssignedToDict = [anAssignedToDict copy];
     [assignedToDict release];
     assignedToDict = tempAssignedToDict;
-    
+
     NSDictionary * tempMilestoneDict = [aMilestoneDict copy];
     [milestoneDict release];
     milestoneDict = tempMilestoneDict;
@@ -187,10 +187,14 @@
     self.tableView.tableFooterView =
         [someTickets count] > 0 ? loadMoreView : noneFoundView;
 
+    NSString * showingMultPagesFormatString =
+        NSLocalizedString(@"ticketsview.showingmultiplepages", @"");
+    NSString * showingSinglePageFormatString =
+        NSLocalizedString(@"ticketsview.showingsinglepage", @"");
     currentPagesLabel.text =
         page > 1 ?
-        [NSString stringWithFormat:@"Showing pages 1 - %d", page] :
-        @"Showing page 1";
+        [NSString stringWithFormat:showingMultPagesFormatString, page] :
+        showingSinglePageFormatString;
 
     [self.tableView reloadData];
 }
