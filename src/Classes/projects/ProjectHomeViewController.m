@@ -16,6 +16,14 @@
     [delegate deselectedTab];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([self.navigationController.viewControllers count] == 2)
+        [delegate deselectedProject];
+}
+
 #pragma mark TableViewDataSource implementation
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -44,30 +52,38 @@
 
         cell = [nib objectAtIndex:0];
     }
-    
+
+    NSString * homeLabel = NSLocalizedString(@"projecthome.tabs.home", @"");
+    NSString * ticketsLabel =
+        NSLocalizedString(@"projecthome.tabs.tickets", @"");
+    NSString * milestonesLabel =
+        NSLocalizedString(@"projecthome.tabs.milestones", @"");
+    NSString * messagesLabel =
+        NSLocalizedString(@"projecthome.tabs.messages", @"");
+
     switch (indexPath.row)
     {
         case kProjectHome:
-            [cell setLabelText:@"Home"];
+            [cell setLabelText:homeLabel];
             [cell setImage:[UIImage imageNamed:@"HomeIcon.png"]];
             [cell
                 setHighlightedImage:
                 [UIImage imageNamed:@"HomeIconSelected.png"]];
             break;
         case kProjectTickets:
-            [cell setLabelText:@"Tickets"];
+            [cell setLabelText:ticketsLabel];
             [cell setImage:[UIImage imageNamed:@"Bug.png"]];
             [cell setHighlightedImage:[UIImage imageNamed:@"BugSelected.png"]];
             break;
         case kProjectMilestones:
-            [cell setLabelText:@"Milestones"];
+            [cell setLabelText:milestonesLabel];
             [cell setImage:[UIImage imageNamed:@"Calendar.png"]];
             [cell
                 setHighlightedImage:
                 [UIImage imageNamed:@"CalendarSelected.png"]];
             break;
         case kProjectMessages:
-            [cell setLabelText:@"Messages"];
+            [cell setLabelText:messagesLabel];
             [cell setImage:[UIImage imageNamed:@"Thumbtack.png"]];
             [cell
                 setHighlightedImage:

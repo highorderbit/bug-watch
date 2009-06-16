@@ -49,7 +49,7 @@
         dataSourceAction = aDataSourceAction;
 
         cancelButton = [[UIBarButtonItem alloc] init];
-        cancelButton.title = @"Cancel";
+        cancelButton.title = NSLocalizedString(@"ticketsearch.cancel", @"");
         cancelButton.target = self;
         cancelButton.action = @selector(cancelSelected);
 
@@ -93,7 +93,8 @@
     CGRect loadingLabelFrame = CGRectMake(21, 80, 280, 65);
     UILabel * loadingLabel =
         [[[UILabel alloc] initWithFrame:loadingLabelFrame] autorelease];
-    loadingLabel.text = @"Loading ticket bins...";
+    loadingLabel.text =
+        NSLocalizedString(@"ticketsearch.ticketbins.loading", @"");
     loadingLabel.textAlignment = UITextAlignmentCenter;
     loadingLabel.font = [UIFont boldSystemFontOfSize:20];
     loadingLabel.textColor = [UIColor whiteColor];

@@ -7,6 +7,5 @@
 @protocol ProjectsViewControllerDelegate
 
 - (void)selectedProjectKey:(id)key;
-- (void)deselectedProject;
 
 @end

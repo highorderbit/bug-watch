@@ -23,7 +23,7 @@
 
     [self.navigationItem setLeftBarButtonItem:cancelButton animated:NO];
     [self.navigationItem setRightBarButtonItem:postButton animated:NO];
-    self.navigationItem.title = @"New Message";
+    self.navigationItem.title = NSLocalizedString(@"newmessage.title", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated

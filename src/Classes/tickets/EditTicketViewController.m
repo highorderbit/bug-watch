@@ -129,35 +129,49 @@ static const NSInteger UNSET_KEY = 0;
     NSString * valueForRow = [self valueForRow:row];
     [cell setValueText:valueForRow];
 
+    NSString * titleLabel = NSLocalizedString(@"editticket.label.title", @"");
+    NSString * commentLabel =
+        NSLocalizedString(@"editticket.label.comment", @"");
+    NSString * addACommentLabel =
+        NSLocalizedString(@"editticket.label.addacomment", @"");
+    NSString * descriptionLabel =
+        NSLocalizedString(@"editticket.label.description", @"");
+    NSString * assignedToLabel =
+        NSLocalizedString(@"editticket.label.assignedto", @"");
+    NSString * milestoneLabel =
+        NSLocalizedString(@"editticket.label.milestone", @"");
+    NSString * stateLabel = NSLocalizedString(@"editticket.label.state", @"");
+    NSString * tagsLabel = NSLocalizedString(@"editticket.label.tags", @"");
+
     switch(row) {
         case kTitle:
-            [cell setKeyText:@"title"];
+            [cell setKeyText:titleLabel];
             break;
         case kComment:
             if (edit) {
                 if (self.comment && ![self.comment isEqual:@""]) {
-                    [cell setKeyText:@"comment"];
+                    [cell setKeyText:commentLabel];
                     cell.keyOnly = NO;
                 } else {
-                    [cell setKeyText:@"add a comment"];
+                    [cell setKeyText:addACommentLabel];
                     cell.keyOnly = YES;
                 }
             } else {
-                [cell setKeyText:@"description"];
+                [cell setKeyText:descriptionLabel];
                 cell.keyOnly = NO;
             }
             break;
         case kAssignedTo:
-            [cell setKeyText:@"assigned to"];
+            [cell setKeyText:assignedToLabel];
             break;
         case kMilestone:
-            [cell setKeyText:@"milestone"];
+            [cell setKeyText:milestoneLabel];
             break;
         case kState:
-            [cell setKeyText:@"state"];
+            [cell setKeyText:stateLabel];
             break;
         case kTags:
-            [cell setKeyText:@"tags"];
+            [cell setKeyText:tagsLabel];
             break;
     }
 
@@ -171,7 +185,7 @@ static const NSInteger UNSET_KEY = 0;
     switch (row) {
         case kTitle:
             self.addCommentViewController.navigationItem.title =
-                @"Edit Title";
+                NSLocalizedString(@"editticket.editing.title", @"");
             self.addCommentViewController.autocorrectionType =
                 UITextAutocorrectionTypeDefault;
             [self.navigationController
@@ -184,7 +198,7 @@ static const NSInteger UNSET_KEY = 0;
             break;
         case kComment:
             self.addCommentViewController.navigationItem.title =
-                @"Add Comment";
+                NSLocalizedString(@"editticket.editing.comment", @"");
             self.addCommentViewController.autocorrectionType =
                 UITextAutocorrectionTypeDefault;
             [self.navigationController
@@ -195,7 +209,7 @@ static const NSInteger UNSET_KEY = 0;
             break;
         case kAssignedTo:
             self.itemSelectionTableViewController.navigationItem.title =
-                @"Set Owner";
+                NSLocalizedString(@"editticket.editing.assignedto", @"");
             [self.itemSelectionTableViewController
                 setItems:self.membersPlusNone];
             self.itemSelectionTableViewController.selectedItem =
@@ -208,7 +222,7 @@ static const NSInteger UNSET_KEY = 0;
             break;
         case kMilestone:
             self.itemSelectionTableViewController.navigationItem.title =
-                @"Set Milestone";
+                NSLocalizedString(@"editticket.editing.milestone", @"");
             [self.itemSelectionTableViewController
                 setItems:self.milestonesPlusNone];
             self.itemSelectionTableViewController.selectedItem =
@@ -221,7 +235,7 @@ static const NSInteger UNSET_KEY = 0;
             break;
         case kState:
             self.itemSelectionTableViewController.navigationItem.title =
-                @"Set State";
+                NSLocalizedString(@"editticket.editing.state", @"");
             [self.itemSelectionTableViewController
                 setItems:self.statesPlusNone];
             self.itemSelectionTableViewController.selectedItem =
@@ -234,7 +248,7 @@ static const NSInteger UNSET_KEY = 0;
             break;
         case kTags:
             self.addCommentViewController.navigationItem.title =
-                @"Edit Tags";
+                NSLocalizedString(@"editticket.editing.tags", @"");
             self.addCommentViewController.autocorrectionType =
                 UITextAutocorrectionTypeNo;
             [self.navigationController
@@ -349,11 +363,13 @@ static const NSInteger UNSET_KEY = 0;
 - (IBAction)deleteTicket:(id)sender
 {
     NSLog(@"Delete ticket button tapped.");
-
+    NSString * confirmText =
+        NSLocalizedString(@"editticket.delete.confirm", @"");
+    NSString * cancelText = NSLocalizedString(@"editticket.delete.cancel", @"");
     UIActionSheet * actionSheet =
         [[UIActionSheet alloc]
-        initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel"
-        destructiveButtonTitle:@"Delete Ticket" otherButtonTitles:nil, nil];
+        initWithTitle:nil delegate:self cancelButtonTitle:cancelText
+        destructiveButtonTitle:confirmText otherButtonTitles:nil, nil];
 
 	[actionSheet showInView:self.view];
 	[actionSheet release];
@@ -370,7 +386,7 @@ static const NSInteger UNSET_KEY = 0;
 
 + (NSString *)unsetText
 {
-    return @"-- none --";
+    return NSLocalizedString(@"editticket.unset", @"");
 }
 
 - (AddCommentViewController *)addCommentViewController
@@ -400,7 +416,9 @@ static const NSInteger UNSET_KEY = 0;
 - (void)setEdit:(BOOL)editVal
 {
     edit = editVal;
-    self.navigationItem.title = edit ? @"Edit Ticket" : @"Add Ticket";
+    NSString * editTitle = NSLocalizedString(@"editticket.edittitle", @"");
+    NSString * addTitle = NSLocalizedString(@"editticket.addtitle", @"");
+    self.navigationItem.title = edit ? editTitle : addTitle;
     self.tableView.tableFooterView = edit ? footerView : nil;
     [self.tableView reloadData];
 }

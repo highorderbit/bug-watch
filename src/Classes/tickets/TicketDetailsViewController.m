@@ -67,7 +67,10 @@
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section
 {
-    return [[comments allKeys] count] > 1 ? @"Comments and changes" : nil;
+    NSString * commentsAndChangesHeading =
+        NSLocalizedString(@"ticketdetails.view.commentsandchangesheading", @"");
+
+    return [[comments allKeys] count] > 1 ? commentsAndChangesHeading : nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -94,6 +97,8 @@
     [cell setCommentText:comment.text];
 
     NSString * authorName = [commentAuthors objectForKey:commentKey];
+    // in case author dictionary is incomplete or not set
+    authorName = authorName ? authorName : @"...";
     [cell setAuthorName:authorName];
 
     return cell;
@@ -125,28 +130,49 @@
     milestone:(NSString *)milestone comments:(NSDictionary * )someComments
     commentAuthors:(NSDictionary *)someCommentAuthors
 {
+    if (!aTicket)
+        [NSException raise:@"NilTicketArgument"
+            format:@"'ticket' cannot be nil"];
+    if (!someMetaData)
+        [NSException raise:@"NilMetadataArgument"
+            format:@"'metadata' cannot be nil"];
+    if (!reportedBy)
+        [NSException raise:@"NilReportedByArgument"
+            format:@"'reportedBy' cannot be nil"];
+    if (!someComments)
+        [NSException raise:@"NilCommentsArgument"
+            format:@"'comments' cannot be nil"];
+
     ticketNumber = aNumber;
     self.ticket = aTicket;
     self.milestoneName = milestone;
     self.reportedByName = reportedBy;
     self.assignedToName = assignedTo;
 
+    NSString * viewTitleFormatString =
+        NSLocalizedString(@"ticketdetails.view.title", @"");
     self.navigationItem.title =
-        [NSString stringWithFormat:@"Ticket %d", aNumber];
+        [NSString stringWithFormat:viewTitleFormatString, aNumber];
     numberLabel.text = [NSString stringWithFormat:@"# %d", aNumber];
     stateLabel.text = [TicketMetaData descriptionForState:someMetaData.state];
     stateLabel.textColor = [UIColor bugWatchColorForState:someMetaData.state];
     dateLabel.text = [aTicket.creationDate shortDescription];
+    NSString * noneString = NSLocalizedString(@"ticketdetails.view.none", @"");
     descriptionLabel.text = aTicket.description;
-    NSString * reportedByText = reportedBy ? reportedBy : @"none";
+    NSString * reportedByFormatString =
+        NSLocalizedString(@"ticketdetails.view.reportedby", @"");
     reportedByLabel.text =
-        [NSString stringWithFormat:@"Reported by: %@", reportedByText];
-    NSString * assignedToText = assignedTo ? assignedTo : @"none";
+        [NSString stringWithFormat:reportedByFormatString, reportedBy];
+    NSString * assignedToText = assignedTo ? assignedTo : noneString;
+    NSString * assignedToFormatString =
+        NSLocalizedString(@"ticketdetails.view.assignedto", @"");
     assignedToLabel.text =
-        [NSString stringWithFormat:@"Assigned to: %@", assignedToText];
-    NSString * milestoneText = milestone ? milestone : @"none";
+        [NSString stringWithFormat:assignedToFormatString, assignedToText];
+    NSString * milestoneText = milestone ? milestone : noneString;
+    NSString * milestoneFormatString =
+        NSLocalizedString(@"ticketdetails.view.milestone", @"");
     milestoneLabel.text =
-        [NSString stringWithFormat:@"Milestone: %@", milestoneText];
+        [NSString stringWithFormat:milestoneFormatString, milestoneText];
 
     NSDictionary * tempComments = [someComments copy];
     [comments release];
@@ -245,24 +271,41 @@
 - (IBAction)sendInEmail:(id)sender
 {
     NSLog(@"Sending ticket details email...");
+    
+    NSString * subjectFormatString =
+        NSLocalizedString(@"ticketdetails.view.email.subject", @"");
+    NSString * detailsString =
+        NSLocalizedString(@"ticketdetails.view.email.details", @"");
+    NSString * titleFormatString =
+        NSLocalizedString(@"ticketdetails.view.email.title", @"");
+    NSString * descriptionFormatString =
+        NSLocalizedString(@"ticketdetails.view.email.description", @"");
+    NSString * milestoneFormatString =
+        NSLocalizedString(@"ticketdetails.view.email.milestone", @"");
+    NSString * reportedByFormatString =
+        NSLocalizedString(@"ticketdetails.view.email.reportedby", @"");
+    NSString * assignedToFormatString =
+        NSLocalizedString(@"ticketdetails.view.email.assignedTo", @"");
+    NSString * createdFormatString =
+        NSLocalizedString(@"ticketdetails.view.email.created", @"");
 
     NSString * subject =
-        [NSString stringWithFormat:@"Lighthouse Ticket #%d: %@", ticketNumber,
+        [NSString stringWithFormat:subjectFormatString, ticketNumber,
         self.ticket.description];
     NSMutableString * body = [NSMutableString stringWithCapacity:0];
-    [body appendFormat:@"\nDetails:\n"];
-    [body appendFormat:@"\nTicket #%d: %@\n", ticketNumber,
+    [body appendFormat:detailsString];
+    [body appendFormat:titleFormatString, ticketNumber,
         self.ticket.description];
     TicketComment * firstComment =
         [comments objectForKey:[[self sortedKeys] objectAtIndex:0]];
     if (firstComment.text)
-        [body appendFormat:@"\n%@\n", firstComment.text];
+        [body appendFormat:descriptionFormatString, firstComment.text];
     if (self.milestoneName)
-        [body appendFormat:@"\nMilestone: %@", self.milestoneName];
-    [body appendFormat:@"\nReported by: %@", self.reportedByName];
+        [body appendFormat:milestoneFormatString, self.milestoneName];
+    [body appendFormat:reportedByFormatString, self.reportedByName];
     if (self.assignedToName)
-        [body appendFormat:@"\nAssigned to: %@", self.assignedToName];
-    [body appendFormat:@"\nCreated: %@",
+        [body appendFormat:assignedToFormatString, self.assignedToName];
+    [body appendFormat:createdFormatString,
         [self.ticket.creationDate shortDateAndTimeDescription]];
 
     NSString * urlString =

@@ -91,7 +91,8 @@
     
     CGRect loadingLabelFrame = CGRectMake(21, 120, 280, 65);
     loadingLabel = [[UILabel alloc] initWithFrame:loadingLabelFrame];
-    loadingLabel.text = @"Creating ticket...";
+    loadingLabel.text =
+        NSLocalizedString(@"messagedisplaymgr.creatingmessage", @"");
     loadingLabel.textAlignment = UITextAlignmentCenter;
     loadingLabel.font = [UIFont boldSystemFontOfSize:20];
     loadingLabel.textColor = [UIColor whiteColor];
