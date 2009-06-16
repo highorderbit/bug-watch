@@ -437,14 +437,11 @@
         NewTicketDescription * desc = [NewTicketDescription description];
         desc.title = sender.ticketDescription;
         desc.body = sender.comment;
-        if (sender.state != 0)
-            desc.state = sender.state;
-        if (sender.member &&
-            ![sender.member isEqual:[NSNumber numberWithInt:0]])
-                desc.assignedUserKey = sender.member;
-        if (sender.milestone &&
-            ![sender.milestone isEqual:[NSNumber numberWithInt:0]])
-                desc.milestoneKey = sender.milestone;
+        desc.state = sender.state;
+        if (sender.member)
+            desc.assignedUserKey = sender.member;
+        if (sender.milestone)
+            desc.milestoneKey = sender.milestone;
         desc.tags = sender.tags;
 
         [dataSource createTicketWithDescription:desc
