@@ -3,6 +3,7 @@
 //
 
 #import "TicketSearchMgr.h"
+#import "UIAlertView+InstantiationAdditions.h"
 
 @interface TicketSearchMgr (Private)
 
@@ -26,7 +27,7 @@
     [binViewController release];
     [parentView release];
     [dataSourceTarget release];
-    
+
     [darkTransparentView release];
 
     [super dealloc];
@@ -71,7 +72,7 @@
 
 - (void)initDarkTransparentView
 {
-    CGRect darkTransparentViewFrame = CGRectMake(0, 44, 320, 480);
+    CGRect darkTransparentViewFrame = CGRectMake(0, 64, 320, 480);
     darkTransparentView =
         [[UIView alloc] initWithFrame:darkTransparentViewFrame];
     
@@ -141,24 +142,25 @@
     [searchField performSelector:@selector(setText:) withObject:searchField.text
         afterDelay:0.3];
     searchField.text = @"";
-
+    
     [navigationItem setLeftBarButtonItem:nil animated:NO];
     navigationItem.hidesBackButton = YES;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationTransition:UIViewAnimationTransitionNone
         forView:searchField cache:YES];
-
+    
     CGRect frame = searchField.frame;
     frame.size.width = SEARCH_FIELD_WIDTH;
     searchField.frame = frame;
-
+    
     [UIView commitAnimations];
-
+    
     [navigationItem setRightBarButtonItem:cancelButton animated:YES];
-
+            
     darkTransparentView.alpha = 0;
-    [parentView addSubview:darkTransparentView];
+    [parentView.superview addSubview:darkTransparentView];
+    NSLog(@"Parent view: %@", parentView);
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationTransition:UIViewAnimationTransitionNone
@@ -183,8 +185,25 @@
 - (void)receivedTicketBinsFromDataSource:(NSArray *)someTicketBins
 {
     [binViewController setTicketBins:someTicketBins];
-    [parentView addSubview:binViewController.view];
+    [parentView.superview addSubview:binViewController.view];
     [binViewController viewWillAppear:NO];
+}
+
+- (void)failedToFetchTicketBins:(NSArray *)errors
+{
+    NSLog(@"Failed to update ticke bins view: %@.", errors);
+
+    [self receivedTicketBinsFromDataSource:[NSArray array]];
+
+    NSString * title =
+        NSLocalizedString(@"ticketsearch.ticketbins.error.title", @"");
+    NSError * firstError = [errors objectAtIndex:0];
+    NSString * message =
+        firstError ? firstError.localizedDescription : @"";
+
+    UIAlertView * alertView =
+        [UIAlertView simpleAlertViewWithTitle:title message:message];
+    [alertView show];
 }
 
 #pragma mark TicketBinViewControllerDelegate implementation

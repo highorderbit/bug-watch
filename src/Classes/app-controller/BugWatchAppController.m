@@ -487,6 +487,12 @@
         [lighthouseApiFactory createLighthouseApiService];
     TicketBinDataSource * ticketBinDataSource =
         [[TicketBinDataSource alloc] initWithService:ticketBinService];
+
+    // just create, no need to assign a variable
+    [[CredentialsUpdatePublisher alloc]
+        initWithListener:ticketBinDataSource
+        action:@selector(setCredentials:)];
+
     ticketBinService.delegate = ticketBinDataSource;
     ProjectSpecificTicketBinDSAdapter * projSpecificTicketBinDS =
         [[ProjectSpecificTicketBinDSAdapter alloc]

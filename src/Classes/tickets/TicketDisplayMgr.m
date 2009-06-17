@@ -560,6 +560,17 @@
     self.editTicketViewController.updateButton.enabled = NO;
 }
 
+#pragma mark API credential management
+
+- (void)credentialsChanged:(LighthouseCredentials *)credentials
+{
+    [dataSource setCredentials:credentials];
+    self.ticketCache = nil;
+    [self.wrapperController.navigationController
+        popToRootViewControllerAnimated:NO];
+    [self ticketsFilteredByFilterString:@""];
+}
+
 #pragma mark Accessors
 
 - (TicketDetailsViewController *)detailsViewController

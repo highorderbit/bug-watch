@@ -21,5 +21,6 @@
 - (void)fetchCommentsForMessage:(LighthouseKey *)messageKey;
 - (void)createMessageWithDescription:(NewMessageDescription *)desc
     forProject:(NSNumber *)projectKey;
+- (void)setCredentials:(LighthouseCredentials *)someCredentials;
 
 @end

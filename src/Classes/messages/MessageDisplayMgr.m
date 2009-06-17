@@ -278,7 +278,7 @@
 
 - (void)displayErrorWithTitle:(NSString *)title errors:(NSArray *)errors
 {
-    NSLog(@"Failed to update tickets view: %@.", errors);
+    NSLog(@"Failed to update messages view: %@.", errors);
 
     NSError * firstError = [errors objectAtIndex:0];
     NSString * message =
@@ -352,6 +352,16 @@
         [self.newMessageViewController dismissModalViewControllerAnimated:YES];
     self.newMessageViewController.cancelButton.enabled = YES;
     self.newMessageViewController.postButton.enabled = YES;
+}
+
+#pragma mark API credential management
+
+- (void)credentialsChanged:(LighthouseCredentials *)credentials
+{
+    [dataSource setCredentials:credentials];
+    self.messageCache = nil;
+    [self.wrapperController.navigationController
+        popToRootViewControllerAnimated:NO];
 }
 
 #pragma mark Accessors

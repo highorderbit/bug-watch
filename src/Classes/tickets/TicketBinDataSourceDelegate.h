@@ -7,5 +7,6 @@
 @protocol TicketBinDataSourceDelegate
 
 - (void)receivedTicketBinsFromDataSource:(NSArray *)someTicketBins;
+- (void)failedToFetchTicketBins:(NSArray *)errors;
 
 @end

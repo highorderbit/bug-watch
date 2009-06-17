@@ -34,4 +34,9 @@
     [delegate receivedTicketBinsFromDataSource:someTicketBins];
 }
 
+- (void)failedToFetchTicketBins:(NSArray *)errors
+{
+    [delegate failedToFetchTicketBins:errors];
+}
+
 @end

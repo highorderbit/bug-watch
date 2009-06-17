@@ -30,4 +30,6 @@
 - (void)deleteTicketWithKey:(NSUInteger)ticketNumber
     forProject:(NSUInteger)projectKey;
 
+- (void)setCredentials:(LighthouseCredentials *)credentials;
+
 @end
