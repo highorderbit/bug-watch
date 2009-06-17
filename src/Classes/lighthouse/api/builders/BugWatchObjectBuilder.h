@@ -19,6 +19,7 @@
 
 - (NSArray *)parseErrors:(NSData *)xml;
 
+- (NSArray *)parseTicketDataWrappers:(NSData *)xml;
 - (NSArray *)parseTickets:(NSData *)xml;
 - (NSArray *)parseTicketMetaData:(NSData *)xml;
 - (NSArray *)parseTicketNumbers:(NSData *)xml;

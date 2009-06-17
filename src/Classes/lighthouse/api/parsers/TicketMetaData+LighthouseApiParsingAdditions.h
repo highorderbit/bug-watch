@@ -4,7 +4,12 @@
 
 #import <Foundation/Foundation.h>
 #import "TicketMetaData.h"
+#import "TicketDataWrapper.h"
 
 @interface TicketMetaData (LighthouseApiParsingAdditions)
+
+@end
+
+@interface TicketDataWrapper (LighthouseApiParsingAdditions)
 
 @end

@@ -112,6 +112,7 @@
 		059FE2EE0FE34F81009E96BF /* LighthouseUrlBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 059FE2ED0FE34F81009E96BF /* LighthouseUrlBuilder.m */; };
 		05A961820FBE13DB00CBDC68 /* MilestoneDetailsDisplayMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A961810FBE13DB00CBDC68 /* MilestoneDetailsDisplayMgr.m */; };
 		05A961850FBE142C00CBDC68 /* MilestoneDetailsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A961840FBE142C00CBDC68 /* MilestoneDetailsDataSource.m */; };
+		05BE65620FE9AA37001255E7 /* TicketDataWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BE65610FE9AA37001255E7 /* TicketDataWrapper.m */; };
 		05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */; };
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
@@ -415,6 +416,8 @@
 		05A961830FBE142C00CBDC68 /* MilestoneDetailsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDetailsDataSource.h; path = Classes/milestones/MilestoneDetailsDataSource.h; sourceTree = "<group>"; };
 		05A961840FBE142C00CBDC68 /* MilestoneDetailsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneDetailsDataSource.m; path = Classes/milestones/MilestoneDetailsDataSource.m; sourceTree = "<group>"; };
 		05A961860FBE282E00CBDC68 /* MilestoneDetailsDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneDetailsDataSourceDelegate.h; path = Classes/milestones/MilestoneDetailsDataSourceDelegate.h; sourceTree = "<group>"; };
+		05BE65600FE9AA37001255E7 /* TicketDataWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDataWrapper.h; path = lighthouse/api/builders/TicketDataWrapper.h; sourceTree = "<group>"; };
+		05BE65610FE9AA37001255E7 /* TicketDataWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDataWrapper.m; path = lighthouse/api/builders/TicketDataWrapper.m; sourceTree = "<group>"; };
 		05C8706C0FA77F4C0069BC72 /* BugWatchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppDelegate.h; path = "app-controller/BugWatchAppDelegate.h"; sourceTree = "<group>"; };
 		05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugWatchAppDelegate.m; path = "app-controller/BugWatchAppDelegate.m"; sourceTree = "<group>"; };
 		05C870740FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+WebServiceApiAdditions.h"; path = "web-service/NSURLRequest+WebServiceApiAdditions.h"; sourceTree = "<group>"; };
@@ -876,6 +879,8 @@
 			children = (
 				058ED4020FDEDBC500595604 /* BugWatchObjectBuilder.h */,
 				058ED4030FDEDBC500595604 /* BugWatchObjectBuilder.m */,
+				05BE65600FE9AA37001255E7 /* TicketDataWrapper.h */,
+				05BE65610FE9AA37001255E7 /* TicketDataWrapper.m */,
 			);
 			name = builders;
 			sourceTree = "<group>";
@@ -1765,6 +1770,7 @@
 				054FD2350FE7091000834323 /* InfoPlistConfigReader.m in Sources */,
 				054FD2B30FE718D400834323 /* CredentialsUpdatePublisher.m in Sources */,
 				05222D7C0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.m in Sources */,
+				05BE65620FE9AA37001255E7 /* TicketDataWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2012,6 +2018,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-licucore";
@@ -2038,6 +2045,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Douglas Kurth";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-licucore";
@@ -2065,6 +2073,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Douglas Kurth";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2227,7 +2236,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John Debay";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_VERSION = "";
+				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2244,6 +2253,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John Debay";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-licucore";

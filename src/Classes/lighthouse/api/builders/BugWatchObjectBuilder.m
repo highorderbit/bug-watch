@@ -42,6 +42,29 @@
     return [parser parse:xml];
 }
 
+- (NSArray *)parseTicketDataWrappers:(NSData *)xml
+{
+    parser.className = @"TicketDataWrapper";
+    parser.classElementType = @"ticket";
+    parser.classElementCollection = @"tickets";
+    parser.attributeMappings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"ticketNumber", @"number",
+            @"description", @"title",
+            @"creationDate", @"created-at",
+            @"link", @"url",
+            @"tags", @"tag",
+            @"state", @"state",
+            @"lastModifiedDate", @"updated-at",
+            @"milestoneId", @"milestone-id",
+            @"projectId", @"project-id",
+            @"userId", @"user-id",
+            @"creatorId", @"creator-id",
+            nil];
+
+    return [parser parse:xml];
+}
+
 - (NSArray *)parseTickets:(NSData *)xml
 {
     parser.className = @"Ticket";

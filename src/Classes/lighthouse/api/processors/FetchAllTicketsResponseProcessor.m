@@ -4,6 +4,7 @@
 
 #import "FetchAllTicketsResponseProcessor.h"
 #import "BugWatchObjectBuilder.h"
+#import "TicketDataWrapper.h"
 
 @interface FetchAllTicketsResponseProcessor ()
 
@@ -40,20 +41,17 @@
 
 - (void)processResponse:(NSData *)xml
 {
-    NSArray * ticketNumbers = [self.objectBuilder parseTicketNumbers:xml];
-    NSArray * tickets = [self.objectBuilder parseTickets:xml];
-    NSArray * metadata = [self.objectBuilder parseTicketMetaData:xml];
-    NSArray * milestoneIds = [self.objectBuilder parseTicketMilestoneIds:xml];
-    NSArray * projectIds = [self.objectBuilder parseTicketProjectIds:xml];
-    NSArray * userKeys = [self.objectBuilder parseTicketUserKeys:xml];
-    NSArray * creatorKeys = [self.objectBuilder parseTicketCreatorKeys:xml];
+    NSArray * wrappers = [self.objectBuilder parseTicketDataWrappers:xml];
+    TicketDataCollector * collector =
+        [[TicketDataCollector alloc] initWithDataWrappers:wrappers];
 
     SEL sel =
         @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
              milestoneIds:projectIds:userIds:creatorIds:);
 
-    [self invokeSelector:sel withTarget:delegate args:tickets, metadata,
-        ticketNumbers, milestoneIds, projectIds, userKeys, creatorKeys, nil];
+    [self invokeSelector:sel withTarget:delegate args:collector.tickets,
+        collector.metadata, collector.ticketNumbers, collector.milestoneIds,
+        collector.projectIds, collector.userIds, collector.creatorIds, nil];
 }
 
 - (void)processErrors:(NSArray *)errors foundInResponse:(NSData *)xml

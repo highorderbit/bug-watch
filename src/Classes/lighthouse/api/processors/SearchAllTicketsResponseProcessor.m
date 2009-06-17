@@ -3,6 +3,7 @@
 //
 
 #import "SearchAllTicketsResponseProcessor.h"
+#import "TicketDataWrapper.h"
 
 @interface SearchAllTicketsResponseProcessor ()
 
@@ -89,32 +90,44 @@
 
 - (void)processResponse:(NSData *)xml
 {
-    NSArray * ticketNumbers = [self.objectBuilder parseTicketNumbers:xml];
-    NSArray * tickets = [self.objectBuilder parseTickets:xml];
-    NSArray * metadata = [self.objectBuilder parseTicketMetaData:xml];
-    NSArray * milestoneIds = [self.objectBuilder parseTicketMilestoneIds:xml];
-    NSArray * projectIds = [self.objectBuilder parseTicketProjectIds:xml];
-    NSArray * userKeys = [self.objectBuilder parseTicketUserKeys:xml];
-    NSArray * creatorKeys = [self.objectBuilder parseTicketCreatorKeys:xml];
+    NSArray * wrappers = [self.objectBuilder parseTicketDataWrappers:xml];
+
+    NSLog(@"Beginning object creation.");
+    TicketDataCollector * collector =
+        [[TicketDataCollector alloc] initWithDataWrappers:wrappers];
+    NSLog(@"Finished object creation.");
 
     if (projectKey) {
         SEL sel = @selector(tickets:fetchedForProject:searchString:page:object:\
             metadata:ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
         if ([delegate respondsToSelector:sel])
-            [delegate tickets:tickets fetchedForProject:projectKey
-                searchString:searchString page:page object:object
-                metadata:metadata ticketNumbers:ticketNumbers
-                milestoneIds:milestoneIds projectIds:projectIds
-                userIds:userKeys creatorIds:creatorKeys];
+            [delegate tickets:collector.tickets
+            fetchedForProject:projectKey
+                 searchString:searchString
+                         page:page
+                       object:object
+                     metadata:collector.metadata
+                ticketNumbers:collector.ticketNumbers
+                milestoneIds:collector.milestoneIds
+                  projectIds:collector.projectIds
+                     userIds:collector.userIds
+                  creatorIds:collector.creatorIds];
     } else {
         SEL sel = @selector(tickets:fetchedForSearchString:page:metadata:\
             ticketNumbers:milestoneIds:projectIds:userIds:creatorIds:);
         if ([delegate respondsToSelector:sel])
-            [delegate tickets:tickets fetchedForSearchString:searchString
-                page:page metadata:metadata ticketNumbers:ticketNumbers
-                milestoneIds:milestoneIds projectIds:projectIds userIds:userKeys
-                creatorIds:creatorKeys];
+            [delegate tickets:collector.tickets
+       fetchedForSearchString:searchString
+                         page:page
+                     metadata:collector.metadata
+                ticketNumbers:collector.ticketNumbers
+                 milestoneIds:collector.milestoneIds
+                   projectIds:collector.projectIds
+                      userIds:collector.userIds
+                   creatorIds:collector.creatorIds];
     }
+
+    [collector release];
 }
 
 - (void)processErrors:(NSArray *)errors foundInResponse:(NSData *)xml
