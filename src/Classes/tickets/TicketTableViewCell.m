@@ -40,7 +40,10 @@
     self.backgroundView =
         [[[UIImageView alloc] initWithImage:backgroundImage] autorelease];
     self.backgroundView.contentMode =  UIViewContentModeBottom;
-    resolveButton.titleShadowOffset = CGSizeMake(-1.0, -1.0);
+
+    // The 'titleShadowOffset' property has been deprecated in iPhone OS 3.0.
+    //resolveButton.titleShadowOffset = CGSizeMake(-1.0, -1.0);
+    resolveButton.titleLabel.shadowOffset = CGSizeMake(-1.0, -1.0);
 
     darkTransparentView = [[UIView alloc] initWithFrame:self.frame];
     darkTransparentView.alpha = 0.8;

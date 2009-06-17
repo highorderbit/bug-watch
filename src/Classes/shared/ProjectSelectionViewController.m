@@ -66,7 +66,16 @@
     
     id projectKey = [[projects allKeys] objectAtIndex:indexPath.row];
     NSString * project = [projects objectForKey:projectKey];
+
+#if defined (__IPHONE_3_0)
+
+    cell.textLabel.text = project;
+
+#else
+
     cell.text = project;
+
+#endif
     
     return cell;
 }
