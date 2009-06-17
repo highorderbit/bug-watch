@@ -47,6 +47,7 @@
     parentView:(UIView *)parentView
     ticketBinDataSource:(id)ticketBinDataSource;
 - (TicketCache *)loadTicketsFromPersistence:(NSString *)plist;
+- (MessageCache *)loadMessagesFromPersistence:(NSString *)plist;
 
 - (void)initProjectsTab;
 - (void)initMessagesTab;
@@ -71,6 +72,7 @@
 + (NSString *)projectCachePlist;
 + (NSString *)milestoneCachePlist;
 + (NSString *)messageCachePlist;
++ (NSString *)projectLevelMessageCachePlist;
 + (NSString *)userCachePlist;
 + (NSString *)credentialsPlist;
 
@@ -219,6 +221,11 @@
         [[[MessagePersistenceStore alloc] init] autorelease];
     [messagePersistenceStore saveMessageCache:messageCache
         toPlist:[[self class] messageCachePlist]];
+
+    MessageCache * projLevelMessageCache =
+        projectLevelMessageDisplayMgr.messageCache;
+    [messagePersistenceStore saveMessageCache:projLevelMessageCache
+        toPlist:[[self class] projectLevelMessageCachePlist]];
 
     UserPersistenceStore * userPersistenceStore =
         [[[UserPersistenceStore alloc] init] autorelease];
@@ -429,6 +436,18 @@
     return ticketCache;
 }
 
+- (MessageCache *)loadMessagesFromPersistence:(NSString *)plist
+{
+    NSLog(@"Loading message cache from persistence...");
+    MessagePersistenceStore * messagePersistenceStore =
+        [[[MessagePersistenceStore alloc] init] autorelease];
+    MessageCache * messageCache =
+        [messagePersistenceStore loadMessageCacheWithPlist:plist];
+    NSLog(@"Loaded message cache from persistence.");
+    
+    return messageCache;
+}
+
 #pragma mark Project tab initialization
 
 - (void)initProjectsTab
@@ -481,8 +500,13 @@
     NetworkAwareViewController * messagesWrapperController =
         [[[NetworkAwareViewController alloc] init] autorelease];
     messagesWrapperController.navigationItem.title = @"Messages";
+    
+    MessageCache * messageCache =
+        [self loadMessagesFromPersistence:
+        [[self class] projectLevelMessageCachePlist]];
+
     projectLevelMessageDisplayMgr =
-        [messageDisplayMgrFactory createMessageDisplayMgrWithCache:nil
+        [messageDisplayMgrFactory createMessageDisplayMgrWithCache:messageCache
         wrapperController:messagesWrapperController];
     projectLevelMessageDisplayMgr.selectProject = NO;
 
@@ -679,6 +703,11 @@
 + (NSString *)messageCachePlist
 {
     return @"MessageCache";
+}
+
++ (NSString *)projectLevelMessageCachePlist
+{
+    return @"ProjectLevelMessageCache";
 }
 
 + (NSString *)userCachePlist
