@@ -7,7 +7,6 @@
 
 @implementation MilestoneProgressView
 
-@synthesize outlineColor, progressColor, remainingColor;
 @synthesize progress;
 
 - (void)dealloc

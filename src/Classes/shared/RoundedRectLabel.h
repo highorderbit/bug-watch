@@ -22,6 +22,10 @@
 @property (nonatomic, assign) CGFloat roundedCornerHeight;
 
 @property (nonatomic, copy) NSString * text;
-@property (nonatomic, retain) UIFont * font;
+
+// ivars must exist for properties in 32-bit programs; use explicit methods
+// instead
+- (void)setFont:(UIFont *)font;
+- (UIFont *)font;
 
 @end

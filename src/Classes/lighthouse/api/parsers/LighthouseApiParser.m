@@ -138,7 +138,7 @@
 {
     self.elementPath = [NSMutableString stringWithCapacity:0];
     self.elementValue = [NSMutableString stringWithCapacity:0];
-    self.elementType = @"";
+    self.elementType = [NSMutableString string];
 }
 
 - (void)resetCollection
