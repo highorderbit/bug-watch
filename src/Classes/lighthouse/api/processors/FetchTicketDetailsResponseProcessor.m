@@ -64,8 +64,7 @@
 
 - (void)processErrors:(NSArray *)errors foundInResponse:(NSData *)xml
 {
-    SEL sel =
-        @selector(failedToFetchTicketDetailsForTicket:inProject:token:errors:);
+    SEL sel = @selector(failedToFetchTicketDetailsForTicket:inProject:errors:);
     [self invokeSelector:sel withTarget:delegate args:ticketKey, projectKey,
         errors, nil];
 }

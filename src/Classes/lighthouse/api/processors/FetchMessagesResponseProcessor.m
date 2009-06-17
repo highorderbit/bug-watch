@@ -58,7 +58,7 @@
 
 - (void)processErrors:(NSArray *)errors foundInResponse:(NSData *)xml
 {
-    SEL sel = @selector(failedToFetchMessagesForProject:token:errors:);
+    SEL sel = @selector(failedToFetchMessagesForProject:errors:);
     [self invokeSelector:sel withTarget:delegate args:projectKey, errors, nil];
 }
 
