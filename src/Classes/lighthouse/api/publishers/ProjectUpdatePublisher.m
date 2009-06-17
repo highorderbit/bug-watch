@@ -10,17 +10,8 @@
 + (id)publisherWithListener:(id)listener action:(SEL)action
 {
     id obj = [[[self class] alloc] initWithListener:listener action:action];
+
     return [obj autorelease];
-}
-
-- (void)dealloc
-{
-    [super dealloc];
-}
-
-- (id)initWithListener:(id)listener action:(SEL)action
-{
-    return (self = [super initWithListener:listener action:action]);
 }
 
 #pragma mark Receiving notifications

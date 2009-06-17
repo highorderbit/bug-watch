@@ -14,6 +14,5 @@
 //   - (void)fetchedAllProjects:(NSArray *)projects projectKeys:(NSArray *)keys;
 //
 + (id)publisherWithListener:(id)listener action:(SEL)action;
-- (id)initWithListener:(id)listener action:(SEL)action;
 
 @end
