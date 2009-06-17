@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y = 44;
+    viewFrame.origin.y = 64;
     self.view.frame = viewFrame;
 }
 
