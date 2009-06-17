@@ -3,6 +3,7 @@
 //
 
 #import "MessageDisplayMgr.h"
+#import "UIAlertView+InstantiationAdditions.h"
 
 @interface MessageDisplayMgr (Private)
 
@@ -10,8 +11,9 @@
 - (void)displayCachedMessages;
 - (void)displayMessageDetails:(LighthouseKey *)key;
 - (void)disableEditViewWithText:(NSString *)text;
-- (void)enableEditView;
+- (void)enableEditView:(BOOL)dismiss;
 - (void)updateDisplayIfDirty;
+- (void)displayErrorWithTitle:(NSString *)title errors:(NSArray *)errors;
 
 @end
 
@@ -233,6 +235,14 @@
     resetCache = NO;
 }
 
+- (void)failedToFetchMessages:(NSArray *)errors
+{
+    NSString * title =
+        NSLocalizedString(@"messagedisplaymgr.error.messagesfetch.title", @"");
+
+    [self displayErrorWithTitle:title errors:errors];
+}
+
 - (void)receivedComments:(MessageResponseCache *)cache
     forMessage:(LighthouseKey *)messageKey
 {
@@ -240,11 +250,46 @@
     [recentHistoryResponseCache setObject:cache forKey:messageKey];
     [self displayMessageDetails:messageKey];
 }
-    
+
+- (void)failedToFetchCommentsForMessage:(LighthouseKey *)messageKey
+    errors:(NSArray *)errors
+{
+    NSString * title =
+        NSLocalizedString(@"messagedisplaymgr.error.detailsfetch.title", @"");
+
+    [self displayErrorWithTitle:title errors:errors];
+}
+
 - (void)createdMessageWithKey:(LighthouseKey *)key
 {
-    [self enableEditView];
+    [self enableEditView:YES];
     [self showAllMessages];
+}
+
+- (void)failedToCreateMessage:(NSArray *)errors
+{
+    [self enableEditView:NO];
+
+    NSString * title =
+        NSLocalizedString(@"messagedisplaymgr.error.create.title", @"");
+
+    [self displayErrorWithTitle:title errors:errors];
+}
+
+- (void)displayErrorWithTitle:(NSString *)title errors:(NSArray *)errors
+{
+    NSLog(@"Failed to update tickets view: %@.", errors);
+
+    NSError * firstError = [errors objectAtIndex:0];
+    NSString * message =
+        firstError ? firstError.localizedDescription : @"";
+
+    UIAlertView * alertView =
+        [UIAlertView simpleAlertViewWithTitle:title message:message];
+    [alertView show];
+
+    [wrapperController setUpdatingState:kDisconnected];
+    [detailsNetAwareViewController setUpdatingState:kDisconnected];
 }
 
 #pragma mark NewMessageViewControllerDelegate implementation
@@ -300,10 +345,11 @@
     self.newMessageViewController.postButton.enabled = NO;
 }
 
-- (void)enableEditView
+- (void)enableEditView:(BOOL)dismiss
 {
     [darkTransparentView removeFromSuperview];
-    [self.newMessageViewController dismissModalViewControllerAnimated:YES];
+    if (dismiss)
+        [self.newMessageViewController dismissModalViewControllerAnimated:YES];
     self.newMessageViewController.cancelButton.enabled = YES;
     self.newMessageViewController.postButton.enabled = YES;
 }

@@ -127,7 +127,9 @@
 
 - (void)failedToSearchTicketsForAllProjects:(NSString *)searchString
     page:(NSUInteger)page errors:(NSArray *)errors
-{}
+{
+    [delegate failedToFetchTickets:errors];
+}
 
 - (void)tickets:(NSArray *)tickets fetchedForProject:(id)projectKey
     searchString:(NSString *)searchString page:(NSUInteger)page
@@ -139,13 +141,15 @@
     [self tickets:tickets fetchedForSearchString:searchString page:page
         metadata:metadata ticketNumbers:ticketNumbers
         milestoneIds:milestoneIds projectIds:projectIds userIds:userIds
-       creatorIds:creatorIds];
+        creatorIds:creatorIds];
 }
 
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString page:(NSUInteger)page
     object:(id)object errors:(NSArray *)errors
-{}
+{
+    [delegate failedToFetchTickets:errors];
+}
 
 - (void)details:(NSArray *)details authors:(NSArray *)authors
     fetchedForTicket:(id)ticketKey inProject:(id)projectKey
@@ -182,7 +186,9 @@
 
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
     inProject:(id)projectKey errors:(NSArray *)errors
-{}
+{
+    [delegate failedToFetchTicketDetails:errors];
+}
 
 - (void)ticket:(id)ticketKey describedBy:(NewTicketDescription *)description
     createdForProject:(id)projectKey
@@ -192,7 +198,9 @@
 
 - (void)failedToCreateNewTicketDescribedBy:(NewTicketDescription *)description
     forProject:(id)projectKey errors:(NSArray *)errors
-{}
+{
+    [delegate failedToCreateTicket:errors];
+}
 
 - (void)deletedTicket:(id)ticketKey forProject:(id)projectKey
 {
@@ -201,7 +209,9 @@
 
 - (void)failedToDeleteTicket:(id)ticketKey forProject:(id)projectKey
     errors:(NSArray *)errors
-{}
+{
+    [delegate failedToDeleteTicket:ticketKey errors:errors];
+}
 
 - (void)editedTicket:(id)ticketNum forProject:(id)projectKey
     describedBy:(UpdateTicketDescription *)description
@@ -216,7 +226,9 @@
 
 - (void)failedToEditTicket:(id)ticketKey forProject:(id)projectKey
     describedBy:(UpdateTicketDescription *)description errors:(NSArray *)errors
-{}
+{
+    [delegate failedToEditTicket:ticketKey errors:errors];
+}
 
 #pragma mark Readable strings from yaml helpers
 

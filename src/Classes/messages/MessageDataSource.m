@@ -63,17 +63,25 @@
 }
 
 - (void)failedToFetchMessagesForProject:(id)projectKey errors:(NSArray *)errors
-{}
+{
+    [delegate failedToFetchMessages:errors];
+}
 
 - (void)message:(id)messageKey describedBy:(NewMessageDescription *)desc
     createdForProject:(id)projectKey
 {
-    [delegate createdMessageWithKey:nil];
+    LighthouseKey * globalMsgKey =
+        [[[LighthouseKey alloc]
+        initWithProjectKey:[projectKey intValue] key:[messageKey intValue]]
+        autorelease];
+    [delegate createdMessageWithKey:globalMsgKey];
 }
 
 - (void)failedToCreateMessageDescribedBy:(NewMessageDescription *)desc
     forProject:(id)projectKey errors:(NSArray *)errors
-{}
+{
+    [delegate failedToCreateMessage:errors];
+}
 
 - (void)comments:(NSArray *)comments commentKeys:(NSArray *)commentKeys
     authorKeys:(NSArray *)authorKeys fetchedForMessage:(id)key
@@ -98,6 +106,12 @@
 
 - (void)failedToFetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
     errors:(NSArray *)errors
-{}
+{
+    LighthouseKey * globalMsgKey =
+        [[[LighthouseKey alloc]
+        initWithProjectKey:[projectKey intValue] key:[messageKey intValue]]
+        autorelease];
+    [delegate failedToFetchCommentsForMessage:globalMsgKey errors:errors];
+}
 
 @end
