@@ -278,7 +278,7 @@
 
 - (void)displayErrorWithTitle:(NSString *)title errors:(NSArray *)errors
 {
-    NSLog(@"Failed to update tickets view: %@.", errors);
+    NSLog(@"Failed to update messages view: %@.", errors);
 
     NSError * firstError = [errors objectAtIndex:0];
     NSString * message =

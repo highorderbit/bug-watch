@@ -35,4 +35,10 @@
     [delegate receivedTicketBinsFromDataSource:ticketBins];
 }
 
+- (void)failedToFetchTicketBinsForProject:(id)projectKey
+    errors:(NSArray *)errors
+{
+    [delegate failedToFetchTicketBins:errors];
+}
+
 @end

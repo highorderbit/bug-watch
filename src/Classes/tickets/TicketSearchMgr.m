@@ -3,6 +3,7 @@
 //
 
 #import "TicketSearchMgr.h"
+#import "UIAlertView+InstantiationAdditions.h"
 
 @interface TicketSearchMgr (Private)
 
@@ -26,7 +27,7 @@
     [binViewController release];
     [parentView release];
     [dataSourceTarget release];
-    
+
     [darkTransparentView release];
 
     [super dealloc];
@@ -185,6 +186,23 @@
     [binViewController setTicketBins:someTicketBins];
     [parentView addSubview:binViewController.view];
     [binViewController viewWillAppear:NO];
+}
+
+- (void)failedToFetchTicketBins:(NSArray *)errors
+{
+    NSLog(@"Failed to update ticke bins view: %@.", errors);
+
+    [self receivedTicketBinsFromDataSource:[NSArray array]];
+
+    NSString * title =
+        NSLocalizedString(@"ticketsearch.ticketbins.error.title", @"");
+    NSError * firstError = [errors objectAtIndex:0];
+    NSString * message =
+        firstError ? firstError.localizedDescription : @"";
+
+    UIAlertView * alertView =
+        [UIAlertView simpleAlertViewWithTitle:title message:message];
+    [alertView show];
 }
 
 #pragma mark TicketBinViewControllerDelegate implementation
