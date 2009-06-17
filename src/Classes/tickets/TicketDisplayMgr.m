@@ -7,6 +7,7 @@
 #import "UpdateTicketDescription.h"
 #import "LighthouseKey.h"
 #import "TicketSearchMgr.h"
+#import "UIAlertView+InstantiationAdditions.h"
 
 @interface TicketDisplayMgr (Private)
 
@@ -21,6 +22,7 @@
 - (void)updateDisplayIfDirty;
 - (void)updateTicketsViewController;
 - (void)correctSearchViewSize;
+- (void)displayErrorWithTitle:(NSString *)title errors:(NSArray *)errors;
 
 @property (nonatomic, readonly) NSDictionary * milestonesForProject;
 @property (nonatomic, readonly) UIBarButtonItem * detailsEditButton;
@@ -346,6 +348,14 @@
     [self ticketsFilteredByFilterString:self.ticketCache.query];
 }
 
+- (void)failedToFetchTickets:(NSArray *)errors
+{
+    NSString * title =
+        NSLocalizedString(@"ticketdisplaymgr.error.ticketsfetch.title", @"");
+
+    [self displayErrorWithTitle:title errors:errors];
+}
+
 - (void)receivedTicketDetailsFromDataSource:(TicketCommentCache *)aCommentCache
 {
     [recentHistoryCommentCache setObject:aCommentCache
@@ -353,10 +363,28 @@
     [self displayTicketDetails:selectedTicketKey];
 }
 
+- (void)failedToFetchTicketDetails:(NSArray *)errors
+{
+    NSString * title =
+        NSLocalizedString(@"ticketdisplaymgr.error.detailsfetch.title", @"");
+
+    [self displayErrorWithTitle:title errors:errors];
+}
+
 - (void)createdTicketWithKey:(id)ticketKey
 {
     [self enableEditView];
     [self forceQueryRefresh];
+}
+
+- (void)failedToCreateTicket:(NSArray *)errors
+{
+    [self enableEditView];
+
+    NSString * title =
+        NSLocalizedString(@"ticketdisplaymgr.error.create.title", @"");
+
+    [self displayErrorWithTitle:title errors:errors];
 }
 
 - (void)editedTicketWithKey:(id)ticketKey
@@ -373,11 +401,32 @@
     }
 }
 
+- (void)failedToEditTicket:(id)ticketKey errors:(NSArray *)errors
+{
+    [self enableEditView];
+    [self updateTicketsViewController];
+
+    NSString * title =
+        NSLocalizedString(@"ticketdisplaymgr.error.edit.title", @"");
+
+    [self displayErrorWithTitle:title errors:errors];
+}
+
 - (void)deletedTicketWithKey:(id)ticketKey
 {
     [self.wrapperController.navigationController popViewControllerAnimated:NO];
     [self enableEditView];
     [self forceQueryRefresh];
+}
+
+- (void)failedToDeleteTicket:(id)ticketKey errors:(NSArray *)errors
+{
+    [self enableEditView];
+
+    NSString * title =
+        NSLocalizedString(@"ticketdisplaymgr.error.delete.title", @"");
+
+    [self displayErrorWithTitle:title errors:errors];
 }
 
 - (void)enableEditView
@@ -386,6 +435,21 @@
     [self.editTicketViewController dismissModalViewControllerAnimated:YES];
     self.editTicketViewController.cancelButton.enabled = YES;
     self.editTicketViewController.updateButton.enabled = YES;
+}
+
+- (void)displayErrorWithTitle:(NSString *)title errors:(NSArray *)errors
+{
+    NSLog(@"Failed to update tickets view: %@.", errors);
+
+    NSError * firstError = [errors objectAtIndex:0];
+    NSString * message =
+        firstError ? firstError.localizedDescription : @"";
+
+    UIAlertView * alertView =
+        [UIAlertView simpleAlertViewWithTitle:title message:message];
+    [alertView show];
+
+    [wrapperController setUpdatingState:kConnectedAndNotUpdating];
 }
 
 #pragma mark TicketDisplayMgr implementation
