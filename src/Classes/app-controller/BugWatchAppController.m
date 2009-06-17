@@ -320,6 +320,7 @@
         nil];
     NSString * notificationName =
         [LighthouseApiService allProjectsReceivedNotificationName];
+    NSLog(@"Broadcasting project cache: %@.", userInfo);
     [nc postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
@@ -350,6 +351,7 @@
         nil];
     NSString * notificationName =
         [LighthouseApiService milestonesReceivedForAllProjectsNotificationName];
+    NSLog(@"Broadcasting milestone cache: %@.", userInfo);
     [nc postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
@@ -373,6 +375,7 @@
         nil];
     NSString * notificationName =
         [UserSetAggregator allUsersReceivedNotificationName];
+    NSLog(@"Broadcasting user cache: %@.", userInfo);
     [nc postNotificationName:notificationName object:self
         userInfo:userInfo];
 }
