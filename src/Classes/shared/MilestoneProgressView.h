@@ -18,4 +18,11 @@
 
 @property (nonatomic) float progress;
 
+- (void)setOutlineColor:(UIColor *)color;
+- (UIColor *)outlineColor;
+- (void)setProgressColor:(UIColor *)color;
+- (UIColor *)progressColor;
+- (void)setRemainingColor:(UIColor *)color;
+- (UIColor *)remainingColor;
+
 @end

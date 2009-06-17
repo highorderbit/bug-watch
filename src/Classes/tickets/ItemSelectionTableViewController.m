@@ -83,10 +83,22 @@
     
 
     id itemAtIndexPath = [[self sortedKeys] objectAtIndex:indexPath.row];
+
+#if defined(__IPHONE_3_0)
+
+    cell.textLabel.text = [items objectForKey:itemAtIndexPath];
+    cell.textLabel.textColor =
+        [itemAtIndexPath isEqual:selectedItem] ?
+        [UIColor bugWatchCheckedColor] : [UIColor blackColor];
+
+#else
+
     cell.text = [items objectForKey:itemAtIndexPath];
     cell.textColor =
         [itemAtIndexPath isEqual:selectedItem] ?
         [UIColor bugWatchCheckedColor] : [UIColor blackColor];
+
+#endif
 
     return cell;
 }

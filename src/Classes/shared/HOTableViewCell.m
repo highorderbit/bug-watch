@@ -21,13 +21,34 @@
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier
     tableViewStyle:(UITableViewStyle)tableViewStyle
 {
+
+#if defined (__IPHONE_3_0)
+
+    if (self = [super initWithStyle:UITableViewCellStyleDefault
+        reuseIdentifier:reuseIdentifier]) {
+
+#else
+
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {        
+
+#endif
+
         label = [[UILabel alloc] initWithFrame:[[self class]readonlyFrame]];
         [label setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin];
         label.tag = 1;
         label.textAlignment = UITextAlignmentLeft;
         label.backgroundColor = [UIColor clearColor];
+
+#if defined(__IPHONE_3_0)
+
+        label.textColor = self.textLabel.textColor;
+
+#else
+
         label.textColor = self.textColor;
+
+#endif
+
         NSInteger fontSize = tableViewStyle == UITableViewStylePlain ? 20 : 17;
         label.font = [UIFont boldSystemFontOfSize:fontSize];
         label.numberOfLines = 1;

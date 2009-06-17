@@ -79,7 +79,10 @@ static const NSInteger UNSET_KEY = 0;
 
     self.tableView.backgroundColor = [UIColor bugWatchBackgroundColor];
     self.tableView.tableFooterView = footerView;
-    deleteButton.titleShadowOffset = CGSizeMake(-0.5, -0.5);
+
+    // The 'titleShadowOffset' property has been deprecated in iPhone OS 3.0.
+    //deleteButton.titleShadowOffset = CGSizeMake(-0.5, -0.5);
+    deleteButton.titleLabel.shadowOffset = CGSizeMake(-0.5, -0.5);
 
     [self.navigationItem setLeftBarButtonItem:cancelButton animated:NO];
     [self.navigationItem setRightBarButtonItem:updateButton animated:NO];

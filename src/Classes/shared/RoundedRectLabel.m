@@ -10,7 +10,6 @@
 @synthesize highlightedRoundedRectColor;
 @synthesize roundedCornerWidth;
 @synthesize roundedCornerHeight;
-@synthesize font;
 
 - (void)dealloc
 {
