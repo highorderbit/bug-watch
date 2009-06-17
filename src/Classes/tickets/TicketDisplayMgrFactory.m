@@ -10,6 +10,7 @@
 #import "AllUserUpdatePublisher.h"
 #import "MilestoneUpdatePublisher.h"
 #import "UserSetAggregator.h"
+#import "CredentialsUpdatePublisher.h"
 
 @interface TicketDisplayMgrFactory (Private)
 
@@ -66,7 +67,12 @@
     [self initProjectSetterForTicketDispMgr:ticketDisplayMgr];
     [self initMilestoneSetterForTicketDispMgr:ticketDisplayMgr];
     [self initUserSetterForTicketDispMgr:ticketDisplayMgr];
-    
+
+    // just create, no need to assign a variable
+    [[CredentialsUpdatePublisher alloc]
+        initWithListener:ticketDisplayMgr
+        action:@selector(credentialsChanged:)];
+
     return ticketDisplayMgr;
 }
 

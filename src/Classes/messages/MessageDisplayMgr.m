@@ -354,6 +354,16 @@
     self.newMessageViewController.postButton.enabled = YES;
 }
 
+#pragma mark API credential management
+
+- (void)credentialsChanged:(LighthouseCredentials *)credentials
+{
+    [dataSource setCredentials:credentials];
+    self.messageCache = nil;
+    [self.wrapperController.navigationController
+        popToRootViewControllerAnimated:NO];
+}
+
 #pragma mark Accessors
 
 - (NewMessageViewController *)newMessageViewController

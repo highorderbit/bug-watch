@@ -230,6 +230,13 @@
     [delegate failedToEditTicket:ticketKey errors:errors];
 }
 
+#pragma mark Accessors
+
+- (void)setCredentials:(LighthouseCredentials *)someCredentials
+{
+    [service setCredentials:someCredentials];
+}
+
 #pragma mark Readable strings from yaml helpers
 
 + (NSDictionary *)parseYaml:(NSString *)yaml

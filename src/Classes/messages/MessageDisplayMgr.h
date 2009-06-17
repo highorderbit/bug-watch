@@ -67,5 +67,6 @@
     messagesViewController:(MessagesViewController *)aMessagesViewController;
 
 - (void)createNewMessage;
+- (void)credentialsChanged:(LighthouseCredentials *)credentials;
 
 @end

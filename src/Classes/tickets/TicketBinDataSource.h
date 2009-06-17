@@ -17,5 +17,6 @@
 
 - (id)initWithService:(LighthouseApiService *)service;
 - (void)fetchAllTicketBinsForProject:(id)projectKey;
+- (void)setCredentials:(LighthouseCredentials *)someCredentials;
 
 @end

@@ -75,5 +75,6 @@
     dataSource:(TicketDataSource *)aDataSource;
     
 - (void)addSelected;
+- (void)credentialsChanged:(LighthouseCredentials *)credentials;
 
 @end

@@ -114,4 +114,11 @@
     [delegate failedToFetchCommentsForMessage:globalMsgKey errors:errors];
 }
 
+#pragma mark Accessors
+
+- (void)setCredentials:(LighthouseCredentials *)someCredentials
+{
+    [service setCredentials:someCredentials];
+}
+
 @end

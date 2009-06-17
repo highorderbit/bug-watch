@@ -8,6 +8,7 @@
 #import "UserSetAggregator.h"
 #import "AllUserUpdatePublisher.h"
 #import "MessageDisplayUserSetter.h"
+#import "CredentialsUpdatePublisher.h"
 
 @interface MessageDisplayMgrFactory (Private)
 
@@ -58,6 +59,11 @@
 
     [self initProjectSetterForMessageDispMgr:messageDisplayMgr];
     [self initUserSetterForMessageDispMgr:messageDisplayMgr];
+
+    // just create, no need to assign a variable
+    [[CredentialsUpdatePublisher alloc]
+        initWithListener:messageDisplayMgr
+        action:@selector(credentialsChanged:)];
 
     return messageDisplayMgr;
 }
