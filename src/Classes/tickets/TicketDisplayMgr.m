@@ -18,7 +18,7 @@
 - (void)displayTicketDetails:(LighthouseKey *)key;
 - (void)deleteTicketOnServer;
 - (void)disableEditViewWithText:(NSString *)text;
-- (void)enableEditView;
+- (void)enableEditView:(BOOL)dismiss;
 - (void)updateDisplayIfDirty;
 - (void)updateTicketsViewController;
 - (void)correctSearchViewSize;
@@ -373,13 +373,13 @@
 
 - (void)createdTicketWithKey:(id)ticketKey
 {
-    [self enableEditView];
+    [self enableEditView:YES];
     [self forceQueryRefresh];
 }
 
 - (void)failedToCreateTicket:(NSArray *)errors
 {
-    [self enableEditView];
+    [self enableEditView:NO];
 
     NSString * title =
         NSLocalizedString(@"ticketdisplaymgr.error.create.title", @"");
@@ -390,7 +390,7 @@
 - (void)editedTicketWithKey:(id)ticketKey
 {
     NSLog(@"Edited ticket with key: %@", ticketKey);
-    [self enableEditView];
+    [self enableEditView:YES];
     [self forceQueryRefresh];
     if (self.wrapperController.navigationController.topViewController ==
         self.detailsNetAwareViewController) {
@@ -403,7 +403,7 @@
 
 - (void)failedToEditTicket:(id)ticketKey errors:(NSArray *)errors
 {
-    [self enableEditView];
+    [self enableEditView:NO];
     [self updateTicketsViewController];
 
     NSString * title =
@@ -415,13 +415,13 @@
 - (void)deletedTicketWithKey:(id)ticketKey
 {
     [self.wrapperController.navigationController popViewControllerAnimated:NO];
-    [self enableEditView];
+    [self enableEditView:YES];
     [self forceQueryRefresh];
 }
 
 - (void)failedToDeleteTicket:(id)ticketKey errors:(NSArray *)errors
 {
-    [self enableEditView];
+    [self enableEditView:NO];
 
     NSString * title =
         NSLocalizedString(@"ticketdisplaymgr.error.delete.title", @"");
@@ -429,10 +429,11 @@
     [self displayErrorWithTitle:title errors:errors];
 }
 
-- (void)enableEditView
+- (void)enableEditView:(BOOL)dismiss
 {
     [darkTransparentView removeFromSuperview];
-    [self.editTicketViewController dismissModalViewControllerAnimated:YES];
+    if (dismiss)
+        [self.editTicketViewController dismissModalViewControllerAnimated:YES];
     self.editTicketViewController.cancelButton.enabled = YES;
     self.editTicketViewController.updateButton.enabled = YES;
 }
@@ -449,7 +450,8 @@
         [UIAlertView simpleAlertViewWithTitle:title message:message];
     [alertView show];
 
-    [wrapperController setUpdatingState:kConnectedAndNotUpdating];
+    [wrapperController setUpdatingState:kDisconnected];
+    [detailsNetAwareViewController setUpdatingState:kDisconnected];
 }
 
 #pragma mark TicketDisplayMgr implementation
