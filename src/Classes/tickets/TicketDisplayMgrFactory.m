@@ -97,21 +97,14 @@
 
 - (void)initUserSetterForTicketDispMgr:(TicketDisplayMgr *)ticketDispMgr
 {
+    // intentionally not autoreleasing either of the following objects
     TicketDispMgrUserSetter * userSetter =
         [[TicketDispMgrUserSetter alloc]
         initWithTicketDisplayMgr:ticketDispMgr];
-    LighthouseApiService * userSetterService =
-        [lighthouseApiFactory createLighthouseApiService];
-    UserSetAggregator * userSetAggregator =
-        [[UserSetAggregator alloc] initWithApiService:userSetterService];
+    // just create, no need to assign a variable
     [[AllUserUpdatePublisher alloc]
         initWithListener:userSetter
         action:@selector(fetchedAllUsers:)];
-
-    userSetterService.delegate = userSetAggregator;
-    [[ProjectUpdatePublisher alloc]
-        initWithListener:userSetAggregator
-        action:@selector(fetchedAllProjects:projectKeys:)];
 }
 
 @end

@@ -76,22 +76,14 @@
 
 - (void)initUserSetterForMessageDispMgr:(MessageDisplayMgr *)displayMgr
 {
+    // intentionally not autoreleasing either of the following objects
     MessageDisplayUserSetter * userSetter =
         [[MessageDisplayUserSetter alloc]
         initWithMessageDisplayMgr:displayMgr];
-    LighthouseApiService * userSetterService =
-        [lighthouseApiFactory createLighthouseApiService];
-    UserSetAggregator * userSetAggregator =
-        [[UserSetAggregator alloc]
-        initWithApiService:userSetterService];
+    // just create, no need to assign a variable
     [[AllUserUpdatePublisher alloc]
         initWithListener:userSetter
         action:@selector(fetchedAllUsers:)];
-
-    userSetterService.delegate = userSetAggregator;
-    [[ProjectUpdatePublisher alloc]
-        initWithListener:userSetAggregator
-        action:@selector(fetchedAllProjects:projectKeys:)];
 }
 
 @end

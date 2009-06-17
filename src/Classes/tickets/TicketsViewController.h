@@ -22,11 +22,14 @@
     IBOutlet UIButton * loadMoreButton;
     IBOutlet UILabel * currentPagesLabel;
     IBOutlet UILabel * noMorePagesLabel;
+    
+    NSArray * sortedKeyCache;
 }
 
 @property (nonatomic, retain)
     NSObject<TicketsViewControllerDelegate> * delegate;
 @property (nonatomic, retain) UIView * headerView;
+@property (nonatomic, retain) NSArray * sortedKeyCache;
 
 - (void)setTickets:(NSDictionary *)someTickets
     metaData:(NSDictionary *)someMetaData

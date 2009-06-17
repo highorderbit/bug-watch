@@ -54,6 +54,7 @@
 - (void)initMilestonesTab;
 
 - (void)initSharedStateListeners;
+- (void)initUserSetAggregator;
 + (void)loadSharedStatesFromPersistence;
 + (void)broadcastMilestoneCache:(MilestoneCache *)cache;
 + (void)broadcastProjectCache:(ProjectCache *)cache;
@@ -146,6 +147,7 @@
         initWithLighthouseApiFactory:lighthouseApiFactory];
 
     [self initSharedStateListeners];
+    [self initUserSetAggregator];
 
     // load single-session, global data (milestones, projects, users)
     LighthouseApiService * service =
@@ -250,6 +252,19 @@
     [[AllUserUpdatePublisher alloc]
         initWithListener:userCacheSetter
         action:@selector(fetchedAllUsers:)];
+}
+
+- (void)initUserSetAggregator
+{
+    LighthouseApiService * userSetterService =
+        [lighthouseApiFactory createLighthouseApiService];
+    // nothing retains this, so don't autorelease    
+    UserSetAggregator * userSetAggregator =
+        [[UserSetAggregator alloc] initWithApiService:userSetterService];
+    userSetterService.delegate = userSetAggregator;
+    [[ProjectUpdatePublisher alloc]
+        initWithListener:userSetAggregator
+        action:@selector(fetchedAllProjects:projectKeys:)];
 }
 
 + (void)loadSharedStatesFromPersistence

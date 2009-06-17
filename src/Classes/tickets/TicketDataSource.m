@@ -64,7 +64,8 @@
 
 - (void)editTicketWithKey:(id)key description:(UpdateTicketDescription *)desc
     forProject:(id)projectKey
-{    
+{
+    NSLog(@"Sending 'edit ticket' request to api...");
     [service editTicket:key forProject:projectKey withDescription:desc];
 }
 
@@ -83,7 +84,13 @@
     milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
     userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds
 {
-    NSLog(@"Received tickets: %@", tickets);
+    NSLog(@"Received tickets (%@ - page %d): %@", searchString, page, tickets);
+    NSLog(@"Metadta: %@", someMetaData);
+    NSLog(@"Ticket numbers: %@", ticketNumbers);
+    NSLog(@"Milestone id's: %@", milestoneIds);
+    NSLog(@"Project id's: %@", projectIds);
+    NSLog(@"User id's: %@", userIds);
+    NSLog(@"Creator id's: %@", creatorIds);
     
     // create ticket cache
     TicketCache * ticketCache = [[TicketCache alloc] init];
@@ -143,8 +150,8 @@
 - (void)details:(NSArray *)details authors:(NSArray *)authors
     fetchedForTicket:(id)ticketKey inProject:(id)projectKey
 {
-    NSLog(@"Received ticket details: %@", details);
-    
+    NSLog(@"Received ticket details from server.");
+
     TicketCommentCache * commentCache =
         [[[TicketCommentCache alloc] init] autorelease];
     NSMutableArray * diffs = [NSMutableArray array];

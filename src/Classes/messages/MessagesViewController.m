@@ -8,14 +8,15 @@
 
 @implementation MessagesViewController
 
-@synthesize delegate;
+@synthesize delegate, sortedKeyCache;
 
 - (void)dealloc {
     [messages release];
     [postedByDict release];
     [projectDict release];
     [numResponsesDict release];
-    [delegate release];
+    [sortedKeyCache release];
+
     [super dealloc];
 }
 
@@ -93,6 +94,8 @@
     projectDict:(NSDictionary *)aProjectDict
     numResponsesDict:(NSDictionary *)aNumResponsesDict
 {
+    self.sortedKeyCache = nil;
+
     NSDictionary * tempMessages = [someMessages copy];
     [messages release];
     messages = tempMessages;
@@ -114,7 +117,11 @@
 
 - (NSArray *)sortedKeys
 {
-    return [messages keysSortedByValueUsingSelector:@selector(compare:)];
+    if (!self.sortedKeyCache)
+        self.sortedKeyCache =
+            [messages keysSortedByValueUsingSelector:@selector(compare:)];
+
+    return sortedKeyCache;
 }
 
 @end

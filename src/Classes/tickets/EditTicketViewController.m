@@ -450,8 +450,6 @@ static const NSInteger UNSET_KEY = 0;
     for (int i = kNew; i <= kInvalid; i = i << 1)
         [states setObject:[TicketMetaData descriptionForState:i]
             forKey:[NSNumber numberWithInt:i]];
-    [states setObject:[[self class] unsetText]
-        forKey:[NSNumber numberWithInt:UNSET_KEY]];
 
     return states;
 }
