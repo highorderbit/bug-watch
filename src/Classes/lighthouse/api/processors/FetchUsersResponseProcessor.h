@@ -3,12 +3,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseProcessor.h"
+#import "AsynchronousResponseProcessor.h"
 
-@interface FetchUsersResponseProcessor : ResponseProcessor
+@interface FetchUsersResponseProcessor : AsynchronousResponseProcessor
 {
     id projectKey;
     id delegate;
+
+    NSArray * users;
+    NSArray * userKeys;
 }
 
 @property (nonatomic, copy, readonly) id projectKey;

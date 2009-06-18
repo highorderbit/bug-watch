@@ -10,11 +10,15 @@
 @property (nonatomic, copy) id projectKey;
 @property (nonatomic, assign) id delegate;
 
+@property (nonatomic, retain) NSArray * users;
+@property (nonatomic, retain) NSArray * userKeys;
+
 @end
 
 @implementation FetchUsersResponseProcessor
 
 @synthesize projectKey, delegate;
+@synthesize users, userKeys;
 
 + (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
                 projectKey:(id)aProjectKey
@@ -30,6 +34,8 @@
 {
     self.projectKey = nil;
     self.delegate = nil;
+    self.users = nil;
+    self.userKeys = nil;
     [super dealloc];
 }
 
@@ -45,11 +51,14 @@
     return self;
 }
 
-- (void)processResponse:(NSData *)xml
+- (void)processResponseAsynchronously:(NSData *)xml
 {
-    NSArray * users = [self.objectBuilder parseUsers:xml];
-    NSArray * userKeys = [self.objectBuilder parseUserKeys:xml];
+    self.users = [self.objectBuilder parseUsers:xml];
+    self.userKeys = [self.objectBuilder parseUserKeys:xml];
+}
 
+- (void)asynchronousProcessorFinished
+{
     NSDictionary * allUsers =
         [NSDictionary dictionaryWithObjects:users forKeys:userKeys];
 
