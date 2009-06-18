@@ -58,7 +58,7 @@
             @"lastModifiedDate", @"updated-at",
             @"milestoneId", @"milestone-id",
             @"projectId", @"project-id",
-            @"userId", @"user-id",
+            @"userId", @"assigned-user-id",
             @"creatorId", @"creator-id",
             nil];
 
@@ -176,7 +176,7 @@
     parser.classElementCollection = @"tickets";
     parser.attributeMappings =
         [NSDictionary dictionaryWithObjectsAndKeys:
-            @"number", @"user-id", nil];
+            @"number", @"assigned-user-id", nil];
 
     return [parser parse:xml];
 }
