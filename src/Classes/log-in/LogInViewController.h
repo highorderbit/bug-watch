@@ -12,7 +12,6 @@
     IBOutlet UITableView * tableView;
 
     IBOutlet UIBarButtonItem * logInButton;
-    IBOutlet UIBarButtonItem * cancelButton;
 
     IBOutlet UITableViewCell * accountCell;
     IBOutlet UITableViewCell * usernameCell;
