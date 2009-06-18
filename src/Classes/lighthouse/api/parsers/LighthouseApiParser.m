@@ -74,9 +74,7 @@
     NSXMLParser * parser = [[NSXMLParser alloc] initWithData:xml];
     parser.delegate = self;
 
-    NSLog(@"Parsing began.");
     [parser parse];
-    NSLog(@"Parsing finished.");
 
     [parser release];
 
