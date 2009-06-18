@@ -3,6 +3,7 @@
 //
 
 #import "LogInViewController.h"
+#import "UIColor+BugWatchColors.h"
 
 static const int NUM_SECTIONS = 2;
 enum Sections
@@ -82,6 +83,8 @@ enum CredentialRows
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.tableView.backgroundColor = [UIColor bugWatchBackgroundColor];
 
     self.logInButton.target = self;
     self.logInButton.action = @selector(userDidSave);
