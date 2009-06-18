@@ -23,6 +23,7 @@
 #import "MilestoneCache.h"
 #import "MessageDisplayMgr.h"
 #import "MessageDisplayMgrFactory.h"
+#import "LogInDisplayMgr.h"
 #import "LighthouseCredentials.h"
 #import "CredentialsUpdatePublisher.h"
 
@@ -58,6 +59,7 @@
 
     LighthouseApiServiceFactory * lighthouseApiFactory;
 
+    LogInDisplayMgr * logInDisplayMgr;
     LighthouseCredentials * credentials;
     CredentialsUpdatePublisher * credentialsUpdatePublisher;
 }

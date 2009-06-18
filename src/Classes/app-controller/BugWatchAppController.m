@@ -115,6 +115,7 @@
 
     [lighthouseApiFactory release];
 
+    [logInDisplayMgr release];
     [credentials release];
     [credentialsUpdatePublisher release];
 
@@ -579,7 +580,7 @@
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
 
-    LogInDisplayMgr * logInDisplayMgr =
+    logInDisplayMgr =
         [[LogInDisplayMgr alloc] initWithCredentials:credentials
                                   rootViewController:tabBarController
                                     lighthouseDomain:domain
@@ -661,6 +662,9 @@
 
     newsFeedNetworkAwareViewController.navigationItem.leftBarButtonItem.title =
         [self logInButtonTitle];
+
+    if (self.credentials == nil)
+        [logInDisplayMgr logIn];
 }
 
 #pragma mark Configuration values
