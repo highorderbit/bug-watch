@@ -93,6 +93,7 @@
 		0552172E0FACB75800626049 /* DropShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0552172D0FACB75800626049 /* DropShadow.png */; };
 		055217AF0FACCA2B00626049 /* NewsFeedItemHeaderGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 055217AE0FACCA2B00626049 /* NewsFeedItemHeaderGradient.png */; };
 		0570D4B60FC0F76D00928667 /* MilestoneHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0570D4B40FC0F76D00928667 /* MilestoneHeaderView.xib */; };
+		0571E70A0FE9BDEB001E7D41 /* AsynchronousResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0571E7090FE9BDEB001E7D41 /* AsynchronousResponseProcessor.m */; };
 		05852AF00FBC9E190025FCAE /* MilestoneCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05852AEF0FBC9E190025FCAE /* MilestoneCache.m */; };
 		05852BC20FBCF48F0025FCAE /* Milestone+SortAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05852BC10FBCF48F0025FCAE /* Milestone+SortAdditions.m */; };
 		058ED3FB0FDED4C700595604 /* ResponseProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 058ED3FA0FDED4C700595604 /* ResponseProcessor.m */; };
@@ -116,6 +117,7 @@
 		05C8706E0FA77F4C0069BC72 /* BugWatchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C8706D0FA77F4C0069BC72 /* BugWatchAppDelegate.m */; };
 		05C870790FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870750FA77FD80069BC72 /* NSURLRequest+WebServiceApiAdditions.m */; };
 		05C8707A0FA77FD80069BC72 /* WebServiceApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C870770FA77FD80069BC72 /* WebServiceApi.m */; };
+		05C99C1D0FE9B4330046C915 /* AsynchronousInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C99C1C0FE9B4330046C915 /* AsynchronousInvocation.m */; };
 		05D6A0050FB357C10081AE18 /* NSObject+RuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 059736940FAFC00D00059D20 /* NSObject+RuntimeAdditions.m */; };
 		05DB80CB0FC33E7E0095AF32 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB80CA0FC33E7E0095AF32 /* User.m */; };
 		05DB81010FC343CD0095AF32 /* BugWatchAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DB81000FC343CD0095AF32 /* BugWatchAppController.m */; };
@@ -379,6 +381,8 @@
 		0552172D0FACB75800626049 /* DropShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropShadow.png; sourceTree = "<group>"; };
 		055217AE0FACCA2B00626049 /* NewsFeedItemHeaderGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewsFeedItemHeaderGradient.png; sourceTree = "<group>"; };
 		0570D4B50FC0F76D00928667 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MilestoneHeaderView.xib; sourceTree = "<group>"; };
+		0571E7080FE9BDEB001E7D41 /* AsynchronousResponseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsynchronousResponseProcessor.h; path = lighthouse/api/processors/AsynchronousResponseProcessor.h; sourceTree = "<group>"; };
+		0571E7090FE9BDEB001E7D41 /* AsynchronousResponseProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsynchronousResponseProcessor.m; path = lighthouse/api/processors/AsynchronousResponseProcessor.m; sourceTree = "<group>"; };
 		05852AEE0FBC9E190025FCAE /* MilestoneCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MilestoneCache.h; path = Classes/milestones/MilestoneCache.h; sourceTree = "<group>"; };
 		05852AEF0FBC9E190025FCAE /* MilestoneCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MilestoneCache.m; path = Classes/milestones/MilestoneCache.m; sourceTree = "<group>"; };
 		05852BC00FBCF48F0025FCAE /* Milestone+SortAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Milestone+SortAdditions.h"; path = "Classes/milestones/Milestone+SortAdditions.h"; sourceTree = "<group>"; };
@@ -425,6 +429,8 @@
 		05C870760FA77FD80069BC72 /* WebServiceApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApi.h; path = "web-service/WebServiceApi.h"; sourceTree = "<group>"; };
 		05C870770FA77FD80069BC72 /* WebServiceApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebServiceApi.m; path = "web-service/WebServiceApi.m"; sourceTree = "<group>"; };
 		05C870780FA77FD80069BC72 /* WebServiceApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebServiceApiDelegate.h; path = "web-service/WebServiceApiDelegate.h"; sourceTree = "<group>"; };
+		05C99C1B0FE9B4330046C915 /* AsynchronousInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsynchronousInvocation.h; path = shared/AsynchronousInvocation.h; sourceTree = "<group>"; };
+		05C99C1C0FE9B4330046C915 /* AsynchronousInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsynchronousInvocation.m; path = shared/AsynchronousInvocation.m; sourceTree = "<group>"; };
 		05DB80C90FC33E7E0095AF32 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = users/User.h; sourceTree = "<group>"; };
 		05DB80CA0FC33E7E0095AF32 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = users/User.m; sourceTree = "<group>"; };
 		05DB80FF0FC343CD0095AF32 /* BugWatchAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugWatchAppController.h; path = "app-controller/BugWatchAppController.h"; sourceTree = "<group>"; };
@@ -838,6 +844,8 @@
 				0537C5940FE0286700D87E0B /* ResponseProcessors.h */,
 				058ED3F90FDED4C700595604 /* ResponseProcessor.h */,
 				058ED3FA0FDED4C700595604 /* ResponseProcessor.m */,
+				0571E7080FE9BDEB001E7D41 /* AsynchronousResponseProcessor.h */,
+				0571E7090FE9BDEB001E7D41 /* AsynchronousResponseProcessor.m */,
 				0537C5890FE0249500D87E0B /* FetchAllTicketsResponseProcessor.h */,
 				0537C58A0FE0249500D87E0B /* FetchAllTicketsResponseProcessor.m */,
 				0537C5A20FE0291100D87E0B /* FetchTicketDetailsResponseProcessor.h */,
@@ -1107,6 +1115,8 @@
 				054FCF530FE4778700834323 /* NSString+UrlEncodingAdditions.m */,
 				054FD0200FE59AE900834323 /* UIAlertView+InstantiationAdditions.h */,
 				054FD0210FE59AE900834323 /* UIAlertView+InstantiationAdditions.m */,
+				05C99C1B0FE9B4330046C915 /* AsynchronousInvocation.h */,
+				05C99C1C0FE9B4330046C915 /* AsynchronousInvocation.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -1771,6 +1781,8 @@
 				054FD2B30FE718D400834323 /* CredentialsUpdatePublisher.m in Sources */,
 				05222D7C0FE8150700B3B796 /* LighthouseCredentialsPersistenceStore.m in Sources */,
 				05BE65620FE9AA37001255E7 /* TicketDataWrapper.m in Sources */,
+				05C99C1D0FE9B4330046C915 /* AsynchronousInvocation.m in Sources */,
+				0571E70A0FE9BDEB001E7D41 /* AsynchronousResponseProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,16 +3,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseProcessor.h"
+#import "AsynchronousResponseProcessor.h"
 #import "LighthouseApiServiceDelegate.h"
 
-@interface SearchAllTicketsResponseProcessor : ResponseProcessor
+@class TicketDataCollector;
+
+@interface SearchAllTicketsResponseProcessor : AsynchronousResponseProcessor
 {
     id projectKey;
     NSString * searchString;
     NSUInteger page;
     id object;
     id<LighthouseApiServiceDelegate> delegate;
+
+    TicketDataCollector * collector;
 }
 
 @property (nonatomic, copy, readonly) id projectKey;
