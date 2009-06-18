@@ -89,10 +89,8 @@
 {
     NSArray * wrappers = [self.objectBuilder parseTicketDataWrappers:xml];
 
-    NSLog(@"Beginning object creation.");
     TicketDataCollector * privateCollector =
         [[TicketDataCollector alloc] initWithDataWrappers:wrappers];
-    NSLog(@"Finished object creation.");
 
     if (projectKey) {
         SEL sel = @selector(tickets:fetchedForProject:searchString:page:object:\
