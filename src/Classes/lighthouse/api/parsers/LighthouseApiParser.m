@@ -20,8 +20,11 @@
 + (NSDictionary *)typeConverters;
 + (NSSet *)primitiveTypes;
 
+- (void)appendPathComponent:(NSString *)path;
+- (void)removeLastPathComponent;
+
 @property (nonatomic, retain) id obj;
-@property (nonatomic, retain) NSMutableString * elementPath;
+@property (nonatomic, retain) NSString * elementPath;
 @property (nonatomic, retain) NSMutableString * elementValue;
 @property (nonatomic, retain) NSMutableString * elementType;
 @property (nonatomic, retain) NSMutableArray * elements;
@@ -66,6 +69,7 @@
     [self resetContext];
     [self resetCollection];
     buildingObject = NO;
+    self.elementPath = [NSString string];
 
     NSXMLParser * parser = [[NSXMLParser alloc] initWithData:xml];
     parser.delegate = self;
@@ -99,7 +103,8 @@
     } else {
         if ([attributes objectForKey:@"type"])
             self.elementType = [attributes objectForKey:@"type"];
-        [self.elementPath appendString:elementName];
+        if (buildingObject)
+            [self appendPathComponent:elementName];
     }
 }
 
@@ -108,7 +113,7 @@
     namespaceURI:(NSString *)namespaceURI
     qualifiedName:(NSString *)qualifiedName
 {
-    if (buildingObject)
+    if (buildingObject) {
         // HACK: Grabbing top level objects to support parsing errors, and I
         // don't want to spend the time to refactor properly.
         if (!attributeMappings) {
@@ -127,6 +132,10 @@
                        forPath:self.elementPath
                         object:self.obj];
         }
+
+        [self removeLastPathComponent];
+    }
+
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)chars
@@ -136,8 +145,7 @@
 
 - (void)resetContext
 {
-    self.elementPath = [NSMutableString stringWithCapacity:0];
-    self.elementValue = [NSMutableString stringWithCapacity:0];
+    self.elementValue = [NSMutableString string];
     self.elementType = [NSMutableString string];
 }
 
@@ -201,6 +209,18 @@
             [[NSSet alloc] initWithObjects:@"NSNumber", @"NSString", nil];
 
     return primitiveTypes;
+}
+
+- (void)appendPathComponent:(NSString *)path
+{
+    self.elementPath =
+        [[self.elementPath stringByAppendingPathComponent:path] mutableCopy];
+}
+
+- (void)removeLastPathComponent
+{
+    self.elementPath =
+        [[self.elementPath stringByDeletingLastPathComponent] mutableCopy];
 }
 
 @end

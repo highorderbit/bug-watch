@@ -13,7 +13,7 @@
 
     id obj;
 
-    NSMutableString * elementPath;
+    NSString * elementPath;
     NSMutableString * elementValue;
     NSMutableString * elementType;
     NSMutableArray * elements;
