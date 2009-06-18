@@ -3,9 +3,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseProcessor.h"
+#import "AsynchronousResponseProcessor.h"
 
-@interface FetchMessageCommentsResponseProcessor : ResponseProcessor
+@interface FetchMessageCommentsResponseProcessor : AsynchronousResponseProcessor
 {
     id messageKey;
     id projectKey;
