@@ -3,22 +3,31 @@
 //
 
 #import "LighthouseApiServiceFactory.h"
+#import "CredentialsUpdatePublisher.h"
+#import "LighthouseCredentials.h"
 
 @interface LighthouseApiServiceFactory ()
 
 @property (nonatomic, copy) NSString * lighthouseDomain;
 @property (nonatomic, copy) NSString * lighthouseScheme;
 
+@property (nonatomic, retain) CredentialsUpdatePublisher *
+    credentialsUpdatePublisher;
+@property (nonatomic, retain) LighthouseCredentials * credentials;
+
 @end
 
 @implementation LighthouseApiServiceFactory
 
 @synthesize lighthouseDomain, lighthouseScheme;
+@synthesize credentialsUpdatePublisher, credentials;
 
 - (void)dealloc
 {
     self.lighthouseDomain = nil;
     self.lighthouseScheme = nil;
+    self.credentialsUpdatePublisher = nil;
+    self.credentials = nil;
     [super dealloc];
 }
 
@@ -27,6 +36,9 @@
     if (self = [super init]) {
         self.lighthouseDomain = domain;
         self.lighthouseScheme = scheme;
+
+        credentialsUpdatePublisher = [[CredentialsUpdatePublisher alloc]
+            initWithListener:self action:@selector(credentialsChanged:)];
     }
 
     return self;
@@ -38,19 +50,18 @@
         [LighthouseUrlBuilder builderWithLighthouseDomain:lighthouseDomain
                                                    scheme:lighthouseScheme];
 
-    // temporary
-    static NSString * account = @"highorderbit";
-    static NSString * token = @"6998f7ed27ced7a323b256d83bd7fec98167b1b3";
-    LighthouseCredentials * credentials =
-            [[LighthouseCredentials alloc] initWithAccount:account token:token];
-
     LighthouseApiService * service =
         [[LighthouseApiService alloc] initWithUrlBuilder:urlBuilder
                                              credentials:credentials];
 
-    [credentials release];
-
     return [service autorelease];
+}
+
+#pragma mark Notification when credentials change
+
+- (void)credentialsChanged:(LighthouseCredentials *)someCredentials
+{
+    self.credentials = someCredentials;
 }
 
 @end
