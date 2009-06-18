@@ -8,12 +8,15 @@
 @interface FetchProjectsResponseProcessor ()
 
 @property (nonatomic, assign) id delegate;
+@property (nonatomic, retain) NSArray * projects;
+@property (nonatomic, retain) NSArray * projectKeys;
 
 @end
 
 @implementation FetchProjectsResponseProcessor
 
 @synthesize delegate;
+@synthesize projects, projectKeys;
 
 + (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
                   delegate:(id)aDelegate
@@ -26,6 +29,8 @@
 - (void)dealloc
 {
     self.delegate = nil;
+    self.projects = nil;
+    self.projectKeys = nil;
     [super dealloc];
 }
 
@@ -38,11 +43,14 @@
     return self;
 }
 
-- (void)processResponse:(NSData *)xml
+- (void)processResponseAsynchronously:(NSData *)xml
 {
-    NSArray * projects = [self.objectBuilder parseProjects:xml];
-    NSArray * projectKeys = [self.objectBuilder parseProjectKeys:xml];
+    self.projects = [self.objectBuilder parseProjects:xml];
+    self.projectKeys = [self.objectBuilder parseProjectKeys:xml];
+}
 
+- (void)asynchronousProcessorFinished
+{
     SEL sel = @selector(fetchedAllProjects:projectKeys:);
     [self
         invokeSelector:sel withTarget:delegate args:projects, projectKeys, nil];
