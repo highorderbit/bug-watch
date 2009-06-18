@@ -16,7 +16,9 @@
     LighthouseCredentials * credentials;
 }
 
-- (id)initWithLighthouseDomain:(NSString *)domain scheme:(NSString *)scheme;
+- (id)initWithLighthouseDomain:(NSString *)domain
+                        scheme:(NSString *)scheme
+                   credentials:(LighthouseCredentials *)someCredentials;
 
 - (LighthouseApiService *)createLighthouseApiService;
 

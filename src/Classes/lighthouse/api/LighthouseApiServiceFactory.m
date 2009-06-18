@@ -31,12 +31,15 @@
     [super dealloc];
 }
 
-- (id)initWithLighthouseDomain:(NSString *)domain scheme:(NSString *)scheme
+- (id)initWithLighthouseDomain:(NSString *)domain
+                        scheme:(NSString *)scheme
+                   credentials:(LighthouseCredentials *)someCredentials
 {
     if (self = [super init]) {
         self.lighthouseDomain = domain;
         self.lighthouseScheme = scheme;
 
+        self.credentials = someCredentials;
         credentialsUpdatePublisher = [[CredentialsUpdatePublisher alloc]
             initWithListener:self action:@selector(credentialsChanged:)];
     }

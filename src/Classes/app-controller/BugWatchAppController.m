@@ -139,7 +139,7 @@
 
     lighthouseApiFactory =
         [[LighthouseApiServiceFactory alloc]
-        initWithLighthouseDomain:domain scheme:scheme];
+        initWithLighthouseDomain:domain scheme:scheme credentials:credentials];
     ticketSearchMgrFactory =
         [[TicketSearchMgrFactory alloc] init];
     ticketDisplayMgrFactory =
