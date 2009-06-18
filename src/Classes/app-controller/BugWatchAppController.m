@@ -182,6 +182,9 @@
             [projectDisplayMgr presentSelectedTab:uiState.selectedProjectTab
                 animated:NO];
     }
+
+    if (self.credentials == nil)
+        [logInDisplayMgr logIn];
 }
 
 - (void)persistState
