@@ -22,31 +22,27 @@
 @synthesize projectKey, searchString, page, object, delegate;
 @synthesize collector;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-              searchString:(NSString *)aSearchString
-                      page:(NSUInteger)aPage
-                  delegate:(id<LighthouseApiServiceDelegate>)aDelegate
++ (id)processorWithSearchString:(NSString *)aSearchString
+                           page:(NSUInteger)aPage
+                       delegate:(id<LighthouseApiServiceDelegate>)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                      searchString:aSearchString
-                                              page:aPage
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithSearchString:aSearchString
+                                                   page:aPage
+                                               delegate:aDelegate];
     return [obj autorelease];
 }
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                projectKey:(id)aProjectKey
-              searchString:(NSString *)aSearchString
-                      page:(NSUInteger)aPage
-                    object:(id)anObject
-                  delegate:(id<LighthouseApiServiceDelegate>)aDelegate
++ (id)processorWithProjectKey:(id)aProjectKey
+                 searchString:(NSString *)aSearchString
+                         page:(NSUInteger)aPage
+                       object:(id)anObject
+                     delegate:(id<LighthouseApiServiceDelegate>)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                        projectKey:aProjectKey
-                                      searchString:aSearchString
-                                              page:aPage
-                                            object:anObject
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithProjectKey:aProjectKey
+                                         searchString:aSearchString
+                                                 page:aPage
+                                               object:anObject
+                                             delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -61,27 +57,24 @@
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-         searchString:(NSString *)aSearchString
-                 page:(NSUInteger)aPage
-             delegate:(id<LighthouseApiServiceDelegate>)aDelegate
+- (id)initWithSearchString:(NSString *)aSearchString
+                      page:(NSUInteger)aPage
+                  delegate:(id<LighthouseApiServiceDelegate>)aDelegate
 {
-    return [self initWithBuilder:aBuilder
-                      projectKey:nil
-                    searchString:aSearchString
-                            page:aPage
-                          object:nil
-                        delegate:aDelegate];
+    return [self initWithProjectKey:nil
+                       searchString:aSearchString
+                               page:aPage
+                             object:nil
+                           delegate:aDelegate];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           projectKey:(id)aProjectKey
-         searchString:(NSString *)aSearchString
-                 page:(NSUInteger)aPage
-               object:(id)anObject
-             delegate:(id<LighthouseApiServiceDelegate>)aDelegate
+- (id)initWithProjectKey:(id)aProjectKey
+            searchString:(NSString *)aSearchString
+                    page:(NSUInteger)aPage
+                  object:(id)anObject
+                delegate:(id<LighthouseApiServiceDelegate>)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.projectKey = aProjectKey;
         self.searchString = aSearchString;
         self.page = aPage;

@@ -3,15 +3,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseProcessor.h"
+#import "AsynchronousResponseProcessor.h"
 #import "NewMessageCommentDescription.h"
 
-@interface AddMessageCommentResponseProcessor : ResponseProcessor
+@interface AddMessageCommentResponseProcessor : AsynchronousResponseProcessor
 {
     id messageKey;
     id projectKey;
     NewMessageCommentDescription * description;
     id delegate;
+
+    NSArray * commentKeys;
+    NSArray * comments;
+    NSArray * authors;
 }
 
 @property (nonatomic, copy, readonly) id messageKey;
@@ -20,16 +24,14 @@
     description;
 @property (nonatomic, assign, readonly) id delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                messageKey:(id)aMessageKey
-                projectKey:(id)aProjectKey
-               description:(NewMessageCommentDescription *)aDescription
-                  delegate:(id)aDelegate;
++ (id)processorWithMessageKey:(id)aMessageKey
+                   projectKey:(id)aProjectKey
+                  description:(NewMessageCommentDescription *)aDescription
+                     delegate:(id)aDelegate;
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           messageKey:(id)aMessageKey
-           projectKey:(id)aProjectKey
-          description:(NewMessageCommentDescription *)aDescription
-             delegate:(id)aDelegate;
+- (id)initWithMessageKey:(id)aMessageKey
+              projectKey:(id)aProjectKey
+             description:(NewMessageCommentDescription *)aDescription
+                delegate:(id)aDelegate;
 
 @end

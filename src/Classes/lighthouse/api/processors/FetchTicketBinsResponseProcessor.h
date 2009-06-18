@@ -9,17 +9,17 @@
 {
     id projectKey;
     id delegate;
+
+    NSArray * ticketBins;
 }
 
 @property (nonatomic, copy, readonly) id projectKey;
 @property (nonatomic, assign, readonly) id delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate;
++ (id)processorWithProjectKey:(id)aProjectKey
+                     delegate:(id)aDelegate;
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate;
+- (id)initWithProjectKey:(id)aProjectKey
+                delegate:(id)aDelegate;
 
 @end

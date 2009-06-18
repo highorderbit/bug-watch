@@ -10,20 +10,22 @@
     id messageKey;
     id projectKey;
     id delegate;
+
+    NSArray * commentKeys;
+    NSArray * comments;
+    NSArray * authors;
 }
 
 @property (nonatomic, copy, readonly) id messageKey;
 @property (nonatomic, copy, readonly) id projectKey;
 @property (nonatomic, assign, readonly) id delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                messageKey:(id)aMessageKey
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate;
++ (id)processorWithMessageKey:(id)aMessageKey
+                   projectKey:(id)aProjectKey
+                     delegate:(id)aDelegate;
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           messageKey:(id)aMessageKey
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate;
+- (id)initWithMessageKey:(id)aMessageKey
+              projectKey:(id)aProjectKey
+                delegate:(id)aDelegate;
 
 @end

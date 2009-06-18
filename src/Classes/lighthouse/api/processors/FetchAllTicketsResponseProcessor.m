@@ -9,29 +9,30 @@
 @interface FetchAllTicketsResponseProcessor ()
 
 @property (nonatomic, assign) id delegate;
+@property (nonatomic, retain) TicketDataCollector * collector;
 
 @end
 
 @implementation FetchAllTicketsResponseProcessor
 
 @synthesize delegate;
+@synthesize collector;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                  delegate:(id)aDelegate
++ (id)processorWithDelegate:(id)aDelegate
 {
-    return [[[[self class] alloc]
-        initWithBuilder:aBuilder delegate:aDelegate] autorelease];
+    return [[[[self class] alloc] initWithDelegate:aDelegate] autorelease];
 }
 
 - (void)dealloc
 {
     self.delegate = nil;
+    self.collector = nil;
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder delegate:(id)aDelegate
+- (id)initWithDelegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder])
+    if (self = [super init])
         self.delegate = aDelegate;
 
     return self;
@@ -39,12 +40,15 @@
 
 #pragma mark Processing responses
 
-- (void)processResponse:(NSData *)xml
+- (void)processResponseAsynchronously:(NSData *)xml
 {
     NSArray * wrappers = [self.objectBuilder parseTicketDataWrappers:xml];
-    TicketDataCollector * collector =
+    self.collector =
         [[TicketDataCollector alloc] initWithDataWrappers:wrappers];
+}
 
+- (void)asynchronousProcessorFinished
+{
     SEL sel =
         @selector(tickets:fetchedForAllProjectsWithMetadata:ticketNumbers:\
              milestoneIds:projectIds:userIds:creatorIds:);

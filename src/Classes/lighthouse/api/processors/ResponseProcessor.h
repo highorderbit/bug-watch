@@ -15,7 +15,7 @@
 
 #pragma mark Initialization
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder;
+- (id)init;
 
 #pragma mark Processing responses
 

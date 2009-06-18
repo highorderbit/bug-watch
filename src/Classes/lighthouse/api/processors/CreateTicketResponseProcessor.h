@@ -20,13 +20,11 @@
 
 #pragma mark Instantiation and Initialization
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-               description:(NewTicketDescription *)aDescription
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate;
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-          description:(NewTicketDescription *)aDescription
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate;
++ (id)processorWithDescription:(NewTicketDescription *)aDescription
+                    projectKey:(id)aProjectKey
+                      delegate:(id)aDelegate;
+- (id)initWithDescription:(NewTicketDescription *)aDescription
+               projectKey:(id)aProjectKey
+                 delegate:(id)aDelegate;
 
 @end

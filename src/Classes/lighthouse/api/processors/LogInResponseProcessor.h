@@ -13,11 +13,9 @@
     id delegate;
 }
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-               credentials:(LighthouseCredentials *)someCredentials
-                  delegate:(id)aDelegate;
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-          credentials:(LighthouseCredentials *)someCredentials
-             delegate:(id)aDelegate;
++ (id)processorWithCredentials:(LighthouseCredentials *)someCredentials
+                      delegate:(id)aDelegate;
+- (id)initWithCredentials:(LighthouseCredentials *)someCredentials
+                 delegate:(id)aDelegate;
 
 @end

@@ -11,23 +11,26 @@
 @property (nonatomic, copy) NewMessageCommentDescription * description;
 @property (nonatomic, assign) id delegate;
 
+@property (nonatomic, retain) NSArray * commentKeys;
+@property (nonatomic, retain) NSArray * comments;
+@property (nonatomic, retain) NSArray * authors;
+
 @end
 
 @implementation AddMessageCommentResponseProcessor
 
 @synthesize messageKey, projectKey, description, delegate;
+@synthesize commentKeys, comments, authors;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                messageKey:(id)aMessageKey
-                projectKey:(id)aProjectKey
-               description:(NewMessageCommentDescription *)aDescription
-                  delegate:(id)aDelegate
++ (id)processorWithMessageKey:(id)aMessageKey
+                   projectKey:(id)aProjectKey
+                  description:(NewMessageCommentDescription *)aDescription
+                     delegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                        messageKey:aMessageKey
-                                        projectKey:aProjectKey
-                                       description:aDescription
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithMessageKey:aMessageKey
+                                           projectKey:aProjectKey
+                                          description:aDescription
+                                             delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -37,16 +40,18 @@
     self.projectKey = nil;
     self.description = nil;
     self.delegate = nil;
+    self.commentKeys = nil;
+    self.comments = nil;
+    self.authors = nil;
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           messageKey:(id)aMessageKey
-           projectKey:(id)aProjectKey
-          description:(NewMessageCommentDescription *)aDescription
-             delegate:(id)aDelegate
+- (id)initWithMessageKey:(id)aMessageKey
+              projectKey:(id)aProjectKey
+             description:(NewMessageCommentDescription *)aDescription
+                delegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.messageKey = aMessageKey;
         self.projectKey = aProjectKey;
         self.description = aDescription;
@@ -56,12 +61,15 @@
     return self;
 }
 
-- (void)processResponse:(NSData *)xml
+- (void)processResponseAsynchronously:(NSData *)xml
 {
-    NSArray * commentKeys = [self.objectBuilder parseMessageCommentKeys:xml];
-    NSArray * comments = [self.objectBuilder parseMessageComments:xml];
-    NSArray * authors = [self.objectBuilder parseMessageCommentAuthorIds:xml];
+    self.commentKeys = [self.objectBuilder parseMessageCommentKeys:xml];
+    self.comments = [self.objectBuilder parseMessageComments:xml];
+    self.authors = [self.objectBuilder parseMessageCommentAuthorIds:xml];
+}
 
+- (void)asynchronousProcessorFinished
+{
     NSAssert3(commentKeys.count == 1 && comments.count == 1 &&
         authors.count == 1, @"Expected 1 new message comment, but got: %@, %@, "
         "%@.", commentKeys, comments, authors);

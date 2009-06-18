@@ -3,7 +3,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseProcessors.h"
+#import "ResponseProcessor.h"
 
 @class NewMessageDescription;
 
@@ -18,14 +18,12 @@
 @property (nonatomic, copy, readonly) NewMessageDescription * description;
 @property (nonatomic, assign, readonly) id delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                projectKey:(id)aProjectKey
-               description:(NewMessageDescription *)aDescription
-                  delegate:(id)aDelegate;
++ (id)processorWithProjectKey:(id)aProjectKey
+                  description:(NewMessageDescription *)aDescription
+                     delegate:(id)aDelegate;
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           projectKey:(id)aProjectKey
-          description:(NewMessageDescription *)aDescription
-             delegate:(id)aDelegate;
+- (id)initWithProjectKey:(id)aProjectKey
+             description:(NewMessageDescription *)aDescription
+                delegate:(id)aDelegate;
 
 @end

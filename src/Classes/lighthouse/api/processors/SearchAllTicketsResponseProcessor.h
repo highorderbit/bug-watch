@@ -26,26 +26,22 @@
 @property (nonatomic, assign, readonly) id<LighthouseApiServiceDelegate>
     delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-              searchString:(NSString *)aSearchString
-                      page:(NSUInteger)aPage
-                  delegate:(id<LighthouseApiServiceDelegate>)aDelegate;
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                projectKey:(id)aProjectKey
-              searchString:(NSString *)aSearchString
-                      page:(NSUInteger)aPage
-                    object:(id)anObject
-                  delegate:(id<LighthouseApiServiceDelegate>)aDelegate;
++ (id)processorWithSearchString:(NSString *)aSearchString
+                           page:(NSUInteger)aPage
+                       delegate:(id<LighthouseApiServiceDelegate>)aDelegate;
++ (id)processorWithProjectKey:(id)aProjectKey
+                 searchString:(NSString *)aSearchString
+                         page:(NSUInteger)aPage
+                       object:(id)anObject
+                     delegate:(id<LighthouseApiServiceDelegate>)aDelegate;
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-         searchString:(NSString *)aSearchString
-                 page:(NSUInteger)aPage
-             delegate:(id<LighthouseApiServiceDelegate>)aDelegate;
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           projectKey:(id)aProjectKey
-         searchString:(NSString *)aSearchString
-                 page:(NSUInteger)aPage
-               object:(id)anObject
-             delegate:(id<LighthouseApiServiceDelegate>)aDelegate;
+- (id)initWithSearchString:(NSString *)aSearchString
+                      page:(NSUInteger)aPage
+                  delegate:(id<LighthouseApiServiceDelegate>)aDelegate;
+- (id)initWithProjectKey:(id)aProjectKey
+            searchString:(NSString *)aSearchString
+                    page:(NSUInteger)aPage
+                  object:(id)anObject
+                delegate:(id<LighthouseApiServiceDelegate>)aDelegate;
 
 @end

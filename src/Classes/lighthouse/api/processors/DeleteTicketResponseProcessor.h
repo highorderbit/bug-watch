@@ -16,13 +16,11 @@
 @property (nonatomic, copy, readonly) id projectKey;
 @property (nonatomic, assign, readonly) id delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                 ticketKey:(id)aTicketKey
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate;
++ (id)processorWithTicketKey:(id)aTicketKey
+                  projectKey:(id)aProjectKey
+                    delegate:(id)aDelegate;
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-            ticketKey:(id)aTicketKey
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate;
+- (id)initWithTicketKey:(id)aTicketKey
+             projectKey:(id)aProjectKey
+               delegate:(id)aDelegate;
 @end

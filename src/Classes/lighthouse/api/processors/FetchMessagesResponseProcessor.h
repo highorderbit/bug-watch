@@ -3,23 +3,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseProcessor.h"
+#import "AsynchronousResponseProcessor.h"
 
-@interface FetchMessagesResponseProcessor : ResponseProcessor
+@interface FetchMessagesResponseProcessor : AsynchronousResponseProcessor
 {
     id projectKey;
     id delegate;
+
+    NSArray * messages;
+    NSArray * messageKeys;
+    NSArray * authorKeys;
 }
 
 @property (nonatomic, copy, readonly) id projectKey;
 @property (nonatomic, assign, readonly) id delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate;
++ (id)processorWithProjectKey:(id)aProjectKey
+                     delegate:(id)aDelegate;
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate;
+- (id)initWithProjectKey:(id)aProjectKey
+                delegate:(id)aDelegate;
 
 @end

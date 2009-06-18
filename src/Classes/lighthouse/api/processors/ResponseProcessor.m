@@ -5,6 +5,8 @@
 #import "ResponseProcessor.h"
 #import "NSError+InstantiationAdditions.h"
 
+#import "LighthouseApiParser.h"  // testing thread safety
+
 @interface ResponseProcessor ()
 
 @property (nonatomic, retain) BugWatchObjectBuilder * objectBuilder;
@@ -23,10 +25,13 @@
 
 #pragma mark Initialization
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
+- (id)init
 {
-    if (self = [super init])
-        self.objectBuilder = aBuilder;
+    if (self = [super init]) {
+        LighthouseApiParser * parser = [[LighthouseApiParser alloc] init];
+        objectBuilder = [[BugWatchObjectBuilder alloc] initWithParser:parser];
+        [parser release];
+    }
 
     return self;
 }

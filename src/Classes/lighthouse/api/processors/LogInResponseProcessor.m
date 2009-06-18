@@ -16,13 +16,11 @@
 
 @synthesize credentials, delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-               credentials:(LighthouseCredentials *)someCredentials
-                  delegate:(id)aDelegate
++ (id)processorWithCredentials:(LighthouseCredentials *)someCredentials
+                      delegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                       credentials:someCredentials
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithCredentials:someCredentials
+                                              delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -33,11 +31,10 @@
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-          credentials:(LighthouseCredentials *)someCredentials
-             delegate:(id)aDelegate
+- (id)initWithCredentials:(LighthouseCredentials *)someCredentials
+                 delegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.credentials = someCredentials;
         self.delegate = aDelegate;
     }

@@ -18,12 +18,9 @@
 @synthesize delegate;
 @synthesize projects, projectKeys;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                  delegate:(id)aDelegate
++ (id)processorWithDelegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                          delegate:aDelegate];
-    return [obj autorelease];
+    return [[[[self class] alloc] initWithDelegate:aDelegate] autorelease];
 }
 
 - (void)dealloc
@@ -34,10 +31,9 @@
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-             delegate:(id)aDelegate
+- (id)initWithDelegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder])
+    if (self = [super init])
         self.delegate = aDelegate;
 
     return self;

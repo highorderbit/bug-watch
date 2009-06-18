@@ -71,9 +71,8 @@
     api.delegate = self;
 
     ResponseProcessor * processor =
-        [LogInResponseProcessor processorWithBuilder:builder
-                                         credentials:credentials
-                                            delegate:delegate];
+        [LogInResponseProcessor processorWithCredentials:credentials
+                                                delegate:delegate];
 
     // call a method with a small payload
     id requestId = [api fetchAllProjects];

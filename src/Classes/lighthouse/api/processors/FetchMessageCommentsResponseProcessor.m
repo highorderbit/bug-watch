@@ -10,21 +10,24 @@
 @property (nonatomic, copy) id projectKey;
 @property (nonatomic, assign) id delegate;
 
+@property (nonatomic, retain) NSArray * commentKeys;
+@property (nonatomic, retain) NSArray * comments;
+@property (nonatomic, retain) NSArray * authors;
+
 @end
 
 @implementation FetchMessageCommentsResponseProcessor
 
 @synthesize messageKey, projectKey, delegate;
+@synthesize commentKeys, comments, authors;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                messageKey:(id)aMessageKey
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate
++ (id)processorWithMessageKey:(id)aMessageKey
+                   projectKey:(id)aProjectKey
+                     delegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                        messageKey:aMessageKey
-                                        projectKey:aProjectKey
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithMessageKey:aMessageKey
+                                           projectKey:aProjectKey
+                                             delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -33,15 +36,19 @@
     self.messageKey = nil;
     self.projectKey = nil;
     self.delegate = nil;
+
+    self.commentKeys = nil;
+    self.comments = nil;
+    self.authors = nil;
+
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           messageKey:(id)aMessageKey
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate
+- (id)initWithMessageKey:(id)aMessageKey
+              projectKey:(id)aProjectKey
+                delegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.messageKey = aMessageKey;
         self.projectKey = aProjectKey;
         self.delegate = aDelegate;
@@ -50,12 +57,15 @@
     return self;
 }
 
-- (void)processResponse:(NSData *)xml
+- (void)processResponseAsynchronously:(NSData *)xml
 {
-    NSArray * commentKeys = [self.objectBuilder parseMessageCommentKeys:xml];
-    NSArray * comments = [self.objectBuilder parseMessageComments:xml];
-    NSArray * authors = [self.objectBuilder parseMessageCommentAuthorIds:xml];
+    self.commentKeys = [self.objectBuilder parseMessageCommentKeys:xml];
+    self.comments = [self.objectBuilder parseMessageComments:xml];
+    self.authors = [self.objectBuilder parseMessageCommentAuthorIds:xml];
+}
 
+- (void)asynchronousProcessorFinished
+{
     SEL sel = @selector(comments:commentKeys:authorKeys:fetchedForMessage:\
         inProject:);
     [self invokeSelector:sel withTarget:delegate args:comments, commentKeys,

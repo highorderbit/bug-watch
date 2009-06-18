@@ -12,7 +12,7 @@
     AsynchronousInvocation * asynchronousInvocation;
 }
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder;
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder;
++ (id)processor;
+- (id)init;
 
 @end

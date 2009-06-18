@@ -3,27 +3,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseProcessor.h"
+#import "AsynchronousResponseProcessor.h"
 
-@interface FetchTicketDetailsResponseProcessor : ResponseProcessor
+@interface FetchTicketDetailsResponseProcessor : AsynchronousResponseProcessor
 {
     id ticketKey;
     id projectKey;
     id delegate;
+
+    NSArray * ticketComments;
+    NSArray * authors;
 }
 
 @property (nonatomic, copy, readonly) id ticketKey;
 @property (nonatomic, copy, readonly) id projectKey;
 @property (nonatomic, assign, readonly) id delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                 ticketKey:(id)aTicketKey
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate;
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-            ticketKey:(id)aTicketKey
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate;
++ (id)processorWithTicketKey:(id)aTicketKey
+                  projectKey:(id)aProjectKey
+                    delegate:(id)aDelegate;
+- (id)initWithTicketKey:(id)aTicketKey
+             projectKey:(id)aProjectKey
+               delegate:(id)aDelegate;
 
 
 @end

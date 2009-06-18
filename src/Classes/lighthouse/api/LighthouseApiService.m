@@ -70,8 +70,7 @@
 - (void)fetchTicketsForAllProjects
 {
     ResponseProcessor * processor =
-        [FetchAllTicketsResponseProcessor processorWithBuilder:builder
-                                                      delegate:delegate];
+        [FetchAllTicketsResponseProcessor processorWithDelegate:delegate];
 
     id requestId = [api fetchTicketsForAllProjects];
 
@@ -81,10 +80,9 @@
 - (void)fetchDetailsForTicket:(id)ticketKey inProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [FetchTicketDetailsResponseProcessor processorWithBuilder:builder
-                                                        ticketKey:ticketKey
-                                                       projectKey:projectKey
-                                                         delegate:delegate];
+        [FetchTicketDetailsResponseProcessor processorWithTicketKey:ticketKey
+                                                         projectKey:projectKey
+                                                           delegate:delegate];
 
     id requestId = [api fetchDetailsForTicket:ticketKey
                                     inProject:projectKey];
@@ -96,10 +94,10 @@
                                page:(NSUInteger)page
 {
     ResponseProcessor * processor =
-        [SearchAllTicketsResponseProcessor processorWithBuilder:builder
-                                                   searchString:searchString
-                                                           page:page
-                                                       delegate:delegate];
+        [SearchAllTicketsResponseProcessor
+        processorWithSearchString:searchString
+                             page:page
+                         delegate:delegate];
 
     id requestId = [api searchTicketsForAllProjects:searchString page:page];
 
@@ -112,12 +110,11 @@
                          object:(id)object
 {
     ResponseProcessor * processor =
-        [SearchAllTicketsResponseProcessor processorWithBuilder:builder
-                                                     projectKey:projectKey
-                                                   searchString:searchString
-                                                           page:page
-                                                         object:object
-                                                       delegate:delegate];
+        [SearchAllTicketsResponseProcessor processorWithProjectKey:projectKey
+                                                      searchString:searchString
+                                                              page:page
+                                                            object:object
+                                                          delegate:delegate];
 
     id requestId = [api searchTicketsForProject:projectKey
                                withSearchString:searchString
@@ -131,10 +128,9 @@
 - (void)createNewTicket:(NewTicketDescription *)desc forProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [CreateTicketResponseProcessor processorWithBuilder:builder
-                                                description:desc
-                                                 projectKey:projectKey
-                                                   delegate:delegate];
+        [CreateTicketResponseProcessor processorWithDescription:desc
+                                                     projectKey:projectKey
+                                                       delegate:delegate];
 
     NSString * creationXml = [desc xmlDescriptionForProject:projectKey];
     id requestId = [api createTicketForProject:projectKey
@@ -150,11 +146,10 @@
    withDescription:(UpdateTicketDescription *)desc
 {
     ResponseProcessor * processor =
-        [EditTicketResponseProcessor processorWithBuilder:builder
-                                                ticketKey:ticketKey
-                                               projectKey:projectKey
-                                              description:desc
-                                                 delegate:delegate];
+        [EditTicketResponseProcessor processorWithTicketKey:ticketKey
+                                                 projectKey:projectKey
+                                                description:desc
+                                                   delegate:delegate];
 
     NSString * xmlDescription = [desc xmlDescriptionForProject:projectKey];
     id requestId = [api editTicket:ticketKey
@@ -169,10 +164,9 @@
 - (void)deleteTicket:(id)ticketKey forProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [DeleteTicketResponseProcessor processorWithBuilder:builder
-                                                  ticketKey:ticketKey
-                                                 projectKey:projectKey
-                                                   delegate:delegate];
+        [DeleteTicketResponseProcessor processorWithTicketKey:ticketKey
+                                                   projectKey:projectKey
+                                                     delegate:delegate];
 
     id requestId = [api deleteTicket:ticketKey forProject:projectKey];
 
@@ -184,9 +178,8 @@
 - (void)fetchTicketBinsForProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [FetchTicketBinsResponseProcessor processorWithBuilder:builder
-                                                    projectKey:projectKey
-                                                      delegate:delegate];
+        [FetchTicketBinsResponseProcessor processorWithProjectKey:projectKey
+                                                         delegate:delegate];
 
     id requestId = [api fetchTicketBinsForProject:projectKey];
 
@@ -198,9 +191,8 @@
 - (void)fetchAllUsersForProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [FetchUsersResponseProcessor processorWithBuilder:builder
-                                               projectKey:projectKey
-                                                 delegate:delegate];
+        [FetchUsersResponseProcessor processorWithProjectKey:projectKey
+                                                    delegate:delegate];
 
     id requestId = [api fetchAllUsersForProject:projectKey];
 
@@ -212,8 +204,7 @@
 - (void)fetchAllProjects
 {
     ResponseProcessor * processor =
-        [FetchProjectsResponseProcessor processorWithBuilder:builder
-                                                    delegate:delegate];
+        [FetchProjectsResponseProcessor processorWithDelegate:delegate];
 
     id requestId = [api fetchAllProjects];
 
@@ -225,8 +216,7 @@
 - (void)fetchMilestonesForAllProjects
 {
     ResponseProcessor * processor =
-        [FetchMilestonesResponseProcessor processorWithBuilder:builder
-                                                      delegate:delegate];
+        [FetchMilestonesResponseProcessor processorWithDelegate:delegate];
 
     id requestId = [api fetchMilestonesForAllProjects];
 
@@ -238,9 +228,8 @@
 - (void)fetchMessagesForProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [FetchMessagesResponseProcessor processorWithBuilder:builder
-                                                  projectKey:projectKey
-                                                    delegate:delegate];
+        [FetchMessagesResponseProcessor processorWithProjectKey:projectKey
+                                                       delegate:delegate];
 
     id requestId = [api fetchMessagesForProject:projectKey];
 
@@ -250,10 +239,10 @@
 - (void)fetchCommentsForMessage:(id)messageKey inProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [FetchMessageCommentsResponseProcessor processorWithBuilder:builder
-                                                         messageKey:messageKey
-                                                         projectKey:projectKey
-                                                           delegate:delegate];
+        [FetchMessageCommentsResponseProcessor
+        processorWithMessageKey:messageKey
+                     projectKey:projectKey
+                       delegate:delegate];
 
     id requestId = [api fetchCommentsForMessage:messageKey
                                       inProject:projectKey];
@@ -266,10 +255,9 @@
 - (void)createMessage:(NewMessageDescription *)desc forProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [CreateMessageResponseProcessor processorWithBuilder:builder
-                                                  projectKey:projectKey
-                                                 description:desc
-                                                    delegate:delegate];
+        [CreateMessageResponseProcessor processorWithProjectKey:projectKey
+                                                    description:desc
+                                                       delegate:delegate];
 
     id requestId = [api createMessageForProject:projectKey
                                     description:[desc xmlDescription]];
@@ -284,11 +272,10 @@
     withDescription:(UpdateMessageDescription *)desc
 {
     ResponseProcessor * processor =
-        [EditMessageResponseProcessor processorWithBuilder:builder
-                                                messageKey:messageKey
-                                                projectKey:projectKey
-                                               description:desc
-                                                  delegate:delegate];
+        [EditMessageResponseProcessor processorWithMessageKey:messageKey
+                                                   projectKey:projectKey
+                                                  description:desc
+                                                     delegate:delegate];
 
     id requestId = [api editMessage:messageKey
                          forProject:projectKey
@@ -304,11 +291,10 @@
         forProject:(id)projectKey
 {
     ResponseProcessor * processor =
-        [AddMessageCommentResponseProcessor processorWithBuilder:builder
-                                                      messageKey:messageKey
-                                                      projectKey:projectKey
-                                                     description:desc
-                                                        delegate:delegate];
+        [AddMessageCommentResponseProcessor processorWithMessageKey:messageKey
+                                                         projectKey:projectKey
+                                                        description:desc
+                                                           delegate:delegate];
 
     id requestId = [api addComment:[desc xmlDescription]
                          toMessage:messageKey

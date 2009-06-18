@@ -17,15 +17,13 @@
 
 @synthesize projectKey, description, delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                projectKey:(id)aProjectKey
-               description:(NewMessageDescription *)aDescription
-                  delegate:(id)aDelegate
++ (id)processorWithProjectKey:(id)aProjectKey
+                  description:(NewMessageDescription *)aDescription
+                     delegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                        projectKey:aProjectKey
-                                       description:aDescription
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithProjectKey:aProjectKey
+                                          description:aDescription
+                                             delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -37,12 +35,11 @@
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           projectKey:(id)aProjectKey
-          description:(NewMessageDescription *)aDescription
-             delegate:(id)aDelegate
+- (id)initWithProjectKey:(id)aProjectKey
+             description:(NewMessageDescription *)aDescription
+                delegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.projectKey = aProjectKey;
         self.description = aDescription;
         self.delegate = aDelegate;
@@ -56,10 +53,10 @@
     NSArray * keys = [self.objectBuilder parseMessageKeys:xml];
     NSAssert2(keys.count == 1, @"Expected 1 message ID, but received %d: %@.",
         keys.count, keys);
-    id key = [keys lastObject];
+    id messageKey = [keys lastObject];
 
     SEL sel = @selector(message:describedBy:createdForProject:);
-    [self invokeSelector:sel withTarget:delegate args:key, description,
+    [self invokeSelector:sel withTarget:delegate args:messageKey, description,
         projectKey, nil];
 }
 
@@ -69,6 +66,5 @@
     [self invokeSelector:sel withTarget:delegate args:description, projectKey,
         errors, nil];
 }
-
 
 @end

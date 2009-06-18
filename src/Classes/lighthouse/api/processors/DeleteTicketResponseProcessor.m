@@ -16,15 +16,13 @@
 
 @synthesize ticketKey, projectKey, delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                 ticketKey:(id)aTicketKey
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate
++ (id)processorWithTicketKey:(id)aTicketKey
+                  projectKey:(id)aProjectKey
+                    delegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                         ticketKey:aTicketKey
-                                        projectKey:aProjectKey
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithTicketKey:aTicketKey
+                                          projectKey:aProjectKey
+                                            delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -36,12 +34,11 @@
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-            ticketKey:(id)aTicketKey
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate
+- (id)initWithTicketKey:(id)aTicketKey
+             projectKey:(id)aProjectKey
+               delegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.ticketKey = aTicketKey;
         self.projectKey = aProjectKey;
         self.delegate = aDelegate;

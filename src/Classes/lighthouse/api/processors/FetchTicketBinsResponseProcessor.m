@@ -9,19 +9,20 @@
 @property (nonatomic, copy) id projectKey;
 @property (nonatomic, assign) id delegate;
 
+@property (nonatomic, retain) NSArray * ticketBins;
+
 @end
 
 @implementation FetchTicketBinsResponseProcessor
 
 @synthesize projectKey, delegate;
+@synthesize ticketBins;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate
++ (id)processorWithProjectKey:(id)aProjectKey
+                     delegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                        projectKey:aProjectKey
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithProjectKey:aProjectKey
+                                             delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -29,14 +30,16 @@
 {
     self.projectKey = nil;
     self.delegate = nil;
+
+    self.ticketBins = nil;
+
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate
+- (id)initWithProjectKey:(id)aProjectKey
+                delegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.projectKey = aProjectKey;
         self.delegate = aDelegate;
     }
@@ -44,10 +47,13 @@
     return self;
 }
 
-- (void)processResponse:(NSData *)xml
+- (void)processResponseAsynchronously:(NSData *)xml
 {
-    NSArray * ticketBins = [self.objectBuilder parseTicketBins:xml];
+    self.ticketBins = [self.objectBuilder parseTicketBins:xml];
+}
 
+- (void)asynchronousProcessorFinished
+{
     SEL sel = @selector(fetchedTicketBins:forProject:);
     [self invokeSelector:sel withTarget:delegate args:ticketBins, projectKey,
         nil];

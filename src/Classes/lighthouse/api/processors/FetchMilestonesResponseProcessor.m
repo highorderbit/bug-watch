@@ -8,42 +8,50 @@
 @interface FetchMilestonesResponseProcessor ()
 
 @property (nonatomic, assign) id delegate;
+@property (nonatomic, retain) NSArray * milestones;
+@property (nonatomic, retain) NSArray * milestoneIds;
+@property (nonatomic, retain) NSArray * projectIds;
 
 @end
 
 @implementation FetchMilestonesResponseProcessor
 
 @synthesize delegate;
+@synthesize milestones, milestoneIds, projectIds;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                  delegate:(id)aDelegate
++ (id)processorWithDelegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                          delegate:aDelegate];
-    return [obj autorelease];
+    return [[[[self class] alloc] initWithDelegate:aDelegate] autorelease];
 }
 
 - (void)dealloc
 {
     self.delegate = nil;
+
+    self.milestones = nil;
+    self.milestoneIds = nil;
+    self.projectIds = nil;
+
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-             delegate:(id)aDelegate
+- (id)initWithDelegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder])
+    if (self = [super init])
         self.delegate = aDelegate;
 
     return self;
 }
 
-- (void)processResponse:(NSData *)xml
+- (void)processResponseAsynchronously:(NSData *)xml
 {
-    NSArray * milestones = [self.objectBuilder parseMilestones:xml];
-    NSArray * milestoneIds = [self.objectBuilder parseMilestoneIds:xml];
-    NSArray * projectIds = [self.objectBuilder parseMilestoneProjectIds:xml];
+    self.milestones = [self.objectBuilder parseMilestones:xml];
+    self.milestoneIds = [self.objectBuilder parseMilestoneIds:xml];
+    self.projectIds = [self.objectBuilder parseMilestoneProjectIds:xml];
+}
 
+- (void)asynchronousProcessorFinished
+{
     SEL sel =
         @selector(milestonesFetchedForAllProjects:milestoneIds:projectIds:);
     [self invokeSelector:sel withTarget:delegate args:milestones, milestoneIds,

@@ -17,10 +17,9 @@
 
 @synthesize asynchronousInvocation;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
++ (id)processor
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder];
-    return [obj autorelease];
+    return [[[[self class] alloc] init] autorelease];
 }
 
 - (void)dealloc
@@ -29,9 +28,9 @@
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
+- (id)init
 {
-    return (self = [super initWithBuilder:aBuilder]);
+    return (self = [super init]);
 }
 
 - (void)processResponse:(NSData *)xml

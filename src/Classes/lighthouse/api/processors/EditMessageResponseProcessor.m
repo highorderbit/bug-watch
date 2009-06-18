@@ -18,17 +18,15 @@
 
 @synthesize messageKey, projectKey, description, delegate;
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-                messageKey:(id)aMessageKey
-                projectKey:(id)aProjectKey
-               description:(UpdateMessageDescription *)aDescription
-                  delegate:(id)aDelegate
++ (id)processorWithMessageKey:(id)aMessageKey
+                   projectKey:(id)aProjectKey
+                  description:(UpdateMessageDescription *)aDescription
+                     delegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                        messageKey:aMessageKey
-                                        projectKey:aProjectKey
-                                       description:aDescription
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithMessageKey:aMessageKey
+                                           projectKey:aProjectKey
+                                          description:aDescription
+                                             delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -41,13 +39,12 @@
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-           messageKey:(id)aMessageKey
-           projectKey:(id)aProjectKey
-          description:(UpdateMessageDescription *)aDescription
-             delegate:(id)aDelegate
+- (id)initWithMessageKey:(id)aMessageKey
+              projectKey:(id)aProjectKey
+             description:(UpdateMessageDescription *)aDescription
+                delegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.messageKey = aMessageKey;
         self.projectKey = aProjectKey;
         self.description = aDescription;

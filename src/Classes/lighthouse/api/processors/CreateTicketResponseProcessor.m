@@ -20,15 +20,13 @@
 
 #pragma mark Instantiation and initialization
 
-+ (id)processorWithBuilder:(BugWatchObjectBuilder *)aBuilder
-               description:(NewTicketDescription *)aDescription
-                projectKey:(id)aProjectKey
-                  delegate:(id)aDelegate
++ (id)processorWithDescription:(NewTicketDescription *)aDescription
+                    projectKey:(id)aProjectKey
+                      delegate:(id)aDelegate
 {
-    id obj = [[[self class] alloc] initWithBuilder:aBuilder
-                                       description:aDescription
-                                        projectKey:aProjectKey
-                                          delegate:aDelegate];
+    id obj = [[[self class] alloc] initWithDescription:aDescription
+                                            projectKey:aProjectKey
+                                              delegate:aDelegate];
     return [obj autorelease];
 }
 
@@ -40,12 +38,11 @@
     [super dealloc];
 }
 
-- (id)initWithBuilder:(BugWatchObjectBuilder *)aBuilder
-          description:(NewTicketDescription *)aDescription
-           projectKey:(id)aProjectKey
-             delegate:(id)aDelegate
+- (id)initWithDescription:(NewTicketDescription *)aDescription
+               projectKey:(id)aProjectKey
+                 delegate:(id)aDelegate
 {
-    if (self = [super initWithBuilder:aBuilder]) {
+    if (self = [super init]) {
         self.description = aDescription;
         self.projectKey = aProjectKey;
         self.delegate = aDelegate;
