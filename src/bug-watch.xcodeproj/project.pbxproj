@@ -2035,7 +2035,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Distribution;
 		};
@@ -2063,7 +2063,7 @@
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Release - Doug";
 		};
@@ -2092,7 +2092,7 @@
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Debug - Doug";
 		};
@@ -2127,7 +2127,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Unit Tests";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Debug - John";
 		};
@@ -2148,7 +2148,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Unit Tests";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Debug - Doug";
 		};
@@ -2169,7 +2169,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Unit Tests";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Release - John";
 		};
@@ -2190,7 +2190,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Unit Tests";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Release - Doug";
 		};
@@ -2211,7 +2211,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Unit Tests";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Distribution;
 		};
@@ -2255,7 +2255,7 @@
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Debug - John";
 		};
@@ -2271,7 +2271,7 @@
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Release - John";
 		};
