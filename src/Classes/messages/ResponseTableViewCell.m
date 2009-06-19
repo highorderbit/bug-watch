@@ -52,9 +52,6 @@
 
     CGFloat commentHeight =
         [commentLabel heightForString:commentLabel.text];
-    static const CGFloat MAX_COMMENT_HEIGHT = 72;
-    commentHeight =
-        commentHeight > MAX_COMMENT_HEIGHT ? MAX_COMMENT_HEIGHT : commentHeight;
     CGRect commentLabelFrame = commentLabel.frame;
     commentLabelFrame.size.height = commentHeight;
     commentLabel.frame = commentLabelFrame;
@@ -84,7 +81,7 @@
 
 + (CGFloat)heightForContent:(NSString *)comment
 {
-    CGSize maxSize = CGSizeMake(302, 72.0);
+    CGSize maxSize = CGSizeMake(302, 99999);
     UIFont * font = [UIFont systemFontOfSize:14.0];
     UILineBreakMode mode = UILineBreakModeWordWrap;
 

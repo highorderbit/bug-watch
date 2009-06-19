@@ -94,7 +94,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
-								<int key="IBUINumberOfLines">4</int>
+								<int key="IBUINumberOfLines">99999</int>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 124}</string>
