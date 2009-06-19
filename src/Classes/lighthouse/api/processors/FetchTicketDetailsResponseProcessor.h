@@ -5,14 +5,18 @@
 #import <Foundation/Foundation.h>
 #import "AsynchronousResponseProcessor.h"
 
+@class Ticket, TicketMetaData;
+
 @interface FetchTicketDetailsResponseProcessor : AsynchronousResponseProcessor
 {
     id ticketKey;
     id projectKey;
     id delegate;
 
+    Ticket * ticket;
+    TicketMetaData * ticketMetadata;
     NSArray * ticketComments;
-    NSArray * authors;
+    NSArray * commentAuthors;
 }
 
 @property (nonatomic, copy, readonly) id ticketKey;

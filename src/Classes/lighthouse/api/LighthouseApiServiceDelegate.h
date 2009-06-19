@@ -8,6 +8,7 @@
 @class NewMessageDescription, UpdateMessageDescription;
 @class NewMessageCommentDescription;
 @class MessageResponse;
+@class Ticket, TicketMetaData;
 
 @protocol LighthouseApiServiceDelegate <NSObject>
 
@@ -23,6 +24,7 @@
 - (void)failedToFetchTicketsForAllProjects:(NSArray *)errors;
 
 - (void)details:(NSArray *)detais authors:(NSArray *)authors
+    ticket:(Ticket *)ticket metadata:(TicketMetaData *)metadata
     fetchedForTicket:(id)ticketKey inProject:(id)projectKey;
 - (void)failedToFetchTicketDetailsForTicket:(id)ticketKey
     inProject:(id)projectKey errors:(NSArray *)errors;
