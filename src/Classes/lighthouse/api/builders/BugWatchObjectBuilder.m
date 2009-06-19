@@ -299,6 +299,7 @@
             @"postedDate", @"created-at",
             @"message", @"body",
             @"link", @"url",
+            @"commentCount", @"comments-count",
             nil];
 
     return [parser parse:xml];
