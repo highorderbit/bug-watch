@@ -129,11 +129,9 @@
 {
     NSArray * wrappers = [self.objectBuilder parseTicketDataWrappers:xml];
 
-    NSLog(@"Beginning object creation.");
     self.collector =
         [[[TicketDataCollector alloc] initWithDataWrappers:wrappers]
         autorelease];
-    NSLog(@"Finished object creation.");
 }
 
 - (void)asynchronousProcessorFinished
