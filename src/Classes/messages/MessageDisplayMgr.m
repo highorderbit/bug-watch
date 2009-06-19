@@ -138,16 +138,9 @@
     if (messageCache) {
         NSMutableDictionary * postedByDict = [NSMutableDictionary dictionary];
         NSMutableDictionary * msgProjectDict = [NSMutableDictionary dictionary];
-        NSMutableDictionary * numResponsesDict =
-            [NSMutableDictionary dictionary];
 
         NSArray * allMessageKeys = [[messageCache allMessages] allKeys];
         for (id key in allMessageKeys) {
-            NSUInteger respCount =
-                [[messageCache responseKeysForKey:key] count];
-            NSNumber * respCountAsNum = [NSNumber numberWithInt:respCount];
-            [numResponsesDict setObject:respCountAsNum forKey:key];
-
             id postedByKey = [messageCache postedByKeyForKey:key];
             NSString * postedByName = [userDict objectForKey:postedByKey];
             if (postedByName)
@@ -160,8 +153,7 @@
         }
 
         [messagesViewController setMessages:[messageCache allMessages]
-            postedByDict:postedByDict projectDict:msgProjectDict
-            numResponsesDict:numResponsesDict];
+            postedByDict:postedByDict projectDict:msgProjectDict];
 
         wrapperController.cachedDataAvailable = YES;
     }
@@ -198,7 +190,7 @@
         [userDict objectForKey:[messageCache postedByKeyForKey:key]];
     NSString * project =
         [projectDict objectForKey:[messageCache projectKeyForKey:key]];
-    NSArray * responseKeys = [messageCache responseKeysForKey:key];
+    NSArray * responseKeys = [[responseCache allResponses] allKeys];
     NSMutableDictionary * responses = [NSMutableDictionary dictionary];
     NSMutableDictionary * responseAuthors = [NSMutableDictionary dictionary];
     for (id key in responseKeys) {
@@ -246,7 +238,8 @@
 - (void)receivedComments:(MessageResponseCache *)cache
     forMessage:(LighthouseKey *)messageKey
 {
-    NSLog(@"Received comments for message: %@", cache);
+    NSLog(@"Received comments for message %@: %@", messageKey, cache);
+    
     [recentHistoryResponseCache setObject:cache forKey:messageKey];
     [self displayMessageDetails:messageKey];
 }

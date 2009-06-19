@@ -58,9 +58,7 @@
     NSString * postedByName = [postedByDict objectForKey:messageKey];
     [cell setAuthorName:postedByName];
     
-    NSUInteger numResponses =
-        [[numResponsesDict objectForKey:messageKey] intValue];
-    [cell setNumResponses:numResponses];
+    [cell setNumResponses:message.commentCount];
 
     NSString * projectName = [projectDict objectForKey:messageKey];
     [cell setProjectName:projectName];
@@ -92,7 +90,6 @@
 - (void)setMessages:(NSDictionary *)someMessages
     postedByDict:(NSDictionary *)aPostedByDict
     projectDict:(NSDictionary *)aProjectDict
-    numResponsesDict:(NSDictionary *)aNumResponsesDict
 {
     self.sortedKeyCache = nil;
 
@@ -107,10 +104,6 @@
     NSDictionary * tempProjectDict = [aProjectDict copy];
     [projectDict release];
     projectDict = tempProjectDict;
-
-    NSDictionary * tempNumResponsesDict = [aNumResponsesDict copy];
-    [numResponsesDict release];
-    numResponsesDict = tempNumResponsesDict;
 
     [self.tableView reloadData];
 }

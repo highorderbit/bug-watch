@@ -10,6 +10,7 @@
 @property (nonatomic, copy) NSString * title;
 @property (nonatomic, copy) NSString * message;
 @property (nonatomic, copy) NSString * link;
+@property (nonatomic, assign) NSUInteger commentCount;
 
 @end
 
@@ -19,6 +20,7 @@
 @synthesize title;
 @synthesize message;
 @synthesize link;
+@synthesize commentCount;
 
 - (void)dealloc
 {
@@ -31,12 +33,14 @@
 
 - (id)initWithPostedDate:(NSDate *)aPostedDate title:(NSString *)aTitle
     message:(NSString *)aMessage link:(NSString *)aLink
+    commentCount:(NSUInteger)aCommentCount
 {
     if (self = [super init]) {
         self.postedDate = aPostedDate;
         self.title = aTitle;
         self.message = aMessage;
         self.link = aLink;
+        self.commentCount = aCommentCount;
     }
 
     return self;

@@ -33,6 +33,11 @@
     return [responses objectForKey:key];
 }
 
+- (NSDictionary *)allResponses
+{
+    return [[responses copy] autorelease];
+}
+
 - (void)setAuthorKey:(NSNumber *)authorKey forKey:(NSNumber *)responseKey
 {
     [responseAuthors setObject:authorKey forKey:responseKey];

@@ -19,8 +19,7 @@
 
 - (void)setMessages:(NSDictionary *)someMessages
     postedByDict:(NSDictionary *)aPostedByDict
-    projectDict:(NSDictionary *)aProjectDict
-    numResponsesDict:(NSDictionary *)aNumResponsesDict;
+    projectDict:(NSDictionary *)aProjectDict;
 
 @property (nonatomic, assign)
     NSObject<MessagesViewControllerDelegate> * delegate;

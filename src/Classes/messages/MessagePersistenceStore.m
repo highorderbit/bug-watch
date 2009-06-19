@@ -17,11 +17,11 @@
 + (NSString *)titleKey;
 + (NSString *)messageKey;
 + (NSString *)linkKey;
++ (NSString *)commentCountKey;
 
 + (NSString *)messagesKey;
 + (NSString *)projectDictKey;
 + (NSString *)postedByDictKey;
-+ (NSString *)responseDictKey;
 
 @end
 
@@ -44,8 +44,6 @@
         [dict objectForKey:[[self class] projectDictKey]];
     NSDictionary * postedByDict =
         [dict objectForKey:[[self class] postedByDictKey]];
-    NSDictionary * responseDict =
-        [dict objectForKey:[[self class] responseDictKey]];
 
     for (NSString * keyAsString in [messages allKeys]) {
         LighthouseKey * key =
@@ -64,10 +62,6 @@
         id postedByKey = [postedByDict objectForKey:keyAsString];
         if (postedByKey)
             [messageCache setPostedByKey:postedByKey forKey:key];
-
-        NSArray * responseKeys = [responseDict objectForKey:keyAsString];
-        if (responseKeys)
-            [messageCache setResponseKeys:responseKeys forKey:key];
     }
 
     return messageCache;
@@ -79,7 +73,6 @@
     NSMutableDictionary * messages = [NSMutableDictionary dictionary];
     NSMutableDictionary * projectDict = [NSMutableDictionary dictionary];
     NSMutableDictionary * postedByDict = [NSMutableDictionary dictionary];
-    NSMutableDictionary * responseDict = [NSMutableDictionary dictionary];
 
     NSDictionary * allMessages = [messageCache allMessages];
     for (LighthouseKey * key in [allMessages allKeys]) {
@@ -104,17 +97,9 @@
             forKey:[LighthouseKey stringFromLighthouseKey:key]];
     }
 
-    NSDictionary * allResponses = [messageCache allResponses];
-    for (LighthouseKey * key in [allResponses allKeys]) {
-        NSArray * responseKeys = [allResponses objectForKey:key];
-        [responseDict setObject:responseKeys
-            forKey:[LighthouseKey stringFromLighthouseKey:key]];
-    }
-
     [dict setObject:messages forKey:[[self class] messagesKey]];
     [dict setObject:projectDict forKey:[[self class] projectDictKey]];
     [dict setObject:postedByDict forKey:[[self class] postedByDictKey]];
-    [dict setObject:responseDict forKey:[[self class] responseDictKey]];
 
     NSLog(@"Message cache: %@", dict);
     [PlistUtils saveDictionary:dict toPlist:plist];
@@ -134,7 +119,9 @@
         [dict setObject:message.message forKey:[[self class] messageKey]];
     if (message.link)
         [dict setObject:message.link forKey:[[self class] linkKey]];
-
+    [dict setObject:[NSNumber numberWithInt:message.commentCount]
+        forKey:[[self class] commentCountKey]];
+        
     return dict;
 }
 
@@ -144,9 +131,12 @@
     NSString * title = [dict objectForKey:[[self class] titleKey]];
     NSString * message = [dict objectForKey:[[self class] messageKey]];
     NSString * link = [dict objectForKey:[[self class] linkKey]];
+    NSNumber * commentCount =
+        [dict objectForKey:[[self class] commentCountKey]];
 
     return [[[Message alloc]
-        initWithPostedDate:postedDate title:title message:message link:link]
+        initWithPostedDate:postedDate title:title message:message link:link
+        commentCount:[commentCount intValue]]
         autorelease];
 }
 
@@ -187,9 +177,9 @@
     return @"postedByDict";
 }
 
-+ (NSString *)responseDictKey
++ (NSString *)commentCountKey
 {
-    return @"responseDict";
+    return @"commentCount";
 }
 
 @end
