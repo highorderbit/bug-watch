@@ -5,13 +5,20 @@
 #import <Foundation/Foundation.h>
 #import "LighthouseApiService.h"
 
+@class CredentialsUpdatePublisher, LighthouseCredentials;
+
 @interface LighthouseApiServiceFactory : NSObject
 {
     NSString * lighthouseDomain;
     NSString * lighthouseScheme;
+
+    CredentialsUpdatePublisher * credentialsUpdatePublisher;
+    LighthouseCredentials * credentials;
 }
 
-- (id)initWithLighthouseDomain:(NSString *)domain scheme:(NSString *)scheme;
+- (id)initWithLighthouseDomain:(NSString *)domain
+                        scheme:(NSString *)scheme
+                   credentials:(LighthouseCredentials *)someCredentials;
 
 - (LighthouseApiService *)createLighthouseApiService;
 

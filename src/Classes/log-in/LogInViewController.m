@@ -30,7 +30,6 @@ enum CredentialRows
 @property (nonatomic, retain) UITableView * tableView;
 
 @property (nonatomic, retain) UIBarButtonItem * logInButton;
-@property (nonatomic, retain) UIBarButtonItem * cancelButton;
 
 @property (nonatomic, retain) UITableViewCell * accountCell;
 @property (nonatomic, retain) UITableViewCell * usernameCell;
@@ -52,7 +51,7 @@ enum CredentialRows
 @implementation LogInViewController
 
 @synthesize delegate, tableView;
-@synthesize logInButton, cancelButton;
+@synthesize logInButton;
 @synthesize accountCell, usernameCell, passwordCell;
 @synthesize accountTextField, usernameTextField, passwordTextField;
 @synthesize lighthouseDomain, lighthouseScheme;
@@ -64,7 +63,6 @@ enum CredentialRows
     self.tableView = nil;
 
     self.logInButton = nil;
-    self.cancelButton = nil;
 
     self.accountCell = nil;
     self.usernameCell = nil;
@@ -89,9 +87,6 @@ enum CredentialRows
     self.logInButton.target = self;
     self.logInButton.action = @selector(userDidSave);
     self.logInButton.enabled = NO;
-
-    self.cancelButton.target = self;
-    self.cancelButton.action = @selector(userDidCancel);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -263,7 +258,6 @@ titleForFooterInSection:(NSInteger)section
 - (void)enableForm
 {
     self.logInButton.enabled = YES;
-    self.cancelButton.enabled = YES;
 
     self.accountTextField.enabled = YES;
     self.usernameTextField.enabled = YES;
@@ -273,7 +267,6 @@ titleForFooterInSection:(NSInteger)section
 - (void)disableForm
 {
     self.logInButton.enabled = NO;
-    self.cancelButton.enabled = NO;
 
     self.accountTextField.enabled = NO;
     self.usernameTextField.enabled = NO;

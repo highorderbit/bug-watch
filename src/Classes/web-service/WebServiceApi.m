@@ -4,6 +4,23 @@
 
 #import "WebServiceApi.h"
 
+@interface NSURL (SecurePrintingAdditions)
+@end
+
+@implementation NSURL (SecurePrintingAdditions)
+
+- (NSString *)secureDescription
+{
+    if ([self password])
+        return [[self description]
+            stringByReplacingOccurrencesOfString:[self password]
+                                      withString:@"********"];
+    else
+        return [self description];
+}
+
+@end
+
 @interface WebServiceApi (Private)
 
 - (NSInteger)trackConnection:(NSURLConnection *)conn
@@ -52,7 +69,7 @@
 
 - (NSInteger)sendRequest:(NSURLRequest *)request
 {
-    NSLog(@"Sending request: '%@'.", request);
+    NSLog(@"Sending request: '%@'.", [[request URL] secureDescription]);
 
     NSURLConnection * conn = [[NSURLConnection alloc] initWithRequest:request
                                                              delegate:self
@@ -90,7 +107,7 @@
     NSMutableData * response = [self dataForConnection:conn];
 
     NSLog(@"Received %d bytes in response to request: '%@'.", [response length],
-          request);
+          [[request URL] secureDescription]);
 
     [delegate request:request didCompleteWithResponse:response];
 
@@ -101,7 +118,8 @@
 {
     NSURLRequest * request = [self requestForConnection:conn];
 
-    NSLog(@"Request '%@' failed with error: '%@'.", request, error);
+    NSLog(@"Request '%@' failed with error: '%@'.",
+        [[request URL] secureDescription], error);
 
     [delegate request:request didFailWithError:error];
 

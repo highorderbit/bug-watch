@@ -115,6 +115,7 @@
 
     [lighthouseApiFactory release];
 
+    [logInDisplayMgr release];
     [credentials release];
     [credentialsUpdatePublisher release];
 
@@ -138,7 +139,7 @@
 
     lighthouseApiFactory =
         [[LighthouseApiServiceFactory alloc]
-        initWithLighthouseDomain:domain scheme:scheme];
+        initWithLighthouseDomain:domain scheme:scheme credentials:credentials];
     ticketSearchMgrFactory =
         [[TicketSearchMgrFactory alloc] init];
     ticketDisplayMgrFactory =
@@ -181,6 +182,9 @@
             [projectDisplayMgr presentSelectedTab:uiState.selectedProjectTab
                 animated:NO];
     }
+
+    if (self.credentials == nil)
+        [logInDisplayMgr logIn];
 }
 
 - (void)persistState
@@ -579,7 +583,7 @@
     NSString * domain = [[self class] lighthouseDomain];
     NSString * scheme = [[self class] lighthouseScheme];
 
-    LogInDisplayMgr * logInDisplayMgr =
+    logInDisplayMgr =
         [[LogInDisplayMgr alloc] initWithCredentials:credentials
                                   rootViewController:tabBarController
                                     lighthouseDomain:domain
@@ -661,6 +665,9 @@
 
     newsFeedNetworkAwareViewController.navigationItem.leftBarButtonItem.title =
         [self logInButtonTitle];
+
+    if (self.credentials == nil)
+        [logInDisplayMgr logIn];
 }
 
 #pragma mark Configuration values
