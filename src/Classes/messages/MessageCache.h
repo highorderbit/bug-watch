@@ -12,7 +12,6 @@
     NSMutableDictionary * messages;
     NSMutableDictionary * projectDict;
     NSMutableDictionary * postedByDict;
-    NSMutableDictionary * responseDict;
 }
 
 - (void)setMessage:(Message *)message forKey:(LighthouseKey *)key;
@@ -26,10 +25,6 @@
 - (void)setPostedByKey:(NSNumber *)key forKey:(LighthouseKey *)key;
 - (id)postedByKeyForKey:(LighthouseKey *)key;
 - (NSDictionary *)allPostedByKeys;
-
-- (void)setResponseKeys:(NSArray *)responseKeys forKey:(LighthouseKey *)key;
-- (NSArray *)responseKeysForKey:(LighthouseKey *)key;
-- (NSDictionary *)allResponses;
 
 - (void)merge:(MessageCache *)aMessageCache;
 

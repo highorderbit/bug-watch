@@ -13,6 +13,7 @@
 
 - (void)setResponse:(MessageResponse *)response forKey:(NSNumber *)key;
 - (MessageResponse *)responseForKey:(NSNumber *)key;
+- (NSDictionary *)allResponses;
 
 - (void)setAuthorKey:(NSNumber *)authorKey forKey:(NSNumber *)responseKey;
 - (NSNumber *)authorKeyForKey:(NSNumber *)responseKey;

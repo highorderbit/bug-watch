@@ -11,7 +11,6 @@
     [messages release];
     [projectDict release];
     [postedByDict release];
-    [responseDict release];
     
     [super dealloc];
 }
@@ -22,7 +21,6 @@
         messages = [[NSMutableDictionary dictionary] retain];
         projectDict = [[NSMutableDictionary dictionary] retain];
         postedByDict = [[NSMutableDictionary dictionary] retain];
-        responseDict = [[NSMutableDictionary dictionary] retain];
     }
 
     return self;
@@ -73,27 +71,11 @@
     return [[postedByDict copy] autorelease];
 }
 
-- (void)setResponseKeys:(NSArray *)responseKeys forKey:(LighthouseKey *)key
-{
-    [responseDict setObject: responseKeys forKey:key];
-}
-
-- (NSArray *)responseKeysForKey:(LighthouseKey *)key
-{
-    return [responseDict objectForKey:key];    
-}
-
-- (NSDictionary *)allResponses
-{
-    return [[responseDict copy] autorelease];
-}
-
 - (void)merge:(MessageCache *)aMessageCache
 {
     [messages addEntriesFromDictionary:aMessageCache.allMessages];
     [projectDict addEntriesFromDictionary:aMessageCache.allProjectKeys];
     [postedByDict addEntriesFromDictionary:aMessageCache.allPostedByKeys];
-    [responseDict addEntriesFromDictionary:aMessageCache.allResponses];
 }
 
 - (NSString *)description
