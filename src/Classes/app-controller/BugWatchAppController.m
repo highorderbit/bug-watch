@@ -48,6 +48,7 @@
     ticketBinDataSource:(id)ticketBinDataSource;
 - (TicketCache *)loadTicketsFromPersistence:(NSString *)plist;
 - (MessageCache *)loadMessagesFromPersistence:(NSString *)plist;
+- (MilestoneCache *)loadMilestonesFromPersistence:(NSString *)plist;
 
 - (void)initProjectsTab;
 - (void)initMessagesTab;
@@ -455,6 +456,18 @@
     return messageCache;
 }
 
+- (MilestoneCache *)loadMilestonesFromPersistence:(NSString *)plist
+{
+    MilestonePersistenceStore * milestonePersistenceStore =
+        [[MilestonePersistenceStore alloc] init];
+    MilestoneCache * milestoneCache =
+        [milestonePersistenceStore
+        loadFromPlist:[[self class] milestoneCachePlist]];
+    [milestonePersistenceStore release];
+
+    return milestoneCache;
+}
+
 #pragma mark Project tab initialization
 
 - (void)initProjectsTab
@@ -629,7 +642,9 @@
 - (void)initMilestonesTab
 {
     MilestoneCache * milestoneCache =
-        [[[MilestoneCache alloc] init] autorelease];
+        [self loadMilestonesFromPersistence:[[self class] milestoneCachePlist]];
+    TicketCache * ticketCache =
+        [self loadTicketsFromPersistence:[[self class] ticketCachePlist]];
 
     LighthouseApiService * milestoneDetailsService =
         [lighthouseApiFactory createLighthouseApiService];
@@ -637,7 +652,7 @@
     MilestoneDetailsDataSource * milestoneDetailsDataSource =
         [[[MilestoneDetailsDataSource alloc]
         initWithLighthouseApiService:milestoneDetailsService
-                         ticketCache:ticketDisplayMgr.ticketCache
+                         ticketCache:ticketCache
                       milestoneCache:milestoneCache] autorelease];
     MilestoneDetailsDisplayMgr * milestoneDetailsDisplayMgr =
         [[[MilestoneDetailsDisplayMgr alloc]
@@ -653,8 +668,8 @@
     milestoneDisplayMgr =
         [[MilestoneDisplayMgr alloc]
         initWithNetworkAwareViewController:milestonesNetworkAwareViewController
-        milestoneDataSource:milestoneDataSource
-        milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
+                       milestoneDataSource:milestoneDataSource
+                milestoneDetailsDisplayMgr:milestoneDetailsDisplayMgr];
 }
 
 #pragma mark Log in/log out notifications
