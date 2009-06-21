@@ -6,6 +6,7 @@
 #import "Ticket.h"
 #import "TicketDetailsViewControllerDelegate.h"
 #import "TicketMetaData.h"
+#import "LighthouseKey.h"
 
 @interface TicketDetailsViewController : UITableViewController
 {
@@ -28,24 +29,34 @@
     NSDictionary * commentAuthors;
     NSUInteger ticketNumber;
     Ticket * ticket;
-    NSString * milestoneName;
-    NSString * reportedByName;
-    NSString * assignedToName;
+    TicketMetaData * metadata;
+    LighthouseKey * milestoneKey;
+    NSNumber * reportedByKey;
+    NSNumber * assignedToKey;
+    NSDictionary * userNames;
+    NSDictionary * milestoneNames;
 }
 
 @property (nonatomic, retain)
     NSObject<TicketDetailsViewControllerDelegate> * delegate;
 
 @property (nonatomic, retain) Ticket * ticket;
-@property (nonatomic, copy) NSString * milestoneName;
-@property (nonatomic, copy) NSString * reportedByName;
-@property (nonatomic, copy) NSString * assignedToName;
+@property (nonatomic, retain) TicketMetaData * metadata;
+@property (nonatomic, copy) LighthouseKey * milestoneKey;
+@property (nonatomic, copy) NSNumber * reportedByKey;
+@property (nonatomic, copy) NSNumber * assignedToKey;
+@property (nonatomic, copy) NSDictionary * userNames;
+@property (nonatomic, copy) NSDictionary * milestoneNames;
 
 - (void)setTicketNumber:(NSUInteger)aNumber
     ticket:(Ticket *)aTicket metaData:(TicketMetaData *)someMetaData
-    reportedBy:(NSString *)reportedBy assignedTo:(NSString *)assignedTo
-    milestone:(NSString *)milestone comments:(NSDictionary *)someComments
-    commentAuthors:(NSDictionary *)someCommentAuthors;
+    reportedByKey:(NSNumber *)reportedByKey
+    assignedToKey:(NSNumber *)assignedToKey
+    milestoneKey:(LighthouseKey *)milestoneKey
+    comments:(NSDictionary *)someComments
+    commentAuthors:(NSDictionary *)someCommentAuthors
+    userNames:(NSDictionary *)userNames
+    milestoneNames:(NSDictionary *)milestoneNames;
     
 - (IBAction)sendInEmail:(id)sender;
 - (IBAction)openInBrowser:(id)sender;

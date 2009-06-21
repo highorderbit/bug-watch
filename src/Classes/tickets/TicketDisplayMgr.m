@@ -176,12 +176,9 @@
 
     Ticket * ticket = [self.ticketCache ticketForKey:key];
     TicketMetaData * metaData = [self.ticketCache metaDataForKey:key];
-    id reportedByKey = [self.ticketCache createdByKeyForKey:key];
-    NSString * reportedBy = [userDict objectForKey:reportedByKey];
-    id assignedToKey = [self.ticketCache assignedToKeyForKey:key];
-    NSString * assignedTo = [userDict objectForKey:assignedToKey];
-    id milestoneKey = [self.ticketCache milestoneKeyForKey:key];
-    NSString * milestone = [milestoneDict objectForKey:milestoneKey];
+    NSNumber * reportedByKey = [self.ticketCache createdByKeyForKey:key];
+    NSNumber * assignedToKey = [self.ticketCache assignedToKeyForKey:key];
+    LighthouseKey * milestoneKey = [self.ticketCache milestoneKeyForKey:key];
 
     TicketCommentCache * commentCache =
         [recentHistoryCommentCache objectForKey:key];
@@ -206,9 +203,10 @@
     }
 
     [self.detailsViewController setTicketNumber:key.key
-        ticket:ticket metaData:metaData reportedBy:reportedBy
-        assignedTo:assignedTo milestone:milestone comments:comments
-        commentAuthors:commentAuthors];
+        ticket:ticket metaData:metaData reportedByKey:reportedByKey
+        assignedToKey:assignedToKey milestoneKey:milestoneKey comments:comments
+        commentAuthors:commentAuthors userNames:userDict
+        milestoneNames:milestoneDict];
 }
 
 - (void)ticketsFilteredByFilterString:(NSString *)aFilterString

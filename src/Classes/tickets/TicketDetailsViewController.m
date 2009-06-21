@@ -8,17 +8,20 @@
 #import "UILabel+DrawingAdditions.h"
 #import "CommentTableViewCell.h"
 #import "TicketComment.h"
+#import "TicketDiffHelpers.h"
 
 @interface TicketDetailsViewController (Private)
 
 - (void)layoutView;
 - (NSArray *)sortedKeys;
+- (NSString *)stateChangeDescriptionForCommentNumber:(NSUInteger)index;
 
 @end
 
 @implementation TicketDetailsViewController
 
-@synthesize delegate, ticket, milestoneName, reportedByName, assignedToName;
+@synthesize delegate, ticket, metadata, milestoneKey, reportedByKey,
+    assignedToKey, userNames, milestoneNames;
 
 - (void)dealloc {
     [headerView release];
@@ -37,9 +40,9 @@
     [comments release];
     [commentAuthors release];
     [ticket release];
-    [milestoneName release];
-    [reportedByName release];
-    [assignedToName release];
+    [milestoneKey release];
+    [reportedByKey release];
+    [assignedToKey release];
 
     [super dealloc];
 }
@@ -90,10 +93,15 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
-    id commentKey = [[self sortedKeys] objectAtIndex:indexPath.row + 1];
+    NSUInteger commentIndex = indexPath.row + 1;
+    id commentKey = [[self sortedKeys] objectAtIndex:commentIndex];
     TicketComment * comment = [comments objectForKey:commentKey];
     [cell setDate:comment.date];
-    [cell setStateChangeText:comment.stateChangeDescription];
+    
+    NSString * stateChangeDescription =
+        [self stateChangeDescriptionForCommentNumber:commentIndex];
+    [cell setStateChangeText:stateChangeDescription];
+
     [cell setCommentText:comment.text];
 
     NSString * authorName = [commentAuthors objectForKey:commentKey];
@@ -107,11 +115,39 @@
 - (CGFloat)tableView:(UITableView *)aTableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id commentKey = [[self sortedKeys] objectAtIndex:indexPath.row + 1];
+    NSUInteger commentIndex = indexPath.row + 1;
+    id commentKey = [[self sortedKeys] objectAtIndex:commentIndex];
     TicketComment * comment = [comments objectForKey:commentKey];
 
+    NSString * stateChangeDescription =
+        [self stateChangeDescriptionForCommentNumber:commentIndex];
+
     return [CommentTableViewCell heightForContent:comment.text
-        stateChangeText:comment.stateChangeDescription];
+        stateChangeText:stateChangeDescription];
+}
+
+- (NSString *)stateChangeDescriptionForCommentNumber:(NSUInteger)index
+{
+    NSMutableArray * diffs = [NSMutableArray array];
+    NSArray * commentKeys = [self sortedKeys];
+    for (id key in commentKeys) {
+        TicketComment * comment = [comments objectForKey:key];
+        [diffs addObject:comment.stateChange];
+    }
+    NSMutableDictionary * currentStateDiff = [NSMutableDictionary dictionary];
+    [currentStateDiff
+        setObject:[TicketMetaData descriptionForState:self.metadata.state]
+        forKey:[NSNumber numberWithInt:kTicketAttributeState]];
+    [currentStateDiff setObject:self.assignedToKey
+        forKey:[NSNumber numberWithInt:kTicketAttributeAssignedTo]];
+    [currentStateDiff setObject:self.milestoneKey
+        forKey:[NSNumber numberWithInt:kTicketAttributeMilestone]];
+    [currentStateDiff setObject:self.metadata.tags
+        forKey:[NSNumber numberWithInt:kTicketAttributeTags]];
+    [diffs addObject:currentStateDiff];
+
+    return [TicketDiffHelpers descriptionFromDiffs:diffs atIndex:index
+        withUserNames:self.userNames milestoneNames:self.milestoneNames];
 }
 
 #pragma mark UITableViewDelegate implementation
@@ -126,9 +162,13 @@
 
 - (void)setTicketNumber:(NSUInteger)aNumber
     ticket:(Ticket *)aTicket metaData:(TicketMetaData *)someMetaData
-    reportedBy:(NSString *)reportedBy assignedTo:(NSString *)assignedTo
-    milestone:(NSString *)milestone comments:(NSDictionary * )someComments
+    reportedByKey:(NSNumber *)aReportedByKey
+    assignedToKey:(NSNumber *)anAssignedToKey
+    milestoneKey:(LighthouseKey *)aMilestoneKey
+    comments:(NSDictionary * )someComments
     commentAuthors:(NSDictionary *)someCommentAuthors
+    userNames:(NSDictionary *)someUserNames
+    milestoneNames:(NSDictionary *)someMilestoneNames
 {
     if (!aTicket)
         [NSException raise:@"NilTicketArgument"
@@ -136,7 +176,7 @@
     if (!someMetaData)
         [NSException raise:@"NilMetadataArgument"
             format:@"'metadata' cannot be nil"];
-    if (!reportedBy)
+    if (!aReportedByKey)
         [NSException raise:@"NilReportedByArgument"
             format:@"'reportedBy' cannot be nil"];
     if (!someComments)
@@ -145,9 +185,10 @@
 
     ticketNumber = aNumber;
     self.ticket = aTicket;
-    self.milestoneName = milestone;
-    self.reportedByName = reportedBy;
-    self.assignedToName = assignedTo;
+    self.metadata = someMetaData;
+    self.milestoneKey = aMilestoneKey;
+    self.reportedByKey = aReportedByKey;
+    self.assignedToKey = anAssignedToKey;
 
     NSString * viewTitleFormatString =
         NSLocalizedString(@"ticketdetails.view.title", @"");
@@ -159,15 +200,18 @@
     dateLabel.text = [aTicket.creationDate shortDescription];
     NSString * noneString = NSLocalizedString(@"ticketdetails.view.none", @"");
     descriptionLabel.text = aTicket.description;
+    NSString * reportedBy = [someUserNames objectForKey:reportedByKey];
     NSString * reportedByFormatString =
         NSLocalizedString(@"ticketdetails.view.reportedby", @"");
     reportedByLabel.text =
         [NSString stringWithFormat:reportedByFormatString, reportedBy];
+    NSString * assignedTo = [someUserNames objectForKey:assignedToKey];
     NSString * assignedToText = assignedTo ? assignedTo : noneString;
     NSString * assignedToFormatString =
         NSLocalizedString(@"ticketdetails.view.assignedto", @"");
     assignedToLabel.text =
         [NSString stringWithFormat:assignedToFormatString, assignedToText];
+    NSString * milestone = [someMilestoneNames objectForKey:milestoneKey];
     NSString * milestoneText = milestone ? milestone : noneString;
     NSString * milestoneFormatString =
         NSLocalizedString(@"ticketdetails.view.milestone", @"");
@@ -185,6 +229,9 @@
     NSDictionary * tempCommentAuthors = [someCommentAuthors copy];
     [commentAuthors release];
     commentAuthors = tempCommentAuthors;
+
+    self.userNames = someUserNames;
+    self.milestoneNames = someMilestoneNames;
 
     [self layoutView];
     [self.tableView reloadData];
@@ -300,11 +347,15 @@
         [comments objectForKey:[[self sortedKeys] objectAtIndex:0]];
     if (firstComment.text)
         [body appendFormat:descriptionFormatString, firstComment.text];
-    if (self.milestoneName)
-        [body appendFormat:milestoneFormatString, self.milestoneName];
-    [body appendFormat:reportedByFormatString, self.reportedByName];
-    if (self.assignedToName)
-        [body appendFormat:assignedToFormatString, self.assignedToName];
+    NSString * milestoneName =
+        [self.milestoneNames objectForKey:self.milestoneKey];
+    if (milestoneName)
+        [body appendFormat:milestoneFormatString, milestoneName];
+    NSString * reportedByName = [userNames objectForKey:self.reportedByKey];
+    [body appendFormat:reportedByFormatString, reportedByName];
+    NSString * assignedToName = [userNames objectForKey:self.assignedToKey];
+    if (assignedToName)
+        [body appendFormat:assignedToFormatString, assignedToName];
     [body appendFormat:createdFormatString,
         [self.ticket.creationDate shortDateAndTimeDescription]];
 

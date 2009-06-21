@@ -262,6 +262,7 @@
 		91E506800FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E5067F0FE1DA8800BF41B4 /* MessageDisplayMgrFactory.m */; };
 		91E507680FE2B90400BF41B4 /* LighthouseKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E507670FE2B90400BF41B4 /* LighthouseKey.m */; };
 		91E5076C0FE2B97300BF41B4 /* LighthouseKey+Serialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E5076B0FE2B97300BF41B4 /* LighthouseKey+Serialization.m */; };
+		91E555C90FEC02B700182B77 /* TicketDiffHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E555C80FEC02B700182B77 /* TicketDiffHelpers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -681,6 +682,8 @@
 		91E507670FE2B90400BF41B4 /* LighthouseKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LighthouseKey.m; path = lighthouse/LighthouseKey.m; sourceTree = "<group>"; };
 		91E5076A0FE2B97300BF41B4 /* LighthouseKey+Serialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LighthouseKey+Serialization.h"; path = "lighthouse/LighthouseKey+Serialization.h"; sourceTree = "<group>"; };
 		91E5076B0FE2B97300BF41B4 /* LighthouseKey+Serialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "LighthouseKey+Serialization.m"; path = "lighthouse/LighthouseKey+Serialization.m"; sourceTree = "<group>"; };
+		91E555C70FEC02B700182B77 /* TicketDiffHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketDiffHelpers.h; path = tickets/TicketDiffHelpers.h; sourceTree = "<group>"; };
+		91E555C80FEC02B700182B77 /* TicketDiffHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketDiffHelpers.m; path = tickets/TicketDiffHelpers.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1309,6 +1312,8 @@
 				91E14D060FD83B7600B9B8CD /* TicketBinDataSourceProtocol.h */,
 				919891CA0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.h */,
 				919891CB0FD979BA00A61099 /* ProjectSpecificTicketBinDSAdapter.m */,
+				91E555C70FEC02B700182B77 /* TicketDiffHelpers.h */,
+				91E555C80FEC02B700182B77 /* TicketDiffHelpers.m */,
 			);
 			name = tickets;
 			sourceTree = "<group>";
@@ -1783,6 +1788,7 @@
 				05BE65620FE9AA37001255E7 /* TicketDataWrapper.m in Sources */,
 				05C99C1D0FE9B4330046C915 /* AsynchronousInvocation.m in Sources */,
 				0571E70A0FE9BDEB001E7D41 /* AsynchronousResponseProcessor.m in Sources */,
+				91E555C90FEC02B700182B77 /* TicketDiffHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2062,7 +2068,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-licucore";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "673A86B7-3643-4B98-86EC-5FC4F2D7EDA4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAA8E379-3131-4ACB-A2C9-B350B971A6DD";
 				SDKROOT = iphoneos2.0;
 			};
 			name = "Release - Doug";

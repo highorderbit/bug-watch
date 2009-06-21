@@ -6,17 +6,17 @@
 
 @implementation TicketComment
 
-@synthesize stateChangeDescription;
-@synthesize text;
-@synthesize date;
+@synthesize stateChangeDescription, stateChange, text, date;
 
 - (id) initWithStateChangeDescription:(NSString *)aStateChangeDescription
-    text:(NSString *)someText date:(NSDate *)aDate
+    stateChange:(TicketDiff *)aStateChange text:(NSString *)someText
+    date:(NSDate *)aDate
 {
     if (self = [super init]) {
-        stateChangeDescription = [aStateChangeDescription retain];
-        text = [someText retain];
-        date = [aDate retain];
+        stateChangeDescription = [aStateChangeDescription copy];
+        stateChange = [aStateChange copy];
+        text = [someText copy];
+        date = [aDate copy];
     }
 
     return self;

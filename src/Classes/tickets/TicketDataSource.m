@@ -8,10 +8,11 @@
 #import "TicketComment.h"
 #import "NewTicketDescription.h"
 #import "UpdateTicketDescription.h"
+#import "TicketDiffHelpers.h"
 
 @interface TicketDataSource (Private)
 
-+ (NSDictionary *)parseYaml:(NSString *)yaml;
++ (TicketDiff *)parseYaml:(NSString *)yaml;
 + (NSString *)readableTextFromDiffs:(NSArray *)diffs atIndex:(NSUInteger)index;
 + (NSString *)findNextValueForKey:(NSString *)key inDiffs:(NSArray *)diffs
     fromIndex:(NSUInteger)index;
@@ -91,7 +92,7 @@
     NSLog(@"Project id's: %@", projectIds);
     NSLog(@"User id's: %@", userIds);
     NSLog(@"Creator id's: %@", creatorIds);
-    
+
     // create ticket cache
     TicketCache * ticketCache = [[TicketCache alloc] init];
     for (int i = 0; i < [ticketNumbers count]; i++) {
@@ -158,21 +159,14 @@
 
     TicketCommentCache * commentCache =
         [[[TicketCommentCache alloc] init] autorelease];
-    NSMutableArray * diffs = [NSMutableArray array];
-    for (int i = 0; i < [details count]; i++) {
-        TicketComment * comment = [details objectAtIndex:i];
-        NSDictionary * diff =
-            [[self class] parseYaml:comment.stateChangeDescription];
-        [diffs addObject:diff];
-    }
 
     for (int i = 0; i < [details count]; i++) {
-        NSString * stateChangeDescription =
-            [[self class] readableTextFromDiffs:diffs atIndex:i];
         TicketComment * comment = [details objectAtIndex:i];
+        TicketDiff * diff =
+            [[self class] parseYaml:comment.stateChangeDescription];
         TicketComment * commentWithDiffText =
             [[[TicketComment alloc]
-            initWithStateChangeDescription:stateChangeDescription
+            initWithStateChangeDescription:nil stateChange:diff
             text:comment.text date:comment.date]
             autorelease];
         id commentKey = [NSNumber numberWithInt:i];
@@ -239,7 +233,7 @@
 
 #pragma mark Readable strings from yaml helpers
 
-+ (NSDictionary *)parseYaml:(NSString *)yaml
++ (TicketDiff *)parseYaml:(NSString *)yaml
 {
     NSMutableDictionary * diff = [NSMutableDictionary dictionary];
     NSArray * lines = [yaml componentsSeparatedByString:@"\n"];
@@ -249,48 +243,30 @@
         if ([lineComps count] > 1) {
             NSInteger count = [lineComps count];
             NSCharacterSet * charSet = [NSCharacterSet whitespaceCharacterSet];
-            NSString * key =
+            NSString * keyAsString =
                 [[lineComps objectAtIndex:count - 2]
                 stringByTrimmingCharactersInSet:charSet];
-            NSString * value =
+            NSInteger key =
+                [TicketDiffHelpers ticketAttributeFromString:keyAsString];
+            NSString * valueAsString =
                 [[lineComps objectAtIndex:count - 1]
                 stringByTrimmingCharactersInSet:charSet];
-            value = [value isEqual:@""] ? @"none" : value;
-            [diff setObject:value forKey:key];
+
+            id value;
+            switch(key) {
+                case kTicketAttributeAssignedTo:
+                case kTicketAttributeMilestone:
+                    value = [NSNumber numberWithInt:[valueAsString intValue]];
+                    break;
+                default:
+                    value = valueAsString;
+            }
+
+            [diff setObject:value forKey:[NSNumber numberWithInt:key]];
         }
     }
 
     return diff;
-}
-
-+ (NSString *)readableTextFromDiffs:(NSArray *)diffs atIndex:(NSUInteger)index
-{
-    NSDictionary * diff = [diffs objectAtIndex:index];
-    NSMutableString * text = [NSMutableString stringWithCapacity:0];
-
-    for (NSString * key in [diff allKeys]) {
-        NSString * value = [diff objectForKey:key];
-        NSString * newValue =
-            [[self class]
-            findNextValueForKey:key inDiffs:diffs fromIndex:index + 1];
-        [text appendFormat:@"→ %@ changed from '%@' to '%@'\n", key, value,
-            newValue];
-    }
-
-    return text;
-}
-
-+ (NSString *)findNextValueForKey:(NSString *)key inDiffs:(NSArray *)diffs
-    fromIndex:(NSUInteger)index
-{
-    NSString * nextValue = nil;
-
-    for (int i = index; i < [diffs count] && !nextValue; i++) {
-        NSDictionary * diff = [diffs objectAtIndex:i];
-        nextValue = [diff objectForKey:key];
-    }
-
-    return nextValue ? nextValue : @"";
 }
 
 @end
