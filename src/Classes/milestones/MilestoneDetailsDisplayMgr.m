@@ -10,9 +10,14 @@
 #import "Milestone.h"
 #import "TicketMetaData.h"
 
+static NSString * STATE_OPEN_STRING = @"open";
+static NSString * STATE_CLOSED_STRING = @"closed";
+
 @interface MilestoneDetailsDisplayMgr ()
 
 - (void)updateDisplay;
+- (NSString *)buildAppropriateSearchString;
+- (NSDictionary *)dictionaryForActiveView;
 
 @property (nonatomic, retain) NetworkAwareViewController *
     networkAwareViewController;
@@ -24,11 +29,6 @@
 @property (nonatomic, copy) id milestoneKey;
 @property (nonatomic, copy) id projectKey;
 
-@property (nonatomic, copy) NSDictionary * tickets;
-@property (nonatomic, copy) NSDictionary * metadata;
-@property (nonatomic, copy) NSDictionary * userIds;
-@property (nonatomic, copy) NSDictionary * creatorIds;
-
 @end
 
 @implementation MilestoneDetailsDisplayMgr
@@ -36,7 +36,6 @@
 @synthesize networkAwareViewController, ticketsViewController;
 @synthesize milestoneHeaderView, ticketFilterControl;
 @synthesize milestone, milestoneKey, projectKey;
-@synthesize tickets, metadata, userIds, creatorIds;
 
 - (void)dealloc
 {
@@ -47,14 +46,12 @@
 
     [detailsDataSource release];
 
+    [openTicketData release];
+    [closedTicketData release];
+
     [milestone release];
     [milestoneKey release];
     [projectKey release];
-
-    [tickets release];
-    [metadata release];
-    [userIds release];
-    [creatorIds release];
 
     [super dealloc];
 }
@@ -64,6 +61,9 @@
     if (self = [super init]) {
         detailsDataSource = [ds retain];
         detailsDataSource.delegate = self;
+
+        openTicketData = [[NSMutableDictionary alloc] init];
+        closedTicketData = [[NSMutableDictionary alloc] init];
     }
 
     return self;
@@ -85,31 +85,41 @@
 
 - (void)updateDisplay
 {
-    NSMutableDictionary * milestones = [NSMutableDictionary dictionary];
-    for (id ticketKey in tickets)
-        [milestones setObject:self.milestone.name forKey:ticketKey];
+    NSDictionary * d = [self dictionaryForActiveView];
+    NSDictionary * tickets = [d objectForKey:@"tickets"];
+    NSDictionary * metadata = [d objectForKey:@"metadata"];
+    NSDictionary * userIds = [d objectForKey:@"userIds"];
 
-    NSMutableDictionary * filteredTickets = [tickets mutableCopy];
-    NSUInteger filter = self.ticketFilterControl.selectedSegmentIndex == 0 ?
-        (kNew | kOpen) :
-        (kResolved | kHold | kInvalid);
+    if (tickets) {
+        NSMutableDictionary * milestones = [NSMutableDictionary dictionary];
+        for (id ticketKey in tickets)
+            [milestones setObject:self.milestone.name forKey:ticketKey];
 
-    for (id ticketKey in tickets) {
-        TicketMetaData * md = [metadata objectForKey:ticketKey];
-        if (!(md.state & filter))
-            [filteredTickets removeObjectForKey:ticketKey];
+        NSMutableDictionary * filteredTickets = [tickets mutableCopy];
+        NSUInteger filter = self.ticketFilterControl.selectedSegmentIndex == 0 ?
+            (kNew | kOpen) :
+            (kResolved | kHold | kInvalid);
+
+        for (id ticketKey in tickets) {
+            TicketMetaData * md = [metadata objectForKey:ticketKey];
+            if (!(md.state & filter))
+                [filteredTickets removeObjectForKey:ticketKey];
+        }
+
+        // Note that only the tickets are filtered; metadata, users, milestones,
+        // etc. contain keys for every ticket. Consider revising if necessary.
+        [self.ticketsViewController setTickets:filteredTickets
+                                      metaData:metadata
+                                assignedToDict:userIds
+                                 milestoneDict:milestones
+                                          page:1 /* TEMPORARY? - set by DNK
+                                                    after sig change*/];
+
+        self.milestoneHeaderView.milestone = self.milestone;
+        self.ticketsViewController.headerView = self.milestoneHeaderView;
     }
 
-    // Note that only the tickets are filtered; metadata, users, milestones,
-    // etc. contain keys for every ticket. Consider revising if necessary.
-    [self.ticketsViewController
-        setTickets:filteredTickets metaData:metadata assignedToDict:userIds
-     milestoneDict:milestones page:1 /* TEMPORARY? - set by DNK after sig change*/];
-
-    self.milestoneHeaderView.milestone = self.milestone;
-    self.ticketsViewController.headerView = self.milestoneHeaderView;
-
-    [networkAwareViewController setCachedDataAvailable:YES];
+    [networkAwareViewController setCachedDataAvailable:!!tickets];
 }
 
 #pragma mark NetworkAwareViewControllerDelegate implementation
@@ -120,8 +130,7 @@
         self.ticketFilterControl;
     ticketFilterControl.selectedSegmentIndex = 0;
 
-    NSString * searchString =
-        [NSString stringWithFormat:@"milestone:'%@'", milestone.name];
+    NSString * searchString = [self buildAppropriateSearchString];
     [detailsDataSource fetchIfNecessary:searchString
         milestoneKey:self.milestoneKey projectKey:projectKey];
 }
@@ -130,6 +139,9 @@
 
 - (void)fetchDidBegin
 {
+    NSDictionary * d = [self dictionaryForActiveView];
+    [self.networkAwareViewController setCachedDataAvailable:d.count > 0];
+
     [self.networkAwareViewController setUpdatingState:kConnectedAndUpdating];
 }
 
@@ -143,11 +155,18 @@
     milestone:(Milestone *)aMilestone userIds:(NSDictionary *)someUserIds
     creatorIds:(NSDictionary *)someCreatorIds
 {
-    self.milestone = aMilestone;
-    self.tickets = someTickets;
-    self.metadata = someMetadata;
-    self.userIds = someUserIds;
-    self.creatorIds = someCreatorIds;
+    // TODO: Check that the milestone is the same before updating the display.
+
+    NSRange where = [searchString rangeOfString:
+        [NSString stringWithFormat:@"state:%@", STATE_OPEN_STRING]];
+    BOOL open = where.location != NSNotFound;
+
+    NSMutableDictionary * d = open ? openTicketData : closedTicketData;
+    [d removeAllObjects];
+    [d setObject:someTickets forKey:@"tickets"];
+    [d setObject:someMetadata forKey:@"metadata"];
+    [d setObject:someUserIds forKey:@"userIds"];
+    [d setObject:someCreatorIds forKey:@"creatorIds"];
 
     [self updateDisplay];
 }
@@ -155,13 +174,39 @@
 - (void)failedToSearchTicketsForProject:(id)projectKey
     searchString:(NSString *)searchString errors:(NSArray *)errors
 {
+    // TODO: Display the error
+}
+
+#pragma mark Helper functions
+
+- (NSString *)buildAppropriateSearchString
+{
+    NSMutableString * s = [NSMutableString stringWithFormat:@"milestone:'%@'",
+        milestone.name];
+
+    // Lighthouse recognizes 'open' and 'closed' as special cases. 'open'
+    // returns everything that's either new or open, and 'closed' returns
+    // everything that's resolved, invalid, or hold.
+    [s appendFormat:@"+state:%@",
+        self.ticketFilterControl.selectedSegmentIndex == 0 ?
+            STATE_OPEN_STRING : STATE_CLOSED_STRING];
+
+    return s;
+}
+
+- (NSDictionary *)dictionaryForActiveView
+{
+    return self.ticketFilterControl.selectedSegmentIndex == 0 ?
+        openTicketData : closedTicketData;
 }
 
 #pragma mark UISegmentedControl actions
 
 - (void)ticketFilterDidChange:(id)sender
 {
-    [self updateDisplay];
+    NSString * searchString = [self buildAppropriateSearchString];
+    [detailsDataSource fetchIfNecessary:searchString
+        milestoneKey:self.milestoneKey projectKey:projectKey];
 }
 
 #pragma mark Accessors

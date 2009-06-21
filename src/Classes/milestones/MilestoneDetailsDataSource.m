@@ -90,11 +90,17 @@
 
 #pragma mark LighthouseApiServiceDelegate implementation
 
-- (void)tickets:(NSArray *)tickets fetchedForProject:(id)aProjectKey
-    searchString:(NSString *)searchString object:(id)object
-    metadata:(NSArray *)metadata ticketNumbers:(NSArray *)ticketNumbers
-    milestoneIds:(NSArray *)milestoneIds projectIds:(NSArray *)projectIds
-    userIds:(NSArray *)userIds creatorIds:(NSArray *)creatorIds
+- (void)tickets:(NSArray *)tickets
+    fetchedForProject:(id)aProjectKey
+         searchString:(NSString *)searchString
+                 page:(NSUInteger)page
+               object:(id)object
+             metadata:(NSArray *)metadata
+        ticketNumbers:(NSArray *)ticketNumbers
+         milestoneIds:(NSArray *)milestoneIds
+           projectIds:(NSArray *)projectIds
+              userIds:(NSArray *)userIds
+           creatorIds:(NSArray *)creatorIds
 {
     // TEMPORARY
     // this will eventually be read from a user cache of some sort
@@ -144,7 +150,9 @@
 
             id user = [users objectForKey:userId];
             id creator = [users objectForKey:creatorId];
-            [matchingUserIds setObject:user forKey:ticketKey];
+
+            if (user)
+                [matchingUserIds setObject:user forKey:ticketKey];
             [matchingCreatorIds setObject:creator forKey:ticketKey];
         }
     }
@@ -204,8 +212,11 @@
 
         [tickets setObject:ticket forKey:ticketKey];
         [metadatas setObject:metadata forKey:ticketKey];
-        [users setObject:[allUsers objectForKey:userKey] forKey:ticketKey];
-        [creators
+
+        id user = [allUsers objectForKey:userKey];
+        if (user)  // might not be there
+            [users setObject:user forKey:ticketKey];
+        [creators  // should always be there
             setObject:[allUsers objectForKey:creatorKey] forKey:ticketKey];
     }
 

@@ -153,6 +153,7 @@
 }
 
 - (void)details:(NSArray *)details authors:(NSArray *)authors
+    ticket:(Ticket *)ticket metadata:(TicketMetaData *)metadata
     fetchedForTicket:(id)ticketKey inProject:(id)projectKey
 {
     NSLog(@"Received ticket details from server.");

@@ -21,14 +21,12 @@
 
     MilestoneDetailsDataSource * detailsDataSource;
 
+    NSMutableDictionary * openTicketData;
+    NSMutableDictionary * closedTicketData;
+
     Milestone * milestone;
     id milestoneKey;
     id projectKey;
-
-    NSDictionary * tickets;
-    NSDictionary * metadata;
-    NSDictionary * userIds;
-    NSDictionary * creatorIds;
 }
 
 #pragma mark Initialization

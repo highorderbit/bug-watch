@@ -5,30 +5,28 @@
 #import "MilestoneDataSource.h"
 #import "LighthouseApiService.h"
 #import "MilestoneCache.h"
+#import "ProjectUpdatePublisher.h"
 
 @interface MilestoneDataSource ()
 
+- (void)updateProjects:(NSArray *)someProjects keys:(NSArray *)someProjectKeys;
 - (void)updateDelegateWithCacheUsingSelector:(SEL)sel;
 
+@property (nonatomic, retain) LighthouseApiService * service;
 @property (nonatomic, retain) MilestoneCache * cache;
-
-@property (nonatomic, copy) NSArray * projectKeys;
-@property (nonatomic, copy) NSArray * projects;
 
 @end
 
 @implementation MilestoneDataSource
 
-@synthesize delegate, cache;
-@synthesize projectKeys, projects;
+@synthesize delegate, service, cache;
 
 - (void)dealloc
 {
     [service release];
     [cache release];
 
-    [projects release];
-    [projectKeys release];
+    [projectUpdater release];
 
     [super dealloc];
 }
@@ -39,10 +37,13 @@
                     milestoneCache:(MilestoneCache *)aMilestoneCache
 {
     if (self = [super init]) {
-        service = [aService retain];
+        self.service = aService;
         service.delegate = self;
 
         self.cache = aMilestoneCache;
+
+        projectUpdater = [[ProjectUpdatePublisher alloc]
+            initWithListener:self action:@selector(allProjectsPublished:keys:)];
 
         projectsNeedUpdating = YES;
         milestonesNeedUpdating = YES;
@@ -127,16 +128,10 @@
         [delegate fetchDidEnd];
 }
 
-- (void)fetchedAllProjects:(NSArray *)someProjects
-               projectKeys:(NSArray *)someProjectKeys
+- (void)fetchedAllProjects:(NSArray *)projects
+               projectKeys:(NSArray *)keys
 {
-    // TODO: replace with a real cache
-    self.projects = someProjects;
-    self.projectKeys = someProjectKeys;
-
-    [delegate currentProjects:self.projects projectKeys:self.projectKeys];
-
-    projectsNeedUpdating = NO;
+    [self updateProjects:projects keys:keys];
 
     if (--pendingFetches == 0)
         [delegate fetchDidEnd];
@@ -154,7 +149,21 @@
         [delegate fetchDidEnd];
 }
 
+#pragma mark Receiving system notifications
+
+- (void)allProjectsPublished:(NSArray *)projects
+                        keys:(NSArray *)keys
+{
+    [self updateProjects:projects keys:keys];
+}
+
 #pragma mark Helper methods
+
+- (void)updateProjects:(NSArray *)projects keys:(NSArray *)keys
+{
+    [delegate currentProjects:projects projectKeys:keys];
+    projectsNeedUpdating = NO;
+}
 
 - (void)updateDelegateWithCacheUsingSelector:(SEL)sel
 {

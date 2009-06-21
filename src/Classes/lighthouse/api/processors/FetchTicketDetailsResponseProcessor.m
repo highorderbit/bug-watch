@@ -3,6 +3,8 @@
 //
 
 #import "FetchTicketDetailsResponseProcessor.h"
+#import "Ticket.h"
+#import "TicketMetaData.h"
 
 @interface FetchTicketDetailsResponseProcessor ()
 
@@ -10,15 +12,17 @@
 @property (nonatomic, copy) id projectKey;
 @property (nonatomic, assign) id delegate;
 
+@property (nonatomic, retain) Ticket * ticket;
+@property (nonatomic, retain) TicketMetaData * ticketMetadata;
 @property (nonatomic, retain) NSArray * ticketComments;
-@property (nonatomic, retain) NSArray * authors;
+@property (nonatomic, retain) NSArray * commentAuthors;
 
 @end
 
 @implementation FetchTicketDetailsResponseProcessor
 
 @synthesize ticketKey, projectKey, delegate;
-@synthesize ticketComments, authors;
+@synthesize ticket, ticketMetadata, ticketComments, commentAuthors;
 
 + (id)processorWithTicketKey:(id)aTicketKey
                   projectKey:(id)aProjectKey
@@ -36,8 +40,10 @@
     self.projectKey = nil;
     self.delegate = nil;
 
+    self.ticket = nil;
+    self.ticketMetadata = nil;
     self.ticketComments = nil;
-    self.authors = nil;
+    self.commentAuthors = nil;
 
     [super dealloc];
 }
@@ -59,15 +65,20 @@
 
 - (void)processResponseAsynchronously:(NSData *)xml
 {
+    self.ticket = [[self.objectBuilder parseTickets:xml] lastObject];
+    self.ticketMetadata =
+        [[self.objectBuilder parseTicketMetaData:xml] lastObject];
+
     self.ticketComments = [self.objectBuilder parseTicketComments:xml];
-    self.authors = [self.objectBuilder parseTicketCommentAuthors:xml];
+    self.commentAuthors = [self.objectBuilder parseTicketCommentAuthors:xml];
 }
 
 - (void)asynchronousProcessorFinished
 {
-    SEL sel = @selector(details:authors:fetchedForTicket:inProject:);
+    SEL sel =
+        @selector(details:authors:ticket:metadata:fetchedForTicket:inProject:);
     [self invokeSelector:sel withTarget:delegate args:ticketComments,
-        authors, ticketKey, projectKey, nil];
+        commentAuthors, ticket, ticketMetadata, ticketKey, projectKey, nil];
 }
 
 - (void)processErrors:(NSArray *)errors foundInResponse:(NSData *)xml

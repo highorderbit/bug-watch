@@ -8,6 +8,7 @@
 
 @class MilestoneCache;
 @class LighthouseApiService;
+@class ProjectUpdatePublisher;
 
 @interface MilestoneDataSource : NSObject <LighthouseApiServiceDelegate>
 {
@@ -16,14 +17,12 @@
     LighthouseApiService * service;
     MilestoneCache * cache;
 
-    // temporary project cache
-    NSArray * projectKeys;
-    NSArray * projects;
-
     BOOL projectsNeedUpdating;
     BOOL milestonesNeedUpdating;
 
     NSUInteger pendingFetches;
+
+    ProjectUpdatePublisher * projectUpdater;
 }
 
 @property (nonatomic, assign) id<MilestoneDataSourceDelegate> delegate;

@@ -220,6 +220,7 @@ titleForFooterInSection:(NSInteger)section
 - (void)promptForLogIn
 {
     [self enableForm];
+    self.logInButton.enabled = NO;
     [self.accountTextField becomeFirstResponder];
 }
 
