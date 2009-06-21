@@ -58,7 +58,7 @@
     stateChangeLabelFrame.size.height = stateChangeHeight;
     stateChangeLabel.frame = stateChangeLabelFrame;
 
-    const static CGFloat LABEL_OFFSET = 2;
+    const static CGFloat LABEL_OFFSET = 4;
 
     CGFloat commentHeight =
         [commentLabel heightForString:commentLabel.text];
@@ -115,7 +115,7 @@
         lineBreakMode:mode];
 
     static const NSUInteger MIN_HEIGHT = 0;
-    NSUInteger height = 37.0 + commentSize.height + stateChangeSize.height;
+    NSUInteger height = 39.0 + commentSize.height + stateChangeSize.height;
     height = height > MIN_HEIGHT ? height : MIN_HEIGHT;
 
     return height;
