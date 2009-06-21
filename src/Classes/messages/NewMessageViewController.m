@@ -34,6 +34,18 @@
     messageTextView.text = @"";
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [titleField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [titleField resignFirstResponder];
+}
+
 - (IBAction)cancelSelected:(id)sender
 {
     NSLog(@"Cancel new message selected");
